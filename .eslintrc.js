@@ -29,5 +29,11 @@ module.exports = {
     'indent': 'off',
     'indent-legacy': ['error', 4],
     'space-before-function-paren': ['error', 'never'],
+    'comma-dangle': ['error', {
+      'arrays': 'always-multiline',
+      'objects': 'always-multiline',
+      'imports': 'never',
+      'exports': 'never',
+    }],
   }
 }
