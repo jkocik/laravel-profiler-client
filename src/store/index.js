@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import env from './../env';
-import trackers from './modules/trackers';
+import { trackersFactory } from './modules/trackers';
 
 Vue.use(Vuex);
 
@@ -10,8 +10,11 @@ export function storeFactory() {
 
     return new Vuex.Store({
         modules: {
-            trackers,
+            trackers: trackersFactory(),
         },
         strict,
     });
 }
+
+const store = storeFactory();
+export default store;

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { storeFactory } from '@/store/index';
+import { storeFactory } from '@/store';
 import Dashboard from '@/components/Dashboard';
 import { dummyTracker, dummyTrackerB } from './../../fixtures/trackers';
 

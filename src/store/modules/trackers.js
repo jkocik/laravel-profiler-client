@@ -1,7 +1,3 @@
-const state = {
-    all: [],
-};
-
 const getters = {
     all: state => state.all,
 };
@@ -12,9 +8,15 @@ const mutations = {
     },
 };
 
-export default {
-    namespaced: true,
-    state,
-    getters,
-    mutations,
+export function trackersFactory() {
+    const state = {
+        all: [],
+    };
+
+    return {
+        namespaced: true,
+        state,
+        getters,
+        mutations,
+    };
 };
