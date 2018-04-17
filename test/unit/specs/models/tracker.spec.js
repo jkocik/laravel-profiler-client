@@ -3,26 +3,20 @@ import { dummyTrackerData } from './../../fixtures/trackers';
 
 describe('Tracker Model', () => {
     it('has required id', () => {
-        dummyTrackerData.meta.id = '123';
-
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.id).to.equal('123');
+        expect(tracker.id).to.equal(dummyTrackerData.meta.id);
     });
 
     it('has required version', () => {
-        dummyTrackerData.meta.version = '1.2.3';
-
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.version).to.equal('1.2.3');
+        expect(tracker.version).to.equal(dummyTrackerData.meta.version);
     });
 
     it('has required env', () => {
-        dummyTrackerData.meta.env = 'some-env';
-
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.env).to.equal('some-env');
+        expect(tracker.env).to.equal(dummyTrackerData.meta.env);
     });
 });
