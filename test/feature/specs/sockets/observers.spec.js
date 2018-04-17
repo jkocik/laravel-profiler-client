@@ -2,16 +2,16 @@ import Vue from 'vue';
 import VueSocketio from 'vue-socket.io';
 import { SocketIO, Server } from 'mock-socket';
 import { storeFactory } from '@/store';
-import { observersFactory } from '@/websockets/observers';
-import { dummyTrackerData, dummyTracker } from './../../fixtures/trackers';
+import { observersInit } from '@/sockets/observers';
+import { dummyTrackerData, dummyTracker } from './../../../fixtures/es6';
 
-describe('Websockets Observers', () => {
+describe('Sockets Observers', () => {
     it('stores tracker received from server', () => {
         let server = new Server('http://localhost:1901');
         Vue.use(VueSocketio, SocketIO('http://localhost:1901'));
 
         let vue = new Vue({ store: storeFactory() });
-        observersFactory(vue);
+        observersInit(vue);
 
         server.emit('laravel-profiler-broadcasting', dummyTrackerData);
 

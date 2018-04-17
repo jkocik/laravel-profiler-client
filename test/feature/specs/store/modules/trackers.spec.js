@@ -1,5 +1,5 @@
 import { trackersFactory } from '@/store/modules/trackers';
-import { dummyTracker, dummyTrackerB } from './../../../fixtures/trackers';
+import { dummyTracker, dummyTrackerB } from './../../../../fixtures/es6';
 
 describe('Trackers Store Module', () => {
     let trackers;

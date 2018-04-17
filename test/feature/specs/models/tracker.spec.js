@@ -1,5 +1,5 @@
 import Tracker from '@/models/tracker';
-import { dummyTrackerData } from './../../fixtures/trackers';
+import { dummyTrackerData } from './../../../fixtures/es6';
 
 describe('Tracker Model', () => {
     it('has required id', () => {

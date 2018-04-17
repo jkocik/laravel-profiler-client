@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { storeFactory } from '@/store';
 import Dashboard from '@/components/Dashboard';
-import { dummyTracker, dummyTrackerB } from './../../fixtures/trackers';
+import { dummyTracker, dummyTrackerB } from './../../../fixtures/es6';
 
 describe('Dashboard Component', () => {
     let wrapper;
