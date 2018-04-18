@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import i18n from '@/i18n';
 import { storeFactory } from '@/store';
 import Dashboard from '@/components/Dashboard';
 import { dummyTracker, dummyTrackerB } from './../../../fixtures/es6';
@@ -9,6 +10,7 @@ describe('Dashboard Component', () => {
     beforeEach(() => {
         wrapper = mount(Dashboard, {
             store: storeFactory(),
+            i18n,
         });
     });
 

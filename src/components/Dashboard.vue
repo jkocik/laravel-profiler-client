@@ -10,7 +10,7 @@
             </tbody>
         </table>
         <p class="has-text-centered" v-if="! trackers.length">
-            Waiting for Laravel data...
+            {{ $t('message.trackers-list-is-empty') }}...
         </p>
     </section>
 </template>
