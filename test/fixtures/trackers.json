@@ -4,6 +4,18 @@
             "id": "abc4567890abc4567890abc456789012",
             "version": "5.6.0",
             "env": "local"
+        },
+        "data": {
+            "bindings": [
+                {
+                    "abstract": "events",
+                    "resolved": "Illuminate\\Events\\Dispatcher"
+                },
+                {
+                    "abstract": "log",
+                    "resolved": null
+                }
+            ]
         }
     },
     {
@@ -11,6 +23,7 @@
             "id": "12345678901234567890123456789012",
             "version": "5.5.0",
             "env": "testing"
-        }
+        },
+        "data": []
     }
 ]

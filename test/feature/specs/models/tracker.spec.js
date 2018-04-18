@@ -1,5 +1,6 @@
 import Tracker from '@/models/tracker';
-import { dummyTrackerData } from './../../../fixtures/es6';
+import Binding from '@/models/binding';
+import { dummyTrackerData, dummyTrackerDataB } from './../../../fixtures/es6';
 
 describe('Tracker Model', () => {
     it('has required id', () => {
@@ -18,5 +19,24 @@ describe('Tracker Model', () => {
         let tracker = new Tracker(dummyTrackerData);
 
         expect(tracker.env).to.equal(dummyTrackerData.meta.env);
+    });
+
+    it('has bindings', () => {
+        expect(dummyTrackerData.data.bindings.length).to.be.equal(2);
+
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.bindings.length).to.be.equal(2);
+        expect(tracker.bindings).to.deep.equal(dummyTrackerData.data.bindings);
+        expect(tracker.bindings.length).to.be.equal(dummyTrackerData.data.bindings.length);
+        expect(tracker.bindings[0]).to.be.an.instanceOf(Binding);
+    });
+
+    it('has empty bindings array if bindings are not delivered', () => {
+        expect(dummyTrackerDataB.data.bindings).to.be.undefined;
+
+        let tracker = new Tracker(dummyTrackerDataB);
+
+        expect(tracker.bindings.length).to.be.equal(0);
     });
 });
