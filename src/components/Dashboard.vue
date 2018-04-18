@@ -1,22 +1,27 @@
 <template>
-    <div>
-        <table>
-            <tracker-meta-row
-                v-for="tracker of trackers"
-                :key="tracker.id"
-                :tracker="tracker"
-            ></tracker-meta-row>
+    <section class="container is-widescreen">
+        <table class="table is-fullwidth is-narrow is-hoverable has-mobile-cards" v-if="trackers.length">
+            <tbody>
+                <trackers-table-row
+                    v-for="tracker of trackers"
+                    :key="tracker.id"
+                    :tracker="tracker"
+                ></trackers-table-row>
+            </tbody>
         </table>
-    </div>
+        <p class="has-text-centered" v-if="! trackers.length">
+            Waiting for Laravel data...
+        </p>
+    </section>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
-    import TrackerMetaRow from './partials/TrackerMetaRow';
+    import TrackersTableRow from './partials/TrackersTableRow';
 
     export default {
         components: {
-            TrackerMetaRow,
+            TrackersTableRow,
         },
         computed: {
             ...mapGetters('trackers', {
