@@ -6,7 +6,7 @@ module.exports = {
     before: () => socketsServer.start(),
     after: () => socketsServer.stop(),
 
-    'loads dashboard page': browser => {
+    'loads dashboard page': (browser) => {
         let devServer = browser.globals.devServerURL;
 
         browser
@@ -15,7 +15,7 @@ module.exports = {
             .waitForElementPresent('#app > header', 1000);
     },
 
-    'sees tracker received from server': browser => {
+    'sees tracker received from server': (browser) => {
         profiler.sendToSocketsServer(data.dummyTrackerData);
 
         browser
