@@ -1,10 +1,15 @@
 <template>
     <div id="app">
-        <header class="is-fullwidth">
-            <div class="container is-widescreen">
-                <h1>Laravel Profiler</h1>
+        <nav class="navbar is-fixed-top is-dark">
+            <div class="navbar-brand container is-widescreen">
+                <h1 class="navbar-item">Laravel Profiler</h1>
             </div>
-        </header>
+        </nav>
+        <nav class="navbar is-fixed-top">
+            <div class="navbar-menu container is-widescreen">
+                <div class="navbar-item"></div>
+            </div>
+        </nav>
         <router-view/>
     </div>
 </template>
@@ -14,22 +19,21 @@
     };
 </script>
 
+<style lang="sass" scoped>
+    h1
+        font-size: 1.5rem
+
+    nav.is-fixed-top + nav
+        top: 3.25rem
+</style>
+
 <style lang="sass">
     html
         font-size: 13px
 
-    #app
-        & > header
-            h1
-                font-size: 1.2rem
+        &.has-navbar-fixed-top
+            padding-top: 6.5rem
 
-            &.is-fullwidth
-                padding: 10px 0
-                color: hsl(0, 0%, 96%)
-                background-color: hsl(0, 0%, 21%)
-            .container
-                padding: 0 10px
-
-        .has-hidden-thead table thead
-            display: none
+    .has-hidden-thead table thead
+        display: none
 </style>
