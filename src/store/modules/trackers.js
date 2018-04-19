@@ -4,7 +4,7 @@ const getters = {
 
 const mutations = {
     store(state, tracker) {
-        state.all.push(tracker);
+        state.all.unshift(tracker);
     },
 };
 

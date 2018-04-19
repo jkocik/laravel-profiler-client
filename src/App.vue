@@ -15,12 +15,21 @@
 </script>
 
 <style lang="sass">
-    #app > header
-        &.is-fullwidth
-            padding: 5px 0
-            color: hsl(0, 0%, 96%)
-            background-color: hsl(0, 0%, 21%)
+    html
+        font-size: 13px
 
-        .container
-            padding: 0 10px
+    #app
+        & > header
+            h1
+                font-size: 1.2rem
+
+            &.is-fullwidth
+                padding: 10px 0
+                color: hsl(0, 0%, 96%)
+                background-color: hsl(0, 0%, 21%)
+            .container
+                padding: 0 10px
+
+        .has-hidden-thead table thead
+            display: none
 </style>
