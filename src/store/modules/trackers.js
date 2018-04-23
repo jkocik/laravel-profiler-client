@@ -1,7 +1,10 @@
 import { filterService } from '@/services/filter.service';
 
 const getters = {
-    filtered: state => filterService.filter(state.all, state.filter),
+    filtered: state => filterService.filter(state.all, state.filter, {
+        env: state.allEnvs,
+        version: state.allVersions,
+    }),
     allEnvs: state => state.allEnvs,
     allVersions: state => state.allVersions,
 };

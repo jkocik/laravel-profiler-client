@@ -25,7 +25,7 @@ describe('Filter Service', () => {
             ],
         };
 
-        expect(filterService.filter(data, filterBy)).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerB,
             dummyTrackerB,
@@ -34,7 +34,7 @@ describe('Filter Service', () => {
         ]);
 
         delete filterBy.env[1];
-        expect(filterService.filter(data, filterBy)).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerBDiffEnv,
         ]);
@@ -54,7 +54,7 @@ describe('Filter Service', () => {
             ],
         };
 
-        expect(filterService.filter(data, filterBy)).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerB,
             dummyTrackerB,
@@ -76,7 +76,7 @@ describe('Filter Service', () => {
             ],
         };
 
-        expect(filterService.filter(data, filterBy)).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerBDiffEnv,
         ]);
@@ -94,7 +94,7 @@ describe('Filter Service', () => {
             ],
         };
 
-        expect(filterService.filter(data, filterBy)).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([
             dummyTrackerBDiffEnv,
         ]);
     });
@@ -105,7 +105,7 @@ describe('Filter Service', () => {
             version: [],
         };
 
-        expect(filterService.filter(data, filterBy)).to.deep.equal([]);
+        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([]);
     });
 
     it('returns all data when filter groups are not present in filter', () => {
@@ -118,5 +118,26 @@ describe('Filter Service', () => {
             dummyTrackerBDiffEnv,
             dummyTrackerBDiffVersion,
         ]);
+    });
+
+    it('has optimal filter by excluding full list of filter group from filtering logic', () => {
+        let spy = sinon.spy(filterService, 'isIn');
+
+        let filterBy = {
+            env: [ dummyTracker.env, dummyTrackerB.env ],
+            version: [ dummyTracker.version ],
+            id: [ dummyTracker.id ],
+        };
+
+        filterService.filter([ dummyTracker, dummyTrackerB ], filterBy, {
+            env: [ dummyTrackerB.env, dummyTracker.env ],
+            version: [ dummyTrackerB.version, dummyTracker.version ],
+            id: [ dummyTrackerB.id, dummyTracker.id ],
+        });
+
+        expect(spy.callCount).to.equal(3);
+        expect(spy.getCall(0).calledWith([ dummyTracker.version ], dummyTracker.version)).to.be.true;
+        expect(spy.getCall(1).calledWith([ dummyTracker.id ], dummyTracker.id)).to.be.true;
+        expect(spy.getCall(2).calledWith([ dummyTracker.version ], dummyTrackerB.version)).to.be.true;
     });
 });
