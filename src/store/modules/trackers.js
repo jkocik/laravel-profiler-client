@@ -3,19 +3,26 @@ import { filterService } from '@/services/filter.service';
 const getters = {
     filtered: state => filterService.filter(state.all, state.filter),
     allEnvs: state => state.allEnvs,
+    allVersions: state => state.allVersions,
 };
 
 const mutations = {
     store(state, tracker) {
         state.all.unshift(tracker);
+
         if (!~state.allEnvs.indexOf(tracker.env)) {
             state.filter.env.push(tracker.env);
         }
         state.allEnvs = [ ...new Set([ ...state.allEnvs, tracker.env ]) ].sort();
+
+        if (!~state.allVersions.indexOf(tracker.version)) {
+            state.filter.version.push(tracker.version);
+        }
+        state.allVersions = [ ...new Set([ ...state.allVersions, tracker.version ]) ].sort();
     },
 
-    updateFilterEnv(state, filterByEnvs) {
-        state.filter.env = filterByEnvs;
+    updateFilter(state, filterBy) {
+        Object.assign(state.filter, filterBy);
     },
 };
 
@@ -23,8 +30,10 @@ export function trackersFactory() {
     const state = {
         all: [],
         allEnvs: [],
+        allVersions: [],
         filter: {
             env: [],
+            version: [],
         },
     };
 

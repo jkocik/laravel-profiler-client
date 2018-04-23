@@ -31,11 +31,11 @@ describe('Trackers Store Module', () => {
         expect(state.all).to.deep.equal([ dummyTracker ]);
     });
 
-    it('updates envs that should be used to filter trackers', () => {
-        trackers.mutations.updateFilterEnv(state, [
+    it('updates filter that should be used to filter trackers', () => {
+        trackers.mutations.updateFilter(state, { env: [
             'env-a',
             'env-b',
-        ]);
+        ]});
 
         expect(state.filter.env).to.deep.equal([
             'env-a',
@@ -53,21 +53,6 @@ describe('Trackers Store Module', () => {
 
         expect(spy.lastCall).to.be.instanceOf(Object);
         expect(spy.lastCall.calledWith(state.all, state.filter)).to.be.true;
-    });
-
-    it('returns all envs in ascending order', () => {
-        trackers.mutations.store(state, Object.assign({}, dummyTracker, { env: 'b' }));
-        trackers.mutations.store(state, Object.assign({}, dummyTracker, { env: 'b' }));
-        trackers.mutations.store(state, Object.assign({}, dummyTracker, { env: 'c' }));
-        trackers.mutations.store(state, Object.assign({}, dummyTracker, { env: 'a' }));
-
-        let envs = trackers.getters.allEnvs(state);
-
-        expect(envs).to.deep.equal([
-            'a',
-            'b',
-            'c',
-        ]);
     });
 
     it('returns filter with enabled envs', () => {
@@ -100,6 +85,39 @@ describe('Trackers Store Module', () => {
 
         expect(state.filter.env).to.deep.equal([
             dummyTrackerB.env,
+        ]);
+    });
+
+    it('returns filter with enabled versions', () => {
+        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, dummyTrackerB);
+
+        expect(state.filter.version).to.be.instanceOf(Array);
+        expect(state.filter.version).to.deep.equal([
+            dummyTracker.version,
+            dummyTrackerB.version,
+        ]);
+    });
+
+    it('new enabled version can be added to filter only if does not exist in all versions', () => {
+        trackers.mutations.store(state, dummyTracker);
+        state.filter.version = [];
+        trackers.mutations.store(state, dummyTracker);
+
+        expect(state.filter.version).to.deep.equal([]);
+
+        trackers.mutations.store(state, dummyTrackerB);
+
+        expect(state.filter.version).to.deep.equal([
+            dummyTrackerB.version,
+        ]);
+
+        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, dummyTrackerB);
+
+        expect(state.filter.version).to.deep.equal([
+            dummyTrackerB.version,
         ]);
     });
 });

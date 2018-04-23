@@ -86,18 +86,41 @@ describe('Dashboard Component', () => {
             expect(wrapper.find('table').text()).to.contain('localC');
             expect(wrapper.find('table').text()).to.contain('localB');
             expect(wrapper.find('table').text()).to.not.contain('localA');
-            expect(wrapper.findAll('label.b-checkbox').length).to.equal(3);
-            expect(wrapper.findAll('label.b-checkbox.is-primary').length).to.equal(3);
 
-            wrapper.vm.$store.commit('trackers/updateFilterEnv', [ 'localC', 'localA' ]);
+            wrapper.vm.$store.commit('trackers/updateFilter', { env: [ 'localC', 'localA' ] });
 
             wrapper.vm.$forceUpdate();
             wrapper.vm.$nextTick(() => {
                 expect(wrapper.find('table').text()).to.contain('localC');
                 expect(wrapper.find('table').text()).to.not.contain('localB');
                 expect(wrapper.find('table').text()).to.contain('localA');
-                expect(wrapper.findAll('label.b-checkbox').length).to.equal(3);
-                expect(wrapper.findAll('label.b-checkbox.is-primary').length).to.equal(2);
+                done();
+            });
+        });
+    });
+
+    it('filters profilers by version', (done) => {
+        [
+            Object.assign({}, dummyTracker, { version: '5.4.0' }),
+            Object.assign({}, dummyTracker, { version: '5.5.0' }),
+            Object.assign({}, dummyTracker, { version: '5.6.0' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.setData({ perPage: 2 });
+
+        wrapper.vm.$forceUpdate();
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.find('table').text()).to.contain('5.6.0');
+            expect(wrapper.find('table').text()).to.contain('5.5.0');
+            expect(wrapper.find('table').text()).to.not.contain('5.4.0');
+
+            wrapper.vm.$store.commit('trackers/updateFilter', { version: [ '5.6.0', '5.4.0' ] });
+
+            wrapper.vm.$forceUpdate();
+            wrapper.vm.$nextTick(() => {
+                expect(wrapper.find('table').text()).to.contain('5.6.0');
+                expect(wrapper.find('table').text()).to.not.contain('5.5.0');
+                expect(wrapper.find('table').text()).to.contain('5.4.0');
                 done();
             });
         });

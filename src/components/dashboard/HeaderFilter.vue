@@ -12,6 +12,18 @@
                 </b-checkbox-button>
             </b-field>
         </div>
+        <div class="navbar-item">
+            <b-field>
+                <b-checkbox-button
+                        v-for="version of allVersions"
+                        :key="version"
+                        :native-value="version"
+                        v-model="selectedVersions"
+                >
+                    {{ version }}
+                </b-checkbox-button>
+            </b-field>
+        </div>
     </div>
 </template>
 
@@ -22,13 +34,22 @@
         computed: {
             ...mapGetters('trackers', [
                 'allEnvs',
+                'allVersions',
             ]),
             selectedEnvs: {
                 get() {
                     return this.$store.state.trackers.filter.env;
                 },
                 set(selectedEnvs) {
-                    this.$store.commit('trackers/updateFilterEnv', selectedEnvs);
+                    this.$store.commit('trackers/updateFilter', { env: selectedEnvs });
+                },
+            },
+            selectedVersions: {
+                get() {
+                    return this.$store.state.trackers.filter.version;
+                },
+                set(selectedVersions) {
+                    this.$store.commit('trackers/updateFilter', { version: selectedVersions });
                 },
             },
         },
