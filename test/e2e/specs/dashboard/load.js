@@ -12,7 +12,7 @@ module.exports = {
         browser
             .url(devServer)
             .waitForElementPresent('#app', 1000)
-            .waitForElementPresent('#app > header', 1000);
+            .waitForElementPresent('.dashboard', 1000);
     },
 
     'sees tracker received from server': (browser) => {
