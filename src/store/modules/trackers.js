@@ -10,14 +10,10 @@ const mutations = {
     store(state, tracker) {
         state.all.unshift(tracker);
 
-        if (!~state.allEnvs.indexOf(tracker.env)) {
-            state.filter.env.push(tracker.env);
-        }
+        filterService.isNotIn(state.allEnvs, tracker.env) && state.filter.env.push(tracker.env);
         state.allEnvs = [ ...new Set([ ...state.allEnvs, tracker.env ]) ].sort();
 
-        if (!~state.allVersions.indexOf(tracker.version)) {
-            state.filter.version.push(tracker.version);
-        }
+        filterService.isNotIn(state.allVersions, tracker.version) && state.filter.version.push(tracker.version);
         state.allVersions = [ ...new Set([ ...state.allVersions, tracker.version ]) ].sort();
     },
 
