@@ -21,6 +21,28 @@ describe('Tracker Model', () => {
         expect(tracker.env).to.equal(dummyTrackerData.meta.env);
     });
 
+    it('has required running', () => {
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_running_in_console: true } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_running_in_console: false } }));
+
+        expect(trackerA.running).to.equal('console');
+        expect(trackerB.running).to.equal('web');
+    });
+
+    it('has required method', () => {
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.method).to.equal(dummyTrackerData.meta.method);
+    });
+
+    it('has required http', () => {
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_ajax: true } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_ajax: false } }));
+
+        expect(trackerA.http).to.equal('ajax');
+        expect(trackerB.http).to.equal('regular');
+    });
+
     it('has bindings', () => {
         expect(dummyTrackerData.data.bindings.length).to.be.equal(2);
 

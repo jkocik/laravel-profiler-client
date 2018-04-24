@@ -3,7 +3,10 @@
         "meta": {
             "id": "abc4567890abc4567890abc456789012",
             "version": "5.6.0",
-            "env": "local"
+            "env": "local",
+            "is_running_in_console": false,
+            "method": "POST",
+            "is_ajax": true
         },
         "data": {
             "bindings": [
@@ -22,7 +25,10 @@
         "meta": {
             "id": "12345678901234567890123456789012",
             "version": "5.5.0",
-            "env": "testing"
+            "env": "testing",
+            "is_running_in_console": true,
+            "method": "GET",
+            "is_ajax": false
         },
         "data": []
     }

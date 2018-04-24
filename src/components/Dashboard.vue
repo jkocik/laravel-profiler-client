@@ -44,9 +44,11 @@
         data() {
             return {
                 columns: [
-                    { field: 'id' },
-                    { field: 'version' },
+                    { field: 'running' },
                     { field: 'env' },
+                    { field: 'version' },
+                    { field: 'http' },
+                    { field: 'method' },
                 ],
                 perPage: 5,
             };
