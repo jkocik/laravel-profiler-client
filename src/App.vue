@@ -25,4 +25,7 @@
 
         .pagination-next
             display: none
+
+    .pagination
+        margin: 0
 </style>

@@ -28,11 +28,11 @@ describe('Dashboard Component', () => {
         wrapper.vm.$nextTick(() => {
             expect(wrapper.find('p').exists()).to.be.false;
             expect(wrapper.vm.$store.state.trackers.all).to.have.lengthOf(1);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(1)').text()).to.equal(dummyTracker.running);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.equal(dummyTracker.env);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.equal(dummyTracker.version);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.equal(dummyTracker.http);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.equal(dummyTracker.method);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(1)').text()).to.contain(dummyTracker.running);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(dummyTracker.env);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTracker.version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTracker.http);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.contain(dummyTracker.method);
             done();
         });
     });
@@ -44,12 +44,12 @@ describe('Dashboard Component', () => {
         wrapper.vm.$forceUpdate();
         wrapper.vm.$nextTick(() => {
             expect(wrapper.vm.$store.state.trackers.all).to.have.lengthOf(2);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(1)').text()).to.equal(dummyTrackerB.running);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.equal(dummyTrackerB.env);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.equal(dummyTrackerB.version);
-            expect(wrapper.find('table tr:nth-child(2) td:nth-child(1)').text()).to.equal(dummyTracker.running);
-            expect(wrapper.find('table tr:nth-child(2) td:nth-child(2)').text()).to.equal(dummyTracker.env);
-            expect(wrapper.find('table tr:nth-child(2) td:nth-child(3)').text()).to.equal(dummyTracker.version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(1)').text()).to.contain(dummyTrackerB.running);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(dummyTrackerB.env);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTrackerB.version);
+            expect(wrapper.find('table tr:nth-child(2) td:nth-child(1)').text()).to.contain(dummyTracker.running);
+            expect(wrapper.find('table tr:nth-child(2) td:nth-child(2)').text()).to.contain(dummyTracker.env);
+            expect(wrapper.find('table tr:nth-child(2) td:nth-child(3)').text()).to.contain(dummyTracker.version);
             done();
         });
     });

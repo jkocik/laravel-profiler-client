@@ -24,7 +24,7 @@ describe('HeaderFilter Component', () => {
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('label.b-checkbox.is-primary').length).to.equal(8);
+            expect(wrapper.findAll('label.b-checkbox.is-info').length).to.equal(8);
             done();
         });
     });

@@ -11,13 +11,45 @@
         <div class="container is-widescreen">
             <b-table
                 :data="trackers"
-                :columns="columns"
                 :narrowed="true"
                 :focusable="true"
                 :paginated="true"
                 :per-page="perPage"
                 class="has-hidden-thead has-hidden-pagination-arrows"
             >
+                <template slot-scope="props">
+                    <td>
+                        <b-taglist attached>
+                            <b-tag type="is-white">via</b-tag>
+                            <b-tag type="is-light">{{ props.row.running }}</b-tag>
+                        </b-taglist>
+                    </td>
+                    <td>
+                        <b-taglist attached>
+                            <b-tag type="is-white">env</b-tag>
+                            <b-tag type="is-light">{{ props.row.env }}</b-tag>
+                        </b-taglist>
+                    </td>
+                    <td>
+                        <b-taglist attached>
+                            <b-tag type="is-white">v</b-tag>
+                            <b-tag type="is-light">{{ props.row.version }}</b-tag>
+                        </b-taglist>
+                    </td>
+                    <td>
+                        <b-taglist attached>
+                            <b-tag type="is-white">http</b-tag>
+                            <b-tag type="is-light">{{ props.row.http }}</b-tag>
+                        </b-taglist>
+                    </td>
+                    <td>
+                        <b-taglist attached>
+                            <b-tag type="is-light">{{ props.row.method }}</b-tag>
+                            <b-tag type="is-success">201</b-tag>
+                            <b-tag type="is-light">{{ props.row.method }}</b-tag>
+                        </b-taglist>
+                    </td>
+                </template>
                 <template slot="empty">
                     <p class="has-text-centered">
                         {{ $t('message.trackers-list-is-empty') }}...
@@ -43,13 +75,6 @@
         },
         data() {
             return {
-                columns: [
-                    { field: 'running' },
-                    { field: 'env' },
-                    { field: 'version' },
-                    { field: 'http' },
-                    { field: 'method' },
-                ],
                 perPage: 5,
             };
         },
@@ -62,4 +87,18 @@
 
     nav.is-fixed-top + nav
         top: 4rem
+
+    table
+        tbody
+            tr
+                td:nth-child(1),
+                td:nth-child(2),
+                td:nth-child(4)
+                    width: 125px
+
+                td:nth-child(3)
+                    width: 110px
+
+        .tag
+            font-size: .78rem
 </style>

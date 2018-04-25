@@ -7,6 +7,7 @@
                         :key="running"
                         :native-value="running"
                         v-model="selectedRunnings"
+                        type="is-info"
                 >
                     {{ running }}
                 </b-checkbox-button>
@@ -19,6 +20,7 @@
                     :key="env"
                     :native-value="env"
                     v-model="selectedEnvs"
+                    type="is-info"
                 >
                     {{ env }}
                 </b-checkbox-button>
@@ -31,6 +33,7 @@
                         :key="http"
                         :native-value="http"
                         v-model="selectedHttp"
+                        type="is-info"
                 >
                     {{ http }}
                 </b-checkbox-button>
@@ -43,6 +46,7 @@
                         :key="method"
                         :native-value="method"
                         v-model="selectedMethods"
+                        type="is-info"
                 >
                     {{ method }}
                 </b-checkbox-button>
