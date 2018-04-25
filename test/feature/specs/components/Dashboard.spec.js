@@ -74,6 +74,30 @@ describe('Dashboard Component', () => {
         });
     });
 
+    it('filters profilers by running', (done) => {
+        [
+            Object.assign({}, dummyTracker, { running: 'console' }),
+            Object.assign({}, dummyTracker, { running: 'web' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.setData({ perPage: 1 });
+
+        wrapper.vm.$forceUpdate();
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.find('table').text()).to.contain('web');
+            expect(wrapper.find('table').text()).to.not.contain('console');
+
+            wrapper.vm.$store.commit('trackers/updateFilter', { running: [ 'console' ] });
+
+            wrapper.vm.$forceUpdate();
+            wrapper.vm.$nextTick(() => {
+                expect(wrapper.find('table').text()).to.contain('console');
+                expect(wrapper.find('table').text()).to.not.contain('web');
+                done();
+            });
+        });
+    });
+
     it('filters profilers by env', (done) => {
         [
             Object.assign({}, dummyTracker, { env: 'localA' }),
@@ -101,28 +125,49 @@ describe('Dashboard Component', () => {
         });
     });
 
-    it('filters profilers by version', (done) => {
+    it('filters profilers by http', (done) => {
         [
-            Object.assign({}, dummyTracker, { version: '5.4.0' }),
-            Object.assign({}, dummyTracker, { version: '5.5.0' }),
-            Object.assign({}, dummyTracker, { version: '5.6.0' }),
+            Object.assign({}, dummyTracker, { http: 'regular' }),
+            Object.assign({}, dummyTracker, { http: 'ajax' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
-        wrapper.setData({ perPage: 2 });
+        wrapper.setData({ perPage: 1 });
 
         wrapper.vm.$forceUpdate();
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.find('table').text()).to.contain('5.6.0');
-            expect(wrapper.find('table').text()).to.contain('5.5.0');
-            expect(wrapper.find('table').text()).to.not.contain('5.4.0');
+            expect(wrapper.find('table').text()).to.contain('ajax');
+            expect(wrapper.find('table').text()).to.not.contain('regular');
 
-            wrapper.vm.$store.commit('trackers/updateFilter', { version: [ '5.6.0', '5.4.0' ] });
+            wrapper.vm.$store.commit('trackers/updateFilter', { http: [ 'regular' ] });
 
             wrapper.vm.$forceUpdate();
             wrapper.vm.$nextTick(() => {
-                expect(wrapper.find('table').text()).to.contain('5.6.0');
-                expect(wrapper.find('table').text()).to.not.contain('5.5.0');
-                expect(wrapper.find('table').text()).to.contain('5.4.0');
+                expect(wrapper.find('table').text()).to.contain('regular');
+                expect(wrapper.find('table').text()).to.not.contain('ajax');
+                done();
+            });
+        });
+    });
+
+    it('filters profilers by method', (done) => {
+        [
+            Object.assign({}, dummyTracker, { method: 'GET' }),
+            Object.assign({}, dummyTracker, { method: 'POST' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.setData({ perPage: 1 });
+
+        wrapper.vm.$forceUpdate();
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.find('table').text()).to.contain('POST');
+            expect(wrapper.find('table').text()).to.not.contain('GET');
+
+            wrapper.vm.$store.commit('trackers/updateFilter', { method: [ 'GET' ] });
+
+            wrapper.vm.$forceUpdate();
+            wrapper.vm.$nextTick(() => {
+                expect(wrapper.find('table').text()).to.contain('GET');
+                expect(wrapper.find('table').text()).to.not.contain('POST');
                 done();
             });
         });

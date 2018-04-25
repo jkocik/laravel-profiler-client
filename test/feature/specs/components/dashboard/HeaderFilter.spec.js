@@ -17,14 +17,42 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('env and version checkbox group items are all selected by default', (done) => {
+    it('running, env, http and method checkbox group items are all selected by default', (done) => {
         [
             dummyTracker,
             dummyTrackerB,
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('label.b-checkbox.is-primary').length).to.equal(4);
+            expect(wrapper.findAll('label.b-checkbox.is-primary').length).to.equal(8);
+            done();
+        });
+    });
+
+    it('sees unique running checkbox group', (done) => {
+        [
+            Object.assign({}, dummyTracker, { running: 'console' }),
+            Object.assign({}, dummyTracker, { running: 'console' }),
+            Object.assign({}, dummyTracker, { running: 'web' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('input[value=console]').length).to.equal(1);
+            expect(wrapper.findAll('input[value=web]').length).to.equal(1);
+            done();
+        });
+    });
+
+    it('running checkbox group is listed in ascending order', (done) => {
+        [
+            Object.assign({}, dummyTracker, { running: 'web' }),
+            Object.assign({}, dummyTracker, { running: 'console' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.vm.$nextTick(() => {
+            let inputs = wrapper.findAll('input');
+            expect(inputs.at(0).attributes().value).to.equal('console');
+            expect(inputs.at(1).attributes().value).to.equal('web');
             done();
         });
     });
@@ -59,32 +87,58 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('sees unique version checkbox group', (done) => {
+    it('sees unique http checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { version: '5.6.0' }),
-            Object.assign({}, dummyTracker, { version: '5.6.0' }),
-            Object.assign({}, dummyTracker, { version: '5.5.0' }),
+            Object.assign({}, dummyTracker, { http: 'regular' }),
+            Object.assign({}, dummyTracker, { http: 'regular' }),
+            Object.assign({}, dummyTracker, { http: 'ajax' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('input[value="5.6.0"]').length).to.equal(1);
-            expect(wrapper.findAll('input[value="5.5.0"]').length).to.equal(1);
+            expect(wrapper.findAll('input[value=regular]').length).to.equal(1);
+            expect(wrapper.findAll('input[value=ajax]').length).to.equal(1);
             done();
         });
     });
 
-    it('version checkbox group is listed in ascending order', (done) => {
+    it('http checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { version: '5.4.0' }),
-            Object.assign({}, dummyTracker, { version: '5.6.0' }),
-            Object.assign({}, dummyTracker, { version: '5.5.0' }),
+            Object.assign({}, dummyTracker, { http: 'regular' }),
+            Object.assign({}, dummyTracker, { http: 'ajax' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
-            let inputs = wrapper.findAll('input[value^="5."]');
-            expect(inputs.at(0).attributes().value).to.equal('5.4.0');
-            expect(inputs.at(1).attributes().value).to.equal('5.5.0');
-            expect(inputs.at(2).attributes().value).to.equal('5.6.0');
+            let inputs = wrapper.findAll('input');
+            expect(inputs.at(2).attributes().value).to.equal('ajax');
+            expect(inputs.at(3).attributes().value).to.equal('regular');
+            done();
+        });
+    });
+
+    it('sees unique method checkbox group', (done) => {
+        [
+            Object.assign({}, dummyTracker, { method: 'GET' }),
+            Object.assign({}, dummyTracker, { method: 'GET' }),
+            Object.assign({}, dummyTracker, { method: 'POST' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('input[value=GET]').length).to.equal(1);
+            expect(wrapper.findAll('input[value=POST]').length).to.equal(1);
+            done();
+        });
+    });
+
+    it('method checkbox group is listed in ascending order', (done) => {
+        [
+            Object.assign({}, dummyTracker, { method: 'POST' }),
+            Object.assign({}, dummyTracker, { method: 'GET' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.vm.$nextTick(() => {
+            let inputs = wrapper.findAll('input');
+            expect(inputs.at(3).attributes().value).to.equal('GET');
+            expect(inputs.at(4).attributes().value).to.equal('POST');
             done();
         });
     });

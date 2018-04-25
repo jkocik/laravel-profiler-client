@@ -3,6 +3,18 @@
         <div class="navbar-item">
             <b-field>
                 <b-checkbox-button
+                        v-for="running of allRunnings"
+                        :key="running"
+                        :native-value="running"
+                        v-model="selectedRunnings"
+                >
+                    {{ running }}
+                </b-checkbox-button>
+            </b-field>
+        </div>
+        <div class="navbar-item">
+            <b-field>
+                <b-checkbox-button
                     v-for="env of allEnvs"
                     :key="env"
                     :native-value="env"
@@ -15,12 +27,24 @@
         <div class="navbar-item">
             <b-field>
                 <b-checkbox-button
-                        v-for="version of allVersions"
-                        :key="version"
-                        :native-value="version"
-                        v-model="selectedVersions"
+                        v-for="http of allHttp"
+                        :key="http"
+                        :native-value="http"
+                        v-model="selectedHttp"
                 >
-                    {{ version }}
+                    {{ http }}
+                </b-checkbox-button>
+            </b-field>
+        </div>
+        <div class="navbar-item">
+            <b-field>
+                <b-checkbox-button
+                        v-for="method of allMethods"
+                        :key="method"
+                        :native-value="method"
+                        v-model="selectedMethods"
+                >
+                    {{ method }}
                 </b-checkbox-button>
             </b-field>
         </div>
@@ -33,9 +57,19 @@
     export default {
         computed: {
             ...mapGetters('trackers', [
+                'allRunnings',
                 'allEnvs',
-                'allVersions',
+                'allHttp',
+                'allMethods',
             ]),
+            selectedRunnings: {
+                get() {
+                    return this.$store.state.trackers.filter.running;
+                },
+                set(selectedRunnings) {
+                    this.$store.commit('trackers/updateFilter', { running: selectedRunnings });
+                },
+            },
             selectedEnvs: {
                 get() {
                     return this.$store.state.trackers.filter.env;
@@ -44,12 +78,20 @@
                     this.$store.commit('trackers/updateFilter', { env: selectedEnvs });
                 },
             },
-            selectedVersions: {
+            selectedHttp: {
                 get() {
-                    return this.$store.state.trackers.filter.version;
+                    return this.$store.state.trackers.filter.http;
                 },
-                set(selectedVersions) {
-                    this.$store.commit('trackers/updateFilter', { version: selectedVersions });
+                set(selectedHttp) {
+                    this.$store.commit('trackers/updateFilter', { http: selectedHttp });
+                },
+            },
+            selectedMethods: {
+                get() {
+                    return this.$store.state.trackers.filter.method;
+                },
+                set(selectedMethods) {
+                    this.$store.commit('trackers/updateFilter', { method: selectedMethods });
                 },
             },
         },
