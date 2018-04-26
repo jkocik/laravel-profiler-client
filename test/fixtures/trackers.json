@@ -6,7 +6,9 @@
             "env": "local",
             "is_running_in_console": false,
             "method": "POST",
-            "is_ajax": true
+            "is_ajax": true,
+            "path": "/",
+            "status": 200
         },
         "data": {
             "bindings": [
@@ -28,7 +30,9 @@
             "env": "testing",
             "is_running_in_console": true,
             "method": "GET",
-            "is_ajax": false
+            "is_ajax": false,
+            "path": "/missing-page",
+            "status": 404
         },
         "data": []
     }

@@ -43,6 +43,34 @@ describe('Tracker Model', () => {
         expect(trackerB.http).to.equal('regular');
     });
 
+    it('has required status', () => {
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { status: 100 } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { status: 201 } }));
+        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { status: 302 } }));
+        let trackerD = new Tracker(Object.assign({}, dummyTrackerData, { meta: { status: 403 } }));
+        let trackerE = new Tracker(Object.assign({}, dummyTrackerData, { meta: { status: 504 } }));
+        let trackerF = new Tracker(Object.assign({}, dummyTrackerData, { meta: { status: 605 } }));
+
+        expect(trackerA.status).to.equal(100);
+        expect(trackerB.status).to.equal(201);
+        expect(trackerC.status).to.equal(302);
+        expect(trackerD.status).to.equal(403);
+        expect(trackerE.status).to.equal(504);
+        expect(trackerF.status).to.equal(605);
+        expect(trackerA.statusGroup).to.equal('?xx');
+        expect(trackerB.statusGroup).to.equal('2xx');
+        expect(trackerC.statusGroup).to.equal('3xx');
+        expect(trackerD.statusGroup).to.equal('4xx');
+        expect(trackerE.statusGroup).to.equal('5xx');
+        expect(trackerF.statusGroup).to.equal('?xx');
+    });
+
+    it('has required path', () => {
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.path).to.equal(dummyTrackerData.meta.path);
+    });
+
     it('has bindings', () => {
         expect(dummyTrackerData.data.bindings.length).to.be.equal(2);
 

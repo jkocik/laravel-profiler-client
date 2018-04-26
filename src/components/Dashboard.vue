@@ -45,8 +45,8 @@
                     <td>
                         <b-taglist attached>
                             <b-tag type="is-light">{{ props.row.method }}</b-tag>
-                            <b-tag type="is-success">201</b-tag>
-                            <b-tag type="is-light">{{ props.row.method }}</b-tag>
+                            <b-tag type="is-success">{{ props.row.status }}</b-tag>
+                            <b-tag type="is-light">{{ props.row.path }}</b-tag>
                         </b-taglist>
                     </td>
                 </template>
