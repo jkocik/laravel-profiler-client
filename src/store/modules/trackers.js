@@ -1,4 +1,5 @@
-import { filterService } from '@/services/filter.service';
+import { filterService } from './../../services/filter.store.service';
+import { trackersService } from './../../services/trackers.store.service';
 
 const getters = {
     filtered: state => filterService.filter(state.all, state.filter, {
@@ -16,18 +17,10 @@ const getters = {
 const mutations = {
     store(state, tracker) {
         state.all.unshift(tracker);
-
-        filterService.isNotIn(state.allRunnings, tracker.running) && state.filter.running.push(tracker.running);
-        state.allRunnings = [ ...new Set([ ...state.allRunnings, tracker.running ]) ].sort();
-
-        filterService.isNotIn(state.allEnvs, tracker.env) && state.filter.env.push(tracker.env);
-        state.allEnvs = [ ...new Set([ ...state.allEnvs, tracker.env ]) ].sort();
-
-        filterService.isNotIn(state.allHttp, tracker.http) && state.filter.http.push(tracker.http);
-        state.allHttp = [ ...new Set([ ...state.allHttp, tracker.http ]) ].sort();
-
-        filterService.isNotIn(state.allMethods, tracker.method) && state.filter.method.push(tracker.method);
-        state.allMethods = [ ...new Set([ ...state.allMethods, tracker.method ]) ].sort();
+        trackersService.updateRunningFilter(state, tracker);
+        trackersService.updateEnvFilter(state, tracker);
+        trackersService.updateHttpFilter(state, tracker);
+        trackersService.updateMethodFilter(state, tracker);
     },
 
     updateFilter(state, filterBy) {

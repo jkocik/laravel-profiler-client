@@ -1,5 +1,5 @@
-import { filterService } from '@/services/filter.service';
 import { trackersFactory } from '@/store/modules/trackers';
+import { filterService } from '@/services/filter.store.service';
 import { dummyTracker, dummyTrackerB } from './../../../../fixtures/es6';
 
 describe('Trackers Store Module', () => {

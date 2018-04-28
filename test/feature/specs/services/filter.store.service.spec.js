@@ -1,7 +1,8 @@
-import { filterService } from '@/services/filter.service';
+import helperService from '@/services/helper.service';
+import { filterService } from '@/services/filter.store.service';
 import { dummyTracker, dummyTrackerB } from './../../../fixtures/es6';
 
-describe('Filter Service', () => {
+describe('Filter Store Service', () => {
     let dummyTrackerBDiffEnv = Object.assign({}, dummyTrackerB, { env: 'production' });
     let dummyTrackerBDiffVersion = Object.assign({}, dummyTrackerB, { version: '5.4.0' });
     let data;
@@ -121,7 +122,7 @@ describe('Filter Service', () => {
     });
 
     it('has optimal filter by excluding full list of filter group from filtering logic', () => {
-        let spy = sinon.spy(filterService, 'isIn');
+        let spy = sinon.spy(helperService, 'isIn');
 
         let filterBy = {
             env: [ dummyTracker.env, dummyTrackerB.env ],

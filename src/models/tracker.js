@@ -1,5 +1,5 @@
 import Binding from './binding';
-import { trackerService } from './../services/tracker.service';
+import { trackerService } from './../services/tracker.model.service';
 
 export default class Tracker {
     constructor(data) {
