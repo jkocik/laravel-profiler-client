@@ -35,5 +35,10 @@ module.exports = {
       'imports': 'never',
       'exports': 'never',
     }],
+    'space-unary-ops': [2, {
+      'overrides': {
+        '!': true,
+      }
+    }],
   }
 }

@@ -40,7 +40,7 @@ describe('Tracker Model', () => {
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { method: null } }));
 
         expect(trackerA.method).to.equal(dummyTrackerData.meta.method);
-        expect(trackerB.method).to.equal('x');
+        expect(trackerB.method).to.equal('---');
     });
 
     it('has required http', () => {
@@ -50,7 +50,7 @@ describe('Tracker Model', () => {
 
         expect(trackerA.http).to.equal('ajax');
         expect(trackerB.http).to.equal('regular');
-        expect(trackerC.http).to.equal('x');
+        expect(trackerC.http).to.equal('---');
     });
 
     it('has required status', () => {
@@ -80,8 +80,8 @@ describe('Tracker Model', () => {
         expect(trackerF.status).to.equal(605);
         expect(trackerF.statusGroup).to.equal('?xx');
         expect(trackerF.statusColor).to.equal('is-light');
-        expect(trackerG.status).to.equal('x');
-        expect(trackerG.statusGroup).to.equal('x');
+        expect(trackerG.status).to.equal('---');
+        expect(trackerG.statusGroup).to.equal('---');
         expect(trackerG.statusColor).to.equal('is-light');
     });
 
@@ -90,7 +90,7 @@ describe('Tracker Model', () => {
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { path: null } }));
 
         expect(trackerA.path).to.equal(dummyTrackerData.meta.path);
-        expect(trackerB.path).to.equal('x');
+        expect(trackerB.path).to.equal('---');
     });
 
     it('has bindings', () => {
