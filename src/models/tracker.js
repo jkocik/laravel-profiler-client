@@ -13,7 +13,8 @@ export default class Tracker {
         this.method = data.meta.method || 'x';
         this.http = ajaxService.ajax(data.meta.is_ajax);
         this.status = data.meta.status || 'x';
-        this.statusGroup = statusService.statusGroup(data.meta.status);
+        this.statusGroup = statusService.group(data.meta.status);
+        this.statusColor = statusService.color(data.meta.status);
         this.path = data.meta.path || 'x';
 
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));

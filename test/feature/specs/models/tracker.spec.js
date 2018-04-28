@@ -63,19 +63,26 @@ describe('Tracker Model', () => {
         let trackerG = new Tracker(Object.assign({}, dummyTrackerData, { meta: { status: null } }));
 
         expect(trackerA.status).to.equal(100);
-        expect(trackerB.status).to.equal(201);
-        expect(trackerC.status).to.equal(302);
-        expect(trackerD.status).to.equal(403);
-        expect(trackerE.status).to.equal(504);
-        expect(trackerF.status).to.equal(605);
-        expect(trackerG.status).to.equal('x');
         expect(trackerA.statusGroup).to.equal('?xx');
+        expect(trackerA.statusColor).to.equal('is-light');
+        expect(trackerB.status).to.equal(201);
         expect(trackerB.statusGroup).to.equal('2xx');
+        expect(trackerB.statusColor).to.equal('is-success');
+        expect(trackerC.status).to.equal(302);
         expect(trackerC.statusGroup).to.equal('3xx');
+        expect(trackerC.statusColor).to.equal('is-dark');
+        expect(trackerD.status).to.equal(403);
         expect(trackerD.statusGroup).to.equal('4xx');
+        expect(trackerD.statusColor).to.equal('is-warning');
+        expect(trackerE.status).to.equal(504);
         expect(trackerE.statusGroup).to.equal('5xx');
+        expect(trackerE.statusColor).to.equal('is-danger');
+        expect(trackerF.status).to.equal(605);
         expect(trackerF.statusGroup).to.equal('?xx');
+        expect(trackerF.statusColor).to.equal('is-light');
+        expect(trackerG.status).to.equal('x');
         expect(trackerG.statusGroup).to.equal('x');
+        expect(trackerG.statusColor).to.equal('is-light');
     });
 
     it('has required path', () => {
