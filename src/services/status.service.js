@@ -4,6 +4,6 @@ export const statusService = {
             return item === Math.floor(status / 100);
         }) || '?';
 
-        return `${group}xx`;
+        return status ? `${group}xx` : 'x';
     },
 };

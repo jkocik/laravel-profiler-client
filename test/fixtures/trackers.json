@@ -1,6 +1,7 @@
 [
     {
         "meta": {
+            "execution_time_at": 1234567,
             "id": "abc4567890abc4567890abc456789012",
             "version": "5.6.0",
             "env": "local",
@@ -25,6 +26,7 @@
     },
     {
         "meta": {
+            "execution_time_at": 7654321,
             "id": "12345678901234567890123456789012",
             "version": "5.5.0",
             "env": "testing",
