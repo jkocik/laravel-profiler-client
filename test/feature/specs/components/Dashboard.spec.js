@@ -20,7 +20,7 @@ describe('Dashboard Component', () => {
     });
 
     it('sees meta data of profiler after data are delivered', (done) => {
-        expect(wrapper.find('p').text()).to.contain(wrapper.vm.$t('message.trackers-list-is-empty'));
+        expect(wrapper.find('p').text()).to.contain(wrapper.vm.$t('message.dashboard.trackers-list-is-empty'));
 
         wrapper.vm.$store.commit('trackers/store', dummyTracker);
 
@@ -75,6 +75,10 @@ describe('Dashboard Component', () => {
             expect(wrapper.findAll('.pagination-link').length).to.equal(2);
             done();
         });
+    });
+
+    it('shows 15 items per page by default', () => {
+        expect(wrapper.vm.perPage).to.equal(15);
     });
 
     it('filters profilers by running', (done) => {

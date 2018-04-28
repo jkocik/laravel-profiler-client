@@ -66,6 +66,7 @@
                 'allHttp',
                 'allMethods',
             ]),
+
             selectedRunnings: {
                 get() {
                     return this.$store.state.trackers.filter.running;
@@ -74,6 +75,7 @@
                     this.$store.commit('trackers/updateFilter', { running: selectedRunnings });
                 },
             },
+
             selectedEnvs: {
                 get() {
                     return this.$store.state.trackers.filter.env;
@@ -82,6 +84,7 @@
                     this.$store.commit('trackers/updateFilter', { env: selectedEnvs });
                 },
             },
+
             selectedHttp: {
                 get() {
                     return this.$store.state.trackers.filter.http;
@@ -90,6 +93,7 @@
                     this.$store.commit('trackers/updateFilter', { http: selectedHttp });
                 },
             },
+
             selectedMethods: {
                 get() {
                     return this.$store.state.trackers.filter.method;

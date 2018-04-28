@@ -1,5 +1,9 @@
 export default {
     message: {
-        'trackers-list-is-empty': 'Waiting for Laravel data',
+        dashboard: {
+            'trackers-list-is-empty': 'List is empty',
+            at: 'at',
+            via: 'via',
+        },
     },
 };

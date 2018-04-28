@@ -20,13 +20,13 @@
                 <template slot-scope="props">
                     <td>
                         <b-taglist attached>
-                            <b-tag type="is-white">at</b-tag>
+                            <b-tag type="is-white">{{ $t('message.dashboard.at') }}</b-tag>
                             <b-tag type="is-light">{{ props.row.executionTimeAt }}</b-tag>
                         </b-taglist>
                     </td>
                     <td>
                         <b-taglist attached>
-                            <b-tag type="is-white">via</b-tag>
+                            <b-tag type="is-white">{{ $t('message.dashboard.via') }}</b-tag>
                             <b-tag type="is-light">{{ props.row.running }}</b-tag>
                         </b-taglist>
                     </td>
@@ -58,7 +58,7 @@
                 </template>
                 <template slot="empty">
                     <p class="has-text-centered">
-                        {{ $t('message.trackers-list-is-empty') }}...
+                        {{ $t('message.dashboard.trackers-list-is-empty') }}
                     </p>
                 </template>
             </b-table>
@@ -81,7 +81,7 @@
         },
         data() {
             return {
-                perPage: 5,
+                perPage: 15,
             };
         },
     };
@@ -97,15 +97,11 @@
     table
         tbody
             tr
-                td:nth-child(1)
-                    width: 100px
-
+                td:nth-child(1),
                 td:nth-child(2),
                 td:nth-child(3),
+                td:nth-child(4),
                 td:nth-child(5)
-                    width: 115px
-
-                td:nth-child(4)
                     width: 100px
 
         .tag
