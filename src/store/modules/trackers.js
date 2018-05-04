@@ -6,11 +6,13 @@ const getters = {
         running: state.allRunnings,
         env: state.allEnvs,
         type: state.allTypes,
+        statusGroup: state.allStatusGroups,
         method: state.allMethods,
     }),
     allRunnings: state => state.allRunnings,
     allEnvs: state => state.allEnvs,
     allTypes: state => state.allTypes,
+    allStatusGroups: state => state.allStatusGroups,
     allMethods: state => state.allMethods,
 };
 
@@ -20,6 +22,7 @@ const mutations = {
         trackersService.updateRunningFilter(state, tracker);
         trackersService.updateEnvFilter(state, tracker);
         trackersService.updateTypeFilter(state, tracker);
+        trackersService.updateStatusGroupFilter(state, tracker);
         trackersService.updateMethodFilter(state, tracker);
     },
 
@@ -34,11 +37,13 @@ export function trackersFactory() {
         allRunnings: [],
         allEnvs: [],
         allTypes: [],
+        allStatusGroups: [],
         allMethods: [],
         filter: {
             running: [],
             env: [],
             type: [],
+            statusGroup: [],
             method: [],
         },
     };

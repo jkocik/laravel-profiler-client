@@ -42,6 +42,19 @@
         <div class="navbar-item">
             <b-field>
                 <b-checkbox-button
+                        v-for="statusGroup of allStatusGroups"
+                        :key="statusGroup"
+                        :native-value="statusGroup"
+                        v-model="selectedStatusGroups"
+                        type="is-info"
+                >
+                    {{ statusGroup }}
+                </b-checkbox-button>
+            </b-field>
+        </div>
+        <div class="navbar-item">
+            <b-field>
+                <b-checkbox-button
                         v-for="method of allMethods"
                         :key="method"
                         :native-value="method"
@@ -64,6 +77,7 @@
                 'allRunnings',
                 'allEnvs',
                 'allTypes',
+                'allStatusGroups',
                 'allMethods',
             ]),
 
@@ -91,6 +105,15 @@
                 },
                 set(selectedTypes) {
                     this.$store.commit('trackers/updateFilter', { type: selectedTypes });
+                },
+            },
+
+            selectedStatusGroups: {
+                get() {
+                    return this.$store.state.trackers.filter.statusGroup;
+                },
+                set(selectedStatusGroups) {
+                    this.$store.commit('trackers/updateFilter', { statusGroup: selectedStatusGroups });
                 },
             },
 

@@ -50,7 +50,8 @@ describe('Trackers Store Module', () => {
         state.allRunnings = [ 'a' ];
         state.allEnvs = [ 'b' ];
         state.allTypes = [ 'c' ];
-        state.allMethods = [ 'd' ];
+        state.allStatusGroups = [ 'd' ];
+        state.allMethods = [ 'e' ];
 
         trackers.getters.filtered(state);
 
@@ -59,7 +60,8 @@ describe('Trackers Store Module', () => {
             running: [ 'a' ],
             env: [ 'b' ],
             type: [ 'c' ],
-            method: [ 'd' ],
+            statusGroup: [ 'd' ],
+            method: [ 'e' ],
         })).to.be.true;
     });
 
@@ -159,6 +161,39 @@ describe('Trackers Store Module', () => {
 
         expect(state.filter.type).to.deep.equal([
             dummyTrackerB.type,
+        ]);
+    });
+
+    it('returns filter with enabled statusGroups', () => {
+        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, dummyTrackerB);
+
+        expect(state.filter.statusGroup).to.be.instanceOf(Array);
+        expect(state.filter.statusGroup).to.deep.equal([
+            dummyTracker.statusGroup,
+            dummyTrackerB.statusGroup,
+        ]);
+    });
+
+    it('new enabled statusGroup can be added to filter only if does not exist in all statusGroups', () => {
+        trackers.mutations.store(state, dummyTracker);
+        state.filter.statusGroup = [];
+        trackers.mutations.store(state, dummyTracker);
+
+        expect(state.filter.statusGroup).to.deep.equal([]);
+
+        trackers.mutations.store(state, dummyTrackerB);
+
+        expect(state.filter.statusGroup).to.deep.equal([
+            dummyTrackerB.statusGroup,
+        ]);
+
+        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, dummyTrackerB);
+
+        expect(state.filter.statusGroup).to.deep.equal([
+            dummyTrackerB.statusGroup,
         ]);
     });
 

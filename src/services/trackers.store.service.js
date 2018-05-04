@@ -16,6 +16,11 @@ export const trackersService = {
         state.allTypes = helper.uniqueOf(state.allTypes, tracker.type).sort();
     },
 
+    updateStatusGroupFilter(state, tracker) {
+        helper.isNotIn(state.allStatusGroups, tracker.statusGroup) && state.filter.statusGroup.push(tracker.statusGroup);
+        state.allStatusGroups = helper.uniqueOf(state.allStatusGroups, tracker.statusGroup).sort();
+    },
+
     updateMethodFilter(state, tracker) {
         helper.isNotIn(state.allMethods, tracker.method) && state.filter.method.push(tracker.method);
         state.allMethods = helper.uniqueOf(state.allMethods, tracker.method).sort();

@@ -17,14 +17,14 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('running, env, type and method checkbox group items are all selected by default', (done) => {
+    it('running, env, type, statusGroup and method checkbox group items are all selected by default', (done) => {
         [
             dummyTracker,
             dummyTrackerB,
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('label.b-checkbox.is-info').length).to.equal(8);
+            expect(wrapper.findAll('label.b-checkbox.is-info').length).to.equal(10);
             done();
         });
     });
@@ -115,6 +115,34 @@ describe('HeaderFilter Component', () => {
         });
     });
 
+    it('sees unique statusGroup checkbox group', (done) => {
+        [
+            Object.assign({}, dummyTracker, { statusGroup: '2xx' }),
+            Object.assign({}, dummyTracker, { statusGroup: '2xx' }),
+            Object.assign({}, dummyTracker, { statusGroup: '3xx' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('input[value="2xx"]').length).to.equal(1);
+            expect(wrapper.findAll('input[value="3xx"]').length).to.equal(1);
+            done();
+        });
+    });
+
+    it('statusGroup checkbox group is listed in ascending order', (done) => {
+        [
+            Object.assign({}, dummyTracker, { statusGroup: '3xx' }),
+            Object.assign({}, dummyTracker, { statusGroup: '2xx' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.vm.$nextTick(() => {
+            let inputs = wrapper.findAll('input');
+            expect(inputs.at(3).attributes().value).to.equal('2xx');
+            expect(inputs.at(4).attributes().value).to.equal('3xx');
+            done();
+        });
+    });
+
     it('sees unique method checkbox group', (done) => {
         [
             Object.assign({}, dummyTracker, { method: 'GET' }),
@@ -137,8 +165,8 @@ describe('HeaderFilter Component', () => {
 
         wrapper.vm.$nextTick(() => {
             let inputs = wrapper.findAll('input');
-            expect(inputs.at(3).attributes().value).to.equal('GET');
-            expect(inputs.at(4).attributes().value).to.equal('POST');
+            expect(inputs.at(4).attributes().value).to.equal('GET');
+            expect(inputs.at(5).attributes().value).to.equal('POST');
             done();
         });
     });

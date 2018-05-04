@@ -155,6 +155,30 @@ describe('Dashboard Component', () => {
         });
     });
 
+    it('filters profilers by statusGroup', (done) => {
+        [
+            Object.assign({}, dummyTracker, { status: 201, statusGroup: '2xx' }),
+            Object.assign({}, dummyTracker, { status: 301, statusGroup: '3xx' }),
+        ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
+
+        wrapper.setData({ perPage: 1 });
+
+        wrapper.vm.$forceUpdate();
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.find('table').text()).to.contain('301');
+            expect(wrapper.find('table').text()).to.not.contain('201');
+
+            wrapper.vm.$store.commit('trackers/updateFilter', { statusGroup: [ '2xx' ] });
+
+            wrapper.vm.$forceUpdate();
+            wrapper.vm.$nextTick(() => {
+                expect(wrapper.find('table').text()).to.contain('201');
+                expect(wrapper.find('table').text()).to.not.contain('301');
+                done();
+            });
+        });
+    });
+
     it('filters profilers by method', (done) => {
         [
             Object.assign({}, dummyTracker, { method: 'GET' }),
