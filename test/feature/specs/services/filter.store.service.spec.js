@@ -48,14 +48,14 @@ describe('Filter Store Service', () => {
                 dummyTrackerB.env,
                 dummyTrackerBDiffEnv.env,
             ],
-            version: [
-                dummyTracker.version,
-                dummyTrackerB.version,
-                dummyTrackerBDiffVersion.version,
+            laravel_version: [
+                dummyTracker.laravel_version,
+                dummyTrackerB.laravel_version,
+                dummyTrackerBDiffVersion.laravel_version,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerB,
             dummyTrackerB,
@@ -70,14 +70,14 @@ describe('Filter Store Service', () => {
                 dummyTracker.env,
                 dummyTrackerBDiffEnv.env,
             ],
-            version: [
-                dummyTracker.version,
-                dummyTrackerB.version,
-                dummyTrackerBDiffVersion.version,
+            laravel_version: [
+                dummyTracker.laravel_version,
+                dummyTrackerB.laravel_version,
+                dummyTrackerBDiffVersion.laravel_version,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerBDiffEnv,
         ]);
@@ -89,13 +89,13 @@ describe('Filter Store Service', () => {
                 dummyTracker.env,
                 dummyTrackerBDiffEnv.env,
             ],
-            version: [
-                dummyTrackerB.version,
-                dummyTrackerBDiffVersion.version,
+            laravel_version: [
+                dummyTrackerB.laravel_version,
+                dummyTrackerBDiffVersion.laravel_version,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([
             dummyTrackerBDiffEnv,
         ]);
     });
@@ -103,10 +103,10 @@ describe('Filter Store Service', () => {
     it('exclude all data when filter groups are empty but exist in filter', () => {
         let filterBy = {
             env: [],
-            version: [],
+            laravel_version: [],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], version: [] })).to.deep.equal([]);
+        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([]);
     });
 
     it('returns all data when filter groups are not present in filter', () => {
@@ -126,19 +126,19 @@ describe('Filter Store Service', () => {
 
         let filterBy = {
             env: [ dummyTracker.env, dummyTrackerB.env ],
-            version: [ dummyTracker.version ],
+            laravel_version: [ dummyTracker.laravel_version ],
             id: [ dummyTracker.id ],
         };
 
         filterService.filter([ dummyTracker, dummyTrackerB ], filterBy, {
             env: [ dummyTrackerB.env, dummyTracker.env ],
-            version: [ dummyTrackerB.version, dummyTracker.version ],
+            laravel_version: [ dummyTrackerB.laravel_version, dummyTracker.laravel_version ],
             id: [ dummyTrackerB.id, dummyTracker.id ],
         });
 
         expect(spy.callCount).to.equal(3);
-        expect(spy.getCall(0).calledWith([ dummyTracker.version ], dummyTracker.version)).to.be.true;
+        expect(spy.getCall(0).calledWith([ dummyTracker.laravel_version ], dummyTracker.laravel_version)).to.be.true;
         expect(spy.getCall(1).calledWith([ dummyTracker.id ], dummyTracker.id)).to.be.true;
-        expect(spy.getCall(2).calledWith([ dummyTracker.version ], dummyTrackerB.version)).to.be.true;
+        expect(spy.getCall(2).calledWith([ dummyTracker.laravel_version ], dummyTrackerB.laravel_version)).to.be.true;
     });
 });

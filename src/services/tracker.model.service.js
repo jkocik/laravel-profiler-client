@@ -3,24 +3,20 @@ import moment from 'moment';
 const missing = '---';
 
 export const trackerService = {
-    executionTimeAt(executionTimeAt) {
-        return moment.unix(executionTimeAt).format('HH:mm:ss');
+    executionAt(executionAt) {
+        return moment.unix(executionAt).format('HH:mm:ss');
     },
 
     running(isRunningInConsole) {
         return isRunningInConsole ? 'console' : 'web';
     },
 
-    method(method) {
-        return method || missing;
+    type(type) {
+        return type || missing;
     },
 
-    http(isAjax) {
-        if (isAjax === null) {
-            return missing;
-        }
-
-        return isAjax ? 'ajax' : 'regular';
+    method(method) {
+        return method || missing;
     },
 
     status(status) {

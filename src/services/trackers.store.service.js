@@ -11,9 +11,9 @@ export const trackersService = {
         state.allEnvs = helper.uniqueOf(state.allEnvs, tracker.env).sort();
     },
 
-    updateHttpFilter(state, tracker) {
-        helper.isNotIn(state.allHttp, tracker.http) && state.filter.http.push(tracker.http);
-        state.allHttp = helper.uniqueOf(state.allHttp, tracker.http).sort();
+    updateTypeFilter(state, tracker) {
+        helper.isNotIn(state.allTypes, tracker.type) && state.filter.type.push(tracker.type);
+        state.allTypes = helper.uniqueOf(state.allTypes, tracker.type).sort();
     },
 
     updateMethodFilter(state, tracker) {

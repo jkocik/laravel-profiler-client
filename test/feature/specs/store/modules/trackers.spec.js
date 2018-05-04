@@ -49,7 +49,7 @@ describe('Trackers Store Module', () => {
         state.all = [ dummyTracker ];
         state.allRunnings = [ 'a' ];
         state.allEnvs = [ 'b' ];
-        state.allHttp = [ 'c' ];
+        state.allTypes = [ 'c' ];
         state.allMethods = [ 'd' ];
 
         trackers.getters.filtered(state);
@@ -58,7 +58,7 @@ describe('Trackers Store Module', () => {
         expect(spy.lastCall.calledWith(state.all, state.filter, {
             running: [ 'a' ],
             env: [ 'b' ],
-            http: [ 'c' ],
+            type: [ 'c' ],
             method: [ 'd' ],
         })).to.be.true;
     });
@@ -129,36 +129,36 @@ describe('Trackers Store Module', () => {
         ]);
     });
 
-    it('returns filter with enabled http', () => {
+    it('returns filter with enabled type', () => {
         trackers.mutations.store(state, dummyTracker);
         trackers.mutations.store(state, dummyTracker);
         trackers.mutations.store(state, dummyTrackerB);
 
-        expect(state.filter.http).to.be.instanceOf(Array);
-        expect(state.filter.http).to.deep.equal([
-            dummyTracker.http,
-            dummyTrackerB.http,
+        expect(state.filter.type).to.be.instanceOf(Array);
+        expect(state.filter.type).to.deep.equal([
+            dummyTracker.type,
+            dummyTrackerB.type,
         ]);
     });
 
-    it('new enabled http can be added to filter only if does not exist in all http', () => {
+    it('new enabled type can be added to filter only if does not exist in all types', () => {
         trackers.mutations.store(state, dummyTracker);
-        state.filter.http = [];
+        state.filter.type = [];
         trackers.mutations.store(state, dummyTracker);
 
-        expect(state.filter.http).to.deep.equal([]);
+        expect(state.filter.type).to.deep.equal([]);
 
         trackers.mutations.store(state, dummyTrackerB);
 
-        expect(state.filter.http).to.deep.equal([
-            dummyTrackerB.http,
+        expect(state.filter.type).to.deep.equal([
+            dummyTrackerB.type,
         ]);
 
         trackers.mutations.store(state, dummyTracker);
         trackers.mutations.store(state, dummyTrackerB);
 
-        expect(state.filter.http).to.deep.equal([
-            dummyTrackerB.http,
+        expect(state.filter.type).to.deep.equal([
+            dummyTrackerB.type,
         ]);
     });
 

@@ -29,13 +29,13 @@
         <div class="navbar-item">
             <b-field>
                 <b-checkbox-button
-                        v-for="http of allHttp"
-                        :key="http"
-                        :native-value="http"
-                        v-model="selectedHttp"
+                        v-for="type of allTypes"
+                        :key="type"
+                        :native-value="type"
+                        v-model="selectedTypes"
                         type="is-info"
                 >
-                    {{ http }}
+                    {{ type }}
                 </b-checkbox-button>
             </b-field>
         </div>
@@ -63,7 +63,7 @@
             ...mapGetters('trackers', [
                 'allRunnings',
                 'allEnvs',
-                'allHttp',
+                'allTypes',
                 'allMethods',
             ]),
 
@@ -85,12 +85,12 @@
                 },
             },
 
-            selectedHttp: {
+            selectedTypes: {
                 get() {
-                    return this.$store.state.trackers.filter.http;
+                    return this.$store.state.trackers.filter.type;
                 },
-                set(selectedHttp) {
-                    this.$store.commit('trackers/updateFilter', { http: selectedHttp });
+                set(selectedTypes) {
+                    this.$store.commit('trackers/updateFilter', { type: selectedTypes });
                 },
             },
 

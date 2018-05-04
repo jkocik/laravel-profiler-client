@@ -21,7 +21,7 @@
                     <td>
                         <b-taglist attached>
                             <b-tag type="is-white">{{ $t('message.dashboard.at') }}</b-tag>
-                            <b-tag type="is-light">{{ props.row.executionTimeAt }}</b-tag>
+                            <b-tag type="is-light">{{ props.row.executionAt }}</b-tag>
                         </b-taglist>
                     </td>
                     <td>
@@ -39,13 +39,12 @@
                     <td>
                         <b-taglist attached>
                             <b-tag type="is-white">v</b-tag>
-                            <b-tag type="is-light">{{ props.row.version }}</b-tag>
+                            <b-tag type="is-light">{{ props.row.laravel_version }}/{{ props.row.php_version }}</b-tag>
                         </b-taglist>
                     </td>
                     <td>
                         <b-taglist attached>
-                            <b-tag type="is-white">http</b-tag>
-                            <b-tag type="is-light">{{ props.row.http }}</b-tag>
+                            <b-tag type="is-light">{{ props.row.type }}</b-tag>
                         </b-taglist>
                     </td>
                     <td>

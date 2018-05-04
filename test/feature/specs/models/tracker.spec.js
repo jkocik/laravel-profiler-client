@@ -3,10 +3,10 @@ import Binding from '@/models/binding';
 import { dummyTrackerData, dummyTrackerDataB } from './../../../fixtures/es6';
 
 describe('Tracker Model', () => {
-    it('has required executionTimeAt', () => {
+    it('has required executionAt', () => {
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.executionTimeAt).to.equal('07:56:07');
+        expect(tracker.executionAt).to.equal('07:56:07');
     });
 
     it('has required id', () => {
@@ -15,10 +15,16 @@ describe('Tracker Model', () => {
         expect(tracker.id).to.equal(dummyTrackerData.meta.id);
     });
 
-    it('has required version', () => {
+    it('has required laravel version', () => {
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.version).to.equal(dummyTrackerData.meta.version);
+        expect(tracker.laravel_version).to.equal(dummyTrackerData.meta.laravel_version);
+    });
+
+    it('has required php version', () => {
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.php_version).to.equal(dummyTrackerData.meta.php_version);
     });
 
     it('has required env', () => {
@@ -35,22 +41,20 @@ describe('Tracker Model', () => {
         expect(trackerB.running).to.equal('web');
     });
 
+    it('has required type', () => {
+        let trackerA = new Tracker(dummyTrackerData);
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
+
+        expect(trackerA.type).to.equal(dummyTrackerData.meta.type);
+        expect(trackerB.type).to.equal('---');
+    });
+
     it('has required method', () => {
         let trackerA = new Tracker(dummyTrackerData);
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { method: null } }));
 
         expect(trackerA.method).to.equal(dummyTrackerData.meta.method);
         expect(trackerB.method).to.equal('---');
-    });
-
-    it('has required http', () => {
-        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_ajax: true } }));
-        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_ajax: false } }));
-        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_ajax: null } }));
-
-        expect(trackerA.http).to.equal('ajax');
-        expect(trackerB.http).to.equal('regular');
-        expect(trackerC.http).to.equal('---');
     });
 
     it('has required status', () => {

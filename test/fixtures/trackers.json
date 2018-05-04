@@ -1,13 +1,14 @@
 [
     {
         "meta": {
-            "execution_time_at": 1234567,
+            "execution_at": 1234567,
             "id": "abc4567890abc4567890abc456789012",
-            "version": "5.6.0",
+            "laravel_version": "5.6.0",
+            "php_version": "7.1.2",
             "env": "local",
             "is_running_in_console": false,
+            "type": "http",
             "method": "POST",
-            "is_ajax": true,
             "path": "/",
             "status": 200
         },
@@ -26,13 +27,14 @@
     },
     {
         "meta": {
-            "execution_time_at": 7654321,
+            "execution_at": 7654321,
             "id": "12345678901234567890123456789012",
-            "version": "5.5.0",
+            "laravel_version": "5.5.0",
+            "php_version": "7.0.1",
             "env": "testing",
             "is_running_in_console": true,
+            "type": "command",
             "method": "GET",
-            "is_ajax": false,
             "path": "/missing-page",
             "status": 404
         },

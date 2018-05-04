@@ -28,11 +28,12 @@ describe('Dashboard Component', () => {
         wrapper.vm.$nextTick(() => {
             expect(wrapper.find('p').exists()).to.be.false;
             expect(wrapper.vm.$store.state.trackers.all).to.have.lengthOf(1);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(1)').text()).to.contain(dummyTracker.executionTimeAt);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(1)').text()).to.contain(dummyTracker.executionAt);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(dummyTracker.running);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTracker.env);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTracker.version);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.contain(dummyTracker.http);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTracker.laravel_version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTracker.php_version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.contain(dummyTracker.type);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.method);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.status);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.path);
@@ -49,10 +50,10 @@ describe('Dashboard Component', () => {
             expect(wrapper.vm.$store.state.trackers.all).to.have.lengthOf(2);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(dummyTrackerB.running);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTrackerB.env);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTrackerB.version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTrackerB.laravel_version);
             expect(wrapper.find('table tr:nth-child(2) td:nth-child(2)').text()).to.contain(dummyTracker.running);
             expect(wrapper.find('table tr:nth-child(2) td:nth-child(3)').text()).to.contain(dummyTracker.env);
-            expect(wrapper.find('table tr:nth-child(2) td:nth-child(4)').text()).to.contain(dummyTracker.version);
+            expect(wrapper.find('table tr:nth-child(2) td:nth-child(4)').text()).to.contain(dummyTracker.laravel_version);
             done();
         });
     });
@@ -132,25 +133,25 @@ describe('Dashboard Component', () => {
         });
     });
 
-    it('filters profilers by http', (done) => {
+    it('filters profilers by type', (done) => {
         [
-            Object.assign({}, dummyTracker, { http: 'regular' }),
-            Object.assign({}, dummyTracker, { http: 'ajax' }),
+            Object.assign({}, dummyTracker, { type: 'command' }),
+            Object.assign({}, dummyTracker, { type: 'http' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 1 });
 
         wrapper.vm.$forceUpdate();
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.find('table').text()).to.contain('ajax');
-            expect(wrapper.find('table').text()).to.not.contain('regular');
+            expect(wrapper.find('table').text()).to.contain('http');
+            expect(wrapper.find('table').text()).to.not.contain('command');
 
-            wrapper.vm.$store.commit('trackers/updateFilter', { http: [ 'regular' ] });
+            wrapper.vm.$store.commit('trackers/updateFilter', { type: [ 'command' ] });
 
             wrapper.vm.$forceUpdate();
             wrapper.vm.$nextTick(() => {
-                expect(wrapper.find('table').text()).to.contain('regular');
-                expect(wrapper.find('table').text()).to.not.contain('ajax');
+                expect(wrapper.find('table').text()).to.contain('command');
+                expect(wrapper.find('table').text()).to.not.contain('http');
                 done();
             });
         });

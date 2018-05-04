@@ -17,7 +17,7 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('running, env, http and method checkbox group items are all selected by default', (done) => {
+    it('running, env, type and method checkbox group items are all selected by default', (done) => {
         [
             dummyTracker,
             dummyTrackerB,
@@ -87,30 +87,30 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('sees unique http checkbox group', (done) => {
+    it('sees unique type checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { http: 'regular' }),
-            Object.assign({}, dummyTracker, { http: 'regular' }),
-            Object.assign({}, dummyTracker, { http: 'ajax' }),
+            Object.assign({}, dummyTracker, { type: 'http' }),
+            Object.assign({}, dummyTracker, { type: 'http' }),
+            Object.assign({}, dummyTracker, { type: 'command' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('input[value=regular]').length).to.equal(1);
-            expect(wrapper.findAll('input[value=ajax]').length).to.equal(1);
+            expect(wrapper.findAll('input[value=http]').length).to.equal(1);
+            expect(wrapper.findAll('input[value=command]').length).to.equal(1);
             done();
         });
     });
 
-    it('http checkbox group is listed in ascending order', (done) => {
+    it('type checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { http: 'regular' }),
-            Object.assign({}, dummyTracker, { http: 'ajax' }),
+            Object.assign({}, dummyTracker, { type: 'http' }),
+            Object.assign({}, dummyTracker, { type: 'command' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
             let inputs = wrapper.findAll('input');
-            expect(inputs.at(2).attributes().value).to.equal('ajax');
-            expect(inputs.at(3).attributes().value).to.equal('regular');
+            expect(inputs.at(2).attributes().value).to.equal('command');
+            expect(inputs.at(3).attributes().value).to.equal('http');
             done();
         });
     });
