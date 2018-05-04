@@ -23,9 +23,13 @@ export const trackerService = {
         return status || missing;
     },
 
-    statusGroup(status) {
+    statusGroup(status, type) {
         if (! status) {
             return missing;
+        }
+
+        if (type === 'command') {
+            return 'exitCode';
         }
 
         const group = [2, 3, 4, 5].find((item) => {
@@ -35,17 +39,18 @@ export const trackerService = {
         return `${group}xx`;
     },
 
-    statusColor(status) {
+    statusColor(status, type) {
         const colors = {
             '2xx': 'is-success',
-            '3xx': 'is-dark',
+            '3xx': 'is-primary',
             '4xx': 'is-warning',
             '5xx': 'is-danger',
             '?xx': 'is-light',
             [missing]: 'is-light',
+            'exitCode': 'is-dark',
         };
 
-        return colors[this.statusGroup(status)];
+        return colors[this.statusGroup(status, type)];
     },
 
     path(path) {

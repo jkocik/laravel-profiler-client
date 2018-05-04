@@ -51,8 +51,8 @@ describe('HeaderFilter Component', () => {
 
         wrapper.vm.$nextTick(() => {
             let inputs = wrapper.findAll('input');
-            expect(inputs.at(0).attributes().value).to.equal('console');
-            expect(inputs.at(1).attributes().value).to.equal('web');
+            expect(inputs.at(1).attributes().value).to.equal('console');
+            expect(inputs.at(2).attributes().value).to.equal('web');
             done();
         });
     });

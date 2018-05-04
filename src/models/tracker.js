@@ -12,8 +12,8 @@ export default class Tracker {
         this.type = trackerService.type(data.meta.type);
         this.method = trackerService.method(data.meta.method);
         this.status = trackerService.status(data.meta.status);
-        this.statusGroup = trackerService.statusGroup(data.meta.status);
-        this.statusColor = trackerService.statusColor(data.meta.status);
+        this.statusGroup = trackerService.statusGroup(data.meta.status, data.meta.type);
+        this.statusColor = trackerService.statusColor(data.meta.status, data.meta.type);
         this.path = trackerService.path(data.meta.path);
 
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));

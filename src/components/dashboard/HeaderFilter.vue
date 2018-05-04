@@ -3,6 +3,19 @@
         <div class="navbar-item">
             <b-field>
                 <b-checkbox-button
+                        v-for="env of allEnvs"
+                        :key="env"
+                        :native-value="env"
+                        v-model="selectedEnvs"
+                        type="is-info"
+                >
+                    {{ env }}
+                </b-checkbox-button>
+            </b-field>
+        </div>
+        <div class="navbar-item">
+            <b-field>
+                <b-checkbox-button
                         v-for="running of allRunnings"
                         :key="running"
                         :native-value="running"
@@ -10,19 +23,6 @@
                         type="is-info"
                 >
                     {{ running }}
-                </b-checkbox-button>
-            </b-field>
-        </div>
-        <div class="navbar-item">
-            <b-field>
-                <b-checkbox-button
-                    v-for="env of allEnvs"
-                    :key="env"
-                    :native-value="env"
-                    v-model="selectedEnvs"
-                    type="is-info"
-                >
-                    {{ env }}
                 </b-checkbox-button>
             </b-field>
         </div>
