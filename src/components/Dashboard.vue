@@ -45,13 +45,20 @@
                         <b-taglist attached>
                             <b-tag :type="props.row.statusColor">{{ props.row.status }}</b-tag>
                             <b-tag type="is-light">{{ props.row.method }}</b-tag>
-                            <b-tag type="is-light">{{ props.row.path }}</b-tag>
+                            <b-tooltip
+                                :label="props.row.path"
+                                type="is-light"
+                                position="is-bottom"
+                            >
+                                <b-tag type="is-light">{{ props.row.path }}</b-tag>
+                            </b-tooltip>
                         </b-taglist>
                     </td>
                     <td>
                         <b-taglist attached>
                             <b-tag type="is-white">v</b-tag>
-                            <b-tag type="is-light">{{ props.row.laravel_version }}/{{ props.row.php_version }}</b-tag>
+                            <b-tag type="is-light">{{ props.row.laravel_version }}</b-tag>
+                            <b-tag type="is-light">{{ props.row.php_version }}</b-tag>
                         </b-taglist>
                     </td>
                 </template>
@@ -99,9 +106,18 @@
                 td:nth-child(1),
                 td:nth-child(2),
                 td:nth-child(3),
-                td:nth-child(4),
-                td:nth-child(6)
+                td:nth-child(4)
                     width: 100px
+
+                td:nth-child(6)
+                    width: 115px
+
+                td:nth-child(5)
+                    .tag
+                        white-space: nowrap
+                        overflow: hidden
+                        max-width: 150px
+                        justify-content: flex-end
 
         .tag
             font-size: .78rem
