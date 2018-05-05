@@ -17,7 +17,7 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('running, env, type, statusGroup and method checkbox group items are all selected by default', (done) => {
+    it('running, env, typeGroup, statusGroup and method checkbox group items are all selected by default', (done) => {
         [
             dummyTracker,
             dummyTrackerB,
@@ -87,11 +87,11 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('sees unique type checkbox group', (done) => {
+    it('sees unique typeGroup checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { type: 'http' }),
-            Object.assign({}, dummyTracker, { type: 'http' }),
-            Object.assign({}, dummyTracker, { type: 'command' }),
+            Object.assign({}, dummyTracker, { typeGroup: 'http' }),
+            Object.assign({}, dummyTracker, { typeGroup: 'http' }),
+            Object.assign({}, dummyTracker, { typeGroup: 'command' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -101,10 +101,10 @@ describe('HeaderFilter Component', () => {
         });
     });
 
-    it('type checkbox group is listed in ascending order', (done) => {
+    it('typeGroup checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { type: 'http' }),
-            Object.assign({}, dummyTracker, { type: 'command' }),
+            Object.assign({}, dummyTracker, { typeGroup: 'http' }),
+            Object.assign({}, dummyTracker, { typeGroup: 'command' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {

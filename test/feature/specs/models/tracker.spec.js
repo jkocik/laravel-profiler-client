@@ -42,11 +42,19 @@ describe('Tracker Model', () => {
     });
 
     it('has required type', () => {
-        let trackerA = new Tracker(dummyTrackerData);
-        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http / ajax' } }));
+        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command' } }));
+        let trackerD = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
 
-        expect(trackerA.type).to.equal(dummyTrackerData.meta.type);
-        expect(trackerB.type).to.equal('---');
+        expect(trackerA.type).to.equal('http');
+        expect(trackerA.typeGroup).to.equal('http');
+        expect(trackerB.type).to.equal('http / ajax');
+        expect(trackerB.typeGroup).to.equal('http');
+        expect(trackerC.type).to.equal('command');
+        expect(trackerC.typeGroup).to.equal('command');
+        expect(trackerD.type).to.equal('---');
+        expect(trackerD.typeGroup).to.equal('---');
     });
 
     it('has required method', () => {

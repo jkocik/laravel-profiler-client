@@ -49,7 +49,7 @@ describe('Trackers Store Module', () => {
         state.all = [ dummyTracker ];
         state.allRunnings = [ 'a' ];
         state.allEnvs = [ 'b' ];
-        state.allTypes = [ 'c' ];
+        state.allTypeGroups = [ 'c' ];
         state.allStatusGroups = [ 'd' ];
         state.allMethods = [ 'e' ];
 
@@ -59,7 +59,7 @@ describe('Trackers Store Module', () => {
         expect(spy.lastCall.calledWith(state.all, state.filter, {
             running: [ 'a' ],
             env: [ 'b' ],
-            type: [ 'c' ],
+            typeGroup: [ 'c' ],
             statusGroup: [ 'd' ],
             method: [ 'e' ],
         })).to.be.true;
@@ -131,36 +131,36 @@ describe('Trackers Store Module', () => {
         ]);
     });
 
-    it('returns filter with enabled type', () => {
+    it('returns filter with enabled typeGroup', () => {
         trackers.mutations.store(state, dummyTracker);
         trackers.mutations.store(state, dummyTracker);
         trackers.mutations.store(state, dummyTrackerB);
 
-        expect(state.filter.type).to.be.instanceOf(Array);
-        expect(state.filter.type).to.deep.equal([
-            dummyTracker.type,
-            dummyTrackerB.type,
+        expect(state.filter.typeGroup).to.be.instanceOf(Array);
+        expect(state.filter.typeGroup).to.deep.equal([
+            dummyTracker.typeGroup,
+            dummyTrackerB.typeGroup,
         ]);
     });
 
-    it('new enabled type can be added to filter only if does not exist in all types', () => {
+    it('new enabled typeGroup can be added to filter only if does not exist in all typeGroups', () => {
         trackers.mutations.store(state, dummyTracker);
-        state.filter.type = [];
+        state.filter.typeGroup = [];
         trackers.mutations.store(state, dummyTracker);
 
-        expect(state.filter.type).to.deep.equal([]);
+        expect(state.filter.typeGroup).to.deep.equal([]);
 
         trackers.mutations.store(state, dummyTrackerB);
 
-        expect(state.filter.type).to.deep.equal([
-            dummyTrackerB.type,
+        expect(state.filter.typeGroup).to.deep.equal([
+            dummyTrackerB.typeGroup,
         ]);
 
         trackers.mutations.store(state, dummyTracker);
         trackers.mutations.store(state, dummyTrackerB);
 
-        expect(state.filter.type).to.deep.equal([
-            dummyTrackerB.type,
+        expect(state.filter.typeGroup).to.deep.equal([
+            dummyTrackerB.typeGroup,
         ]);
     });
 

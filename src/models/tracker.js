@@ -10,6 +10,7 @@ export default class Tracker {
         this.env = data.meta.env;
         this.running = trackerService.running(data.meta.is_running_in_console);
         this.type = trackerService.type(data.meta.type);
+        this.typeGroup = trackerService.typeGroup(data.meta.type);
         this.method = trackerService.method(data.meta.method);
         this.status = trackerService.status(data.meta.status);
         this.statusGroup = trackerService.statusGroup(data.meta.status, data.meta.type);

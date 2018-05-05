@@ -133,18 +133,18 @@ describe('Dashboard Component', () => {
 
     it('filters profilers by type', (done) => {
         [
-            Object.assign({}, dummyTracker, { type: 'command' }),
-            Object.assign({}, dummyTracker, { type: 'http' }),
+            Object.assign({}, dummyTracker, { type: 'command', typeGroup: 'command' }),
+            Object.assign({}, dummyTracker, { type: 'http / ajax', typeGroup: 'http' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 1 });
 
         wrapper.vm.$forceUpdate();
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.find('table').text()).to.contain('http');
+            expect(wrapper.find('table').text()).to.contain('http ');
             expect(wrapper.find('table').text()).to.not.contain('command');
 
-            wrapper.vm.$store.commit('trackers/updateFilter', { type: [ 'command' ] });
+            wrapper.vm.$store.commit('trackers/updateFilter', { typeGroup: [ 'command' ] });
 
             wrapper.vm.$forceUpdate();
             wrapper.vm.$nextTick(() => {

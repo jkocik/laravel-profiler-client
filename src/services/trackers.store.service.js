@@ -11,9 +11,9 @@ export const trackersService = {
         state.allEnvs = helper.uniqueOf(state.allEnvs, tracker.env).sort();
     },
 
-    updateTypeFilter(state, tracker) {
-        helper.isNotIn(state.allTypes, tracker.type) && state.filter.type.push(tracker.type);
-        state.allTypes = helper.uniqueOf(state.allTypes, tracker.type).sort();
+    updateTypeGroupFilter(state, tracker) {
+        helper.isNotIn(state.allTypeGroups, tracker.typeGroup) && state.filter.typeGroup.push(tracker.typeGroup);
+        state.allTypeGroups = helper.uniqueOf(state.allTypeGroups, tracker.typeGroup).sort();
     },
 
     updateStatusGroupFilter(state, tracker) {

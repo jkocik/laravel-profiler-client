@@ -29,13 +29,13 @@
         <div class="navbar-item">
             <b-field>
                 <b-checkbox-button
-                        v-for="type of allTypes"
-                        :key="type"
-                        :native-value="type"
-                        v-model="selectedTypes"
+                        v-for="typeGroup of allTypeGroups"
+                        :key="typeGroup"
+                        :native-value="typeGroup"
+                        v-model="selectedTypeGroups"
                         type="is-info"
                 >
-                    {{ type }}
+                    {{ typeGroup }}
                 </b-checkbox-button>
             </b-field>
         </div>
@@ -76,7 +76,7 @@
             ...mapGetters('trackers', [
                 'allRunnings',
                 'allEnvs',
-                'allTypes',
+                'allTypeGroups',
                 'allStatusGroups',
                 'allMethods',
             ]),
@@ -99,12 +99,12 @@
                 },
             },
 
-            selectedTypes: {
+            selectedTypeGroups: {
                 get() {
-                    return this.$store.state.trackers.filter.type;
+                    return this.$store.state.trackers.filter.typeGroup;
                 },
-                set(selectedTypes) {
-                    this.$store.commit('trackers/updateFilter', { type: selectedTypes });
+                set(selectedTypeGroups) {
+                    this.$store.commit('trackers/updateFilter', { typeGroup: selectedTypeGroups });
                 },
             },
 

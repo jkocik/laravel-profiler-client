@@ -15,6 +15,14 @@ export const trackerService = {
         return type || missing;
     },
 
+    typeGroup(type) {
+        if (! type) {
+            return missing;
+        }
+
+        return type.split(' ')[0];
+    },
+
     method(method) {
         return method || missing;
     },

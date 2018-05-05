@@ -57,8 +57,9 @@
                     <td>
                         <b-taglist attached>
                             <b-tag type="is-white">v</b-tag>
-                            <b-tag type="is-light">{{ props.row.laravel_version }}</b-tag>
-                            <b-tag type="is-light">{{ props.row.php_version }}</b-tag>
+                            <b-tag type="is-light">
+                                {{ props.row.laravel_version }} / {{ props.row.php_version }}
+                            </b-tag>
                         </b-taglist>
                     </td>
                 </template>
