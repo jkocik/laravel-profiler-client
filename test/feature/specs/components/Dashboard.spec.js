@@ -28,15 +28,15 @@ describe('Dashboard Component', () => {
         wrapper.vm.$nextTick(() => {
             expect(wrapper.find('p').exists()).to.be.false;
             expect(wrapper.vm.$store.state.trackers.all).to.have.lengthOf(1);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(1)').text()).to.contain(dummyTracker.executionAt);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(dummyTracker.env);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTracker.running);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTracker.type);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.contain(dummyTracker.method);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.contain(dummyTracker.status);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.contain(dummyTracker.path);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.laravel_version);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.php_version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(dummyTracker.executionAt);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTracker.env);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTracker.running);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(5)').text()).to.contain(dummyTracker.type);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.method);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.status);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.path);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(dummyTracker.laravel_version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(dummyTracker.php_version);
             done();
         });
     });
@@ -48,10 +48,10 @@ describe('Dashboard Component', () => {
         wrapper.vm.$forceUpdate();
         wrapper.vm.$nextTick(() => {
             expect(wrapper.vm.$store.state.trackers.all).to.have.lengthOf(2);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(dummyTrackerB.env);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTrackerB.running);
-            expect(wrapper.find('table tr:nth-child(2) td:nth-child(2)').text()).to.contain(dummyTracker.env);
-            expect(wrapper.find('table tr:nth-child(2) td:nth-child(3)').text()).to.contain(dummyTracker.running);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(dummyTrackerB.env);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(4)').text()).to.contain(dummyTrackerB.running);
+            expect(wrapper.find('table tr:nth-child(2) td:nth-child(3)').text()).to.contain(dummyTracker.env);
+            expect(wrapper.find('table tr:nth-child(2) td:nth-child(4)').text()).to.contain(dummyTracker.running);
             done();
         });
     });
@@ -200,6 +200,23 @@ describe('Dashboard Component', () => {
                 expect(wrapper.find('table').text()).to.not.contain('POST');
                 done();
             });
+        });
+    });
+
+    it('toggles visibility of row details', (done) => {
+        wrapper.vm.$store.commit('trackers/store', dummyTracker);
+        wrapper.vm.$store.commit('trackers/store', dummyTrackerB);
+
+        wrapper.vm.$forceUpdate();
+        wrapper.vm.$nextTick(() => {
+            let tr = wrapper.find('table tr:nth-child(1)');
+            tr.trigger('click');
+            expect(wrapper.find('table tr:nth-child(1) + tr.detail').exists()).to.be.true;
+            expect(wrapper.find('table tr:nth-child(1) + tr.detail').isVisible()).to.be.true;
+            expect(wrapper.find('table tr:nth-child(1) + tr.detail td').attributes().colspan).to.equal('6');
+            tr.trigger('click');
+            expect(wrapper.find('table tr:nth-child(1) + tr.detail').exists()).to.be.false;
+            done();
         });
     });
 });

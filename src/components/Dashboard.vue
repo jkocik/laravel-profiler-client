@@ -9,12 +9,17 @@
             <header-filter></header-filter>
         </nav>
         <div class="container is-widescreen">
-            <b-table
+            <dashboard-table
                 :data="trackers"
                 :narrowed="true"
                 :focusable="true"
                 :paginated="true"
                 :per-page="perPage"
+                :row-class="rowClass"
+                detailed
+                detail-key="id"
+                :opened-detailed="detailsOpened"
+                @click="rowClicked"
                 class="has-hidden-thead has-hidden-pagination-arrows"
             >
                 <template slot-scope="props">
@@ -68,7 +73,7 @@
                         {{ $t('message.dashboard.trackers-list-is-empty') }}
                     </p>
                 </template>
-            </b-table>
+            </dashboard-table>
         </div>
     </section>
 </template>
@@ -76,20 +81,31 @@
 <script>
     import { mapGetters } from 'vuex';
     import HeaderFilter from './dashboard/HeaderFilter';
+    import DashboardTable from './dashboard/DashboardTable';
 
     export default {
         components: {
             HeaderFilter,
+            DashboardTable,
         },
         computed: {
             ...mapGetters('trackers', {
                 trackers: 'filtered',
+                detailsOpened: 'detailsOpened',
             }),
         },
         data() {
             return {
                 perPage: 15,
             };
+        },
+        methods: {
+            rowClass() {
+                return 'tracker-row';
+            },
+            rowClicked(row) {
+                this.$store.commit('trackers/toggleDetailsOpened', row.id);
+            },
         },
     };
 </script>
@@ -98,28 +114,34 @@
     h1
         font-size: 1.5rem
 
-    nav.is-fixed-top + nav
-        top: 4rem
+    nav
+        &.is-fixed-top
+            & + nav
+                top: 4rem
 
     table
-        tbody
-            tr
-                td:nth-child(1),
-                td:nth-child(2),
-                td:nth-child(3),
-                td:nth-child(4)
-                    width: 100px
-
-                td:nth-child(6)
-                    width: 115px
-
-                td:nth-child(5)
-                    .tag
-                        white-space: nowrap
-                        overflow: hidden
-                        max-width: 150px
-                        justify-content: flex-end
-
         .tag
             font-size: .78rem
+
+        tbody
+            tr
+                &.tracker-row
+                    td
+                        cursor: pointer
+
+                    td:nth-child(2),
+                    td:nth-child(3),
+                    td:nth-child(4),
+                    td:nth-child(5)
+                        width: 100px
+
+                    td:nth-child(7)
+                        width: 115px
+
+                    td:nth-child(6)
+                        .tag
+                            white-space: nowrap
+                            overflow: hidden
+                            max-width: 150px
+                            justify-content: flex-end
 </style>

@@ -25,4 +25,14 @@ export const trackersService = {
         helper.isNotIn(state.allMethods, tracker.method) && state.filter.method.push(tracker.method);
         state.allMethods = helper.uniqueOf(state.allMethods, tracker.method).sort();
     },
+
+    toggleDetailsOpened(state, id) {
+        const index = state.detailsOpened.indexOf(id);
+
+        if (~index) {
+            return state.detailsOpened.splice(index, 1);
+        }
+
+        state.detailsOpened.push(id);
+    },
 };

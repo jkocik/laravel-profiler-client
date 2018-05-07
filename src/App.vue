@@ -16,10 +16,18 @@
         &.has-navbar-fixed-top
             padding-top: 7.5rem
 
-    .has-hidden-thead table thead
-        display: none
+    .has-hidden-thead
+        table
+            thead
+                display: none
 
-    .has-hidden-pagination-arrows
+            tbody
+                tr
+                    &.tracker-row
+                        td:nth-child(1)
+                            display: none
+
+        .has-hidden-pagination-arrows
         .pagination-previous
             display: none
 
