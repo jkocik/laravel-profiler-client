@@ -14,7 +14,7 @@ const getters = {
     allTypeGroups: state => state.allTypeGroups,
     allStatusGroups: state => state.allStatusGroups,
     allMethods: state => state.allMethods,
-    detailsOpened: state => state.detailsOpened,
+    openedDetails: state => state.openedDetails,
 };
 
 const mutations = {
@@ -31,8 +31,8 @@ const mutations = {
         Object.assign(state.filter, filterBy);
     },
 
-    toggleDetailsOpened(state, id) {
-        trackersService.toggleDetailsOpened(state, id);
+    toggleOpenedDetails(state, id) {
+        trackersService.toggleOpenedDetails(state, id);
     },
 };
 
@@ -51,7 +51,7 @@ export function trackersFactory() {
             statusGroup: [],
             method: [],
         },
-        detailsOpened: [],
+        openedDetails: [],
     };
 
     return {

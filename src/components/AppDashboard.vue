@@ -18,7 +18,7 @@
                 :row-class="rowClass"
                 detailed
                 detail-key="id"
-                :opened-detailed="detailsOpened"
+                :opened-detailed="openedDetails"
                 @click="rowClicked"
                 class="has-hidden-thead has-hidden-pagination-arrows"
             >
@@ -71,6 +71,9 @@
                 <template slot="empty">
                     <dashboard-empty></dashboard-empty>
                 </template>
+                <template slot="detail">
+                    <dashboard-details></dashboard-details>
+                </template>
             </dashboard-table>
         </div>
     </section>
@@ -81,17 +84,19 @@
     import DashboardTable from './dashboard/DashboardTable';
     import DashboardEmpty from './dashboard/DashboardEmpty';
     import DashboardFilter from './dashboard/DashboardFilter';
+    import DashboardDetails from './dashboard/DashboardDetails';
 
     export default {
         components: {
             DashboardTable,
             DashboardEmpty,
             DashboardFilter,
+            DashboardDetails,
         },
         computed: {
             ...mapGetters('trackers', {
                 trackers: 'filtered',
-                detailsOpened: 'detailsOpened',
+                openedDetails: 'openedDetails',
             }),
         },
         data() {
@@ -104,7 +109,7 @@
                 return 'tracker-row';
             },
             rowClicked(row) {
-                this.$store.commit('trackers/toggleDetailsOpened', row.id);
+                this.$store.commit('trackers/toggleOpenedDetails', row.id);
             },
         },
     };

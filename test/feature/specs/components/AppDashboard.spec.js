@@ -210,12 +210,19 @@ describe('AppDashboard Component', () => {
         wrapper.vm.$forceUpdate();
         wrapper.vm.$nextTick(() => {
             let tr = wrapper.find('table tr:nth-child(1)');
+
             tr.trigger('click');
-            expect(wrapper.find('table tr:nth-child(1) + tr.detail').exists()).to.be.true;
-            expect(wrapper.find('table tr:nth-child(1) + tr.detail').isVisible()).to.be.true;
-            expect(wrapper.find('table tr:nth-child(1) + tr.detail td').attributes().colspan).to.equal('6');
+            let detailsA = wrapper.find('table tr:nth-child(1) + tr.detail');
+            expect(detailsA.exists()).to.be.true;
+            expect(detailsA.isVisible()).to.be.true;
+            expect(detailsA.find('td').attributes().colspan).to.equal('6');
+            expect(detailsA.text()).to.contain(wrapper.vm.$t('message.dashboard.details.tabs.request'));
+            expect(detailsA.text()).to.contain(wrapper.vm.$t('message.dashboard.details.tabs.response'));
+
             tr.trigger('click');
-            expect(wrapper.find('table tr:nth-child(1) + tr.detail').exists()).to.be.false;
+            let detailsB = wrapper.find('table tr:nth-child(1) + tr.detail');
+            expect(detailsB.exists()).to.be.false;
+
             done();
         });
     });

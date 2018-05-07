@@ -26,14 +26,14 @@ export const trackersService = {
         state.allMethods = helper.uniqueOf(state.allMethods, tracker.method).sort();
     },
 
-    toggleDetailsOpened(state, id) {
-        const index = state.detailsOpened.indexOf(id);
+    toggleOpenedDetails(state, id) {
+        const index = state.openedDetails.indexOf(id);
 
         if (~index) {
-            state.detailsOpened.splice(index, 1);
+            state.openedDetails.splice(index, 1);
             return;
         }
 
-        state.detailsOpened.push(id);
+        state.openedDetails.push(id);
     },
 };

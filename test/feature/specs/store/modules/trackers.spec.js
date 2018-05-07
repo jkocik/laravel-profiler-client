@@ -230,19 +230,19 @@ describe('Trackers Store Module', () => {
         ]);
     });
 
-    it('toggles details opened', () => {
-        trackers.mutations.toggleDetailsOpened(state, dummyTracker.id);
-        trackers.mutations.toggleDetailsOpened(state, dummyTrackerB.id);
+    it('toggles opened details', () => {
+        trackers.mutations.toggleOpenedDetails(state, dummyTracker.id);
+        trackers.mutations.toggleOpenedDetails(state, dummyTrackerB.id);
 
-        expect(state.detailsOpened).to.be.instanceOf(Array);
-        expect(state.detailsOpened).to.deep.equal([
+        expect(state.openedDetails).to.be.instanceOf(Array);
+        expect(state.openedDetails).to.deep.equal([
             dummyTracker.id,
             dummyTrackerB.id,
         ]);
 
-        trackers.mutations.toggleDetailsOpened(state, dummyTracker.id);
+        trackers.mutations.toggleOpenedDetails(state, dummyTracker.id);
 
-        expect(state.detailsOpened).to.deep.equal([
+        expect(state.openedDetails).to.deep.equal([
             dummyTrackerB.id,
         ]);
     });
