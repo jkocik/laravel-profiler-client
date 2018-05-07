@@ -30,7 +30,8 @@ export const trackersService = {
         const index = state.detailsOpened.indexOf(id);
 
         if (~index) {
-            return state.detailsOpened.splice(index, 1);
+            state.detailsOpened.splice(index, 1);
+            return;
         }
 
         state.detailsOpened.push(id);
