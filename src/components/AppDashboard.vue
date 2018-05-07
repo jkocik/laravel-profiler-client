@@ -69,9 +69,7 @@
                     </td>
                 </template>
                 <template slot="empty">
-                    <p class="has-text-centered">
-                        {{ $t('message.dashboard.trackers-list-is-empty') }}
-                    </p>
+                    <dashboard-empty></dashboard-empty>
                 </template>
             </dashboard-table>
         </div>
@@ -80,13 +78,15 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import DashboardFilter from './dashboard/DashboardFilter';
     import DashboardTable from './dashboard/DashboardTable';
+    import DashboardEmpty from './dashboard/DashboardEmpty';
+    import DashboardFilter from './dashboard/DashboardFilter';
 
     export default {
         components: {
-            DashboardFilter,
             DashboardTable,
+            DashboardEmpty,
+            DashboardFilter,
         },
         computed: {
             ...mapGetters('trackers', {
