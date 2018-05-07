@@ -6,7 +6,7 @@
             </div>
         </nav>
         <nav class="navbar is-fixed-top">
-            <header-filter></header-filter>
+            <dashboard-filter></dashboard-filter>
         </nav>
         <div class="container is-widescreen">
             <dashboard-table
@@ -80,12 +80,12 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import HeaderFilter from './dashboard/HeaderFilter';
+    import DashboardFilter from './dashboard/DashboardFilter';
     import DashboardTable from './dashboard/DashboardTable';
 
     export default {
         components: {
-            HeaderFilter,
+            DashboardFilter,
             DashboardTable,
         },
         computed: {

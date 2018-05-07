@@ -1,17 +1,17 @@
 import Buefy from 'buefy';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { storeFactory } from '@/store';
-import HeaderFilter from '@/components/dashboard/HeaderFilter';
+import DashboardFilter from '@/components/dashboard/DashboardFilter';
 import { dummyTracker, dummyTrackerB } from './../../../../fixtures/es6';
 
-describe('HeaderFilter Component', () => {
+describe('DashboardFilter Component', () => {
     let wrapper;
 
     beforeEach(() => {
         let localVue = createLocalVue();
         localVue.use(Buefy);
 
-        wrapper = mount(HeaderFilter, {
+        wrapper = mount(DashboardFilter, {
             localVue,
             store: storeFactory(),
         });

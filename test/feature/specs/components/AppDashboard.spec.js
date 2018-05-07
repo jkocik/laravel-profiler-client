@@ -2,17 +2,17 @@ import Buefy from 'buefy';
 import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
 import { storeFactory } from '@/store';
-import Dashboard from '@/components/Dashboard';
+import AppDashboard from '@/components/AppDashboard';
 import { dummyTracker, dummyTrackerB } from './../../../fixtures/es6';
 
-describe('Dashboard Component', () => {
+describe('AppDashboard Component', () => {
     let wrapper;
 
     beforeEach(() => {
         let localVue = createLocalVue();
         localVue.use(Buefy);
 
-        wrapper = mount(Dashboard, {
+        wrapper = mount(AppDashboard, {
             localVue,
             store: storeFactory(),
             i18n,
