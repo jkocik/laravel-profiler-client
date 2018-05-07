@@ -6,6 +6,7 @@ export default {
             via: 'via',
             details: {
                 tabs: {
+                    app: 'App',
                     request: 'Request',
                     response: 'Response',
                 },

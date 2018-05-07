@@ -12,7 +12,7 @@
             <dashboard-table
                 :data="trackers"
                 :narrowed="true"
-                :focusable="true"
+                :hoverable="true"
                 :paginated="true"
                 :per-page="perPage"
                 :row-class="rowClass"

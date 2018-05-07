@@ -216,8 +216,6 @@ describe('AppDashboard Component', () => {
             expect(detailsA.exists()).to.be.true;
             expect(detailsA.isVisible()).to.be.true;
             expect(detailsA.find('td').attributes().colspan).to.equal('6');
-            expect(detailsA.text()).to.contain(wrapper.vm.$t('message.dashboard.details.tabs.request'));
-            expect(detailsA.text()).to.contain(wrapper.vm.$t('message.dashboard.details.tabs.response'));
 
             tr.trigger('click');
             let detailsB = wrapper.find('table tr:nth-child(1) + tr.detail');
