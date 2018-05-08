@@ -1,6 +1,7 @@
 import Buefy from 'buefy';
 import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
+import { storeFactory } from '@/store';
 import DashboardDetails from '@/components/dashboard/DashboardDetails';
 
 describe('DashboardDetails Component', () => {
@@ -12,6 +13,7 @@ describe('DashboardDetails Component', () => {
 
         wrapper = mount(DashboardDetails, {
             localVue,
+            store: storeFactory(),
             i18n,
         });
     });

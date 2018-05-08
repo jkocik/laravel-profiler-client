@@ -34,6 +34,10 @@ const mutations = {
     toggleOpenedDetails(state, id) {
         trackersService.toggleOpenedDetails(state, id);
     },
+
+    updateLastActiveDetailsTab(state, tab) {
+        state.lastActiveDetailsTab = tab;
+    },
 };
 
 export function trackersFactory() {
@@ -52,6 +56,7 @@ export function trackersFactory() {
             method: [],
         },
         openedDetails: [],
+        lastActiveDetailsTab: 0,
     };
 
     return {

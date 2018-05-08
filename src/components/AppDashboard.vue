@@ -68,11 +68,11 @@
                         </b-taglist>
                     </td>
                 </template>
+                <template slot="detail" slot-scope="props">
+                    <dashboard-details></dashboard-details>
+                </template>
                 <template slot="empty">
                     <dashboard-empty></dashboard-empty>
-                </template>
-                <template slot="detail">
-                    <dashboard-details></dashboard-details>
                 </template>
             </dashboard-table>
         </div>

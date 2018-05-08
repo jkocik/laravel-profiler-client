@@ -212,16 +212,60 @@ describe('AppDashboard Component', () => {
             let tr = wrapper.find('table tr:nth-child(1)');
 
             tr.trigger('click');
-            let detailsA = wrapper.find('table tr:nth-child(1) + tr.detail');
-            expect(detailsA.exists()).to.be.true;
-            expect(detailsA.isVisible()).to.be.true;
-            expect(detailsA.find('td').attributes().colspan).to.equal('6');
+            let trDetailsA = wrapper.find('table tr:nth-child(1) + tr.detail');
+            expect(trDetailsA.exists()).to.be.true;
+            expect(trDetailsA.isVisible()).to.be.true;
+            expect(trDetailsA.find('td').attributes().colspan).to.equal('6');
 
             tr.trigger('click');
-            let detailsB = wrapper.find('table tr:nth-child(1) + tr.detail');
-            expect(detailsB.exists()).to.be.false;
+            let trDetailsABis = wrapper.find('table tr:nth-child(1) + tr.detail');
+            expect(trDetailsABis.exists()).to.be.false;
 
             done();
+        });
+    });
+
+    it('remembers last active tab of any details row and uses it when next details are opened to activate the same tab', (done) => {
+        wrapper.vm.$store.commit('trackers/store', dummyTracker);
+        wrapper.vm.$store.commit('trackers/store', dummyTrackerB);
+
+        wrapper.vm.$forceUpdate();
+        wrapper.vm.$nextTick(() => {
+            let trA = wrapper.find('table tr.tracker-row:nth-child(1)');
+            let trB = wrapper.find('table tr.tracker-row:nth-child(2)');
+            let trDetailsA = () => wrapper.findAll('tr.detail').at(0);
+            let trDetailsB = () => wrapper.findAll('tr.detail').at(1);
+            let firstTabOf = (trDetails) => trDetails.findAll('li').at(0);
+            let secondTabOf = (trDetails) => trDetails.findAll('li').at(1);
+            let firstTabLinkOf = (trDetails) => trDetails.findAll('li a').at(0);
+            let secondTabLinkOf = (trDetails) => trDetails.findAll('li a').at(1);
+
+            trA.trigger('click');
+            wrapper.vm.$nextTick(() => {
+                expect(firstTabOf(trDetailsA()).classes()).to.contains('is-active');
+                expect(secondTabOf(trDetailsA()).classes()).to.not.contains('is-active');
+
+                secondTabLinkOf(trDetailsA()).trigger('click');
+                wrapper.vm.$nextTick(() => {
+                    expect(firstTabOf(trDetailsA()).classes()).to.not.contains('is-active');
+                    expect(secondTabOf(trDetailsA()).classes()).to.contains('is-active');
+
+                    trB.trigger('click');
+                    wrapper.vm.$nextTick(() => {
+                        expect(firstTabOf(trDetailsB()).classes()).to.not.contains('is-active');
+                        expect(secondTabOf(trDetailsB()).classes()).to.contains('is-active');
+
+                        firstTabLinkOf(trDetailsB()).trigger('click');
+                        wrapper.vm.$nextTick(() => {
+                            expect(firstTabOf(trDetailsA()).classes()).to.not.contains('is-active');
+                            expect(secondTabOf(trDetailsA()).classes()).to.contains('is-active');
+                            expect(firstTabOf(trDetailsB()).classes()).to.contains('is-active');
+                            expect(secondTabOf(trDetailsB()).classes()).to.not.contains('is-active');
+                            done();
+                        });
+                    });
+                });
+            });
         });
     });
 });
