@@ -1,13 +1,22 @@
+import Tracker from '@/models/tracker';
 import helperService from '@/services/helper.service';
 import { filterService } from '@/services/filter.store.service';
-import { dummyTracker, dummyTrackerB } from './../../../fixtures/es6';
+import { dummyTrackerData, dummyTrackerDataB } from './../../../fixtures/es6';
 
 describe('Filter Store Service', () => {
-    let dummyTrackerBDiffEnv = Object.assign({}, dummyTrackerB, { env: 'production' });
-    let dummyTrackerBDiffVersion = Object.assign({}, dummyTrackerB, { version: '5.4.0' });
+    let dummyTracker;
+    let dummyTrackerB;
+    let dummyTrackerBDiffEnv;
+    let dummyTrackerBDiffVersion;
     let data;
 
     beforeEach(() => {
+        dummyTracker = new Tracker(dummyTrackerData);
+        dummyTrackerB = new Tracker(dummyTrackerDataB);
+        dummyTrackerBDiffEnv = new Tracker(dummyTrackerDataB);
+        dummyTrackerBDiffEnv.env = 'production';
+        dummyTrackerBDiffVersion = new Tracker(dummyTrackerDataB);
+        dummyTrackerBDiffVersion.laravel_version = '5.4.0';
         data = [
             dummyTracker,
             dummyTrackerB,
@@ -34,7 +43,7 @@ describe('Filter Store Service', () => {
             dummyTrackerBDiffVersion,
         ]);
 
-        delete filterBy.env[1];
+        filterBy.env.splice(1, 1);
         expect(filterService.filter(data, filterBy, { env: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerBDiffEnv,

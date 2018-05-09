@@ -1,11 +1,14 @@
 import Buefy from 'buefy';
 import { createLocalVue, mount } from '@vue/test-utils';
+import Tracker from '@/models/tracker';
 import { storeFactory } from '@/store';
 import DashboardFilter from '@/components/dashboard/DashboardFilter';
-import { dummyTracker, dummyTrackerB } from './../../../../fixtures/es6';
+import { dummyTrackerData, dummyTrackerDataB } from './../../../../fixtures/es6';
 
 describe('DashboardFilter Component', () => {
     let wrapper;
+    let dummyTracker;
+    let dummyTrackerB;
 
     beforeEach(() => {
         let localVue = createLocalVue();
@@ -15,6 +18,9 @@ describe('DashboardFilter Component', () => {
             localVue,
             store: storeFactory(),
         });
+
+        dummyTracker = new Tracker(dummyTrackerData);
+        dummyTrackerB = new Tracker(dummyTrackerDataB);
     });
 
     it('running, env, typeGroup, statusGroup and method checkbox group items are all selected by default', (done) => {

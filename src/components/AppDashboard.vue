@@ -69,7 +69,7 @@
                     </td>
                 </template>
                 <template slot="detail" slot-scope="props">
-                    <dashboard-details></dashboard-details>
+                    <dashboard-details :tracker="props.row"></dashboard-details>
                 </template>
                 <template slot="empty">
                     <dashboard-empty></dashboard-empty>

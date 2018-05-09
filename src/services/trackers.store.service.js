@@ -36,4 +36,8 @@ export const trackersService = {
 
         state.openedDetails.push(id);
     },
+
+    findTracker(state, id) {
+        return state.all.find(item => item.id === id);
+    },
 };

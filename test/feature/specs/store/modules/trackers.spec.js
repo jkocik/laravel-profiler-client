@@ -1,14 +1,19 @@
+import Tracker from '@/models/tracker';
 import { trackersFactory } from '@/store/modules/trackers';
 import { filterService } from '@/services/filter.store.service';
-import { dummyTracker, dummyTrackerB } from './../../../../fixtures/es6';
+import { dummyTrackerData, dummyTrackerDataB } from './../../../../fixtures/es6';
 
 describe('Trackers Store Module', () => {
     let trackers;
     let state;
+    let dummyTracker;
+    let dummyTrackerB;
 
     beforeEach(() => {
         trackers = trackersFactory();
         state = Object.assign({}, trackers.state);
+        dummyTracker = new Tracker(dummyTrackerData);
+        dummyTrackerB = new Tracker(dummyTrackerDataB);
     });
 
     it('is namespaced', () => {

@@ -35,8 +35,12 @@ const mutations = {
         trackersService.toggleOpenedDetails(state, id);
     },
 
-    updateLastActiveDetailsTab(state, tab) {
-        state.lastActiveDetailsTab = tab;
+    updateLastActiveDetailsTab(state, activeTab) {
+        state.lastActiveDetailsTab = activeTab;
+    },
+
+    updateLastActiveDetailsTabOfTracker(state, { trackerId, activeTab }) {
+        trackersService.findTracker(state, trackerId).lastActiveDetailsTab = activeTab;
     },
 };
 

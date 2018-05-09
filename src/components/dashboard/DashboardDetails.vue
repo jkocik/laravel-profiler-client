@@ -1,7 +1,7 @@
 <template>
     <b-tabs
         :value="activeTab"
-        @input="updateLastActiveDetailsTab"
+        @input="updateActiveTab"
         size="is-small"
         :animated="false"
     >
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import Tracker from './../../models/tracker';
     import DetailsApp from './details/DetailsApp';
     import DetailsRequest from './details/DetailsRequest';
     import DetailsResponse from './details/DetailsResponse';
@@ -28,8 +29,12 @@
             DetailsRequest,
             DetailsResponse,
         },
+        props: {
+            tracker: Tracker,
+        },
         created() {
-            this.activeTab = this.$store.state.trackers.lastActiveDetailsTab;
+            this.activeTab = this.tracker.lastActiveDetailsTab || this.$store.state.trackers.lastActiveDetailsTab;
+            this.updateLastActiveDetailsTabOfTracker(this.activeTab);
         },
         data() {
             return {
@@ -37,8 +42,18 @@
             };
         },
         methods: {
+            updateActiveTab(activeTab) {
+                this.updateLastActiveDetailsTab(activeTab);
+                this.updateLastActiveDetailsTabOfTracker(activeTab);
+            },
             updateLastActiveDetailsTab(activeTab) {
                 this.$store.commit('trackers/updateLastActiveDetailsTab', activeTab);
+            },
+            updateLastActiveDetailsTabOfTracker(activeTab) {
+                this.$store.commit('trackers/updateLastActiveDetailsTabOfTracker', {
+                    trackerId: this.tracker.id,
+                    activeTab,
+                });
             },
         },
     };

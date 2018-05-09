@@ -1,20 +1,31 @@
 import Buefy from 'buefy';
 import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
+import Tracker from '@/models/tracker';
 import { storeFactory } from '@/store';
+import { dummyTrackerData } from './../../../../fixtures/es6';
 import DashboardDetails from '@/components/dashboard/DashboardDetails';
 
 describe('DashboardDetails Component', () => {
+    let store;
     let wrapper;
+    let dummyTracker;
 
     beforeEach(() => {
+        dummyTracker = new Tracker(dummyTrackerData);
+        store = storeFactory();
+        store.commit('trackers/store', dummyTracker);
+
         let localVue = createLocalVue();
         localVue.use(Buefy);
 
         wrapper = mount(DashboardDetails, {
             localVue,
-            store: storeFactory(),
+            store,
             i18n,
+            propsData: {
+                tracker: dummyTracker,
+            },
         });
     });
 
