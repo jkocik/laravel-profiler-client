@@ -37,9 +37,9 @@ describe('DashboardFilter Component', () => {
 
     it('sees unique running checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { running: 'console' }),
-            Object.assign({}, dummyTracker, { running: 'console' }),
-            Object.assign({}, dummyTracker, { running: 'web' }),
+            Object.assign(new Tracker(dummyTrackerData), { running: 'console' }),
+            Object.assign(new Tracker(dummyTrackerData), { running: 'console' }),
+            Object.assign(new Tracker(dummyTrackerData), { running: 'web' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -51,8 +51,8 @@ describe('DashboardFilter Component', () => {
 
     it('running checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { running: 'web' }),
-            Object.assign({}, dummyTracker, { running: 'console' }),
+            Object.assign(new Tracker(dummyTrackerData), { running: 'web' }),
+            Object.assign(new Tracker(dummyTrackerData), { running: 'console' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -65,9 +65,9 @@ describe('DashboardFilter Component', () => {
 
     it('sees unique env checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { env: 'localA' }),
-            Object.assign({}, dummyTracker, { env: 'localA' }),
-            Object.assign({}, dummyTracker, { env: 'localB' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localA' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localA' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localB' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -79,9 +79,9 @@ describe('DashboardFilter Component', () => {
 
     it('env checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { env: 'localA' }),
-            Object.assign({}, dummyTracker, { env: 'localC' }),
-            Object.assign({}, dummyTracker, { env: 'localB' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localA' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localC' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localB' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -95,9 +95,9 @@ describe('DashboardFilter Component', () => {
 
     it('sees unique typeGroup checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { typeGroup: 'http' }),
-            Object.assign({}, dummyTracker, { typeGroup: 'http' }),
-            Object.assign({}, dummyTracker, { typeGroup: 'command' }),
+            Object.assign(new Tracker(dummyTrackerData), { typeGroup: 'http' }),
+            Object.assign(new Tracker(dummyTrackerData), { typeGroup: 'http' }),
+            Object.assign(new Tracker(dummyTrackerData), { typeGroup: 'command' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -109,8 +109,8 @@ describe('DashboardFilter Component', () => {
 
     it('typeGroup checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { typeGroup: 'http' }),
-            Object.assign({}, dummyTracker, { typeGroup: 'command' }),
+            Object.assign(new Tracker(dummyTrackerData), { typeGroup: 'http' }),
+            Object.assign(new Tracker(dummyTrackerData), { typeGroup: 'command' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -123,9 +123,9 @@ describe('DashboardFilter Component', () => {
 
     it('sees unique statusGroup checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { statusGroup: '2xx' }),
-            Object.assign({}, dummyTracker, { statusGroup: '2xx' }),
-            Object.assign({}, dummyTracker, { statusGroup: '3xx' }),
+            Object.assign(new Tracker(dummyTrackerData), { statusGroup: '2xx' }),
+            Object.assign(new Tracker(dummyTrackerData), { statusGroup: '2xx' }),
+            Object.assign(new Tracker(dummyTrackerData), { statusGroup: '3xx' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -137,8 +137,8 @@ describe('DashboardFilter Component', () => {
 
     it('statusGroup checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { statusGroup: '3xx' }),
-            Object.assign({}, dummyTracker, { statusGroup: '2xx' }),
+            Object.assign(new Tracker(dummyTrackerData), { statusGroup: '3xx' }),
+            Object.assign(new Tracker(dummyTrackerData), { statusGroup: '2xx' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -151,9 +151,9 @@ describe('DashboardFilter Component', () => {
 
     it('sees unique method checkbox group', (done) => {
         [
-            Object.assign({}, dummyTracker, { method: 'GET' }),
-            Object.assign({}, dummyTracker, { method: 'GET' }),
-            Object.assign({}, dummyTracker, { method: 'POST' }),
+            Object.assign(new Tracker(dummyTrackerData), { method: 'GET' }),
+            Object.assign(new Tracker(dummyTrackerData), { method: 'GET' }),
+            Object.assign(new Tracker(dummyTrackerData), { method: 'POST' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {
@@ -165,8 +165,8 @@ describe('DashboardFilter Component', () => {
 
     it('method checkbox group is listed in ascending order', (done) => {
         [
-            Object.assign({}, dummyTracker, { method: 'POST' }),
-            Object.assign({}, dummyTracker, { method: 'GET' }),
+            Object.assign(new Tracker(dummyTrackerData), { method: 'POST' }),
+            Object.assign(new Tracker(dummyTrackerData), { method: 'GET' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.vm.$nextTick(() => {

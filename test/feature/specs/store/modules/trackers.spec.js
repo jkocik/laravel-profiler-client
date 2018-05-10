@@ -36,6 +36,16 @@ describe('Trackers Store Module', () => {
         expect(state.all).to.deep.equal([ dummyTracker ]);
     });
 
+    it('stores tracker only if is type of Tracker', () => {
+        let trackerCopyWithoutType = Object.assign({}, dummyTracker);
+        expect(dummyTracker).to.be.an.instanceof(Tracker);
+        expect(trackerCopyWithoutType).to.not.be.an.instanceof(Tracker);
+
+        let store = () => trackers.mutations.store(state, trackerCopyWithoutType);
+
+        expect(store).to.throw(TypeError);
+    });
+
     it('updates filter that should be used to filter trackers', () => {
         trackers.mutations.updateFilter(state, { env: [
             'env-a',

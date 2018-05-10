@@ -19,6 +19,7 @@ const getters = {
 
 const mutations = {
     store(state, tracker) {
+        trackersService.guardTrackerType(tracker);
         state.all.unshift(tracker);
         trackersService.updateRunningFilter(state, tracker);
         trackersService.updateEnvFilter(state, tracker);

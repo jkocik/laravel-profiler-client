@@ -13,10 +13,8 @@ describe('Filter Store Service', () => {
     beforeEach(() => {
         dummyTracker = new Tracker(dummyTrackerData);
         dummyTrackerB = new Tracker(dummyTrackerDataB);
-        dummyTrackerBDiffEnv = new Tracker(dummyTrackerDataB);
-        dummyTrackerBDiffEnv.env = 'production';
-        dummyTrackerBDiffVersion = new Tracker(dummyTrackerDataB);
-        dummyTrackerBDiffVersion.laravel_version = '5.4.0';
+        dummyTrackerBDiffEnv = Object.assign(new Tracker(dummyTrackerDataB), { env: 'production' });
+        dummyTrackerBDiffVersion = Object.assign(new Tracker(dummyTrackerDataB), { laravel_version: '5.4.0' });
         data = [
             dummyTracker,
             dummyTrackerB,

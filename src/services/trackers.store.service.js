@@ -1,6 +1,13 @@
 import helper from './helper.service';
+import Tracker from './../models/tracker';
 
 export const trackersService = {
+    guardTrackerType(tracker) {
+        if (! (tracker instanceof Tracker)) {
+            throw new TypeError('tracker must be an instance of Tracker');
+        }
+    },
+
     updateRunningFilter(state, tracker) {
         helper.isNotIn(state.allRunnings, tracker.running) && state.filter.running.push(tracker.running);
         state.allRunnings = helper.uniqueOf(state.allRunnings, tracker.running).sort();

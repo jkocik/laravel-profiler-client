@@ -64,9 +64,9 @@ describe('AppDashboard Component', () => {
 
     it('sees meta data of profiler paginated', (done) => {
         [
-            Object.assign({}, dummyTracker, { env: 'localA' }),
-            Object.assign({}, dummyTracker, { env: 'localB' }),
-            Object.assign({}, dummyTracker, { env: 'localC' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localA' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localB' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localC' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 2 });
@@ -88,8 +88,8 @@ describe('AppDashboard Component', () => {
 
     it('filters profilers by running', (done) => {
         [
-            Object.assign({}, dummyTracker, { running: 'console' }),
-            Object.assign({}, dummyTracker, { running: 'web' }),
+            Object.assign(new Tracker(dummyTrackerData), { running: 'console' }),
+            Object.assign(new Tracker(dummyTrackerData), { running: 'web' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 1 });
@@ -112,9 +112,9 @@ describe('AppDashboard Component', () => {
 
     it('filters profilers by env', (done) => {
         [
-            Object.assign({}, dummyTracker, { env: 'localA' }),
-            Object.assign({}, dummyTracker, { env: 'localB' }),
-            Object.assign({}, dummyTracker, { env: 'localC' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localA' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localB' }),
+            Object.assign(new Tracker(dummyTrackerData), { env: 'localC' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 2 });
@@ -139,8 +139,8 @@ describe('AppDashboard Component', () => {
 
     it('filters profilers by type', (done) => {
         [
-            Object.assign({}, dummyTracker, { type: 'command', typeGroup: 'command' }),
-            Object.assign({}, dummyTracker, { type: 'http / ajax', typeGroup: 'http' }),
+            Object.assign(new Tracker(dummyTrackerData), { type: 'command', typeGroup: 'command' }),
+            Object.assign(new Tracker(dummyTrackerData), { type: 'http / ajax', typeGroup: 'http' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 1 });
@@ -163,8 +163,8 @@ describe('AppDashboard Component', () => {
 
     it('filters profilers by statusGroup', (done) => {
         [
-            Object.assign({}, dummyTracker, { status: 201, statusGroup: '2xx' }),
-            Object.assign({}, dummyTracker, { status: 301, statusGroup: '3xx' }),
+            Object.assign(new Tracker(dummyTrackerData), { status: 201, statusGroup: '2xx' }),
+            Object.assign(new Tracker(dummyTrackerData), { status: 301, statusGroup: '3xx' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 1 });
@@ -187,8 +187,8 @@ describe('AppDashboard Component', () => {
 
     it('filters profilers by method', (done) => {
         [
-            Object.assign({}, dummyTracker, { method: 'GET' }),
-            Object.assign({}, dummyTracker, { method: 'POST' }),
+            Object.assign(new Tracker(dummyTrackerData), { method: 'GET' }),
+            Object.assign(new Tracker(dummyTrackerData), { method: 'POST' }),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         wrapper.setData({ perPage: 1 });
