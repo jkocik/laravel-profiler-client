@@ -89,38 +89,4 @@
     };
 </script>
 
-<style lang="sass" scoped>
-    h1
-        font-size: 1.5rem
-
-    nav
-        &.is-fixed-top
-            & + nav
-                top: 4rem
-
-    table
-        .tag
-            font-size: .78rem
-
-        tbody
-            tr
-                &.tracker-row
-                    td
-                        cursor: pointer
-
-                    td:nth-child(2),
-                    td:nth-child(3),
-                    td:nth-child(4),
-                    td:nth-child(5)
-                        width: 100px
-
-                    td:nth-child(7)
-                        width: 115px
-
-                    td:nth-child(6)
-                        .tag
-                            white-space: nowrap
-                            overflow: hidden
-                            max-width: 150px
-                            justify-content: flex-end
-</style>
+<style lang="sass" scoped src="./../css/app-dashboard-scoped.sass"></style>
