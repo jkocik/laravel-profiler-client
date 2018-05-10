@@ -21,7 +21,7 @@ module.exports = {
         browser
             .pause(1000)
             .assert.containsText('table', data.dummyTrackerData.meta.env)
-            .assert.containsText('table', data.dummyTrackerData.meta.version)
+            .assert.containsText('table', data.dummyTrackerData.meta.type)
             .assert.containsText('table', data.dummyTrackerData.meta.method)
             .end();
     },
