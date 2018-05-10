@@ -23,50 +23,12 @@
                 class="has-hidden-thead has-hidden-pagination-arrows"
             >
                 <template slot-scope="props">
-                    <td>
-                        <b-taglist attached>
-                            <b-tag type="is-white">{{ $t('message.dashboard.at') }}</b-tag>
-                            <b-tag type="is-light">{{ props.row.executionAt }}</b-tag>
-                        </b-taglist>
-                    </td>
-                    <td>
-                        <b-taglist attached>
-                            <b-tag type="is-white">env</b-tag>
-                            <b-tag type="is-light">{{ props.row.env }}</b-tag>
-                        </b-taglist>
-                    </td>
-                    <td>
-                        <b-taglist attached>
-                            <b-tag type="is-white">{{ $t('message.dashboard.via') }}</b-tag>
-                            <b-tag type="is-light">{{ props.row.running }}</b-tag>
-                        </b-taglist>
-                    </td>
-                    <td>
-                        <b-taglist attached>
-                            <b-tag type="is-light">{{ props.row.type }}</b-tag>
-                        </b-taglist>
-                    </td>
-                    <td>
-                        <b-taglist attached>
-                            <b-tag :type="props.row.statusColor">{{ props.row.status }}</b-tag>
-                            <b-tag type="is-light">{{ props.row.method }}</b-tag>
-                            <b-tooltip
-                                :label="props.row.path"
-                                type="is-light"
-                                position="is-bottom"
-                            >
-                                <b-tag type="is-light">{{ props.row.path }}</b-tag>
-                            </b-tooltip>
-                        </b-taglist>
-                    </td>
-                    <td>
-                        <b-taglist attached>
-                            <b-tag type="is-white">v</b-tag>
-                            <b-tag type="is-light">
-                                {{ props.row.laravel_version }} / {{ props.row.php_version }}
-                            </b-tag>
-                        </b-taglist>
-                    </td>
+                    <td-execution-at :tracker="props.row"></td-execution-at>
+                    <td-env :tracker="props.row"></td-env>
+                    <td-via :tracker="props.row"></td-via>
+                    <td-type :tracker="props.row"></td-type>
+                    <td-request-response :tracker="props.row"></td-request-response>
+                    <td-version :tracker="props.row"></td-version>
                 </template>
                 <template slot="detail" slot-scope="props">
                     <dashboard-details :tracker="props.row"></dashboard-details>
@@ -85,6 +47,12 @@
     import DashboardEmpty from './dashboard/DashboardEmpty';
     import DashboardFilter from './dashboard/DashboardFilter';
     import DashboardDetails from './dashboard/DashboardDetails';
+    import TdEnv from './dashboard/table/TdEnv';
+    import TdVia from './dashboard/table/TdVia';
+    import TdType from './dashboard/table/TdType';
+    import TdVersion from './dashboard/table/TdVersion';
+    import TdExecutionAt from './dashboard/table/TdExecutionAt';
+    import TdRequestResponse from './dashboard/table/TdRequestResponse';
 
     export default {
         components: {
@@ -92,6 +60,12 @@
             DashboardEmpty,
             DashboardFilter,
             DashboardDetails,
+            TdEnv,
+            TdVia,
+            TdType,
+            TdVersion,
+            TdExecutionAt,
+            TdRequestResponse,
         },
         computed: {
             ...mapGetters('trackers', {
@@ -108,8 +82,8 @@
             rowClass() {
                 return 'tracker-row';
             },
-            rowClicked(row) {
-                this.$store.commit('trackers/toggleOpenedDetails', row.id);
+            rowClicked(tracker) {
+                this.$store.commit('trackers/toggleOpenedDetails', tracker.id);
             },
         },
     };
