@@ -26,7 +26,7 @@ describe('AppDashboard Component', () => {
     });
 
     it('sees meta data of profiler after data are delivered', (done) => {
-        expect(wrapper.find('p').text()).to.contain(wrapper.vm.$t('message.dashboard.trackers-list-is-empty'));
+        expect(wrapper.find('p').text()).to.contain(wrapper.vm.$t('dashboard.trackers-list-is-empty'));
 
         wrapper.vm.$store.commit('trackers/store', dummyTracker);
 

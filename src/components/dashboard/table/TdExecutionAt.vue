@@ -1,7 +1,7 @@
 <template>
     <td>
         <b-taglist attached>
-            <b-tag type="is-white">{{ $t('message.dashboard.at') }}</b-tag>
+            <b-tag type="is-white">{{ $t('dashboard.at') }}</b-tag>
             <b-tag type="is-light">{{ tracker.executionAt }}</b-tag>
         </b-taglist>
     </td>

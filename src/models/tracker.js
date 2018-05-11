@@ -21,4 +21,12 @@ export default class Tracker {
 
         this.lastActiveDetailsTab = 0;
     }
+
+    countBindings() {
+        return this.bindings.length;
+    }
+
+    hasBindings() {
+        return !! this.countBindings();
+    }
 }

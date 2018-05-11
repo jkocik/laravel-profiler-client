@@ -118,7 +118,8 @@ describe('Tracker Model', () => {
 
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.bindings.length).to.be.equal(2);
+        expect(tracker.countBindings()).to.be.equal(2);
+        expect(tracker.hasBindings()).to.be.true;
         expect(tracker.bindings).to.deep.equal(dummyTrackerData.data.bindings);
         expect(tracker.bindings.length).to.be.equal(dummyTrackerData.data.bindings.length);
         expect(tracker.bindings[0]).to.be.an.instanceOf(Binding);
@@ -129,6 +130,7 @@ describe('Tracker Model', () => {
 
         let tracker = new Tracker(dummyTrackerDataB);
 
-        expect(tracker.bindings.length).to.be.equal(0);
+        expect(tracker.countBindings()).to.be.equal(0);
+        expect(tracker.hasBindings()).to.be.false;
     });
 });
