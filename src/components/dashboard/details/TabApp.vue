@@ -1,5 +1,5 @@
 <template>
-    <section class="details-app">
+    <section>
         <p>
             <label>{{ $t('tabs.app.env') }}</label>
             {{ tracker.env }}
@@ -39,6 +39,7 @@
     import Tracker from './../../../models/tracker';
 
     export default {
+        name: 'TabApp',
         props: {
             tracker: Tracker,
         },

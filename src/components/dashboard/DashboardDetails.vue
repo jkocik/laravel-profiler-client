@@ -9,10 +9,10 @@
             <tab-app :tracker="tracker"></tab-app>
         </b-tab-item>
         <b-tab-item :label="$t('tab-labels.request')">
-            <tab-request></tab-request>
+            <tab-request :tracker="tracker"></tab-request>
         </b-tab-item>
         <b-tab-item :label="$t('tab-labels.response')">
-            <tab-response></tab-response>
+            <tab-response :tracker="tracker"></tab-response>
         </b-tab-item>
     </b-tabs>
 </template>

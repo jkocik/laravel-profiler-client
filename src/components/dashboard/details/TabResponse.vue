@@ -1,8 +1,14 @@
 <template>
-    <section class="details-response"></section>
+    <section></section>
 </template>
 
 <script>
+    import Tracker from './../../../models/tracker';
+
     export default {
+        name: 'TabResponse',
+        props: {
+            tracker: Tracker,
+        },
     };
 </script>

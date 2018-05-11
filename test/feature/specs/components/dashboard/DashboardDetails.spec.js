@@ -5,7 +5,6 @@ import Tracker from '@/models/tracker';
 import { storeFactory } from '@/store';
 import { dummyTrackerData } from './../../../../fixtures/es6';
 import DashboardDetails from '@/components/dashboard/DashboardDetails';
-import TabApp from '@/components/dashboard/details/TabApp';
 
 describe('DashboardDetails Component', () => {
     let store;
@@ -31,31 +30,39 @@ describe('DashboardDetails Component', () => {
     });
 
     it('has app tab', (done) => {
+        let wrapperTabApp = wrapper.find({ name: 'TabApp' });
+
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(0).text()).to.contains(wrapper.vm.$t('tab-labels.app'));
-            expect(wrapper.find('.details-app').isVisible()).to.be.true;
-            expect(wrapper.find(TabApp).props().tracker).to.equal(dummyTracker);
+            expect(wrapperTabApp.isVisible()).to.be.true;
+            expect(wrapperTabApp.props().tracker).to.equal(dummyTracker);
             done();
         });
     });
 
     it('has request tab', (done) => {
+        let wrapperTabRequest = wrapper.find({ name: 'TabRequest' });
+
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(1).text()).to.contains(wrapper.vm.$t('tab-labels.request'));
             wrapper.findAll('.tabs li a').at(1).trigger('click');
             wrapper.vm.$nextTick(() => {
-                expect(wrapper.find('.details-request').isVisible()).to.be.true;
+                expect(wrapperTabRequest.isVisible()).to.be.true;
+                expect(wrapperTabRequest.props().tracker).to.equal(dummyTracker);
                 done();
             });
         });
     });
 
     it('has response tab', (done) => {
+        let wrapperTabResponse = wrapper.find({ name: 'TabResponse' });
+
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(2).text()).to.contains(wrapper.vm.$t('tab-labels.response'));
             wrapper.findAll('.tabs li a').at(2).trigger('click');
             wrapper.vm.$nextTick(() => {
-                expect(wrapper.find('.details-response').isVisible()).to.be.true;
+                expect(wrapperTabResponse.isVisible()).to.be.true;
+                expect(wrapperTabResponse.props().tracker).to.equal(dummyTracker);
                 done();
             });
         });
