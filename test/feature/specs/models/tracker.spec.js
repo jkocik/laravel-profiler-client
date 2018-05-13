@@ -1,5 +1,6 @@
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
+import Application from '@/models/application';
 import { dummyTrackerData, dummyTrackerDataB } from './../../../fixtures/es6';
 
 describe('Tracker Model', () => {
@@ -111,6 +112,16 @@ describe('Tracker Model', () => {
 
         expect(trackerA.path).to.equal(dummyTrackerData.meta.path);
         expect(trackerB.path).to.equal('---');
+    });
+
+    it('has application data', () => {
+        let trackerA = new Tracker(dummyTrackerData);
+        let trackerB = new Tracker(dummyTrackerDataB);
+
+        expect(trackerA.application).to.be.instanceOf(Application);
+        expect(trackerB.application).to.be.instanceOf(Application);
+        expect(trackerA.application).to.deep.equal(dummyTrackerData.data.application);
+        expect(trackerB.application).to.deep.equal(dummyTrackerDataB.data.application);
     });
 
     it('has bindings', () => {

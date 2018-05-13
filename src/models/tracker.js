@@ -1,4 +1,5 @@
 import Binding from './binding';
+import Application from './application';
 import { trackerService } from './../services/tracker.model.service';
 
 export default class Tracker {
@@ -16,6 +17,8 @@ export default class Tracker {
         this.statusGroup = trackerService.statusGroup(data.meta.status, data.meta.type);
         this.statusColor = trackerService.statusColor(data.meta.status, data.meta.type);
         this.path = trackerService.path(data.meta.path);
+
+        this.application = new Application(data.data.application);
 
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
 

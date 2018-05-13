@@ -13,6 +13,12 @@
             "status": 200
         },
         "data": {
+            "application": {
+                "locale": "en",
+                "routes_are_cached": false,
+                "configuration_is_cached": false,
+                "is_down_for_maintenance": false
+            },
             "bindings": [
                 {
                     "abstract": "events",
@@ -38,6 +44,13 @@
             "path": "/missing-page",
             "status": 404
         },
-        "data": []
+        "data": {
+            "application": {
+                "locale": "pl",
+                "routes_are_cached": true,
+                "configuration_is_cached": true,
+                "is_down_for_maintenance": true
+            }
+        }
     }
 ]
