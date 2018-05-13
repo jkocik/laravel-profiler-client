@@ -5,8 +5,8 @@
         size="is-small"
         :animated="false"
     >
-        <b-tab-item :label="$t('tab-labels.app')">
-            <tab-app :tracker="tracker"></tab-app>
+        <b-tab-item :label="$t('tab-labels.application')">
+            <tab-application :tracker="tracker"></tab-application>
         </b-tab-item>
         <b-tab-item :label="$t('tab-labels.request')">
             <tab-request :tracker="tracker"></tab-request>
@@ -19,15 +19,15 @@
 
 <script>
     import Tracker from './../../models/tracker';
-    import TabApp from './details/TabApp';
     import TabRequest from './details/TabRequest';
     import TabResponse from './details/TabResponse';
+    import TabApplication from './details/TabApplication';
 
     export default {
         components: {
-            TabApp,
             TabRequest,
             TabResponse,
+            TabApplication,
         },
         props: {
             tracker: Tracker,

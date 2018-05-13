@@ -29,13 +29,13 @@ describe('DashboardDetails Component', () => {
         });
     });
 
-    it('has app tab', (done) => {
-        let wrapperTabApp = wrapper.find({ name: 'TabApp' });
+    it('has application tab', (done) => {
+        let wrapperTabApplication = wrapper.find({ name: 'TabApplication' });
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(0).text()).to.contains(wrapper.vm.$t('tab-labels.app'));
-            expect(wrapperTabApp.isVisible()).to.be.true;
-            expect(wrapperTabApp.props().tracker).to.equal(dummyTracker);
+            expect(wrapper.findAll('.tabs li').at(0).text()).to.contains(wrapper.vm.$t('tab-labels.application'));
+            expect(wrapperTabApplication.isVisible()).to.be.true;
+            expect(wrapperTabApplication.props().tracker).to.equal(dummyTracker);
             done();
         });
     });
