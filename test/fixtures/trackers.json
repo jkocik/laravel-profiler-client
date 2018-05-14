@@ -19,6 +19,10 @@
                 "configuration_is_cached": false,
                 "is_down_for_maintenance": false
             },
+            "serviceProviders": [
+                "Illuminate\\Log\\LogServiceProvider",
+                "Illuminate\\Routing\\RoutingServiceProvider"
+            ],
             "bindings": [
                 {
                     "abstract": "events",

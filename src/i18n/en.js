@@ -19,6 +19,7 @@ export default {
             'is-down-for-maintenance': 'is down for maintenance',
             'env': 'environment',
             'via': 'is running via',
+            'service-providers': 'Loaded Service Providers',
             'bindings': 'Bindings',
             'resolved-as': 'resolved as',
             'not-resolved': 'was not resolved',

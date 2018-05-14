@@ -124,6 +124,28 @@ describe('Tracker Model', () => {
         expect(trackerB.application).to.deep.equal(dummyTrackerDataB.data.application);
     });
 
+    it('has service providers', () => {
+        expect(dummyTrackerData.data.serviceProviders.length).to.be.equal(2);
+
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.countServiceProviders()).to.be.equal(2);
+        expect(tracker.hasServiceProviders()).to.be.true;
+        expect(tracker.serviceProviders).to.deep.equal(dummyTrackerData.data.serviceProviders);
+        expect(tracker.serviceProviders.length).to.be.equal(dummyTrackerData.data.serviceProviders.length);
+        expect(tracker.serviceProviders[0]).to.be.a('string');
+    });
+
+    it('has empty service providers if service providers are not delivered', () => {
+        let data = Object.assign({}, dummyTrackerData.data, { serviceProviders: undefined });
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { data }));
+
+        expect(data.serviceProviders).to.be.undefined;
+        expect(tracker.serviceProviders).to.be.an('array');
+        expect(tracker.countServiceProviders()).to.be.equal(0);
+        expect(tracker.hasServiceProviders()).to.be.false;
+    });
+
     it('has bindings', () => {
         expect(dummyTrackerData.data.bindings.length).to.be.equal(2);
 
@@ -137,10 +159,11 @@ describe('Tracker Model', () => {
     });
 
     it('has empty bindings array if bindings are not delivered', () => {
-        expect(dummyTrackerDataB.data.bindings).to.be.undefined;
+        let data = Object.assign({}, dummyTrackerData.data, { bindings: undefined });
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { data }));
 
-        let tracker = new Tracker(dummyTrackerDataB);
-
+        expect(data.bindings).to.be.undefined;
+        expect(tracker.bindings).to.be.an('array');
         expect(tracker.countBindings()).to.be.equal(0);
         expect(tracker.hasBindings()).to.be.false;
     });

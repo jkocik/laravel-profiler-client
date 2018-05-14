@@ -34,9 +34,18 @@
         </p>
 
         <h2>
+            {{ $t('tabs.application.service-providers') }} ({{ tracker.countServiceProviders() }})
+        </h2>
+        <ul v-if="tracker.hasServiceProviders()" class="service-providers">
+            <li v-for="(serviceProvider, index) of tracker.serviceProviders" :key="index">
+                {{ serviceProvider }}
+            </li>
+        </ul>
+
+        <h2>
             {{ $t('tabs.application.bindings') }} ({{ tracker.countBindings() }})
         </h2>
-        <ul v-if="tracker.hasBindings()">
+        <ul v-if="tracker.hasBindings()" class="bindings">
             <li v-for="binding of tracker.bindings" :key="binding.abstract">
                 {{ binding.abstract }}
                 <span v-if="binding.resolved">

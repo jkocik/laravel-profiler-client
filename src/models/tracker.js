@@ -20,9 +20,18 @@ export default class Tracker {
 
         this.application = new Application(data.data.application);
 
+        this.serviceProviders = data.data.serviceProviders || [];
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
 
         this.lastActiveDetailsTab = 0;
+    }
+
+    countServiceProviders() {
+        return this.serviceProviders.length;
+    }
+
+    hasServiceProviders() {
+        return !! this.countServiceProviders();
     }
 
     countBindings() {

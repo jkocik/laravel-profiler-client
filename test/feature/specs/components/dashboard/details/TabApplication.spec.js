@@ -3,7 +3,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
 import Tracker from '@/models/tracker';
 import TabApplication from '@/components/dashboard/details/TabApplication';
-import { dummyTrackerData, dummyTrackerDataB } from './../../../../../fixtures/es6';
+import { dummyTrackerData } from './../../../../../fixtures/es6';
 
 describe('TabApplication Component', () => {
     let wrapper;
@@ -95,24 +95,50 @@ describe('TabApplication Component', () => {
         expect(textOfSpan('is-down-for-maintenance')).to.contain(wrapper.vm.$t('yes-no.yes'));
     });
 
-    it('has bindings', () => {
-        expect(wrapper.findAll('h2').at(0).text()).to.contain(`${wrapper.vm.$t('tabs.application.bindings')} (${dummyTracker.bindings.length})`);
-
-        expect(wrapper.findAll('li').at(0).text()).to.contain(dummyTracker.bindings[0].abstract);
-        expect(wrapper.findAll('li').at(0).text()).to.contain(wrapper.vm.$t('tabs.application.resolved-as'));
-        expect(wrapper.findAll('li').at(0).text()).to.not.contain(wrapper.vm.$t('tabs.application.not-resolved'));
-        expect(wrapper.findAll('li').at(0).text()).to.contain(dummyTracker.bindings[0].resolved);
-
-        expect(wrapper.findAll('li').at(1).text()).to.contain(dummyTracker.bindings[1].abstract);
-        expect(wrapper.findAll('li').at(1).text()).to.not.contain(wrapper.vm.$t('tabs.application.resolved-as'));
-        expect(wrapper.findAll('li').at(1).text()).to.contain(wrapper.vm.$t('tabs.application.not-resolved'));
-    });
-
-    it('bindings list is visible only if any bindings are present', () => {
-        wrapper = mountWithTracker(
-            new Tracker(dummyTrackerDataB)
+    it('has service providers', () => {
+        expect(wrapper.findAll('h2').at(0).text()).to.contain(
+            `${wrapper.vm.$t('tabs.application.service-providers')} (${dummyTracker.serviceProviders.length})`
         );
 
-        expect(wrapper.find('ul').exists()).to.be.false;
+        let wrapperServiceProviders = wrapper.find('ul.service-providers');
+
+        expect(wrapperServiceProviders.findAll('li').at(0).text()).to.contain(dummyTracker.serviceProviders[0]);
+    });
+
+    it('service providers list is visible only if any service provider is present', () => {
+        let data = Object.assign({}, dummyTrackerData.data, { serviceProviders: [] });
+
+        wrapper = mountWithTracker(
+            new Tracker(Object.assign({}, dummyTrackerData, { data }))
+        );
+
+        expect(wrapper.find('ul.service-providers').exists()).to.be.false;
+    });
+
+    it('has bindings', () => {
+        expect(wrapper.findAll('h2').at(1).text()).to.contain(
+            `${wrapper.vm.$t('tabs.application.bindings')} (${dummyTracker.bindings.length})`
+        );
+
+        let wrapperBindings = wrapper.find('ul.bindings');
+
+        expect(wrapperBindings.findAll('li').at(0).text()).to.contain(dummyTracker.bindings[0].abstract);
+        expect(wrapperBindings.findAll('li').at(0).text()).to.contain(wrapper.vm.$t('tabs.application.resolved-as'));
+        expect(wrapperBindings.findAll('li').at(0).text()).to.not.contain(wrapper.vm.$t('tabs.application.not-resolved'));
+        expect(wrapperBindings.findAll('li').at(0).text()).to.contain(dummyTracker.bindings[0].resolved);
+
+        expect(wrapperBindings.findAll('li').at(1).text()).to.contain(dummyTracker.bindings[1].abstract);
+        expect(wrapperBindings.findAll('li').at(1).text()).to.not.contain(wrapper.vm.$t('tabs.application.resolved-as'));
+        expect(wrapperBindings.findAll('li').at(1).text()).to.contain(wrapper.vm.$t('tabs.application.not-resolved'));
+    });
+
+    it('bindings list is visible only if any binding is present', () => {
+        let data = Object.assign({}, dummyTrackerData.data, { bindings: [] });
+
+        wrapper = mountWithTracker(
+            new Tracker(Object.assign({}, dummyTrackerData, { data }))
+        );
+
+        expect(wrapper.find('ul.bindings').exists()).to.be.false;
     });
 });
