@@ -23,6 +23,16 @@
                 "Illuminate\\Log\\LogServiceProvider",
                 "Illuminate\\Routing\\RoutingServiceProvider"
             ],
+            "paths": [
+                {
+                    "name": "app_path",
+                    "path": "path/to/app/directory"
+                },
+                {
+                    "name": "cached_config_path",
+                    "path": "bootstrap/cache/config.php"
+                }
+            ],
             "bindings": [
                 {
                     "abstract": "events",

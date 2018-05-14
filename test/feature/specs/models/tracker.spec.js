@@ -1,3 +1,4 @@
+import Path from '@/models/path';
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
 import Application from '@/models/application';
@@ -166,5 +167,27 @@ describe('Tracker Model', () => {
         expect(tracker.bindings).to.be.an('array');
         expect(tracker.countBindings()).to.be.equal(0);
         expect(tracker.hasBindings()).to.be.false;
+    });
+
+    it('has paths', () => {
+        expect(dummyTrackerData.data.paths.length).to.be.equal(2);
+
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.countPaths()).to.be.equal(2);
+        expect(tracker.hasPaths()).to.be.true;
+        expect(tracker.paths).to.deep.equal(dummyTrackerData.data.paths);
+        expect(tracker.paths.length).to.be.equal(dummyTrackerData.data.paths.length);
+        expect(tracker.paths[0]).to.be.an.instanceOf(Path);
+    });
+
+    it('has empty paths if paths are not delivered', () => {
+        let data = Object.assign({}, dummyTrackerData.data, { paths: undefined });
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { data }));
+
+        expect(data.paths).to.be.undefined;
+        expect(tracker.paths).to.be.an('array');
+        expect(tracker.countPaths()).to.be.equal(0);
+        expect(tracker.hasPaths()).to.be.false;
     });
 });

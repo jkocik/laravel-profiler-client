@@ -57,6 +57,15 @@
                 </span>
             </li>
         </ul>
+
+        <h2>
+            {{ $t('tabs.application.paths') }} ({{ tracker.countPaths() }})
+        </h2>
+        <ul v-if="tracker.hasPaths()" class="paths">
+            <li v-for="path of tracker.paths" :key="path.name">
+                <label>{{ path.nameForHuman }}</label> {{ path.path }}
+            </li>
+        </ul>
     </section>
 </template>
 

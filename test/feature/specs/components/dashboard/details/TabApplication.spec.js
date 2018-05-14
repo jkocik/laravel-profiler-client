@@ -112,6 +112,9 @@ describe('TabApplication Component', () => {
             new Tracker(Object.assign({}, dummyTrackerData, { data }))
         );
 
+        expect(wrapper.findAll('h2').at(0).text()).to.contain(
+            `${wrapper.vm.$t('tabs.application.service-providers')} (0)`
+        );
         expect(wrapper.find('ul.service-providers').exists()).to.be.false;
     });
 
@@ -139,6 +142,33 @@ describe('TabApplication Component', () => {
             new Tracker(Object.assign({}, dummyTrackerData, { data }))
         );
 
+        expect(wrapper.findAll('h2').at(1).text()).to.contain(
+            `${wrapper.vm.$t('tabs.application.bindings')} (0)`
+        );
         expect(wrapper.find('ul.bindings').exists()).to.be.false;
+    });
+
+    it('has paths', () => {
+        expect(wrapper.findAll('h2').at(2).text()).to.contain(
+            `${wrapper.vm.$t('tabs.application.paths')} (${dummyTracker.paths.length})`
+        );
+
+        let wrapperPaths = wrapper.find('ul.paths');
+
+        expect(wrapperPaths.findAll('li').at(0).text()).to.contain(dummyTracker.paths[0].name.replace(/_/g, ' '));
+        expect(wrapperPaths.findAll('li').at(0).text()).to.contain(dummyTracker.paths[0].path);
+    });
+
+    it('paths list is visible only if any path is present', () => {
+        let data = Object.assign({}, dummyTrackerData.data, { paths: [] });
+
+        wrapper = mountWithTracker(
+            new Tracker(Object.assign({}, dummyTrackerData, { data }))
+        );
+
+        expect(wrapper.findAll('h2').at(2).text()).to.contain(
+            `${wrapper.vm.$t('tabs.application.paths')} (0)`
+        );
+        expect(wrapper.find('ul.paths').exists()).to.be.false;
     });
 });

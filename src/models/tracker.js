@@ -1,3 +1,4 @@
+import Path from './path';
 import Binding from './binding';
 import Application from './application';
 import { trackerService } from './../services/tracker.model.service';
@@ -19,9 +20,9 @@ export default class Tracker {
         this.path = trackerService.path(data.meta.path);
 
         this.application = new Application(data.data.application);
-
         this.serviceProviders = data.data.serviceProviders || [];
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
+        this.paths = (data.data.paths || []).map(path => new Path(path));
 
         this.lastActiveDetailsTab = 0;
     }
@@ -40,5 +41,13 @@ export default class Tracker {
 
     hasBindings() {
         return !! this.countBindings();
+    }
+
+    countPaths() {
+        return this.paths.length;
+    }
+
+    hasPaths() {
+        return !! this.countPaths();
     }
 }

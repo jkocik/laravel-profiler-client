@@ -20,6 +20,7 @@ export default {
             'env': 'environment',
             'via': 'is running via',
             'service-providers': 'Loaded Service Providers',
+            'paths': 'Paths',
             'bindings': 'Bindings',
             'resolved-as': 'resolved as',
             'not-resolved': 'was not resolved',
