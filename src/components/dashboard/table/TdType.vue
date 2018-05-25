@@ -1,7 +1,7 @@
 <template>
     <td>
         <b-taglist attached>
-            <b-tag type="is-light">{{ tracker.type }}</b-tag>
+            <b-tag type="is-light">{{ tracker.typeGroup }}</b-tag>
         </b-taglist>
     </td>
 </template>

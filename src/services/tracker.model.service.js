@@ -12,42 +12,54 @@ export const trackerService = {
     },
 
     type(type) {
-        return type || missing;
+        return ['http', 'command'].find((item) => {
+            return type && type.split('-')[0] === item;
+        }) || missing;
     },
 
-    typeGroup(type) {
-        if (! type) {
-            return missing;
+    typeGroup(resolvedType, ajax, json) {
+        if (resolvedType !== 'http') {
+            return resolvedType;
         }
 
-        return type.split(' ')[0];
+        const http = {
+            http: true,
+            ajax,
+            json,
+        };
+
+        return Object.keys(http).filter(key => http[key]).join(' / ');
     },
 
     method(method) {
         return method || missing;
     },
 
+    path(path) {
+        return path || missing;
+    },
+
     status(status) {
         return status || missing;
     },
 
-    statusGroup(status, type) {
-        if (! status) {
+    statusGroup(resolvedStatus, resolvedType) {
+        if (resolvedStatus === missing) {
             return missing;
         }
 
-        if (type === 'command') {
+        if (resolvedType === 'command') {
             return 'exitCode';
         }
 
         const group = [2, 3, 4, 5].find((item) => {
-            return item === Math.floor(status / 100);
+            return item === Math.floor(resolvedStatus / 100);
         }) || '?';
 
         return `${group}xx`;
     },
 
-    statusColor(status, type) {
+    statusColor(resolvedStatusGroup) {
         const colors = {
             '2xx': 'is-success',
             '3xx': 'is-primary',
@@ -58,10 +70,6 @@ export const trackerService = {
             'exitCode': 'is-dark',
         };
 
-        return colors[this.statusGroup(status, type)];
-    },
-
-    path(path) {
-        return path || missing;
+        return colors[resolvedStatusGroup];
     },
 };

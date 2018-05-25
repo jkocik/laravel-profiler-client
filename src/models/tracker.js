@@ -12,12 +12,12 @@ export default class Tracker {
         this.env = data.meta.env;
         this.running = trackerService.running(data.meta.is_running_in_console);
         this.type = trackerService.type(data.meta.type);
-        this.typeGroup = trackerService.typeGroup(data.meta.type);
+        this.typeGroup = trackerService.typeGroup(this.type, data.meta.ajax, data.meta.json);
         this.method = trackerService.method(data.meta.method);
-        this.status = trackerService.status(data.meta.status);
-        this.statusGroup = trackerService.statusGroup(data.meta.status, data.meta.type);
-        this.statusColor = trackerService.statusColor(data.meta.status, data.meta.type);
         this.path = trackerService.path(data.meta.path);
+        this.status = trackerService.status(data.meta.status);
+        this.statusGroup = trackerService.statusGroup(this.status, this.type);
+        this.statusColor = trackerService.statusColor(this.statusGroup);
 
         this.application = new Application(data.data.application);
         this.serviceProviders = data.data.serviceProviders || [];

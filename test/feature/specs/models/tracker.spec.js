@@ -44,19 +44,28 @@ describe('Tracker Model', () => {
     });
 
     it('has required type', () => {
-        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' } }));
-        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http / ajax' } }));
-        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command' } }));
-        let trackerD = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', ajax: false, json: false } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', ajax: true, json: false } }));
+        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', ajax: false, json: true } }));
+        let trackerD = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', ajax: true, json: true } }));
+        let trackerX = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting' } }));
+        let trackerY = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-finished' } }));
+        let trackerZ = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
 
         expect(trackerA.type).to.equal('http');
         expect(trackerA.typeGroup).to.equal('http');
-        expect(trackerB.type).to.equal('http / ajax');
-        expect(trackerB.typeGroup).to.equal('http');
-        expect(trackerC.type).to.equal('command');
-        expect(trackerC.typeGroup).to.equal('command');
-        expect(trackerD.type).to.equal('---');
-        expect(trackerD.typeGroup).to.equal('---');
+        expect(trackerB.type).to.equal('http');
+        expect(trackerB.typeGroup).to.equal('http / ajax');
+        expect(trackerC.type).to.equal('http');
+        expect(trackerC.typeGroup).to.equal('http / json');
+        expect(trackerD.type).to.equal('http');
+        expect(trackerD.typeGroup).to.equal('http / ajax / json');
+        expect(trackerX.type).to.equal('command');
+        expect(trackerX.typeGroup).to.equal('command');
+        expect(trackerY.type).to.equal('command');
+        expect(trackerY.typeGroup).to.equal('command');
+        expect(trackerZ.type).to.equal('---');
+        expect(trackerZ.typeGroup).to.equal('---');
     });
 
     it('has required method', () => {
@@ -67,6 +76,14 @@ describe('Tracker Model', () => {
         expect(trackerB.method).to.equal('---');
     });
 
+    it('has required path', () => {
+        let trackerA = new Tracker(dummyTrackerData);
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { path: null } }));
+
+        expect(trackerA.path).to.equal(dummyTrackerData.meta.path);
+        expect(trackerB.path).to.equal('---');
+    });
+
     it('has required status', () => {
         let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 100 } }));
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 201 } }));
@@ -75,8 +92,9 @@ describe('Tracker Model', () => {
         let trackerE = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 504 } }));
         let trackerF = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 605 } }));
         let trackerG = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: null } }));
-        let trackerX = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command', status: 201 } }));
-        let trackerY = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command', status: null } }));
+        let trackerX = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting', status: null } }));
+        let trackerY = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-finished', status: 201 } }));
+        let trackerZ = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
 
         expect(trackerA.status).to.equal(100);
         expect(trackerA.statusGroup).to.equal('?xx');
@@ -99,20 +117,15 @@ describe('Tracker Model', () => {
         expect(trackerG.status).to.equal('---');
         expect(trackerG.statusGroup).to.equal('---');
         expect(trackerG.statusColor).to.equal('is-light');
-        expect(trackerX.status).to.equal(201);
-        expect(trackerX.statusGroup).to.equal('exitCode');
-        expect(trackerX.statusColor).to.equal('is-dark');
-        expect(trackerY.status).to.equal('---');
-        expect(trackerY.statusGroup).to.equal('---');
-        expect(trackerY.statusColor).to.equal('is-light');
-    });
-
-    it('has required path', () => {
-        let trackerA = new Tracker(dummyTrackerData);
-        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { path: null } }));
-
-        expect(trackerA.path).to.equal(dummyTrackerData.meta.path);
-        expect(trackerB.path).to.equal('---');
+        expect(trackerX.status).to.equal('---');
+        expect(trackerX.statusGroup).to.equal('---');
+        expect(trackerX.statusColor).to.equal('is-light');
+        expect(trackerY.status).to.equal(201);
+        expect(trackerY.statusGroup).to.equal('exitCode');
+        expect(trackerY.statusColor).to.equal('is-dark');
+        expect(trackerZ.status).to.equal('---');
+        expect(trackerZ.statusGroup).to.equal('---');
+        expect(trackerZ.statusColor).to.equal('is-light');
     });
 
     it('has application data', () => {
