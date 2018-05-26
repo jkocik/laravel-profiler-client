@@ -146,6 +146,26 @@ describe('Tracker Model', () => {
         expect(trackerB.application.shouldSkipMiddleware).to.equal(dummyTrackerDataB.data.application.should_skip_middleware);
     });
 
+    it('has config', () => {
+        expect(Object.keys(dummyTrackerData.data.config).length).to.be.equal(2);
+
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.countConfig()).to.be.equal(2);
+        expect(tracker.hasConfig()).to.be.true;
+        expect(tracker.config).to.deep.equal(dummyTrackerData.data.config);
+    });
+
+    it('has empty config if config is not delivered', () => {
+        let data = Object.assign({}, dummyTrackerData.data, { config: undefined });
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { data }));
+
+        expect(data.config).to.be.undefined;
+        expect(tracker.config).to.be.an('object');
+        expect(tracker.countConfig()).to.be.equal(0);
+        expect(tracker.hasConfig()).to.be.false;
+    });
+
     it('has service providers', () => {
         expect(dummyTrackerData.data.serviceProviders.length).to.be.equal(2);
 

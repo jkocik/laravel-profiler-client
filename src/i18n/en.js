@@ -7,6 +7,7 @@ export default {
     'tab-labels': {
         'app': 'App',
         'application': 'Application',
+        'config': 'Config',
         'service-providers': 'Loaded Service Providers',
         'bindings': 'Bindings',
         'paths': 'Paths',

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Buefy from 'buefy';
+import TreeView from 'vue-json-tree-view';
 import 'buefy/lib/buefy.css';
 import App from './App';
 import i18n from './i18n';
@@ -9,6 +10,7 @@ import sockets from './sockets';
 
 Vue.config.productionTip = false;
 Vue.use(Buefy);
+Vue.use(TreeView);
 
 sockets.connect();
 

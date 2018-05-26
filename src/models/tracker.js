@@ -20,11 +20,20 @@ export default class Tracker {
         this.statusColor = trackerService.statusColor(this.statusGroup);
 
         this.application = new Application(data.data.application);
+        this.config = data.data.config || {};
         this.serviceProviders = data.data.serviceProviders || [];
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
         this.paths = (data.data.paths || []).map(path => new Path(path));
 
         this.lastActiveDetailsTab = 0;
+    }
+
+    countConfig() {
+        return Object.keys(this.config).length;
+    }
+
+    hasConfig() {
+        return !! this.countConfig();
     }
 
     countServiceProviders() {

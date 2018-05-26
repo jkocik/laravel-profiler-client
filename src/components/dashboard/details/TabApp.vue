@@ -6,6 +6,9 @@
         <b-tab-item :label="$t('tab-labels.application')">
             <tab-application :tracker="tracker"></tab-application>
         </b-tab-item>
+        <b-tab-item :disabled="! tracker.hasConfig()" :label="configLabel()">
+            <tab-config v-if="tracker.hasConfig()" :tracker="tracker"></tab-config>
+        </b-tab-item>
         <b-tab-item :disabled="! tracker.hasServiceProviders()" :label="serviceProvidersLabel()">
             <tab-service-providers v-if="tracker.hasServiceProviders()" :tracker="tracker"></tab-service-providers>
         </b-tab-item>
@@ -21,6 +24,7 @@
 <script>
     import Tracker from './../../../models/tracker';
     import TabPaths from './TabPaths';
+    import TabConfig from './TabConfig';
     import TabBindings from './TabBindings';
     import TabApplication from './TabApplication';
     import TabServiceProviders from './TabServiceProviders';
@@ -29,6 +33,7 @@
         name: 'TabApp',
         components: {
             TabPaths,
+            TabConfig,
             TabBindings,
             TabApplication,
             TabServiceProviders,
@@ -37,6 +42,11 @@
             tracker: Tracker,
         },
         methods: {
+            configLabel() {
+                return this.tracker.hasConfig()
+                    ? `${this.$t('tab-labels.config')} (${this.tracker.countConfig()})`
+                    : this.$t('tab-labels.config');
+            },
             pathsLabel() {
                 return this.tracker.hasPaths()
                     ? `${this.$t('tab-labels.paths')} (${this.tracker.countPaths()})`

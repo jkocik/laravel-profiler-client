@@ -1,4 +1,5 @@
 import Buefy from 'buefy';
+import TreeView from 'vue-json-tree-view';
 import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
 import Tracker from '@/models/tracker';
@@ -14,6 +15,7 @@ describe('AppDashboard Component', () => {
     beforeEach(() => {
         let localVue = createLocalVue();
         localVue.use(Buefy);
+        localVue.use(TreeView);
 
         wrapper = mount(AppDashboard, {
             localVue,
