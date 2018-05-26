@@ -133,9 +133,17 @@ describe('Tracker Model', () => {
         let trackerB = new Tracker(dummyTrackerDataB);
 
         expect(trackerA.application).to.be.instanceOf(Application);
+        expect(trackerA.application.locale).to.equal(dummyTrackerData.data.application.locale);
+        expect(trackerA.application.routesAreCached).to.equal(dummyTrackerData.data.application.routes_are_cached);
+        expect(trackerA.application.configurationIsCached).to.equal(dummyTrackerData.data.application.configuration_is_cached);
+        expect(trackerA.application.isDownForMaintenance).to.equal(dummyTrackerData.data.application.is_down_for_maintenance);
+        expect(trackerA.application.shouldSkipMiddleware).to.equal(dummyTrackerData.data.application.should_skip_middleware);
         expect(trackerB.application).to.be.instanceOf(Application);
-        expect(trackerA.application).to.deep.equal(dummyTrackerData.data.application);
-        expect(trackerB.application).to.deep.equal(dummyTrackerDataB.data.application);
+        expect(trackerB.application.locale).to.equal(dummyTrackerDataB.data.application.locale);
+        expect(trackerB.application.routesAreCached).to.equal(dummyTrackerDataB.data.application.routes_are_cached);
+        expect(trackerB.application.configurationIsCached).to.equal(dummyTrackerDataB.data.application.configuration_is_cached);
+        expect(trackerB.application.isDownForMaintenance).to.equal(dummyTrackerDataB.data.application.is_down_for_maintenance);
+        expect(trackerB.application.shouldSkipMiddleware).to.equal(dummyTrackerDataB.data.application.should_skip_middleware);
     });
 
     it('has service providers', () => {

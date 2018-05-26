@@ -17,7 +17,8 @@
                 "locale": "en",
                 "routes_are_cached": false,
                 "configuration_is_cached": false,
-                "is_down_for_maintenance": false
+                "is_down_for_maintenance": false,
+                "should_skip_middleware": false
             },
             "serviceProviders": [
                 "Illuminate\\Log\\LogServiceProvider",
@@ -63,7 +64,8 @@
                 "locale": "pl",
                 "routes_are_cached": true,
                 "configuration_is_cached": true,
-                "is_down_for_maintenance": true
+                "is_down_for_maintenance": true,
+                "should_skip_middleware": true
             }
         }
     }

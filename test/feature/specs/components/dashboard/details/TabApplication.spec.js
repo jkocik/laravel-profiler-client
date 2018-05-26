@@ -82,4 +82,14 @@ describe('TabApplication Component', () => {
 
         expect(wrapper.findAll('tr').at(7).text()).to.contain(wrapper.vm.$t('yes-no.yes'));
     });
+
+    it('has should skip middleware', () => {
+        expect(wrapper.findAll('tr').at(8).text()).to.contain(wrapper.vm.$t('yes-no.no'));
+
+        wrapper = mountWithTracker(
+            new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { should_skip_middleware: true } } }))
+        );
+
+        expect(wrapper.findAll('tr').at(8).text()).to.contain(wrapper.vm.$t('yes-no.yes'));
+    });
 });

@@ -54,17 +54,22 @@
                     },
                     {
                         label: this.$t('tabs.application.routes-are-cached'),
-                        item: this.tracker.application.routes_are_cached,
+                        item: this.tracker.application.routesAreCached,
                         isBool: true,
                     },
                     {
                         label: this.$t('tabs.application.configuration-is-cached'),
-                        item: this.tracker.application.configuration_is_cached,
+                        item: this.tracker.application.configurationIsCached,
                         isBool: true,
                     },
                     {
                         label: this.$t('tabs.application.is-down-for-maintenance'),
-                        item: this.tracker.application.is_down_for_maintenance,
+                        item: this.tracker.application.isDownForMaintenance,
+                        isBool: true,
+                    },
+                    {
+                        label: this.$t('tabs.application.should-skip-middleware'),
+                        item: this.tracker.application.shouldSkipMiddleware,
                         isBool: true,
                     },
                 ],
