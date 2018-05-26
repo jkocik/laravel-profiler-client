@@ -54,42 +54,50 @@ describe('TabApplication Component', () => {
     });
 
     it('has routes are cached', () => {
-        expect(wrapper.findAll('tr').at(5).text()).to.contain(wrapper.vm.$t('yes-no.no'));
+        expect(wrapper.findAll('tr').at(5).find('.fa-times').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(5).find('.fa-check').exists()).to.be.false;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { routes_are_cached: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(5).text()).to.contain(wrapper.vm.$t('yes-no.yes'));
+        expect(wrapper.findAll('tr').at(5).find('.fa-times').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(5).find('.fa-check').exists()).to.be.true;
     });
 
     it('has configuration is cached', () => {
-        expect(wrapper.findAll('tr').at(6).text()).to.contain(wrapper.vm.$t('yes-no.no'));
+        expect(wrapper.findAll('tr').at(6).find('.fa-times').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(6).find('.fa-check').exists()).to.be.false;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { configuration_is_cached: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(6).text()).to.contain(wrapper.vm.$t('yes-no.yes'));
+        expect(wrapper.findAll('tr').at(6).find('.fa-times').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(6).find('.fa-check').exists()).to.be.true;
     });
 
     it('has is down for maintenance', () => {
-        expect(wrapper.findAll('tr').at(7).text()).to.contain(wrapper.vm.$t('yes-no.no'));
+        expect(wrapper.findAll('tr').at(7).find('.fa-times').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(7).find('.fa-check').exists()).to.be.false;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { is_down_for_maintenance: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(7).text()).to.contain(wrapper.vm.$t('yes-no.yes'));
+        expect(wrapper.findAll('tr').at(7).find('.fa-times').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(7).find('.fa-check').exists()).to.be.true;
     });
 
     it('has should skip middleware', () => {
-        expect(wrapper.findAll('tr').at(8).text()).to.contain(wrapper.vm.$t('yes-no.no'));
+        expect(wrapper.findAll('tr').at(8).find('.fa-times').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(8).find('.fa-check').exists()).to.be.false;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { should_skip_middleware: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(8).text()).to.contain(wrapper.vm.$t('yes-no.yes'));
+        expect(wrapper.findAll('tr').at(8).find('.fa-times').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(8).find('.fa-check').exists()).to.be.true;
     });
 });

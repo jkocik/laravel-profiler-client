@@ -1,7 +1,17 @@
 <template>
     <span>
-        <b-tag v-if="value" type="is-light">yes</b-tag>
-        <b-tag v-if="! value" type="is-light">no</b-tag>
+        <b-icon v-if="value"
+            pack="fas"
+            icon="check"
+            size="is-small"
+            type="is-dark"
+        ></b-icon>
+        <b-icon v-if="! value"
+            pack="fas"
+            icon="times"
+            size="is-small"
+            type="is-grey-lighter"
+        ></b-icon>
     </span>
 </template>
 

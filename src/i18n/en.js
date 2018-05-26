@@ -31,8 +31,4 @@ export default {
             'not-resolved': 'was not resolved',
         },
     },
-    'yes-no': {
-        'yes': 'yes',
-        'no': 'no',
-    },
 };

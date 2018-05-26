@@ -2,7 +2,15 @@
     <section class="dashboard">
         <nav class="navbar is-fixed-top is-dark">
             <div class="navbar-brand container is-widescreen">
-                <h1 class="navbar-item">Laravel Profiler</h1>
+                <h1 class="navbar-item">
+                    <b-icon
+                        pack="fab"
+                        icon="laravel"
+                        size="is-medium"
+                        type="is-light"
+                    ></b-icon>
+                    Laravel Profiler
+                </h1>
             </div>
         </nav>
         <nav class="navbar is-fixed-top">
