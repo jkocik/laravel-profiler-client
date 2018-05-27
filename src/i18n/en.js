@@ -12,10 +12,13 @@ export default {
         'bindings': 'Bindings',
         'paths': 'Paths',
         'http-request': 'Request',
-        'console-starting-request': 'Input',
         'console-finished-request': 'Input',
+        'console-starting-request': 'Input',
         'null-request': 'Request',
-        'response': 'Response',
+        'http-response': 'Response',
+        'console-finished-response': 'Output',
+        'console-starting-response': 'Output',
+        'null-response': 'Response',
     },
     'tabs': {
         'application': {

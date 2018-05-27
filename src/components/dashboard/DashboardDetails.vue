@@ -9,6 +9,7 @@
         <b-tab-item :label="$t('tab-labels.app')">
             <tab-app :tracker="tracker"></tab-app>
         </b-tab-item>
+
         <b-tab-item :disabled="! request.enabled" :label="$t(`tab-labels.${request.name}`)">
             <tab-http-request v-if="request.isHttpRequest()"
                 :tracker="tracker"
@@ -17,6 +18,15 @@
                 :tracker="tracker"
             ></tab-console-finished-request>
         </b-tab-item>
+
+        <b-tab-item :disabled="! response.enabled" :label="$t(`tab-labels.${response.name}`)">
+            <tab-http-response v-if="response.isHttpResponse()"
+                :tracker="tracker"
+            ></tab-http-response>
+            <tab-console-finished-response v-if="response.isConsoleFinishedResponse()"
+                :tracker="tracker"
+            ></tab-console-finished-response>
+        </b-tab-item>
     </b-tabs>
 </template>
 
@@ -24,13 +34,17 @@
     import Tracker from './../../models/tracker';
     import TabApp from './details/TabApp';
     import TabHttpRequest from './details/TabHttpRequest';
+    import TabHttpResponse from './details/TabHttpResponse';
     import TabConsoleFinishedRequest from './details/TabConsoleFinishedRequest';
+    import TabConsoleFinishedResponse from './details/TabConsoleFinishedResponse';
 
     export default {
         components: {
             TabApp,
             TabHttpRequest,
+            TabHttpResponse,
             TabConsoleFinishedRequest,
+            TabConsoleFinishedResponse,
         },
         props: {
             tracker: Tracker,
@@ -41,8 +55,9 @@
         },
         data() {
             return {
-                request: this.tracker.request,
                 activeTab: 0,
+                request: this.tracker.request,
+                response: this.tracker.response,
             };
         },
         methods: {

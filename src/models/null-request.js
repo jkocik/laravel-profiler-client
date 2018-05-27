@@ -4,8 +4,4 @@ export default class NullRequest extends BaseRequest {
     get name() {
         return 'null-request';
     }
-
-    get enabled() {
-        return false;
-    }
 }

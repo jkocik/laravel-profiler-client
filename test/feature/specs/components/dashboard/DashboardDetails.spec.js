@@ -109,4 +109,66 @@ describe('DashboardDetails Component', () => {
             done();
         });
     });
+
+    it('has http response tab enabled when type equals http', (done) => {
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' } }));
+        wrapper = mountWithTracker(tracker);
+        let wrapperTabResponse = wrapper.find({ name: 'tab-http-response' });
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(wrapper.vm.$t('tab-labels.http-response'));
+            wrapper.findAll('.tabs li a').at(2).trigger('click');
+            wrapper.vm.$nextTick(() => {
+                expect(wrapper.findAll('.tabs li').at(2).classes()).to.not.contain('is-disabled');
+                expect(wrapperTabResponse.isVisible()).to.be.true;
+                expect(wrapperTabResponse.props().tracker).to.equal(tracker);
+                expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
+                done();
+            });
+        });
+    });
+
+    it('has console finished response tab enabled when type equals command-finished', (done) => {
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-finished' } }));
+        wrapper = mountWithTracker(tracker);
+        let wrapperTabResponse = wrapper.find({ name: 'tab-console-finished-response' });
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(wrapper.vm.$t('tab-labels.console-finished-response'));
+            wrapper.findAll('.tabs li a').at(2).trigger('click');
+            wrapper.vm.$nextTick(() => {
+                expect(wrapper.findAll('.tabs li').at(2).classes()).to.not.contain('is-disabled');
+                expect(wrapperTabResponse.isVisible()).to.be.true;
+                expect(wrapperTabResponse.props().tracker).to.equal(tracker);
+                expect(wrapper.find({ name: 'tab-http-response' }).exists()).to.be.false;
+                done();
+            });
+        });
+    });
+
+    it('has response tab disabled when type equals command-starting', (done) => {
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting' } }));
+        wrapper = mountWithTracker(tracker);
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(wrapper.vm.$t('tab-labels.console-starting-response'));
+            expect(wrapper.findAll('.tabs li').at(2).classes()).to.contain('is-disabled');
+            expect(wrapper.find({ name: 'tab-http-response' }).exists()).to.be.false;
+            expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
+            done();
+        });
+    });
+
+    it('has response tab disabled when type equals null', (done) => {
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
+        wrapper = mountWithTracker(tracker);
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(wrapper.vm.$t('tab-labels.null-response'));
+            expect(wrapper.findAll('.tabs li').at(2).classes()).to.contain('is-disabled');
+            expect(wrapper.find({ name: 'tab-http-response' }).exists()).to.be.false;
+            expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
+            done();
+        });
+    });
 });

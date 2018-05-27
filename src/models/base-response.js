@@ -1,9 +1,9 @@
-export class BaseRequest {
-    isHttpRequest() {
+export class BaseResponse {
+    isHttpResponse() {
         return false;
     }
 
-    isConsoleFinishedRequest() {
+    isConsoleFinishedResponse() {
         return false;
     }
 
