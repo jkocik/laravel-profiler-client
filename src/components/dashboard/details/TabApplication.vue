@@ -7,19 +7,19 @@
         <template slot-scope="props">
             <td>{{ props.row.label }}</td>
             <td v-if="! props.row.isBool">{{ props.row.item }}</td>
-            <td v-if="props.row.isBool"><yes-no :value="props.row.item"></yes-no></td>
+            <td v-if="props.row.isBool"><true-false :value="props.row.item"></true-false></td>
         </template>
     </b-table>
 </template>
 
 <script>
-    import YesNo from './../../partials/YesNo';
     import Tracker from './../../../models/tracker';
+    import TrueFalse from './../../partials/TrueFalse';
 
     export default {
         name: 'tab-application',
         components: {
-            YesNo,
+            TrueFalse,
         },
         props: {
             tracker: Tracker,

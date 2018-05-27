@@ -54,50 +54,50 @@ describe('TabApplication Component', () => {
     });
 
     it('has routes are cached', () => {
-        expect(wrapper.findAll('tr').at(5).find('.fa-times').exists()).to.be.true;
-        expect(wrapper.findAll('tr').at(5).find('.fa-check').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(5).find('.fa-toggle-on').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(5).find('.fa-toggle-off').exists()).to.be.true;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { routes_are_cached: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(5).find('.fa-times').exists()).to.be.false;
-        expect(wrapper.findAll('tr').at(5).find('.fa-check').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(5).find('.fa-toggle-on').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(5).find('.fa-toggle-off').exists()).to.be.false;
     });
 
     it('has configuration is cached', () => {
-        expect(wrapper.findAll('tr').at(6).find('.fa-times').exists()).to.be.true;
-        expect(wrapper.findAll('tr').at(6).find('.fa-check').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(6).find('.fa-toggle-on').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(6).find('.fa-toggle-off').exists()).to.be.true;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { configuration_is_cached: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(6).find('.fa-times').exists()).to.be.false;
-        expect(wrapper.findAll('tr').at(6).find('.fa-check').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(6).find('.fa-toggle-on').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(6).find('.fa-toggle-off').exists()).to.be.false;
     });
 
     it('has is down for maintenance', () => {
-        expect(wrapper.findAll('tr').at(7).find('.fa-times').exists()).to.be.true;
-        expect(wrapper.findAll('tr').at(7).find('.fa-check').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(7).find('.fa-toggle-on').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(7).find('.fa-toggle-off').exists()).to.be.true;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { is_down_for_maintenance: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(7).find('.fa-times').exists()).to.be.false;
-        expect(wrapper.findAll('tr').at(7).find('.fa-check').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(7).find('.fa-toggle-on').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(7).find('.fa-toggle-off').exists()).to.be.false;
     });
 
     it('has should skip middleware', () => {
-        expect(wrapper.findAll('tr').at(8).find('.fa-times').exists()).to.be.true;
-        expect(wrapper.findAll('tr').at(8).find('.fa-check').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(8).find('.fa-toggle-on').exists()).to.be.false;
+        expect(wrapper.findAll('tr').at(8).find('.fa-toggle-off').exists()).to.be.true;
 
         wrapper = mountWithTracker(
             new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { should_skip_middleware: true } } }))
         );
 
-        expect(wrapper.findAll('tr').at(8).find('.fa-times').exists()).to.be.false;
-        expect(wrapper.findAll('tr').at(8).find('.fa-check').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(8).find('.fa-toggle-on').exists()).to.be.true;
+        expect(wrapper.findAll('tr').at(8).find('.fa-toggle-off').exists()).to.be.false;
     });
 });
