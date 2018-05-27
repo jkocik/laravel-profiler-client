@@ -43,8 +43,8 @@ describe('AppDashboard Component', () => {
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.method);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.status);
             expect(wrapper.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(dummyTracker.path);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(dummyTracker.laravel_version);
-            expect(wrapper.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(dummyTracker.php_version);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(dummyTracker.laravelVersion);
+            expect(wrapper.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(dummyTracker.phpVersion);
             done();
         });
     });

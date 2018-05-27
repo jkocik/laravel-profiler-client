@@ -3,7 +3,7 @@
         <b-taglist attached>
             <b-tag type="is-white">v</b-tag>
             <b-tag type="is-light">
-                {{ tracker.laravel_version }} / {{ tracker.php_version }}
+                {{ tracker.laravelVersion }} / {{ tracker.phpVersion }}
             </b-tag>
         </b-taglist>
     </td>

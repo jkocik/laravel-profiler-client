@@ -7,8 +7,8 @@ export default class Tracker {
     constructor(data) {
         this.executionAt = trackerService.executionAt(data.meta.execution_at);
         this.id = data.meta.id;
-        this.laravel_version = data.meta.laravel_version;
-        this.php_version = data.meta.php_version;
+        this.laravelVersion = data.meta.laravel_version;
+        this.phpVersion = data.meta.php_version;
         this.env = data.meta.env;
         this.running = trackerService.running(data.meta.is_running_in_console);
         this.type = trackerService.type(data.meta.type);

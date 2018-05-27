@@ -38,11 +38,11 @@ describe('TabApplication Component', () => {
     });
 
     it('has laravel version', () => {
-        expect(wrapper.findAll('tr').at(2).text()).to.contain(dummyTracker.laravel_version);
+        expect(wrapper.findAll('tr').at(2).text()).to.contain(dummyTracker.laravelVersion);
     });
 
     it('has php version', () => {
-        expect(wrapper.findAll('tr').at(3).text()).to.contain(dummyTracker.php_version);
+        expect(wrapper.findAll('tr').at(3).text()).to.contain(dummyTracker.phpVersion);
     });
 
     it('has locale', () => {

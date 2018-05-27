@@ -77,14 +77,14 @@ describe('Filter Store Service', () => {
                 dummyTracker.env,
                 dummyTrackerBDiffEnv.env,
             ],
-            laravel_version: [
-                dummyTracker.laravel_version,
-                dummyTrackerB.laravel_version,
-                dummyTrackerBDiffVersion.laravel_version,
+            laravelVersion: [
+                dummyTracker.laravelVersion,
+                dummyTrackerB.laravelVersion,
+                dummyTrackerBDiffVersion.laravelVersion,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], laravelVersion: [] })).to.deep.equal([
             dummyTracker,
             dummyTrackerBDiffEnv,
         ]);
@@ -96,13 +96,13 @@ describe('Filter Store Service', () => {
                 dummyTracker.env,
                 dummyTrackerBDiffEnv.env,
             ],
-            laravel_version: [
-                dummyTrackerB.laravel_version,
-                dummyTrackerBDiffVersion.laravel_version,
+            laravelVersion: [
+                dummyTrackerB.laravelVersion,
+                dummyTrackerBDiffVersion.laravelVersion,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([
+        expect(filterService.filter(data, filterBy, { env: [], laravelVersion: [] })).to.deep.equal([
             dummyTrackerBDiffEnv,
         ]);
     });
@@ -110,10 +110,10 @@ describe('Filter Store Service', () => {
     it('exclude all data when filter groups are empty but exist in filter', () => {
         let filterBy = {
             env: [],
-            laravel_version: [],
+            laravelVersion: [],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([]);
+        expect(filterService.filter(data, filterBy, { env: [], laravelVersion: [] })).to.deep.equal([]);
     });
 
     it('returns all data when filter groups are not present in filter', () => {
@@ -133,19 +133,19 @@ describe('Filter Store Service', () => {
 
         let filterBy = {
             env: [ dummyTracker.env, dummyTrackerB.env ],
-            laravel_version: [ dummyTracker.laravel_version ],
+            laravelVersion: [ dummyTracker.laravelVersion ],
             id: [ dummyTracker.id ],
         };
 
         filterService.filter([ dummyTracker, dummyTrackerB ], filterBy, {
             env: [ dummyTrackerB.env, dummyTracker.env ],
-            laravel_version: [ dummyTrackerB.laravel_version, dummyTracker.laravel_version ],
+            laravelVersion: [ dummyTrackerB.laravelVersion, dummyTracker.laravelVersion ],
             id: [ dummyTrackerB.id, dummyTracker.id ],
         });
 
         expect(spy.callCount).to.equal(3);
-        expect(spy.getCall(0).calledWith([ dummyTracker.laravel_version ], dummyTracker.laravel_version)).to.be.true;
+        expect(spy.getCall(0).calledWith([ dummyTracker.laravelVersion ], dummyTracker.laravelVersion)).to.be.true;
         expect(spy.getCall(1).calledWith([ dummyTracker.id ], dummyTracker.id)).to.be.true;
-        expect(spy.getCall(2).calledWith([ dummyTracker.laravel_version ], dummyTrackerB.laravel_version)).to.be.true;
+        expect(spy.getCall(2).calledWith([ dummyTracker.laravelVersion ], dummyTrackerB.laravelVersion)).to.be.true;
     });
 });

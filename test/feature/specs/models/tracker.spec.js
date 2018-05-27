@@ -28,13 +28,13 @@ describe('Tracker Model', () => {
     it('has required laravel version', () => {
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.laravel_version).to.equal(dummyTrackerData.meta.laravel_version);
+        expect(tracker.laravelVersion).to.equal(dummyTrackerData.meta.laravel_version);
     });
 
     it('has required php version', () => {
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.php_version).to.equal(dummyTrackerData.meta.php_version);
+        expect(tracker.phpVersion).to.equal(dummyTrackerData.meta.php_version);
     });
 
     it('has required env', () => {

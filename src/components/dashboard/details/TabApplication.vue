@@ -39,12 +39,12 @@
                     },
                     {
                         label: this.$t('tabs.application.laravel-version'),
-                        item: this.tracker.laravel_version,
+                        item: this.tracker.laravelVersion,
                         isBool: false,
                     },
                     {
                         label: this.$t('tabs.application.php-version'),
-                        item: this.tracker.php_version,
+                        item: this.tracker.phpVersion,
                         isBool: false,
                     },
                     {
