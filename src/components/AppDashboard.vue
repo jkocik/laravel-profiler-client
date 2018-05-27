@@ -30,16 +30,16 @@
                 @click="rowClicked"
                 class="has-hidden-thead has-hidden-pagination-arrows"
             >
-                <template slot-scope="props">
-                    <td-execution-at :tracker="props.row"></td-execution-at>
-                    <td-env :tracker="props.row"></td-env>
-                    <td-via :tracker="props.row"></td-via>
-                    <td-type :tracker="props.row"></td-type>
-                    <td-request-response :tracker="props.row"></td-request-response>
-                    <td-version :tracker="props.row"></td-version>
+                <template slot-scope="{ row }">
+                    <td-execution-at :tracker="row"></td-execution-at>
+                    <td-env :tracker="row"></td-env>
+                    <td-via :tracker="row"></td-via>
+                    <td-type :tracker="row"></td-type>
+                    <td-request-response :tracker="row"></td-request-response>
+                    <td-version :tracker="row"></td-version>
                 </template>
-                <template slot="detail" slot-scope="props">
-                    <dashboard-details :tracker="props.row"></dashboard-details>
+                <template slot="detail" slot-scope="{ row }">
+                    <dashboard-details :tracker="row" :key="row.id"></dashboard-details>
                 </template>
                 <template slot="empty">
                     <dashboard-empty></dashboard-empty>
