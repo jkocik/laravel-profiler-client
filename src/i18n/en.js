@@ -11,7 +11,10 @@ export default {
         'service-providers': 'Loaded Service Providers',
         'bindings': 'Bindings',
         'paths': 'Paths',
-        'request': 'Request',
+        'http-request': 'Request',
+        'console-starting-request': 'Input',
+        'console-finished-request': 'Input',
+        'null-request': 'Request',
         'response': 'Response',
     },
     'tabs': {

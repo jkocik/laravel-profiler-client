@@ -39,7 +39,7 @@ describe('TabApp Component', () => {
 
     it('has config tab', (done) => {
         let wrapperTabConfig = wrapper.find({ name: 'TabConfig' });
-        wrapperTabConfig.props().tracker.config = [1, 2, 3];
+        wrapper.props().tracker.config = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(1).text()).to.equal(`${wrapper.vm.$t('tab-labels.config')} (3)`);
@@ -54,7 +54,7 @@ describe('TabApp Component', () => {
 
     it('config tab is enabled only if any config is present', (done) => {
         let wrapperTabConfig = wrapper.find({ name: 'TabConfig' });
-        wrapperTabConfig.props().tracker.config = [];
+        wrapper.props().tracker.config = [];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(1).text()).to.equal(wrapper.vm.$t('tab-labels.config'));
@@ -66,7 +66,7 @@ describe('TabApp Component', () => {
 
     it('has service providers tab', (done) => {
         let wrapperTabServiceProviders = wrapper.find({ name: 'TabServiceProviders' });
-        wrapperTabServiceProviders.props().tracker.serviceProviders = [1, 2, 3];
+        wrapper.props().tracker.serviceProviders = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(`${wrapper.vm.$t('tab-labels.service-providers')} (3)`);
@@ -81,7 +81,7 @@ describe('TabApp Component', () => {
 
     it('service providers tab is enabled only if any service provider is present', (done) => {
         let wrapperTabServiceProviders = wrapper.find({ name: 'TabServiceProviders' });
-        wrapperTabServiceProviders.props().tracker.serviceProviders = [];
+        wrapper.props().tracker.serviceProviders = [];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(wrapper.vm.$t('tab-labels.service-providers'));
@@ -93,7 +93,7 @@ describe('TabApp Component', () => {
 
     it('has bindings tab', (done) => {
         let wrapperTabBindings = wrapper.find({ name: 'TabBindings' });
-        wrapperTabBindings.props().tracker.bindings = [1, 2, 3];
+        wrapper.props().tracker.bindings = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(3).text()).to.equal(`${wrapper.vm.$t('tab-labels.bindings')} (3)`);
@@ -108,7 +108,7 @@ describe('TabApp Component', () => {
 
     it('bandings tab is enabled only if any binding is present', (done) => {
         let wrapperTabBindings = wrapper.find({ name: 'TabBindings' });
-        wrapperTabBindings.props().tracker.bindings = [];
+        wrapper.props().tracker.bindings = [];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(3).text()).to.equal(wrapper.vm.$t('tab-labels.bindings'));
@@ -120,7 +120,7 @@ describe('TabApp Component', () => {
 
     it('has paths tab', (done) => {
         let wrapperTabPaths = wrapper.find({ name: 'TabPaths' });
-        wrapperTabPaths.props().tracker.paths = [1, 2, 3];
+        wrapper.props().tracker.paths = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(4).text()).to.equal(`${wrapper.vm.$t('tab-labels.paths')} (3)`);
@@ -135,7 +135,7 @@ describe('TabApp Component', () => {
 
     it('paths tab is enabled only if any path is present', (done) => {
         let wrapperTabPaths = wrapper.find({ name: 'TabPaths' });
-        wrapperTabPaths.props().tracker.paths = [];
+        wrapper.props().tracker.paths = [];
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(4).text()).to.equal(wrapper.vm.$t('tab-labels.paths'));

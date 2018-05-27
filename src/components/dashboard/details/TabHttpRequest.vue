@@ -6,7 +6,7 @@
     import Tracker from './../../../models/tracker';
 
     export default {
-        name: 'TabRequest',
+        name: 'tab-http-request',
         props: {
             tracker: Tracker,
         },
