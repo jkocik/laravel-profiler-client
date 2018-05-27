@@ -30,7 +30,7 @@ describe('TabApp Component', () => {
         let wrapperTabApplication = wrapper.find({ name: 'TabApplication' });
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(0).text()).to.contains(wrapper.vm.$t('tab-labels.application'));
+            expect(wrapper.findAll('.tabs li').at(0).text()).to.equal(wrapper.vm.$t('tab-labels.application'));
             expect(wrapperTabApplication.isVisible()).to.be.true;
             expect(wrapperTabApplication.props().tracker).to.equal(dummyTracker);
             done();
@@ -42,7 +42,7 @@ describe('TabApp Component', () => {
         wrapperTabConfig.props().tracker.config = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(1).text()).to.contains(`${wrapper.vm.$t('tab-labels.config')} (3)`);
+            expect(wrapper.findAll('.tabs li').at(1).text()).to.equal(`${wrapper.vm.$t('tab-labels.config')} (3)`);
             wrapper.findAll('.tabs li a').at(1).trigger('click');
             wrapper.vm.$nextTick(() => {
                 expect(wrapperTabConfig.isVisible()).to.be.true;
@@ -57,7 +57,7 @@ describe('TabApp Component', () => {
         wrapperTabConfig.props().tracker.config = [];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(1).text()).to.contains(wrapper.vm.$t('tab-labels.config'));
+            expect(wrapper.findAll('.tabs li').at(1).text()).to.equal(wrapper.vm.$t('tab-labels.config'));
             expect(wrapper.findAll('.tabs li').at(1).classes()).to.contain('is-disabled');
             expect(wrapperTabConfig.exists()).to.be.false;
             done();
@@ -69,7 +69,7 @@ describe('TabApp Component', () => {
         wrapperTabServiceProviders.props().tracker.serviceProviders = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(2).text()).to.contains(`${wrapper.vm.$t('tab-labels.service-providers')} (3)`);
+            expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(`${wrapper.vm.$t('tab-labels.service-providers')} (3)`);
             wrapper.findAll('.tabs li a').at(2).trigger('click');
             wrapper.vm.$nextTick(() => {
                 expect(wrapperTabServiceProviders.isVisible()).to.be.true;
@@ -84,7 +84,7 @@ describe('TabApp Component', () => {
         wrapperTabServiceProviders.props().tracker.serviceProviders = [];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(2).text()).to.contains(wrapper.vm.$t('tab-labels.service-providers'));
+            expect(wrapper.findAll('.tabs li').at(2).text()).to.equal(wrapper.vm.$t('tab-labels.service-providers'));
             expect(wrapper.findAll('.tabs li').at(2).classes()).to.contain('is-disabled');
             expect(wrapperTabServiceProviders.exists()).to.be.false;
             done();
@@ -96,7 +96,7 @@ describe('TabApp Component', () => {
         wrapperTabBindings.props().tracker.bindings = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(3).text()).to.contains(`${wrapper.vm.$t('tab-labels.bindings')} (3)`);
+            expect(wrapper.findAll('.tabs li').at(3).text()).to.equal(`${wrapper.vm.$t('tab-labels.bindings')} (3)`);
             wrapper.findAll('.tabs li a').at(3).trigger('click');
             wrapper.vm.$nextTick(() => {
                 expect(wrapperTabBindings.isVisible()).to.be.true;
@@ -111,7 +111,7 @@ describe('TabApp Component', () => {
         wrapperTabBindings.props().tracker.bindings = [];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(3).text()).to.contains(wrapper.vm.$t('tab-labels.bindings'));
+            expect(wrapper.findAll('.tabs li').at(3).text()).to.equal(wrapper.vm.$t('tab-labels.bindings'));
             expect(wrapper.findAll('.tabs li').at(3).classes()).to.contain('is-disabled');
             expect(wrapperTabBindings.exists()).to.be.false;
             done();
@@ -123,7 +123,7 @@ describe('TabApp Component', () => {
         wrapperTabPaths.props().tracker.paths = [1, 2, 3];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(4).text()).to.contains(`${wrapper.vm.$t('tab-labels.paths')} (3)`);
+            expect(wrapper.findAll('.tabs li').at(4).text()).to.equal(`${wrapper.vm.$t('tab-labels.paths')} (3)`);
             wrapper.findAll('.tabs li a').at(4).trigger('click');
             wrapper.vm.$nextTick(() => {
                 expect(wrapperTabPaths.isVisible()).to.be.true;
@@ -138,7 +138,7 @@ describe('TabApp Component', () => {
         wrapperTabPaths.props().tracker.paths = [];
 
         wrapper.vm.$nextTick(() => {
-            expect(wrapper.findAll('.tabs li').at(4).text()).to.contains(wrapper.vm.$t('tab-labels.paths'));
+            expect(wrapper.findAll('.tabs li').at(4).text()).to.equal(wrapper.vm.$t('tab-labels.paths'));
             expect(wrapper.findAll('.tabs li').at(4).classes()).to.contain('is-disabled');
             expect(wrapperTabPaths.exists()).to.be.false;
             done();

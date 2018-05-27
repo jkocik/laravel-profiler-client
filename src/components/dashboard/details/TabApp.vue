@@ -47,20 +47,20 @@
                     ? `${this.$t('tab-labels.config')} (${this.tracker.countConfig()})`
                     : this.$t('tab-labels.config');
             },
-            pathsLabel() {
-                return this.tracker.hasPaths()
-                    ? `${this.$t('tab-labels.paths')} (${this.tracker.countPaths()})`
-                    : this.$t('tab-labels.paths');
+            serviceProvidersLabel() {
+                return this.tracker.hasServiceProviders()
+                    ? `${this.$t('tab-labels.service-providers')} (${this.tracker.countServiceProviders()})`
+                    : this.$t('tab-labels.service-providers');
             },
             bindingsLabel() {
                 return this.tracker.hasBindings()
                     ? `${this.$t('tab-labels.bindings')} (${this.tracker.countBindings()})`
                     : this.$t('tab-labels.bindings');
             },
-            serviceProvidersLabel() {
-                return this.tracker.hasBindings()
-                    ? `${this.$t('tab-labels.service-providers')} (${this.tracker.countServiceProviders()})`
-                    : this.$t('tab-labels.service-providers');
+            pathsLabel() {
+                return this.tracker.hasPaths()
+                    ? `${this.$t('tab-labels.paths')} (${this.tracker.countPaths()})`
+                    : this.$t('tab-labels.paths');
             },
         },
     };
