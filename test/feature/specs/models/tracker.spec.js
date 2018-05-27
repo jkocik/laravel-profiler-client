@@ -2,6 +2,14 @@ import Path from '@/models/path';
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
 import Application from '@/models/application';
+import NullRequest from '@/models/null-request';
+import HttpRequest from '@/models/http-request';
+import NullResponse from '@/models/null-response';
+import HttpResponse from '@/models/http-response';
+import ConsoleStartingRequest from '@/models/console-starting-request';
+import ConsoleFinishedRequest from '@/models/console-finished-request';
+import ConsoleStartingResponse from '@/models/console-starting-response';
+import ConsoleFinishedResponse from '@/models/console-finished-response';
 import { dummyTrackerData, dummyTrackerDataB } from './../../../fixtures/es6';
 
 describe('Tracker Model', () => {
@@ -230,5 +238,33 @@ describe('Tracker Model', () => {
         expect(tracker.paths).to.be.an('array');
         expect(tracker.countPaths()).to.be.equal(0);
         expect(tracker.hasPaths()).to.be.false;
+    });
+
+    it('has request based on meta type', () => {
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting' } }));
+        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-finished' } }));
+        let trackerD = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
+        let trackerE = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'not-know-type' } }));
+
+        expect(trackerA.request).to.be.an.instanceOf(HttpRequest);
+        expect(trackerB.request).to.be.an.instanceOf(ConsoleStartingRequest);
+        expect(trackerC.request).to.be.an.instanceOf(ConsoleFinishedRequest);
+        expect(trackerD.request).to.be.an.instanceOf(NullRequest);
+        expect(trackerE.request).to.be.an.instanceOf(NullRequest);
+    });
+
+    it('has response based on meta type', () => {
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting' } }));
+        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-finished' } }));
+        let trackerD = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
+        let trackerE = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'not-know-type' } }));
+
+        expect(trackerA.response).to.be.an.instanceOf(HttpResponse);
+        expect(trackerB.response).to.be.an.instanceOf(ConsoleStartingResponse);
+        expect(trackerC.response).to.be.an.instanceOf(ConsoleFinishedResponse);
+        expect(trackerD.response).to.be.an.instanceOf(NullResponse);
+        expect(trackerE.response).to.be.an.instanceOf(NullResponse);
     });
 });

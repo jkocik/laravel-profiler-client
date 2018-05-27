@@ -1,4 +1,12 @@
 import moment from 'moment';
+import NullRequest from './../models/null-request';
+import HttpRequest from './../models/http-request';
+import NullResponse from './../models/null-response';
+import HttpResponse from './../models/http-response';
+import ConsoleStartingRequest from './../models/console-starting-request';
+import ConsoleFinishedRequest from './../models/console-finished-request';
+import ConsoleStartingResponse from './../models/console-starting-response';
+import ConsoleFinishedResponse from './../models/console-finished-response';
 
 const missing = '---';
 
@@ -71,5 +79,25 @@ export const trackerService = {
         };
 
         return colors[resolvedStatusGroup];
+    },
+
+    request(type) {
+        const Request = {
+            'http': HttpRequest,
+            'command-starting': ConsoleStartingRequest,
+            'command-finished': ConsoleFinishedRequest,
+        }[type] || NullRequest;
+
+        return new Request();
+    },
+
+    response(type) {
+        const Response = {
+            'http': HttpResponse,
+            'command-starting': ConsoleStartingResponse,
+            'command-finished': ConsoleFinishedResponse,
+        }[type] || NullResponse;
+
+        return new Response();
     },
 };

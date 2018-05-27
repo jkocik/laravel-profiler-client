@@ -25,6 +25,9 @@ export default class Tracker {
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
         this.paths = (data.data.paths || []).map(path => new Path(path));
 
+        this.request = trackerService.request(data.meta.type);
+        this.response = trackerService.response(data.meta.type);
+
         this.lastActiveDetailsTab = 0;
     }
 
