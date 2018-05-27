@@ -10,7 +10,7 @@
     import Tracker from './../../../models/tracker';
 
     export default {
-        name: 'TabServiceProviders',
+        name: 'tab-service-providers',
         props: {
             tracker: Tracker,
         },

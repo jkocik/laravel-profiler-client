@@ -15,7 +15,7 @@
     import Tracker from './../../../models/tracker';
 
     export default {
-        name: 'TabPaths',
+        name: 'tab-paths',
         props: {
             tracker: Tracker,
         },

@@ -17,7 +17,7 @@
     import Tracker from './../../../models/tracker';
 
     export default {
-        name: 'TabApplication',
+        name: 'tab-application',
         components: {
             YesNo,
         },

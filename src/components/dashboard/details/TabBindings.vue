@@ -17,7 +17,7 @@
     import Tracker from './../../../models/tracker';
 
     export default {
-        name: 'TabBindings',
+        name: 'tab-bindings',
         props: {
             tracker: Tracker,
         },

@@ -38,7 +38,7 @@ describe('DashboardDetails Component', () => {
     });
 
     it('has app tab', (done) => {
-        let wrapperTabApp = wrapper.find({ name: 'TabApp' });
+        let wrapperTabApp = wrapper.find({ name: 'tab-app' });
 
         wrapper.vm.$nextTick(() => {
             expect(wrapper.findAll('.tabs li').at(0).text()).to.equal(wrapper.vm.$t('tab-labels.app'));

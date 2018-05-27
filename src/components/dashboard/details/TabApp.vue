@@ -30,7 +30,7 @@
     import TabServiceProviders from './TabServiceProviders';
 
     export default {
-        name: 'TabApp',
+        name: 'tab-app',
         components: {
             TabPaths,
             TabConfig,

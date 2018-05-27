@@ -9,7 +9,7 @@
     import Tracker from './../../../models/tracker';
 
     export default {
-        name: 'TabConfig',
+        name: 'tab-config',
         props: {
             tracker: Tracker,
         },
