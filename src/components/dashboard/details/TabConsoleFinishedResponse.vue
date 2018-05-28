@@ -1,5 +1,7 @@
 <template>
-    <section></section>
+    <ul>
+        <li><span><label>exitCode</label></span> {{ tracker.status }}</li>
+    </ul>
 </template>
 
 <script>

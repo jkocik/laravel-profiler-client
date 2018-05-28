@@ -48,7 +48,11 @@ export const trackerService = {
     },
 
     status(status) {
-        return status || missing;
+        if (! status && status !== 0) {
+            return missing;
+        }
+
+        return status;
     },
 
     statusGroup(resolvedStatus, resolvedType) {

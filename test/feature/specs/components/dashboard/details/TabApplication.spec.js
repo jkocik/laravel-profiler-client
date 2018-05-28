@@ -46,9 +46,8 @@ describe('TabApplication Component', () => {
     });
 
     it('has locale', () => {
-        wrapper = mountWithTracker(
-            new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { locale: 'test-locale' } } }))
-        );
+        let data = Object.assign({}, dummyTrackerData.data, { application: { locale: 'test-locale' } });
+        wrapper = mountWithTracker(new Tracker(Object.assign({}, dummyTrackerData, { data })));
 
         expect(wrapper.findAll('tr').at(4).text()).to.contain('test-locale');
     });
@@ -57,9 +56,8 @@ describe('TabApplication Component', () => {
         expect(wrapper.findAll('tr').at(5).find('.fa-toggle-on').exists()).to.be.false;
         expect(wrapper.findAll('tr').at(5).find('.fa-toggle-off').exists()).to.be.true;
 
-        wrapper = mountWithTracker(
-            new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { routes_are_cached: true } } }))
-        );
+        let data = Object.assign({}, dummyTrackerData.data, { application: { routes_are_cached: true } });
+        wrapper = mountWithTracker(new Tracker(Object.assign({}, dummyTrackerData, { data })));
 
         expect(wrapper.findAll('tr').at(5).find('.fa-toggle-on').exists()).to.be.true;
         expect(wrapper.findAll('tr').at(5).find('.fa-toggle-off').exists()).to.be.false;
@@ -69,9 +67,8 @@ describe('TabApplication Component', () => {
         expect(wrapper.findAll('tr').at(6).find('.fa-toggle-on').exists()).to.be.false;
         expect(wrapper.findAll('tr').at(6).find('.fa-toggle-off').exists()).to.be.true;
 
-        wrapper = mountWithTracker(
-            new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { configuration_is_cached: true } } }))
-        );
+        let data = Object.assign({}, dummyTrackerData.data, { application: { configuration_is_cached: true } });
+        wrapper = mountWithTracker(new Tracker(Object.assign({}, dummyTrackerData, { data })));
 
         expect(wrapper.findAll('tr').at(6).find('.fa-toggle-on').exists()).to.be.true;
         expect(wrapper.findAll('tr').at(6).find('.fa-toggle-off').exists()).to.be.false;
@@ -81,9 +78,8 @@ describe('TabApplication Component', () => {
         expect(wrapper.findAll('tr').at(7).find('.fa-toggle-on').exists()).to.be.false;
         expect(wrapper.findAll('tr').at(7).find('.fa-toggle-off').exists()).to.be.true;
 
-        wrapper = mountWithTracker(
-            new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { is_down_for_maintenance: true } } }))
-        );
+        let data = Object.assign({}, dummyTrackerData.data, { application: { is_down_for_maintenance: true } });
+        wrapper = mountWithTracker(new Tracker(Object.assign({}, dummyTrackerData, { data })));
 
         expect(wrapper.findAll('tr').at(7).find('.fa-toggle-on').exists()).to.be.true;
         expect(wrapper.findAll('tr').at(7).find('.fa-toggle-off').exists()).to.be.false;
@@ -93,9 +89,8 @@ describe('TabApplication Component', () => {
         expect(wrapper.findAll('tr').at(8).find('.fa-toggle-on').exists()).to.be.false;
         expect(wrapper.findAll('tr').at(8).find('.fa-toggle-off').exists()).to.be.true;
 
-        wrapper = mountWithTracker(
-            new Tracker(Object.assign({}, dummyTrackerData, { data: { application: { should_skip_middleware: true } } }))
-        );
+        let data = Object.assign({}, dummyTrackerData.data, { application: { should_skip_middleware: true } });
+        wrapper = mountWithTracker(new Tracker(Object.assign({}, dummyTrackerData, { data })));
 
         expect(wrapper.findAll('tr').at(8).find('.fa-toggle-on').exists()).to.be.true;
         expect(wrapper.findAll('tr').at(8).find('.fa-toggle-off').exists()).to.be.false;

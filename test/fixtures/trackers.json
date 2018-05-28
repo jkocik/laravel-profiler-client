@@ -10,6 +10,8 @@
             "type": "http",
             "method": "POST",
             "path": "/",
+            "ajax": false,
+            "json": false,
             "status": 200
         },
         "data": {
@@ -54,6 +56,47 @@
                 }
             },
             "request": {
+                "pjax": false,
+                "ip": "127.0.0.1",
+                "url": "http://localhost/url",
+                "query": {
+                    "a": 123,
+                    "b": 456
+                },
+                "server": {
+                    "HTTP_HOST": "http://localhost"
+                },
+                "header": {
+                    "connection": [
+                        "keep-alive"
+                    ]
+                },
+                "input": {
+                    "a": 123,
+                    "b": 456,
+                    "c": 789
+                },
+                "files": {
+                    "a": {
+                        "client_original_name": "a1",
+                        "client_original_extension": "a2",
+                        "client_mime_type": "a3",
+                        "client_size": "a4",
+                        "path": "a5"
+                    },
+                    "b": {
+                        "client_original_name": "b1",
+                        "client_original_extension": "b2",
+                        "client_mime_type": "b3",
+                        "client_size": "b4",
+                        "path": "b5"
+                    }
+                },
+                "cookie": {
+                    "cookie-a": "val-a",
+                    "cookie-b": "val-b",
+                    "cookie-c": "val-c"
+                },
                 "arguments": {
                     "command": "list"
                 },
@@ -73,9 +116,11 @@
             "php_version": "7.0.1",
             "env": "testing",
             "is_running_in_console": true,
-            "type": "command",
+            "type": "command-starting",
             "method": "GET",
             "path": "/missing-page",
+            "ajax": true,
+            "json": true,
             "status": 404
         },
         "data": {

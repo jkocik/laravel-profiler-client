@@ -100,6 +100,7 @@ describe('Tracker Model', () => {
         let trackerE = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 504 } }));
         let trackerF = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 605 } }));
         let trackerG = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: null } }));
+        let trackerW = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting', status: 0 } }));
         let trackerX = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting', status: null } }));
         let trackerY = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-finished', status: 201 } }));
         let trackerZ = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
@@ -125,6 +126,9 @@ describe('Tracker Model', () => {
         expect(trackerG.status).to.equal('---');
         expect(trackerG.statusGroup).to.equal('---');
         expect(trackerG.statusColor).to.equal('is-light');
+        expect(trackerW.status).to.equal(0);
+        expect(trackerW.statusGroup).to.equal('exitCode');
+        expect(trackerW.statusColor).to.equal('is-dark');
         expect(trackerX.status).to.equal('---');
         expect(trackerX.statusGroup).to.equal('---');
         expect(trackerX.statusColor).to.equal('is-light');

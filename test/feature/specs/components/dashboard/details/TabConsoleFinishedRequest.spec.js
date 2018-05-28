@@ -1,7 +1,6 @@
 import Buefy from 'buefy';
 import TreeView from 'vue-json-tree-view';
 import { createLocalVue, mount } from '@vue/test-utils';
-import i18n from '@/i18n';
 import Tracker from '@/models/tracker';
 import { dummyTrackerData } from './../../../../../fixtures/es6';
 import TabConsoleFinishedRequest from '@/components/dashboard/details/TabConsoleFinishedRequest';
@@ -20,7 +19,6 @@ describe('TabConsoleFinishedRequest Component', () => {
 
         wrapper = mount(TabConsoleFinishedRequest, {
             localVue,
-            i18n,
             propsData: {
                 tracker: dummyTracker,
             },
