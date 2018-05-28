@@ -52,6 +52,16 @@
                 "profiler": {
                     "enabled": true
                 }
+            },
+            "request": {
+                "arguments": {
+                    "command": "list"
+                },
+                "options": {
+                    "raw": false,
+                    "format": "txt",
+                    "help": false
+                }
             }
         }
     },

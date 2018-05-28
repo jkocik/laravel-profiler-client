@@ -81,14 +81,14 @@ export const trackerService = {
         return colors[resolvedStatusGroup];
     },
 
-    request(type) {
+    request(meta, request) {
         const Request = {
             'http': HttpRequest,
             'command-starting': ConsoleStartingRequest,
             'command-finished': ConsoleFinishedRequest,
-        }[type] || NullRequest;
+        }[meta.type] || NullRequest;
 
-        return new Request();
+        return new Request(meta, request);
     },
 
     response(type) {
