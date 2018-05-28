@@ -26,9 +26,13 @@ describe('TabConfig Component', () => {
         });
     });
 
-    it('has tree view', () => {
+    it('has tree view with config', () => {
         let wrapperTreeView = wrapper.find({ name: 'tree-view' });
 
         expect(wrapperTreeView.props().data).to.deep.equal(dummyTracker.config);
+        expect(wrapperTreeView.props().options).to.deep.equal({
+            rootObjectKey: 'config',
+            maxDepth: 1,
+        });
     });
 });
