@@ -13,37 +13,37 @@ import ConsoleFinishedResponse from '@/models/console-finished-response';
 import { dummyTrackerData, dummyTrackerDataB } from './../../../fixtures/es6';
 
 describe('Tracker Model', () => {
-    it('has required executionAt', () => {
+    it('has executionAt', () => {
         let tracker = new Tracker(dummyTrackerData);
 
         expect(tracker.executionAt).to.equal('07:56:07');
     });
 
-    it('has required id', () => {
+    it('has id', () => {
         let tracker = new Tracker(dummyTrackerData);
 
         expect(tracker.id).to.equal(dummyTrackerData.meta.id);
     });
 
-    it('has required laravel version', () => {
+    it('has laravel version', () => {
         let tracker = new Tracker(dummyTrackerData);
 
         expect(tracker.laravelVersion).to.equal(dummyTrackerData.meta.laravel_version);
     });
 
-    it('has required php version', () => {
+    it('has php version', () => {
         let tracker = new Tracker(dummyTrackerData);
 
         expect(tracker.phpVersion).to.equal(dummyTrackerData.meta.php_version);
     });
 
-    it('has required env', () => {
+    it('has env', () => {
         let tracker = new Tracker(dummyTrackerData);
 
         expect(tracker.env).to.equal(dummyTrackerData.meta.env);
     });
 
-    it('has required running', () => {
+    it('has running', () => {
         let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_running_in_console: true } }));
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { is_running_in_console: false } }));
 
@@ -51,7 +51,7 @@ describe('Tracker Model', () => {
         expect(trackerB.running).to.equal('web');
     });
 
-    it('has required type', () => {
+    it('has type', () => {
         let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', ajax: false, json: false } }));
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', ajax: true, json: false } }));
         let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', ajax: false, json: true } }));
@@ -76,7 +76,7 @@ describe('Tracker Model', () => {
         expect(trackerZ.typeGroup).to.equal('---');
     });
 
-    it('has required method', () => {
+    it('has method', () => {
         let trackerA = new Tracker(dummyTrackerData);
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { method: null } }));
 
@@ -84,7 +84,7 @@ describe('Tracker Model', () => {
         expect(trackerB.method).to.equal('---');
     });
 
-    it('has required path', () => {
+    it('has path', () => {
         let trackerA = new Tracker(dummyTrackerData);
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { path: null } }));
 
@@ -92,7 +92,7 @@ describe('Tracker Model', () => {
         expect(trackerB.path).to.equal('---');
     });
 
-    it('has required status', () => {
+    it('has status', () => {
         let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 100 } }));
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 201 } }));
         let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http', status: 302 } }));

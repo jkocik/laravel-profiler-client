@@ -2,13 +2,13 @@ import Binding from '@/models/binding';
 import { dummyTrackerData } from './../../../fixtures/es6';
 
 describe('Binding Model', () => {
-    it('has required abstract', () => {
+    it('has abstract', () => {
         let binding = new Binding(dummyTrackerData.data.bindings[0]);
 
         expect(binding.abstract).to.equal(dummyTrackerData.data.bindings[0].abstract);
     });
 
-    it('has required resolved', () => {
+    it('has resolved', () => {
         let binding = new Binding(dummyTrackerData.data.bindings[0]);
 
         expect(binding.resolved).to.equal(dummyTrackerData.data.bindings[0].resolved);
