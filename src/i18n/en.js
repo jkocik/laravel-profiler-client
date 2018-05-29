@@ -40,5 +40,11 @@ export default {
             'resolved-as': 'resolved as',
             'not-resolved': 'was not resolved',
         },
+        'http-request-summary': {
+            'method': 'method',
+            'path': 'path',
+            'url': 'url',
+            'ip': 'IP',
+        },
     },
 };
