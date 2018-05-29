@@ -4,11 +4,13 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
 import Tracker from '@/models/tracker';
 import { dummyTrackerData } from './../../../../../fixtures/es6';
+import { treeViewService } from './../../../../../../src/services/tree-view.service';
 import TabHttpRequestSummary from '@/components/dashboard/details/TabHttpRequestSummary';
 
 describe('TabHttpRequestSummary Component', () => {
     let wrapper;
     let localVue;
+    let treeViewSpy;
     let dummyTracker;
 
     let mountWithTracker = (tracker) => {
@@ -22,6 +24,8 @@ describe('TabHttpRequestSummary Component', () => {
     };
 
     beforeEach(() => {
+        treeViewSpy = sinon.spy(treeViewService, 'maxDepthOf');
+
         localVue = createLocalVue();
         localVue.use(Buefy);
         localVue.use(TreeView);
@@ -29,6 +33,10 @@ describe('TabHttpRequestSummary Component', () => {
         dummyTracker = new Tracker(dummyTrackerData);
 
         wrapper = mountWithTracker(dummyTracker);
+    });
+
+    afterEach(() => {
+        treeViewService.maxDepthOf.restore();
     });
 
     it('has method', () => {
@@ -73,7 +81,8 @@ describe('TabHttpRequestSummary Component', () => {
         expect(wrapper.findAll('tr').at(6).find('.fa-toggle-on').exists()).to.be.false;
         expect(wrapper.findAll('tr').at(6).find('.fa-toggle-off').exists()).to.be.true;
 
-        let data = Object.assign({}, dummyTrackerData.data, { request: { pjax: true } });
+        let request = Object.assign({}, dummyTrackerData.data.request, { pjax: true });
+        let data = Object.assign({}, dummyTrackerData.data, { request });
         wrapper = mountWithTracker(new Tracker(Object.assign({}, dummyTrackerData, { data })));
 
         expect(wrapper.findAll('tr').at(6).find('.fa-toggle-on').exists()).to.be.true;
@@ -88,6 +97,7 @@ describe('TabHttpRequestSummary Component', () => {
             rootObjectKey: 'query',
             maxDepth: 1,
         });
+        expect(treeViewSpy.withArgs(dummyTracker.request.query).calledOnce).to.be.true;
     });
 
     it('has tree view with header', () => {
@@ -98,6 +108,7 @@ describe('TabHttpRequestSummary Component', () => {
             rootObjectKey: 'header',
             maxDepth: 2,
         });
+        expect(treeViewSpy.withArgs(dummyTracker.request.header, 2).calledOnce).to.be.true;
     });
 
     it('has tree view with cookie', () => {
@@ -108,5 +119,6 @@ describe('TabHttpRequestSummary Component', () => {
             rootObjectKey: 'cookie',
             maxDepth: 1,
         });
+        expect(treeViewSpy.withArgs(dummyTracker.request.cookie).calledOnce).to.be.true;
     });
 });

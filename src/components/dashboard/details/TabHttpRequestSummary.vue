@@ -32,6 +32,7 @@
 <script>
     import Tracker from './../../../models/tracker';
     import TrueFalse from './../../partials/TrueFalse';
+    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-http-request-summary',
@@ -83,15 +84,15 @@
                 request: this.tracker.request,
                 optionsQuery: {
                     rootObjectKey: 'query',
-                    maxDepth: 1,
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.query),
                 },
                 optionsHeader: {
                     rootObjectKey: 'header',
-                    maxDepth: 2,
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.header, 2),
                 },
                 optionsCookie: {
                     rootObjectKey: 'cookie',
-                    maxDepth: 1,
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.cookie),
                 },
             };
         },

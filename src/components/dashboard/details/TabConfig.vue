@@ -7,6 +7,7 @@
 
 <script>
     import Tracker from './../../../models/tracker';
+    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-config',
@@ -17,7 +18,7 @@
             return {
                 options: {
                     rootObjectKey: 'config',
-                    maxDepth: 1,
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.config),
                 },
             };
         },

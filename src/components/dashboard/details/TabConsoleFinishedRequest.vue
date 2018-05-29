@@ -18,6 +18,7 @@
 
 <script>
     import Tracker from './../../../models/tracker';
+    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-console-finished-request',
@@ -29,11 +30,11 @@
                 request: this.tracker.request,
                 optionsArguments: {
                     rootObjectKey: 'arguments',
-                    maxDepth: 1,
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.arguments),
                 },
                 optionsOptions: {
                     rootObjectKey: 'options',
-                    maxDepth: 1,
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.options),
                 },
             };
         },
