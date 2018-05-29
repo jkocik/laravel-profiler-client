@@ -69,4 +69,37 @@ describe('HttpRequest Model', () => {
     it('has cookie', () => {
         expect(httpRequest.cookie).to.deep.equal(dummyTrackerData.data.request.cookie);
     });
+
+    it('counts input together with files', () => {
+        expect(Object.keys(httpRequest.input).length).to.equal(3);
+        expect(Object.keys(httpRequest.files).length).to.equal(2);
+
+        expect(httpRequest.countInput()).to.equal(5);
+    });
+
+    it('checks if input or files are provided', () => {
+        expect(Object.keys(httpRequest.input).length).to.equal(3);
+        expect(Object.keys(httpRequest.files).length).to.equal(2);
+        expect(httpRequest.hasInput()).to.be.true;
+
+        let request = {};
+
+        request = new HttpRequest(dummyTrackerData.meta, {
+            input: { 'a': 1 },
+            files: [],
+        });
+        expect(request.hasInput()).to.be.true;
+
+        request = new HttpRequest(dummyTrackerData.meta, {
+            input: [],
+            files: { 'b': 2 },
+        });
+        expect(request.hasInput()).to.be.true;
+
+        request = new HttpRequest(dummyTrackerData.meta, {
+            input: [],
+            files: [],
+        });
+        expect(request.hasInput()).to.be.false;
+    });
 });
