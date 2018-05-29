@@ -147,5 +147,7 @@ describe('Filter Store Service', () => {
         expect(spy.getCall(0).calledWith([ dummyTracker.laravelVersion ], dummyTracker.laravelVersion)).to.be.true;
         expect(spy.getCall(1).calledWith([ dummyTracker.id ], dummyTracker.id)).to.be.true;
         expect(spy.getCall(2).calledWith([ dummyTracker.laravelVersion ], dummyTrackerB.laravelVersion)).to.be.true;
+
+        helperService.isIn.restore();
     });
 });

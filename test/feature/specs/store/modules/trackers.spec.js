@@ -78,6 +78,8 @@ describe('Trackers Store Module', () => {
             statusGroup: [ 'd' ],
             method: [ 'e' ],
         })).to.be.true;
+
+        filterService.filter.restore();
     });
 
     it('returns filter with enabled running', () => {
