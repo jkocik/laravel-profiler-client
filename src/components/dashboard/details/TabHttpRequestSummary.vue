@@ -18,13 +18,13 @@
         ></tree-view>
         <hr>
         <tree-view
-            :data="request.header"
-            :options="optionsHeader"
+            :data="request.cookie"
+            :options="optionsCookie"
         ></tree-view>
         <hr>
         <tree-view
-            :data="request.cookie"
-            :options="optionsCookie"
+            :data="request.header"
+            :options="optionsHeader"
         ></tree-view>
     </section>
 </template>
@@ -86,13 +86,13 @@
                     rootObjectKey: 'query',
                     maxDepth: treeViewService.maxDepthOf(this.tracker.request.query),
                 },
-                optionsHeader: {
-                    rootObjectKey: 'header',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.header, 2),
-                },
                 optionsCookie: {
                     rootObjectKey: 'cookie',
                     maxDepth: treeViewService.maxDepthOf(this.tracker.request.cookie),
+                },
+                optionsHeader: {
+                    rootObjectKey: 'header',
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.header, 2),
                 },
             };
         },

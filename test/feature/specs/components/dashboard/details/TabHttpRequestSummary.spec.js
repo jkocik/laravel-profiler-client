@@ -100,19 +100,8 @@ describe('TabHttpRequestSummary Component', () => {
         expect(treeViewSpy.withArgs(dummyTracker.request.query).calledOnce).to.be.true;
     });
 
-    it('has tree view with header', () => {
-        let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(1);
-
-        expect(wrapperTreeView.props().data).to.deep.equal(dummyTrackerData.data.request.header);
-        expect(wrapperTreeView.props().options).to.deep.equal({
-            rootObjectKey: 'header',
-            maxDepth: 2,
-        });
-        expect(treeViewSpy.withArgs(dummyTracker.request.header, 2).calledOnce).to.be.true;
-    });
-
     it('has tree view with cookie', () => {
-        let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(2);
+        let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(1);
 
         expect(wrapperTreeView.props().data).to.deep.equal(dummyTrackerData.data.request.cookie);
         expect(wrapperTreeView.props().options).to.deep.equal({
@@ -120,5 +109,16 @@ describe('TabHttpRequestSummary Component', () => {
             maxDepth: 1,
         });
         expect(treeViewSpy.withArgs(dummyTracker.request.cookie).calledOnce).to.be.true;
+    });
+
+    it('has tree view with header', () => {
+        let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(2);
+
+        expect(wrapperTreeView.props().data).to.deep.equal(dummyTrackerData.data.request.header);
+        expect(wrapperTreeView.props().options).to.deep.equal({
+            rootObjectKey: 'header',
+            maxDepth: 2,
+        });
+        expect(treeViewSpy.withArgs(dummyTracker.request.header, 2).calledOnce).to.be.true;
     });
 });
