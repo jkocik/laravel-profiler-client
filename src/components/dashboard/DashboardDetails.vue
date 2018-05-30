@@ -6,11 +6,11 @@
         type="is-boxed"
         :animated="false"
     >
-        <b-tab-item :label="$t('tab-labels.app')">
+        <b-tab-item :label="appLabel">
             <tab-app :tracker="tracker"></tab-app>
         </b-tab-item>
 
-        <b-tab-item :disabled="! request.enabled" :label="$t(`tab-labels.${request.name}`)">
+        <b-tab-item :disabled="! request.enabled" :label="requestLabel">
             <tab-http-request v-if="request.isHttpRequest()"
                 :tracker="tracker"
             ></tab-http-request>
@@ -19,7 +19,7 @@
             ></tab-console-finished-request>
         </b-tab-item>
 
-        <b-tab-item :disabled="! response.enabled" :label="$t(`tab-labels.${response.name}`)">
+        <b-tab-item :disabled="! response.enabled" :label="responseLabel">
             <tab-http-response v-if="response.isHttpResponse()"
                 :tracker="tracker"
             ></tab-http-response>
@@ -58,6 +58,9 @@
                 activeTab: 0,
                 request: this.tracker.request,
                 response: this.tracker.response,
+                appLabel: this.$t('tab-labels.app'),
+                requestLabel: this.$t(`tab-labels.${this.tracker.request.name}`),
+                responseLabel: this.$t(`tab-labels.${this.tracker.response.name}`),
             };
         },
         methods: {

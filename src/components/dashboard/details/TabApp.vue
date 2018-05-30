@@ -3,19 +3,19 @@
         size="is-small"
         :animated="false"
     >
-        <b-tab-item :label="$t('tab-labels.application')">
+        <b-tab-item :label="applicationLabel">
             <tab-application :tracker="tracker"></tab-application>
         </b-tab-item>
-        <b-tab-item :disabled="! tracker.hasConfig()" :label="configLabel()">
+        <b-tab-item :disabled="! tracker.hasConfig()" :label="configLabel">
             <tab-config v-if="tracker.hasConfig()" :tracker="tracker"></tab-config>
         </b-tab-item>
-        <b-tab-item :disabled="! tracker.hasServiceProviders()" :label="serviceProvidersLabel()">
+        <b-tab-item :disabled="! tracker.hasServiceProviders()" :label="serviceProvidersLabel">
             <tab-service-providers v-if="tracker.hasServiceProviders()" :tracker="tracker"></tab-service-providers>
         </b-tab-item>
-        <b-tab-item :disabled="! tracker.hasBindings()" :label="bindingsLabel()">
+        <b-tab-item :disabled="! tracker.hasBindings()" :label="bindingsLabel">
             <tab-bindings v-if="tracker.hasBindings()" :tracker="tracker"></tab-bindings>
         </b-tab-item>
-        <b-tab-item :disabled="! tracker.hasPaths()" :label="pathsLabel()">
+        <b-tab-item :disabled="! tracker.hasPaths()" :label="pathsLabel">
             <tab-paths v-if="tracker.hasPaths()" :tracker="tracker"></tab-paths>
         </b-tab-item>
     </b-tabs>
@@ -41,27 +41,22 @@
         props: {
             tracker: Tracker,
         },
-        methods: {
-            configLabel() {
-                return this.tracker.hasConfig()
+        data() {
+            return {
+                applicationLabel: this.$t('tab-labels.application'),
+                configLabel: this.tracker.hasConfig()
                     ? `${this.$t('tab-labels.config')} (${this.tracker.countConfig()})`
-                    : this.$t('tab-labels.config');
-            },
-            serviceProvidersLabel() {
-                return this.tracker.hasServiceProviders()
+                    : this.$t('tab-labels.config'),
+                serviceProvidersLabel: this.tracker.hasServiceProviders()
                     ? `${this.$t('tab-labels.service-providers')} (${this.tracker.countServiceProviders()})`
-                    : this.$t('tab-labels.service-providers');
-            },
-            bindingsLabel() {
-                return this.tracker.hasBindings()
+                    : this.$t('tab-labels.service-providers'),
+                bindingsLabel: this.tracker.hasBindings()
                     ? `${this.$t('tab-labels.bindings')} (${this.tracker.countBindings()})`
-                    : this.$t('tab-labels.bindings');
-            },
-            pathsLabel() {
-                return this.tracker.hasPaths()
+                    : this.$t('tab-labels.bindings'),
+                pathsLabel: this.tracker.hasPaths()
                     ? `${this.$t('tab-labels.paths')} (${this.tracker.countPaths()})`
-                    : this.$t('tab-labels.paths');
-            },
+                    : this.$t('tab-labels.paths'),
+            };
         },
     };
 </script>
