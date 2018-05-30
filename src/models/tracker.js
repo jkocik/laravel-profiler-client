@@ -27,6 +27,7 @@ export default class Tracker {
 
         this.request = trackerService.request(data.meta, data.data.request);
         this.response = trackerService.response(data.meta.type);
+        this.session = data.data.session || {};
 
         this.lastActiveDetailsTab = 0;
     }
@@ -61,5 +62,13 @@ export default class Tracker {
 
     hasPaths() {
         return !! this.countPaths();
+    }
+
+    countSession() {
+        return Object.keys(this.session).length;
+    }
+
+    hasSession() {
+        return !! this.countSession();
     }
 }

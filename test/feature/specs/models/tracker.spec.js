@@ -244,6 +244,26 @@ describe('Tracker Model', () => {
         expect(tracker.hasPaths()).to.be.false;
     });
 
+    it('has session', () => {
+        expect(Object.keys(dummyTrackerData.data.session).length).to.be.equal(6);
+
+        let tracker = new Tracker(dummyTrackerData);
+
+        expect(tracker.countSession()).to.be.equal(6);
+        expect(tracker.hasSession()).to.be.true;
+        expect(tracker.session).to.deep.equal(dummyTrackerData.data.session);
+    });
+
+    it('has empty session if session data are not delivered', () => {
+        let data = Object.assign({}, dummyTrackerData.data, { session: undefined });
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { data }));
+
+        expect(data.session).to.be.undefined;
+        expect(tracker.session).to.be.an('object');
+        expect(tracker.countSession()).to.be.equal(0);
+        expect(tracker.hasSession()).to.be.false;
+    });
+
     it('has request based on meta type', () => {
         let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' } }));
         let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting' } }));

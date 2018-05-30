@@ -14,6 +14,7 @@ export default {
         'http-request': 'Request',
         'http-request-summary': 'Request',
         'http-request-input': 'Input ({count})',
+        'http-session': 'Session ({count})',
         'http-route': 'Route',
         'http-request-server': 'Server',
         'console-finished-request': 'Input',
