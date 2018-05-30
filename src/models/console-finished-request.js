@@ -3,7 +3,6 @@ import { BaseRequest } from './base-request';
 export default class ConsoleFinishedRequest extends BaseRequest {
     constructor(meta, request) {
         super();
-        this.command = meta.path;
         this.arguments = request.arguments;
         this.options = request.options;
     }

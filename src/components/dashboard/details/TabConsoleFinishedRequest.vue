@@ -1,7 +1,7 @@
 <template>
     <section>
         <ul>
-            <li><span><label>command</label></span> {{ request.command }}</li>
+            <li><span><label>command</label></span> {{ tracker.path }}</li>
         </ul>
         <hr>
         <tree-view
