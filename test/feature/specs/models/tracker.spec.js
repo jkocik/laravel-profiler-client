@@ -1,6 +1,8 @@
 import Path from '@/models/path';
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
+import NullRoute from '@/models/null-route';
+import HttpRoute from '@/models/http-route';
 import Application from '@/models/application';
 import NullRequest from '@/models/null-request';
 import HttpRequest from '@/models/http-request';
@@ -290,5 +292,23 @@ describe('Tracker Model', () => {
         expect(trackerC.response).to.be.an.instanceOf(ConsoleFinishedResponse);
         expect(trackerD.response).to.be.an.instanceOf(NullResponse);
         expect(trackerE.response).to.be.an.instanceOf(NullResponse);
+    });
+
+    it('has route based on meta type', () => {
+        let dataWithEmptyRoute = Object.assign({}, dummyTrackerData.data, { route: [] });
+
+        let trackerA = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' } }));
+        let trackerB = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'http' }, data: dataWithEmptyRoute }));
+        let trackerC = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-starting' } }));
+        let trackerD = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'command-finished' } }));
+        let trackerE = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: null } }));
+        let trackerF = new Tracker(Object.assign({}, dummyTrackerData, { meta: { type: 'not-know-type' } }));
+
+        expect(trackerA.route).to.be.an.instanceOf(HttpRoute);
+        expect(trackerB.route).to.be.an.instanceOf(NullRoute);
+        expect(trackerC.route).to.be.an.instanceOf(NullRoute);
+        expect(trackerD.route).to.be.an.instanceOf(NullRoute);
+        expect(trackerE.route).to.be.an.instanceOf(NullRoute);
+        expect(trackerF.route).to.be.an.instanceOf(NullRoute);
     });
 });

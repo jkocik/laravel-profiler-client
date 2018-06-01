@@ -12,8 +12,8 @@
         <b-tab-item :disabled="! tracker.hasSession()" :label="sessionLabel">
             <tab-http-session v-if="tracker.hasSession()" :tracker="tracker"></tab-http-session>
         </b-tab-item>
-        <b-tab-item :label="routeLabel">
-            <tab-http-route :tracker="tracker"></tab-http-route>
+        <b-tab-item :disabled="! route.enabled" :label="routeLabel">
+            <tab-http-route v-if="route.enabled" :tracker="tracker"></tab-http-route>
         </b-tab-item>
         <b-tab-item :label="serverLabel">
             <tab-http-request-server :tracker="tracker"></tab-http-request-server>
@@ -44,6 +44,7 @@
         data() {
             return {
                 request: this.tracker.request,
+                route: this.tracker.route,
                 summaryLabel: this.$t('tab-labels.http-request-summary'),
                 inputLabel: this.$t('tab-labels.http-request-input', { count: this.tracker.request.countInput() }),
                 sessionLabel: this.$t('tab-labels.http-session', { count: this.tracker.countSession() }),

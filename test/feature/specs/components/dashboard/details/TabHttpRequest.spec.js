@@ -123,6 +123,21 @@ describe('TabHttpRequest Component', () => {
         });
     });
 
+    it('route tab is enabled only if route is present', (done) => {
+        let data = Object.assign({}, dummyTrackerData.data, { route: [] });
+        let tracker = new Tracker(Object.assign({}, dummyTrackerData, { data }));
+        wrapper = mountWithTracker(tracker);
+
+        let wrapperTabHttpRoute = wrapper.find({ name: 'tab-http-route' });
+
+        wrapper.vm.$nextTick(() => {
+            expect(wrapper.findAll('.tabs li').at(3).text()).to.equal(wrapper.vm.$t('tab-labels.http-route'));
+            expect(wrapper.findAll('.tabs li').at(3).classes()).to.contain('is-disabled');
+            expect(wrapperTabHttpRoute.exists()).to.be.false;
+            done();
+        });
+    });
+
     it('has request server tab', (done) => {
         let wrapperTabHttpRequestServer = wrapper.find({ name: 'tab-http-request-server' });
 

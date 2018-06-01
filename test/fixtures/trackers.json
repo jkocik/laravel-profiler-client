@@ -113,6 +113,27 @@
                 "d": 4,
                 "e": 5,
                 "f": 6
+            },
+            "route": {
+                "methods": [
+                    "GET",
+                    "HEAD"
+                ],
+                "uri": "{id}/a/{user}",
+                "regex": "#^/(?P<id>[^/]++)/a/(?P<user>[^/]++)$#sDu",
+                "name": "route-name",
+                "prefix": "admin",
+                "middleware": [
+                    "guest",
+                    "cache.headers"
+                ],
+                "parameters": {
+                    "a": "x",
+                    "b": "y"
+                },
+                "uses": {
+                    "controller": "AdminController::login:25-35"
+                }
             }
         }
     },

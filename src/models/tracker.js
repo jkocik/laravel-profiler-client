@@ -27,6 +27,7 @@ export default class Tracker {
 
         this.request = trackerService.request(data.meta, data.data.request);
         this.response = trackerService.response(data.meta.type);
+        this.route = trackerService.route(data.meta, data.data.route);
         this.session = data.data.session || {};
 
         this.lastActiveDetailsTab = 0;

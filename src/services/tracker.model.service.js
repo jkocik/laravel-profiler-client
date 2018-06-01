@@ -1,4 +1,6 @@
 import moment from 'moment';
+import NullRoute from './../models/null-route';
+import HttpRoute from './../models/http-route';
 import NullRequest from './../models/null-request';
 import HttpRequest from './../models/http-request';
 import NullResponse from './../models/null-response';
@@ -103,5 +105,17 @@ export const trackerService = {
         }[type] || NullResponse;
 
         return new Response();
+    },
+
+    route(meta, route) {
+        if (! route || Array.isArray(route)) {
+            return new NullRoute();
+        }
+
+        const Route = {
+            'http': HttpRoute,
+        }[meta.type] || NullRoute;
+
+        return new Route(route);
     },
 };
