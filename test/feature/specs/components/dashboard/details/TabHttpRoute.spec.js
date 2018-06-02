@@ -1,38 +1,18 @@
-import Buefy from 'buefy';
-import TreeView from 'vue-json-tree-view';
-import { createLocalVue, mount } from '@vue/test-utils';
-import i18n from '@/i18n';
 import Tracker from '@/models/tracker';
-import { dummyTrackerData } from './../../../../../fixtures/es6';
-import { treeViewService } from './../../../../../../src/services/tree-view.service';
+import { treeViewService } from '@/services/tree-view.service';
 import TabHttpRoute from '@/components/dashboard/details/TabHttpRoute';
+import { trackerFactory, mountWithTracker } from './../../../test-helper';
 
 describe('TabHttpRoute Component', () => {
+    let tracker;
     let wrapper;
-    let localVue;
     let treeViewSpy;
-    let dummyTracker;
-
-    let mountWithTracker = (tracker) => {
-        return mount(TabHttpRoute, {
-            localVue,
-            i18n,
-            propsData: {
-                tracker,
-            },
-        });
-    };
 
     beforeEach(() => {
         treeViewSpy = sinon.spy(treeViewService, 'maxDepthOf');
 
-        localVue = createLocalVue();
-        localVue.use(Buefy);
-        localVue.use(TreeView);
-
-        dummyTracker = new Tracker(dummyTrackerData);
-
-        wrapper = mountWithTracker(dummyTracker);
+        tracker = new Tracker(trackerFactory.create());
+        wrapper = mountWithTracker(TabHttpRoute, tracker);
     });
 
     afterEach(() => {
@@ -40,53 +20,52 @@ describe('TabHttpRoute Component', () => {
     });
 
     it('has controller when uses controller to process route', () => {
-        expect(wrapper.findAll('tr').at(0).text()).to.contain('controller');
-        expect(wrapper.findAll('tr').at(0).text()).to.not.contain('closure');
-        expect(wrapper.findAll('tr').at(0).text()).to.contain(dummyTracker.route.uses);
+        expect(wrapper.trs(0).text()).to.contain('controller');
+        expect(wrapper.trs(0).text()).to.not.contain('closure');
+        expect(wrapper.trs(0).text()).to.contain(tracker.route.uses);
     });
 
     it('has closure when uses closure to process route', () => {
-        let route = Object.assign({}, dummyTrackerData.data.route, { uses: { closure: 'abc:10-20' } });
-        let data = Object.assign({}, dummyTrackerData.data, { route });
-        wrapper = mountWithTracker(new Tracker(Object.assign({}, dummyTrackerData, { data })));
+        tracker = new Tracker(trackerFactory.create('data.route', { uses: { closure: 'abc:10-20' } }));
+        wrapper = mountWithTracker(TabHttpRoute, tracker);
 
-        expect(wrapper.findAll('tr').at(0).text()).to.contain('closure');
-        expect(wrapper.findAll('tr').at(0).text()).to.not.contain('controller');
-        expect(wrapper.findAll('tr').at(0).text()).to.contain('abc:10-20');
+        expect(wrapper.trs(0).text()).to.contain('closure');
+        expect(wrapper.trs(0).text()).to.not.contain('controller');
+        expect(wrapper.trs(0).text()).to.contain('abc:10-20');
     });
 
     it('has methods', () => {
-        expect(wrapper.findAll('tr').at(1).text()).to.contain(dummyTracker.route.methods);
+        expect(wrapper.trs(1).text()).to.contain(tracker.route.methods);
     });
 
     it('has uri', () => {
-        expect(wrapper.findAll('tr').at(2).text()).to.contain(dummyTracker.route.uri);
+        expect(wrapper.trs(2).text()).to.contain(tracker.route.uri);
     });
 
     it('has regex', () => {
-        expect(wrapper.findAll('tr').at(3).text()).to.contain(dummyTracker.route.regex);
+        expect(wrapper.trs(3).text()).to.contain(tracker.route.regex);
     });
 
     it('has name', () => {
-        expect(wrapper.findAll('tr').at(4).text()).to.contain(dummyTracker.route.name);
+        expect(wrapper.trs(4).text()).to.contain(tracker.route.name);
     });
 
     it('has prefix', () => {
-        expect(wrapper.findAll('tr').at(5).text()).to.contain(dummyTracker.route.prefix);
+        expect(wrapper.trs(5).text()).to.contain(tracker.route.prefix);
     });
 
     it('has middleware', () => {
-        expect(wrapper.findAll('tr').at(6).text()).to.contain(dummyTracker.route.middleware);
+        expect(wrapper.trs(6).text()).to.contain(tracker.route.middleware);
     });
 
     it('has tree view with parameters', () => {
-        let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(0);
+        let wrapperTreeView = wrapper.find({ name: 'tree-view' });
 
-        expect(wrapperTreeView.props().data).to.deep.equal(dummyTrackerData.data.route.parameters);
+        expect(wrapperTreeView.props().data).to.deep.equal(tracker.route.parameters);
         expect(wrapperTreeView.props().options).to.deep.equal({
             rootObjectKey: 'parameters',
             maxDepth: 1,
         });
-        expect(treeViewSpy.withArgs(dummyTracker.route.parameters).calledOnce).to.be.true;
+        expect(treeViewSpy.withArgs(tracker.route.parameters).calledOnce).to.be.true;
     });
 });

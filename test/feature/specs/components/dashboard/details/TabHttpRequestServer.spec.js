@@ -1,32 +1,21 @@
-import Buefy from 'buefy';
-import { createLocalVue, mount } from '@vue/test-utils';
 import Tracker from '@/models/tracker';
-import { dummyTrackerData } from './../../../../../fixtures/es6';
+import { trackerFactory, mountWithTracker } from './../../../test-helper';
 import TabHttpRequestServer from '@/components/dashboard/details/TabHttpRequestServer';
 
 describe('TabHttpRequestServer Component', () => {
+    let tracker;
     let wrapper;
-    let dummyTracker;
 
     beforeEach(() => {
-        dummyTracker = new Tracker(dummyTrackerData);
-
-        let localVue = createLocalVue();
-        localVue.use(Buefy);
-
-        wrapper = mount(TabHttpRequestServer, {
-            localVue,
-            propsData: {
-                tracker: dummyTracker,
-            },
-        });
+        tracker = new Tracker(trackerFactory.create());
+        wrapper = mountWithTracker(TabHttpRequestServer, tracker);
     });
 
     it('has server data', () => {
-        let keys = Object.keys(dummyTracker.request.server);
+        let keys = Object.keys(tracker.request.server);
 
         expect(wrapper.findAll('tr').length).to.equal(keys.length);
-        expect(wrapper.findAll('tr').at(0).text()).to.contain(keys[0]);
-        expect(wrapper.findAll('tr').at(0).text()).to.contain(dummyTracker.request.server[keys[0]]);
+        expect(wrapper.trs(0).text()).to.contain(keys[0]);
+        expect(wrapper.trs(0).text()).to.contain(tracker.request.server[keys[0]]);
     });
 });

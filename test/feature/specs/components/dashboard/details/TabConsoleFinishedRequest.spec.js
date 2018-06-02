@@ -1,32 +1,18 @@
-import Buefy from 'buefy';
-import TreeView from 'vue-json-tree-view';
-import { createLocalVue, mount } from '@vue/test-utils';
 import Tracker from '@/models/tracker';
-import { dummyTrackerData } from './../../../../../fixtures/es6';
-import { treeViewService } from './../../../../../../src/services/tree-view.service';
+import { treeViewService } from '@/services/tree-view.service';
+import { trackerFactory, mountWithTracker } from './../../../test-helper';
 import TabConsoleFinishedRequest from '@/components/dashboard/details/TabConsoleFinishedRequest';
 
 describe('TabConsoleFinishedRequest Component', () => {
+    let tracker;
     let wrapper;
     let treeViewSpy;
-    let dummyTracker;
 
     beforeEach(() => {
         treeViewSpy = sinon.spy(treeViewService, 'maxDepthOf');
 
-        let meta = { meta: { type: 'command-finished', 'path': 'inspire' } };
-        dummyTracker = new Tracker(Object.assign({}, dummyTrackerData, meta));
-
-        let localVue = createLocalVue();
-        localVue.use(Buefy);
-        localVue.use(TreeView);
-
-        wrapper = mount(TabConsoleFinishedRequest, {
-            localVue,
-            propsData: {
-                tracker: dummyTracker,
-            },
-        });
+        tracker = new Tracker(trackerFactory.create('meta', { type: 'command-finished', path: 'inspire' }));
+        wrapper = mountWithTracker(TabConsoleFinishedRequest, tracker);
     });
 
     afterEach(() => {
@@ -41,22 +27,22 @@ describe('TabConsoleFinishedRequest Component', () => {
     it('has tree view with arguments', () => {
         let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(0);
 
-        expect(wrapperTreeView.props().data).to.deep.equal(dummyTrackerData.data.request.arguments);
+        expect(wrapperTreeView.props().data).to.deep.equal(tracker.request.arguments);
         expect(wrapperTreeView.props().options).to.deep.equal({
             rootObjectKey: 'arguments',
             maxDepth: 1,
         });
-        expect(treeViewSpy.withArgs(dummyTracker.request.arguments).calledOnce).to.be.true;
+        expect(treeViewSpy.withArgs(tracker.request.arguments).calledOnce).to.be.true;
     });
 
     it('has tree view with options', () => {
         let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(1);
 
-        expect(wrapperTreeView.props().data).to.deep.equal(dummyTrackerData.data.request.options);
+        expect(wrapperTreeView.props().data).to.deep.equal(tracker.request.options);
         expect(wrapperTreeView.props().options).to.deep.equal({
             rootObjectKey: 'options',
             maxDepth: 1,
         });
-        expect(treeViewSpy.withArgs(dummyTracker.request.options).calledOnce).to.be.true;
+        expect(treeViewSpy.withArgs(tracker.request.options).calledOnce).to.be.true;
     });
 });
