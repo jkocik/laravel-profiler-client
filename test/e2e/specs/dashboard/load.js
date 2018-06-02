@@ -1,6 +1,6 @@
-const profiler = require('./../../fakers/profiler');
 const data = require('./../../../fixtures/common-js');
 const socketsServer = require('./../../fakers/sockets-server');
+const socketLaravelClient = require('./../../fakers/socket-laravel-client');
 
 module.exports = {
     before: () => socketsServer.start(),
@@ -16,7 +16,7 @@ module.exports = {
     },
 
     'sees tracker received from server': (browser) => {
-        profiler.sendToSocketsServer(data.dummyTrackerData);
+        socketLaravelClient.sendToSocketsServer(data.dummyTrackerData);
 
         browser
             .pause(1000)
