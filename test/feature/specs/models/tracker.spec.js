@@ -181,19 +181,19 @@ describe('Tracker Model', () => {
     });
 
     it('has service providers', () => {
-        expect(dummyTrackerData.data.serviceProviders.length).to.be.equal(2);
+        expect(dummyTrackerData.data.service_providers.length).to.be.equal(2);
 
         let tracker = new Tracker(dummyTrackerData);
 
         expect(tracker.countServiceProviders()).to.be.equal(2);
         expect(tracker.hasServiceProviders()).to.be.true;
-        expect(tracker.serviceProviders).to.deep.equal(dummyTrackerData.data.serviceProviders);
-        expect(tracker.serviceProviders.length).to.be.equal(dummyTrackerData.data.serviceProviders.length);
+        expect(tracker.serviceProviders).to.deep.equal(dummyTrackerData.data.service_providers);
+        expect(tracker.serviceProviders.length).to.be.equal(dummyTrackerData.data.service_providers.length);
         expect(tracker.serviceProviders[0]).to.be.a('string');
     });
 
     it('has empty service providers if service providers are not delivered', () => {
-        let data = Object.assign({}, dummyTrackerData.data, { serviceProviders: undefined });
+        let data = Object.assign({}, dummyTrackerData.data, { service_providers: undefined });
         let tracker = new Tracker(Object.assign({}, dummyTrackerData, { data }));
 
         expect(data.serviceProviders).to.be.undefined;

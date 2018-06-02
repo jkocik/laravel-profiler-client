@@ -28,7 +28,11 @@ module.exports = {
     'semi': [2, 'always'],
     'indent': 'off',
     'indent-legacy': ['error', 4],
-    'space-before-function-paren': ['error', 'never'],
+    'space-before-function-paren': ['error', {
+      'anonymous': 'never',
+      'named': 'never',
+      'asyncArrow': 'always'
+    }],
     'comma-dangle': ['error', {
       'arrays': 'always-multiline',
       'objects': 'always-multiline',

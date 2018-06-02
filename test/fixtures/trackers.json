@@ -22,7 +22,7 @@
                 "is_down_for_maintenance": false,
                 "should_skip_middleware": false
             },
-            "serviceProviders": [
+            "service_providers": [
                 "Illuminate\\Log\\LogServiceProvider",
                 "Illuminate\\Routing\\RoutingServiceProvider"
             ],

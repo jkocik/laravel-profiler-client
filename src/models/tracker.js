@@ -21,7 +21,7 @@ export default class Tracker {
 
         this.application = new Application(data.data.application);
         this.config = data.data.config || {};
-        this.serviceProviders = data.data.serviceProviders || [];
+        this.serviceProviders = data.data.service_providers || [];
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
         this.paths = (data.data.paths || []).map(path => new Path(path));
 
