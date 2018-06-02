@@ -1,0 +1,133 @@
+{
+    "meta": {
+        "execution_at": 1234567,
+        "id": "abc4567890abc4567890abc456789012",
+        "laravel_version": "5.6.0",
+        "php_version": "7.1.2",
+        "env": "local",
+        "is_running_in_console": false,
+        "type": "http",
+        "method": "POST",
+        "path": "/",
+        "ajax": false,
+        "json": false,
+        "status": 200
+    },
+    "data": {
+        "application": {
+            "locale": "en",
+            "routes_are_cached": false,
+            "configuration_is_cached": false,
+            "is_down_for_maintenance": false,
+            "should_skip_middleware": false
+        },
+        "service_providers": [
+            "Illuminate\\Log\\LogServiceProvider",
+            "Illuminate\\Routing\\RoutingServiceProvider"
+        ],
+        "paths": [
+            {
+                "name": "app_path",
+                "path": "path/to/app/directory"
+            },
+            {
+                "name": "cached_config_path",
+                "path": "bootstrap/cache/config.php"
+            }
+        ],
+        "bindings": [
+            {
+                "abstract": "events",
+                "resolved": "Illuminate\\Events\\Dispatcher"
+            },
+            {
+                "abstract": "log",
+                "resolved": null
+            }
+        ],
+        "config": {
+            "app": {
+                "debug": true,
+                "env": "local"
+            },
+            "profiler": {
+                "enabled": true
+            }
+        },
+        "request": {
+            "pjax": false,
+            "ip": "127.0.0.1",
+            "url": "http://localhost/url",
+            "query": {
+                "a": 123,
+                "b": 456
+            },
+            "server": {
+                "HTTP_HOST": "http://localhost"
+            },
+            "header": {
+                "connection": [
+                    "keep-alive"
+                ]
+            },
+            "input": {
+                "a": 123,
+                "b": 456
+            },
+            "files": {
+                "a": {
+                    "client_original_name": "a1",
+                    "client_original_extension": "a2",
+                    "client_mime_type": "a3",
+                    "client_size": "a4",
+                    "path": "a5"
+                },
+                "b": {
+                    "client_original_name": "b1",
+                    "client_original_extension": "b2",
+                    "client_mime_type": "b3",
+                    "client_size": "b4",
+                    "path": "b5"
+                }
+            },
+            "cookie": {
+                "cookie-a": "val-a",
+                "cookie-b": "val-b",
+                "cookie-c": "val-c"
+            },
+            "arguments": {
+                "command": "list"
+            },
+            "options": {
+                "raw": false,
+                "format": "txt",
+                "help": false
+            }
+        },
+        "session": {
+            "a": 1,
+            "b": 2
+        },
+        "route": {
+            "methods": [
+                "GET",
+                "HEAD"
+            ],
+            "uri": "{id}/a/{user}",
+            "regex": "#^/(?P<id>[^/]++)/a/(?P<user>[^/]++)$#sDu",
+            "name": "route-name",
+            "prefix": "admin",
+            "middleware": [
+                "guest",
+                "cache.headers"
+            ],
+            "parameters": {
+                "a": "x",
+                "b": "y"
+            },
+            "uses": {
+                "controller": "AdminController::login:25-35"
+            }
+        }
+    }
+}

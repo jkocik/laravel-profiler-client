@@ -1,4 +1,3 @@
-import trackers from './trackers.json';
+import trackerData from './tracker.json';
 
-export const dummyTrackerData = trackers[0];
-export const dummyTrackerDataB = trackers[1];
+export const dummyTrackerData = trackerData;

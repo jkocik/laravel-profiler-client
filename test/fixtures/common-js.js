@@ -1,6 +1,5 @@
-const trackers = require('./trackers.json');
+const trackerData = require('./tracker.json');
 
 module.exports = {
-    dummyTrackerData: trackers[0],
-    dummyTrackerDataB: trackers[1],
+    dummyTrackerData: trackerData,
 };
