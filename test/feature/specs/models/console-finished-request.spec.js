@@ -1,16 +1,22 @@
-import { dummyTrackerData } from './../../../fixtures/es6';
+import { trackerFactory } from './../test-helper';
 import ConsoleFinishedRequest from '@/models/console-finished-request';
 
 describe('ConsoleFinishedRequest Model', () => {
-    it('has arguments', () => {
-        let consoleFinishedRequest = new ConsoleFinishedRequest(dummyTrackerData.meta, dummyTrackerData.data.request);
+    let trackerSource;
 
-        expect(consoleFinishedRequest.arguments).to.equal(dummyTrackerData.data.request.arguments);
+    beforeEach(() => {
+        trackerSource = trackerFactory.create();
+    });
+
+    it('has arguments', () => {
+        let consoleFinishedRequest = new ConsoleFinishedRequest(trackerSource.meta, trackerSource.data.request);
+
+        expect(consoleFinishedRequest.arguments).to.equal(trackerSource.data.request.arguments);
     });
 
     it('has options', () => {
-        let consoleFinishedRequest = new ConsoleFinishedRequest(dummyTrackerData.meta, dummyTrackerData.data.request);
+        let consoleFinishedRequest = new ConsoleFinishedRequest(trackerSource.meta, trackerSource.data.request);
 
-        expect(consoleFinishedRequest.options).to.equal(dummyTrackerData.data.request.options);
+        expect(consoleFinishedRequest.options).to.equal(trackerSource.data.request.options);
     });
 });

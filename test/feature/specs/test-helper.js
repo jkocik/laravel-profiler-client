@@ -7,6 +7,8 @@ import { dummyTrackerData } from './../../fixtures/es6';
 
 export const trackerFactory = new Factory(dummyTrackerData);
 
+export const bindingsFactory = new Factory(dummyTrackerData.data.bindings[0]);
+
 export const mountWithTracker = (component, tracker) => {
     let localVue = createLocalVue();
     localVue.use(Buefy);

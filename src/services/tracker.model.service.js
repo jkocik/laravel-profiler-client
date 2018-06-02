@@ -49,7 +49,11 @@ export const trackerService = {
         return path || missing;
     },
 
-    status(status) {
+    status(resolvedType, status) {
+        if (resolvedType === missing) {
+            return missing;
+        }
+
         if (! status && status !== 0) {
             return missing;
         }

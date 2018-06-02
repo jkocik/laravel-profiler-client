@@ -1,34 +1,43 @@
 import HttpRoute from '@/models/http-route';
-import { dummyTrackerData } from './../../../fixtures/es6';
+import { trackerFactory } from './../test-helper';
 
 describe('HttpRoute Model', () => {
-    it('has methods', () => {
-        let route = new HttpRoute(dummyTrackerData.data.route);
+    let trackerSource;
 
-        expect(route.methods).to.equal(dummyTrackerData.data.route.methods.join(', '));
+    beforeEach(() => {
+        trackerSource = trackerFactory.create();
+    });
+
+    it('has methods', () => {
+        let route = new HttpRoute(trackerSource.data.route);
+
+        expect(route.methods).to.equal(trackerSource.data.route.methods.join(', '));
     });
 
     it('has name', () => {
-        let routeA = new HttpRoute(dummyTrackerData.data.route);
-        let routeB = new HttpRoute(Object.assign({}, dummyTrackerData.data.route, { name: undefined }));
+        let trackerSourceB = trackerFactory.create('data.route', { name: undefined });
+        let routeA = new HttpRoute(trackerSource.data.route);
+        let routeB = new HttpRoute(trackerSourceB.data.route);
 
-        expect(routeA.name).to.equal(dummyTrackerData.data.route.name);
+        expect(routeA.name).to.equal(trackerSource.data.route.name);
         expect(routeB.name).to.equal('---');
     });
 
     it('has prefix', () => {
-        let routeA = new HttpRoute(dummyTrackerData.data.route);
-        let routeB = new HttpRoute(Object.assign({}, dummyTrackerData.data.route, { prefix: undefined }));
+        let trackerSourceB = trackerFactory.create('data.route', { prefix: undefined });
+        let routeA = new HttpRoute(trackerSource.data.route);
+        let routeB = new HttpRoute(trackerSourceB.data.route);
 
-        expect(routeA.prefix).to.equal(dummyTrackerData.data.route.prefix);
+        expect(routeA.prefix).to.equal(trackerSource.data.route.prefix);
         expect(routeB.prefix).to.equal('---');
     });
 
     it('has middleware', () => {
-        let routeA = new HttpRoute(dummyTrackerData.data.route);
-        let routeB = new HttpRoute(Object.assign({}, dummyTrackerData.data.route, { middleware: [] }));
+        let trackerSourceB = trackerFactory.create('data.route', { middleware: [] });
+        let routeA = new HttpRoute(trackerSource.data.route);
+        let routeB = new HttpRoute(trackerSourceB.data.route);
 
-        expect(routeA.middleware).to.equal(dummyTrackerData.data.route.middleware.join(', '));
+        expect(routeA.middleware).to.equal(trackerSource.data.route.middleware.join(', '));
         expect(routeB.middleware).to.equal('---');
     });
 });

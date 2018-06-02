@@ -15,7 +15,7 @@ export default class Tracker {
         this.typeGroup = trackerService.typeGroup(this.type, data.meta.ajax, data.meta.json);
         this.method = trackerService.method(data.meta.method);
         this.path = trackerService.path(data.meta.path);
-        this.status = trackerService.status(data.meta.status);
+        this.status = trackerService.status(this.type, data.meta.status);
         this.statusGroup = trackerService.statusGroup(this.status, this.type);
         this.statusColor = trackerService.statusColor(this.statusGroup);
 
