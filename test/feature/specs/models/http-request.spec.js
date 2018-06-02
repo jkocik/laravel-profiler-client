@@ -90,7 +90,7 @@ describe('HttpRequest Model', () => {
         let request;
 
         trackerSource = trackerFactory
-            .set('data.request', { input: { 'a': 1 } })
+            .set('data.request', { input: { a: 1 } })
             .set('data.request', { files: [] })
             .create();
         request = new HttpRequest(trackerSource.meta, trackerSource.data.request);
@@ -98,7 +98,7 @@ describe('HttpRequest Model', () => {
 
         trackerSource = trackerFactory
             .set('data.request', { input: [] })
-            .set('data.request', { files: { 'b': 2 } })
+            .set('data.request', { files: { b: 2 } })
             .create();
         request = new HttpRequest(trackerSource.meta, trackerSource.data.request);
         expect(request.hasInput()).to.be.true;

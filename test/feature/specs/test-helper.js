@@ -27,9 +27,31 @@ export const mountWithTracker = (component, tracker) => {
         },
     });
 
+    extend(wrapper);
+
+    return wrapper;
+};
+
+export const mountWithoutProps = (component) => {
+    let localVue = createLocalVue();
+    localVue.use(Buefy);
+    localVue.use(TreeView);
+
+    let store = storeFactory();
+
+    let wrapper = mount(component, {
+        localVue,
+        i18n,
+        store,
+    });
+
+    extend(wrapper);
+
+    return wrapper;
+};
+
+const extend = (wrapper) => {
     wrapper.tabs = (index) => wrapper.findAll('.tabs li').at(index);
     wrapper.trs = (index) => wrapper.findAll('tr').at(index);
     wrapper.lis = (index) => wrapper.findAll('li').at(index);
-
-    return wrapper;
 };
