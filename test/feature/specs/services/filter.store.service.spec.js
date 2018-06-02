@@ -1,130 +1,156 @@
 import Tracker from '@/models/tracker';
+import { trackerFactory } from './../test-helper';
 import helperService from '@/services/helper.service';
 import { filterService } from '@/services/filter.store.service';
-import { dummyTrackerData, dummyTrackerDataB } from './../../../fixtures/es6';
 
 describe('Filter Store Service', () => {
-    let dummyTracker;
-    let dummyTrackerB;
-    let dummyTrackerBDiffEnv;
-    let dummyTrackerBDiffVersion;
+    let trackerA;
+    let trackerB;
+    let trackerBDiffEnv;
+    let trackerBDiffMethod;
     let data;
 
     beforeEach(() => {
-        dummyTracker = new Tracker(dummyTrackerData);
-        dummyTrackerB = new Tracker(dummyTrackerDataB);
-        dummyTrackerBDiffEnv = Object.assign(new Tracker(dummyTrackerDataB), { env: 'production' });
-        dummyTrackerBDiffVersion = Object.assign(new Tracker(dummyTrackerDataB), { laravel_version: '5.4.0' });
+        trackerA = new Tracker(
+            trackerFactory
+                .set('meta', { id: '123' })
+                .set('meta', { env: 'local' })
+                .set('meta', { method: 'GET' })
+                .create()
+        );
+        trackerB = new Tracker(
+            trackerFactory
+                .set('meta', { id: '456' })
+                .set('meta', { env: 'testing' })
+                .set('meta', { method: 'POST' })
+                .create()
+        );
+        trackerBDiffEnv = new Tracker(
+            trackerFactory
+                .set('meta', { id: '789' })
+                .set('meta', { env: 'production' })
+                .set('meta', { method: 'POST' })
+                .create()
+        );
+        trackerBDiffMethod = new Tracker(
+            trackerFactory
+                .set('meta', { id: '001' })
+                .set('meta', { env: 'testing' })
+                .set('meta', { method: 'PUT' })
+                .create()
+        );
+
         data = [
-            dummyTracker,
-            dummyTrackerB,
-            dummyTrackerB,
-            dummyTrackerBDiffEnv,
-            dummyTrackerBDiffVersion,
+            trackerA,
+            trackerB,
+            trackerB,
+            trackerBDiffEnv,
+            trackerBDiffMethod,
         ];
     });
 
     it('returns filtered data', () => {
         let filterBy = {
             env: [
-                dummyTracker.env,
-                dummyTrackerB.env,
-                dummyTrackerBDiffEnv.env,
+                trackerA.env,
+                trackerB.env,
+                trackerBDiffEnv.env,
             ],
         };
 
         expect(filterService.filter(data, filterBy, { env: [] })).to.deep.equal([
-            dummyTracker,
-            dummyTrackerB,
-            dummyTrackerB,
-            dummyTrackerBDiffEnv,
-            dummyTrackerBDiffVersion,
+            trackerA,
+            trackerB,
+            trackerB,
+            trackerBDiffEnv,
+            trackerBDiffMethod,
         ]);
 
         filterBy.env.splice(1, 1);
+        expect(filterBy.env).to.deep.equal(['local', 'production']);
         expect(filterService.filter(data, filterBy, { env: [] })).to.deep.equal([
-            dummyTracker,
-            dummyTrackerBDiffEnv,
+            trackerA,
+            trackerBDiffEnv,
         ]);
     });
 
     it('returns data filtered by many params', () => {
         let filterBy = {
             env: [
-                dummyTracker.env,
-                dummyTrackerB.env,
-                dummyTrackerBDiffEnv.env,
+                trackerA.env,
+                trackerB.env,
+                trackerBDiffEnv.env,
             ],
-            laravel_version: [
-                dummyTracker.laravel_version,
-                dummyTrackerB.laravel_version,
-                dummyTrackerBDiffVersion.laravel_version,
+            method: [
+                trackerA.method,
+                trackerB.method,
+                trackerBDiffMethod.method,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], laravel_version: [] })).to.deep.equal([
-            dummyTracker,
-            dummyTrackerB,
-            dummyTrackerB,
-            dummyTrackerBDiffEnv,
-            dummyTrackerBDiffVersion,
+        expect(filterService.filter(data, filterBy, { env: [], method: [] })).to.deep.equal([
+            trackerA,
+            trackerB,
+            trackerB,
+            trackerBDiffEnv,
+            trackerBDiffMethod,
         ]);
     });
 
     it('exclude data not matching filter after one filter param is not present', () => {
         let filterBy = {
             env: [
-                dummyTracker.env,
-                dummyTrackerBDiffEnv.env,
+                trackerA.env,
+                trackerBDiffEnv.env,
             ],
-            laravelVersion: [
-                dummyTracker.laravelVersion,
-                dummyTrackerB.laravelVersion,
-                dummyTrackerBDiffVersion.laravelVersion,
+            method: [
+                trackerA.method,
+                trackerB.method,
+                trackerBDiffMethod.method,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], laravelVersion: [] })).to.deep.equal([
-            dummyTracker,
-            dummyTrackerBDiffEnv,
+        expect(filterService.filter(data, filterBy, { env: [], method: [] })).to.deep.equal([
+            trackerA,
+            trackerBDiffEnv,
         ]);
     });
 
     it('exclude data not matching filter after two filter param from different filter groups are not present', () => {
         let filterBy = {
             env: [
-                dummyTracker.env,
-                dummyTrackerBDiffEnv.env,
+                trackerA.env,
+                trackerBDiffEnv.env,
             ],
-            laravelVersion: [
-                dummyTrackerB.laravelVersion,
-                dummyTrackerBDiffVersion.laravelVersion,
+            method: [
+                trackerB.method,
+                trackerBDiffMethod.method,
             ],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], laravelVersion: [] })).to.deep.equal([
-            dummyTrackerBDiffEnv,
+        expect(filterService.filter(data, filterBy, { env: [], method: [] })).to.deep.equal([
+            trackerBDiffEnv,
         ]);
     });
 
     it('exclude all data when filter groups are empty but exist in filter', () => {
         let filterBy = {
             env: [],
-            laravelVersion: [],
+            method: [],
         };
 
-        expect(filterService.filter(data, filterBy, { env: [], laravelVersion: [] })).to.deep.equal([]);
+        expect(filterService.filter(data, filterBy, { env: [], method: [] })).to.deep.equal([]);
     });
 
     it('returns all data when filter groups are not present in filter', () => {
         let filterBy = {};
 
         expect(filterService.filter(data, filterBy)).to.deep.equal([
-            dummyTracker,
-            dummyTrackerB,
-            dummyTrackerB,
-            dummyTrackerBDiffEnv,
-            dummyTrackerBDiffVersion,
+            trackerA,
+            trackerB,
+            trackerB,
+            trackerBDiffEnv,
+            trackerBDiffMethod,
         ]);
     });
 
@@ -132,21 +158,21 @@ describe('Filter Store Service', () => {
         let spy = sinon.spy(helperService, 'isIn');
 
         let filterBy = {
-            env: [ dummyTracker.env, dummyTrackerB.env ],
-            laravelVersion: [ dummyTracker.laravelVersion ],
-            id: [ dummyTracker.id ],
+            env: [trackerA.env, trackerB.env],
+            method: [trackerA.method],
+            id: [trackerA.id],
         };
 
-        filterService.filter([ dummyTracker, dummyTrackerB ], filterBy, {
-            env: [ dummyTrackerB.env, dummyTracker.env ],
-            laravelVersion: [ dummyTrackerB.laravelVersion, dummyTracker.laravelVersion ],
-            id: [ dummyTrackerB.id, dummyTracker.id ],
+        filterService.filter([trackerA, trackerB], filterBy, {
+            env: [trackerB.env, trackerA.env],
+            method: [trackerB.method, trackerA.method],
+            id: [trackerB.id, trackerA.id],
         });
 
         expect(spy.callCount).to.equal(3);
-        expect(spy.getCall(0).calledWith([ dummyTracker.laravelVersion ], dummyTracker.laravelVersion)).to.be.true;
-        expect(spy.getCall(1).calledWith([ dummyTracker.id ], dummyTracker.id)).to.be.true;
-        expect(spy.getCall(2).calledWith([ dummyTracker.laravelVersion ], dummyTrackerB.laravelVersion)).to.be.true;
+        expect(spy.getCall(0).calledWith([trackerA.method], trackerA.method)).to.be.true;
+        expect(spy.getCall(1).calledWith([trackerA.id], trackerA.id)).to.be.true;
+        expect(spy.getCall(2).calledWith([trackerA.method], trackerB.method)).to.be.true;
 
         helperService.isIn.restore();
     });
