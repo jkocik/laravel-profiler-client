@@ -14,9 +14,10 @@ describe('Sockets Observers', () => {
         let vue = new Vue({ store: storeFactory() });
         observersInit(vue);
 
-        server.emit('laravel-profiler-broadcasting', trackerFactory.create());
+        let trackerSource = trackerFactory.create();
+        server.emit('laravel-profiler-broadcasting', trackerSource);
 
         expect(vue.$store.state.trackers.all[0]).to.be.instanceOf(Tracker);
-        expect(vue.$store.state.trackers.all[0]).to.deep.equal(new Tracker(trackerFactory.create()));
+        expect(vue.$store.state.trackers.all[0]).to.deep.equal(new Tracker(trackerSource));
     });
 });
