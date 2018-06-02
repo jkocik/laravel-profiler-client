@@ -94,9 +94,9 @@ describe('DashboardFilter Component', () => {
 
     it('sees unique statusGroup checkbox group', async () => {
         [
-            new Tracker(trackerFactory.create('meta', { status: '201' })),
-            new Tracker(trackerFactory.create('meta', { status: '201' })),
-            new Tracker(trackerFactory.create('meta', { status: '301' })),
+            new Tracker(trackerFactory.create('meta', { status: 201 })),
+            new Tracker(trackerFactory.create('meta', { status: 201 })),
+            new Tracker(trackerFactory.create('meta', { status: 301 })),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         await wrapper.vm.$nextTick();
@@ -106,8 +106,8 @@ describe('DashboardFilter Component', () => {
 
     it('statusGroup checkbox group is listed in ascending order', async () => {
         [
-            new Tracker(trackerFactory.create('meta', { status: '301' })),
-            new Tracker(trackerFactory.create('meta', { status: '201' })),
+            new Tracker(trackerFactory.create('meta', { status: 301 })),
+            new Tracker(trackerFactory.create('meta', { status: 201 })),
         ].forEach(tracker => wrapper.vm.$store.commit('trackers/store', tracker));
 
         await wrapper.vm.$nextTick();
