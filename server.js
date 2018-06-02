@@ -3,19 +3,15 @@ const profilerIO = require('socket.io')(profilerServer);
 const clientServer = require('http').createServer();
 const clientIO = require('socket.io')(clientServer);
 
-let profilerSocket;
-let clientSocket;
+let clientSockets = [];
 
-profilerIO.on('connection', socket => {
-    profilerSocket = socket;
-    profilerSocket.on('laravel-profiler-broadcasting', data => {
-        if (clientSocket) {
-            clientSocket.emit('laravel-profiler-broadcasting', data);
-        }
+profilerIO.on('connection', (socket) => {
+    socket.on('laravel-profiler-broadcasting', (data) => {
+        clientSockets.forEach(socket => socket.emit('laravel-profiler-broadcasting', data));
     });
 });
 
-clientIO.on('connection', socket => clientSocket = socket);
+clientIO.on('connection', socket => clientSockets.push(socket));
 
 profilerServer.listen(1902);
 clientServer.listen(1901);

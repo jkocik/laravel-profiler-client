@@ -1,12 +1,13 @@
 const data = require('./../../../fixtures/common-js');
 const socketsServer = require('./../../fakers/sockets-server');
 const socketLaravelClient = require('./../../fakers/socket-laravel-client');
+const socketOtherProfilerClient = require('./../../fakers/socket-profilter-client');
 
 module.exports = {
     before: () => socketsServer.start(),
     after: () => socketsServer.stop(),
 
-    'loads dashboard page': (browser) => {
+    'loads dashboard page with profiler data': (browser) => {
         let devServer = browser.globals.devServerURL;
 
         browser
@@ -16,6 +17,7 @@ module.exports = {
     },
 
     'sees tracker received from server': (browser) => {
+        socketOtherProfilerClient.listenSocketsServer();
         socketLaravelClient.sendToSocketsServer(data.dummyTrackerData);
 
         browser
