@@ -1,31 +1,18 @@
-import Buefy from 'buefy';
-import { createLocalVue, mount } from '@vue/test-utils';
-import i18n from '@/i18n';
 import Tracker from '@/models/tracker';
+import { trackerFactory, mountWithTracker } from './../../../test-helper';
 import TabServiceProviders from '@/components/dashboard/details/TabServiceProviders';
-import { dummyTrackerData } from './../../../../../fixtures/es6';
 
 describe('TabServiceProviders Component', () => {
+    let tracker;
     let wrapper;
-    let dummyTracker;
 
     beforeEach(() => {
-        dummyTracker = new Tracker(dummyTrackerData);
-
-        let localVue = createLocalVue();
-        localVue.use(Buefy);
-
-        wrapper = mount(TabServiceProviders, {
-            localVue,
-            i18n,
-            propsData: {
-                tracker: dummyTracker,
-            },
-        });
+        tracker = new Tracker(trackerFactory.create());
+        wrapper = mountWithTracker(TabServiceProviders, tracker);
     });
 
     it('has service providers', () => {
-        expect(wrapper.findAll('li').length).to.equal(dummyTracker.countServiceProviders());
-        expect(wrapper.findAll('li').at(0).text()).to.contain(dummyTracker.serviceProviders[0]);
+        expect(wrapper.findAll('li').length).to.equal(tracker.countServiceProviders());
+        expect(wrapper.lis(0).text()).to.contain(tracker.serviceProviders[0]);
     });
 });
