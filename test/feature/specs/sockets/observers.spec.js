@@ -3,8 +3,8 @@ import VueSocketio from 'vue-socket.io';
 import { SocketIO, Server } from 'mock-socket';
 import Tracker from '@/models/tracker';
 import { storeFactory } from '@/store';
+import { trackerFactory } from './../test-helper';
 import { observersInit } from '@/sockets/observers';
-import { dummyTrackerData } from './../../../fixtures/es6';
 
 describe('Sockets Observers', () => {
     it('stores tracker received from server', () => {
@@ -14,9 +14,9 @@ describe('Sockets Observers', () => {
         let vue = new Vue({ store: storeFactory() });
         observersInit(vue);
 
-        server.emit('laravel-profiler-broadcasting', dummyTrackerData);
+        server.emit('laravel-profiler-broadcasting', trackerFactory.create());
 
         expect(vue.$store.state.trackers.all[0]).to.be.instanceOf(Tracker);
-        expect(vue.$store.state.trackers.all[0]).to.deep.equal(new Tracker(dummyTrackerData));
+        expect(vue.$store.state.trackers.all[0]).to.deep.equal(new Tracker(trackerFactory.create()));
     });
 });
