@@ -131,4 +131,38 @@ describe('Factory', () => {
             },
         });
     });
+
+    it('set has the same interface as setIn', () => {
+        let model = {
+            email: 'joe@example.com',
+            address: {
+                street: 'Test Avenue',
+                city: {
+                    name: 'Miami',
+                    state: {
+                        name: 'Florida',
+                        like: false,
+                    },
+                },
+            },
+        };
+        let userFactory = new Factory(model);
+
+        let userA = userFactory.set('address.city', { name: 'Orlando' }).create();
+        let userB = userFactory.setIn('address.city', { name: 'Orlando' }).create();
+
+        expect(userA).to.deep.equal(userB);
+    });
+
+    it('can dump current factory object to console', () => {
+        let model = { name: 'Joe', email: 'joe@example.com' };
+        let userFactory = new Factory(model);
+        let mock = sinon.mock(userFactory);
+        mock.expects('log').withArgs(userFactory.current).once();
+
+        userFactory.dump();
+
+        mock.verify();
+        mock.restore();
+    });
 });

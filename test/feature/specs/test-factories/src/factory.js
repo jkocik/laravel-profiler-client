@@ -10,15 +10,18 @@ export class Factory {
     }
 
     create(...params) {
-        const setter = typeof params[0] === 'string' ? 'setIn' : 'set';
-        this[setter](...params);
+        this.set(...params);
         const current = this.current;
         this.refresh();
         return current;
     }
 
-    set(props) {
-        Object.assign(this.current, props);
+    set(...params) {
+        if (typeof params[0] === 'string') {
+            return this.setIn(...params);
+        }
+
+        Object.assign(this.current, ...params);
         return this;
     }
 
@@ -38,5 +41,13 @@ export class Factory {
 
         this.current = result;
         return this;
+    }
+
+    dump() {
+        this.log(this.current);
+    }
+
+    log(params) {
+        console.log(params);
     }
 }

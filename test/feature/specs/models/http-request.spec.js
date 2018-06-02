@@ -71,14 +71,14 @@ describe('HttpRequest Model', () => {
     });
 
     it('counts input together with files', () => {
-        expect(Object.keys(httpRequest.input).length).to.equal(3);
+        expect(Object.keys(httpRequest.input).length).to.equal(2);
         expect(Object.keys(httpRequest.files).length).to.equal(2);
 
-        expect(httpRequest.countInput()).to.equal(5);
+        expect(httpRequest.countInput()).to.equal(4);
     });
 
     it('checks if input or files are provided', () => {
-        expect(Object.keys(httpRequest.input).length).to.equal(3);
+        expect(Object.keys(httpRequest.input).length).to.equal(2);
         expect(Object.keys(httpRequest.files).length).to.equal(2);
         expect(httpRequest.hasInput()).to.be.true;
 

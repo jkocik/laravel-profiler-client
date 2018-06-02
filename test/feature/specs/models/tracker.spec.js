@@ -247,11 +247,11 @@ describe('Tracker Model', () => {
     });
 
     it('has session', () => {
-        expect(Object.keys(dummyTrackerData.data.session).length).to.be.equal(6);
+        expect(Object.keys(dummyTrackerData.data.session).length).to.be.equal(2);
 
         let tracker = new Tracker(dummyTrackerData);
 
-        expect(tracker.countSession()).to.be.equal(6);
+        expect(tracker.countSession()).to.be.equal(2);
         expect(tracker.hasSession()).to.be.true;
         expect(tracker.session).to.deep.equal(dummyTrackerData.data.session);
     });
