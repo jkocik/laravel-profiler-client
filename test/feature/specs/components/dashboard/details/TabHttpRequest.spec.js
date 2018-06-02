@@ -11,7 +11,7 @@ describe('TabHttpRequest Component', () => {
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(0).text()).to.equal('Request');
         expect(wrapperTabHttpRequestSummary.isVisible()).to.be.true;
-        expect(wrapperTabHttpRequestSummary.props().tracker).to.equal(tracker);
+        expect(wrapperTabHttpRequestSummary.props().tracker).to.equal(wrapper.props().tracker);
     });
 
     it('has request input tab', async () => {

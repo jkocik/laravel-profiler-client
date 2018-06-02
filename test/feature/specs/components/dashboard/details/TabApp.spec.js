@@ -11,7 +11,7 @@ describe('TabApp Component', () => {
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(0).text()).to.equal('Application');
         expect(wrapperTabApplication.isVisible()).to.be.true;
-        expect(wrapperTabApplication.props().tracker).to.equal(tracker);
+        expect(wrapperTabApplication.props().tracker).to.equal(wrapper.props().tracker);
     });
 
     it('has config tab', async () => {
