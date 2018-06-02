@@ -1,19 +1,39 @@
 import Tracker from '@/models/tracker';
+import { trackerFactory } from './../../test-helper';
 import { trackersFactory } from '@/store/modules/trackers';
 import { filterService } from '@/services/filter.store.service';
-import { dummyTrackerData, dummyTrackerDataB } from './../../../../fixtures/es6';
 
 describe('Trackers Store Module', () => {
     let trackers;
     let state;
-    let dummyTracker;
-    let dummyTrackerB;
+    let trackerA;
+    let trackerB;
 
     beforeEach(() => {
         trackers = trackersFactory();
         state = Object.assign({}, trackers.state);
-        dummyTracker = new Tracker(dummyTrackerData);
-        dummyTrackerB = new Tracker(dummyTrackerDataB);
+
+        trackerA = new Tracker(
+            trackerFactory
+                .set('meta', { id: 123 })
+                .set('meta', { is_running_in_console: true })
+                .set('meta', { env: 'local' })
+                .set('meta', { type: 'http' })
+                .set('meta', { status: 200 })
+                .set('meta', { method: 'PUT' })
+                .create()
+        );
+
+        trackerB = new Tracker(
+            trackerFactory
+                .set('meta', { id: 456 })
+                .set('meta', { is_running_in_console: false })
+                .set('meta', { env: 'production' })
+                .set('meta', { type: 'command-finished' })
+                .set('meta', { status: 0 })
+                .set('meta', { method: '---' })
+                .create()
+        );
     });
 
     it('is namespaced', () => {
@@ -31,14 +51,14 @@ describe('Trackers Store Module', () => {
     });
 
     it('stores tracker', () => {
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
 
-        expect(state.all).to.deep.equal([ dummyTracker ]);
+        expect(state.all).to.deep.equal([ trackerA ]);
     });
 
     it('stores tracker only if is type of Tracker', () => {
-        let trackerCopyWithoutType = Object.assign({}, dummyTracker);
-        expect(dummyTracker).to.be.an.instanceof(Tracker);
+        let trackerCopyWithoutType = Object.assign({}, trackerA);
+        expect(trackerA).to.be.an.instanceof(Tracker);
         expect(trackerCopyWithoutType).to.not.be.an.instanceof(Tracker);
 
         let store = () => trackers.mutations.store(state, trackerCopyWithoutType);
@@ -61,7 +81,7 @@ describe('Trackers Store Module', () => {
     it('returns filtered trackers', () => {
         let spy = sinon.spy(filterService, 'filter');
 
-        state.all = [ dummyTracker ];
+        state.all = [ trackerA ];
         state.allRunnings = [ 'a' ];
         state.allEnvs = [ 'b' ];
         state.allTypeGroups = [ 'c' ];
@@ -83,184 +103,184 @@ describe('Trackers Store Module', () => {
     });
 
     it('returns filter with enabled running', () => {
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.running).to.be.instanceOf(Array);
         expect(state.filter.running).to.deep.equal([
-            dummyTracker.running,
-            dummyTrackerB.running,
+            trackerA.running,
+            trackerB.running,
         ]);
     });
 
     it('new enabled running can be added to filter only if does not exist in all runnings', () => {
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
         state.filter.running = [];
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
 
         expect(state.filter.running).to.deep.equal([]);
 
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.running).to.deep.equal([
-            dummyTrackerB.running,
+            trackerB.running,
         ]);
 
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.running).to.deep.equal([
-            dummyTrackerB.running,
+            trackerB.running,
         ]);
     });
 
     it('returns filter with enabled envs', () => {
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.env).to.be.instanceOf(Array);
         expect(state.filter.env).to.deep.equal([
-            dummyTracker.env,
-            dummyTrackerB.env,
+            trackerA.env,
+            trackerB.env,
         ]);
     });
 
     it('new enabled env can be added to filter only if does not exist in all envs', () => {
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
         state.filter.env = [];
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
 
         expect(state.filter.env).to.deep.equal([]);
 
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.env).to.deep.equal([
-            dummyTrackerB.env,
+            trackerB.env,
         ]);
 
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.env).to.deep.equal([
-            dummyTrackerB.env,
+            trackerB.env,
         ]);
     });
 
     it('returns filter with enabled typeGroup', () => {
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.typeGroup).to.be.instanceOf(Array);
         expect(state.filter.typeGroup).to.deep.equal([
-            dummyTracker.typeGroup,
-            dummyTrackerB.typeGroup,
+            trackerA.typeGroup,
+            trackerB.typeGroup,
         ]);
     });
 
     it('new enabled typeGroup can be added to filter only if does not exist in all typeGroups', () => {
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
         state.filter.typeGroup = [];
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
 
         expect(state.filter.typeGroup).to.deep.equal([]);
 
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.typeGroup).to.deep.equal([
-            dummyTrackerB.typeGroup,
+            trackerB.typeGroup,
         ]);
 
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.typeGroup).to.deep.equal([
-            dummyTrackerB.typeGroup,
+            trackerB.typeGroup,
         ]);
     });
 
     it('returns filter with enabled statusGroups', () => {
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.statusGroup).to.be.instanceOf(Array);
         expect(state.filter.statusGroup).to.deep.equal([
-            dummyTracker.statusGroup,
-            dummyTrackerB.statusGroup,
+            trackerA.statusGroup,
+            trackerB.statusGroup,
         ]);
     });
 
     it('new enabled statusGroup can be added to filter only if does not exist in all statusGroups', () => {
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
         state.filter.statusGroup = [];
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
 
         expect(state.filter.statusGroup).to.deep.equal([]);
 
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.statusGroup).to.deep.equal([
-            dummyTrackerB.statusGroup,
+            trackerB.statusGroup,
         ]);
 
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.statusGroup).to.deep.equal([
-            dummyTrackerB.statusGroup,
+            trackerB.statusGroup,
         ]);
     });
 
     it('returns filter with enabled methods', () => {
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.method).to.be.instanceOf(Array);
         expect(state.filter.method).to.deep.equal([
-            dummyTracker.method,
-            dummyTrackerB.method,
+            trackerA.method,
+            trackerB.method,
         ]);
     });
 
     it('new enabled method can be added to filter only if does not exist in all methods', () => {
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
         state.filter.method = [];
-        trackers.mutations.store(state, dummyTracker);
+        trackers.mutations.store(state, trackerA);
 
         expect(state.filter.method).to.deep.equal([]);
 
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.method).to.deep.equal([
-            dummyTrackerB.method,
+            trackerB.method,
         ]);
 
-        trackers.mutations.store(state, dummyTracker);
-        trackers.mutations.store(state, dummyTrackerB);
+        trackers.mutations.store(state, trackerA);
+        trackers.mutations.store(state, trackerB);
 
         expect(state.filter.method).to.deep.equal([
-            dummyTrackerB.method,
+            trackerB.method,
         ]);
     });
 
     it('toggles opened details', () => {
-        trackers.mutations.toggleOpenedDetails(state, dummyTracker.id);
-        trackers.mutations.toggleOpenedDetails(state, dummyTrackerB.id);
+        trackers.mutations.toggleOpenedDetails(state, trackerA.id);
+        trackers.mutations.toggleOpenedDetails(state, trackerB.id);
 
         expect(state.openedDetails).to.be.instanceOf(Array);
         expect(state.openedDetails).to.deep.equal([
-            dummyTracker.id,
-            dummyTrackerB.id,
+            trackerA.id,
+            trackerB.id,
         ]);
 
-        trackers.mutations.toggleOpenedDetails(state, dummyTracker.id);
+        trackers.mutations.toggleOpenedDetails(state, trackerA.id);
 
         expect(state.openedDetails).to.deep.equal([
-            dummyTrackerB.id,
+            trackerB.id,
         ]);
     });
 });
