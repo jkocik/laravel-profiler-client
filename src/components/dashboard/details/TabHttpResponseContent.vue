@@ -1,5 +1,7 @@
 <template>
-    <section></section>
+    <section>
+        {{ tracker.response.content }}
+    </section>
 </template>
 
 <script>
@@ -12,3 +14,8 @@
         },
     };
 </script>
+
+<style lang="sass" scoped>
+    section
+        white-space: pre-wrap
+</style>
