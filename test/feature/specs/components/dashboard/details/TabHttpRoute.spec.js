@@ -54,12 +54,19 @@ describe('TabHttpRoute Component', () => {
         expect(wrapper.trs(5).text()).to.contain(tracker.route.prefix);
     });
 
-    it('has middleware', () => {
-        expect(wrapper.trs(6).text()).to.contain(tracker.route.middleware);
+    it('has tree view with middleware', () => {
+        let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(0);
+
+        expect(wrapperTreeView.props().data).to.deep.equal(tracker.route.middleware);
+        expect(wrapperTreeView.props().options).to.deep.equal({
+            rootObjectKey: 'middleware',
+            maxDepth: 1,
+        });
+        expect(treeViewSpy.withArgs(tracker.route.middleware).calledOnce).to.be.true;
     });
 
     it('has tree view with parameters', () => {
-        let wrapperTreeView = wrapper.find({ name: 'tree-view' });
+        let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(1);
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.route.parameters);
         expect(wrapperTreeView.props().options).to.deep.equal({

@@ -9,7 +9,7 @@ export default class HttpRoute extends BaseRoute {
         this.regex = route.regex;
         this.name = routeService.name(route.name);
         this.prefix = routeService.prefix(route.prefix);
-        this.middleware = routeService.middleware(route.middleware);
+        this.middleware = route.middleware;
         this.parameters = route.parameters;
         this.usesType = routeService.usesType(route.uses);
         this.uses = route.uses[this.usesType];

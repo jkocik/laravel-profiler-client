@@ -12,6 +12,11 @@
         </b-table>
         <hr>
         <tree-view
+            :data="tracker.route.middleware"
+            :options="optionsMiddleware"
+        ></tree-view>
+        <hr>
+        <tree-view
             :data="tracker.route.parameters"
             :options="optionsParameters"
         ></tree-view>
@@ -54,11 +59,11 @@
                         label: 'prefix',
                         item: this.tracker.route.prefix,
                     },
-                    {
-                        label: 'middleware',
-                        item: this.tracker.route.middleware,
-                    },
                 ],
+                optionsMiddleware: {
+                    rootObjectKey: 'middleware',
+                    maxDepth: treeViewService.maxDepthOf(this.tracker.route.middleware),
+                },
                 optionsParameters: {
                     rootObjectKey: 'parameters',
                     maxDepth: treeViewService.maxDepthOf(this.tracker.route.parameters),

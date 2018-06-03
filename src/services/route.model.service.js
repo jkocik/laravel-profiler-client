@@ -13,10 +13,6 @@ export const routeService = {
         return prefix || missing;
     },
 
-    middleware(middleware) {
-        return middleware.join(', ') || missing;
-    },
-
     usesType(uses) {
         return Object.keys(uses)[0];
     },

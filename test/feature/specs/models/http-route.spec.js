@@ -31,13 +31,4 @@ describe('HttpRoute Model', () => {
         expect(routeA.prefix).to.equal(trackerSource.data.route.prefix);
         expect(routeB.prefix).to.equal('---');
     });
-
-    it('has middleware', () => {
-        let trackerSourceB = trackerFactory.create('data.route', { middleware: [] });
-        let routeA = new HttpRoute(trackerSource.data.route);
-        let routeB = new HttpRoute(trackerSourceB.data.route);
-
-        expect(routeA.middleware).to.equal(trackerSource.data.route.middleware.join(', '));
-        expect(routeB.middleware).to.equal('---');
-    });
 });
