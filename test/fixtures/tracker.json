@@ -138,6 +138,18 @@
                 "controller": "AdminController::login:25-35",
                 "form_request": "FormRequest"
             }
-        }
+        },
+        "views": [
+            {
+                "name": "view-a",
+                "path": "path-to-a",
+                "data": { "a": "x" }
+            },
+            {
+                "name": "view-b",
+                "path": "path-to-b",
+                "data": { "b": "y" }
+            }
+        ]
     }
 }

@@ -27,12 +27,17 @@
                 :tracker="tracker"
             ></tab-console-finished-response>
         </b-tab-item>
+
+        <b-tab-item :disabled="! tracker.hasViews()" :label="viewsLabel">
+            <tab-views v-if="tracker.hasViews()" :tracker="tracker"></tab-views>
+        </b-tab-item>
     </b-tabs>
 </template>
 
 <script>
     import Tracker from './../../models/tracker';
     import TabApp from './details/TabApp';
+    import TabViews from './details/TabViews';
     import TabHttpRequest from './details/TabHttpRequest';
     import TabHttpResponse from './details/TabHttpResponse';
     import TabConsoleFinishedRequest from './details/TabConsoleFinishedRequest';
@@ -41,6 +46,7 @@
     export default {
         components: {
             TabApp,
+            TabViews,
             TabHttpRequest,
             TabHttpResponse,
             TabConsoleFinishedRequest,
@@ -58,6 +64,7 @@
                 activeTab: 0,
                 requestLabel: this.$t(`tab-labels.${this.tracker.request.name}`),
                 responseLabel: this.$t(`tab-labels.${this.tracker.response.name}`),
+                viewsLabel: `Views (${this.tracker.countViews()})`,
             };
         },
         methods: {

@@ -121,4 +121,29 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.find({ name: 'tab-http-response' }).exists()).to.be.false;
         expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
     });
+
+    it('has views tab', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { views: [{ name: 'a', path: 'b', data: [] }] }));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabViews = wrapper.find({ name: 'tab-views' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(3).text()).to.equal('Views (1)');
+
+        wrapper.tabs(3).find('a').trigger('click');
+        await wrapper.vm.$nextTick();
+        expect(wrapperTabViews.isVisible()).to.be.true;
+        expect(wrapperTabViews.props().tracker).to.equal(wrapper.props().tracker);
+    });
+
+    it('views tab is enabled only if any view is present', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { views: [] }));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabViews = wrapper.find({ name: 'tab-views' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(3).text()).to.equal('Views (0)');
+        expect(wrapper.tabs(3).classes()).to.contain('is-disabled');
+        expect(wrapperTabViews.exists()).to.be.false;
+    });
 });

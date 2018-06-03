@@ -1,4 +1,5 @@
 import Path from './path';
+import View from './view';
 import Binding from './binding';
 import Application from './application';
 import { trackerService } from './../services/tracker.model.service';
@@ -30,6 +31,8 @@ export default class Tracker {
         this.response = trackerService.response(data.meta.type, data.data.response);
         this.route = trackerService.route(data.meta, data.data.route);
         this.session = data.data.session || {};
+
+        this.views = (data.data.views || []).map(view => new View(view));
 
         this.lastActiveDetailsTab = 0;
     }
@@ -76,5 +79,13 @@ export default class Tracker {
 
     hasSession() {
         return !! this.countSession();
+    }
+
+    countViews() {
+        return this.views.length;
+    }
+
+    hasViews() {
+        return !! this.countViews();
     }
 }

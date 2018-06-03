@@ -1,4 +1,5 @@
 import Path from '@/models/path';
+import View from '@/models/view';
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
 import NullRoute from '@/models/null-route';
@@ -349,5 +350,23 @@ describe('Tracker Model', () => {
         expect(trackerD.route).to.be.an.instanceOf(NullRoute);
         expect(trackerE.route).to.be.an.instanceOf(NullRoute);
         expect(trackerF.route).to.be.an.instanceOf(NullRoute);
+    });
+
+    it('has views', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { views: [{ name: 'a', path: 'b', data: [] }] }));
+
+        expect(tracker.countViews()).to.be.equal(1);
+        expect(tracker.hasViews()).to.be.true;
+        expect(tracker.views).to.deep.equal([{ name: 'a', path: 'b', data: [] }]);
+        expect(tracker.views.length).to.be.equal(1);
+        expect(tracker.views[0]).to.be.an.instanceOf(View);
+    });
+
+    it('has empty views if views are not delivered', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { views: undefined }));
+
+        expect(tracker.views).to.be.an('array');
+        expect(tracker.countViews()).to.be.equal(0);
+        expect(tracker.hasViews()).to.be.false;
     });
 });
