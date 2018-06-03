@@ -28,7 +28,7 @@
             return {
                 data: [
                     {
-                        label: this.$t('tabs.application.env'),
+                        label: 'environment',
                         item: this.tracker.env,
                         isBool: false,
                     },
@@ -38,37 +38,37 @@
                         isBool: false,
                     },
                     {
-                        label: this.$t('tabs.application.laravel-version'),
+                        label: 'Laravel version',
                         item: this.tracker.laravelVersion,
                         isBool: false,
                     },
                     {
-                        label: this.$t('tabs.application.php-version'),
+                        label: 'PHP version',
                         item: this.tracker.phpVersion,
                         isBool: false,
                     },
                     {
-                        label: this.$t('tabs.application.locale'),
+                        label: 'locale',
                         item: this.tracker.application.locale,
                         isBool: false,
                     },
                     {
-                        label: this.$t('tabs.application.routes-are-cached'),
+                        label: 'routes are cached',
                         item: this.tracker.application.routesAreCached,
                         isBool: true,
                     },
                     {
-                        label: this.$t('tabs.application.configuration-is-cached'),
+                        label: 'configuration is cached',
                         item: this.tracker.application.configurationIsCached,
                         isBool: true,
                     },
                     {
-                        label: this.$t('tabs.application.is-down-for-maintenance'),
+                        label: 'is down for maintenance',
                         item: this.tracker.application.isDownForMaintenance,
                         isBool: true,
                     },
                     {
-                        label: this.$t('tabs.application.should-skip-middleware'),
+                        label: 'should skip middleware',
                         item: this.tracker.application.shouldSkipMiddleware,
                         isBool: true,
                     },

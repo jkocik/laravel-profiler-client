@@ -6,24 +6,24 @@
         type="is-boxed"
         :animated="false"
     >
-        <b-tab-item :label="appLabel">
+        <b-tab-item label="App">
             <tab-app :tracker="tracker"></tab-app>
         </b-tab-item>
 
-        <b-tab-item :disabled="! request.enabled" :label="requestLabel">
-            <tab-http-request v-if="request.isHttpRequest()"
+        <b-tab-item :disabled="! tracker.request.enabled" :label="requestLabel">
+            <tab-http-request v-if="tracker.request.isHttpRequest()"
                 :tracker="tracker"
             ></tab-http-request>
-            <tab-console-finished-request v-if="request.isConsoleFinishedRequest()"
+            <tab-console-finished-request v-if="tracker.request.isConsoleFinishedRequest()"
                 :tracker="tracker"
             ></tab-console-finished-request>
         </b-tab-item>
 
-        <b-tab-item :disabled="! response.enabled" :label="responseLabel">
-            <tab-http-response v-if="response.isHttpResponse()"
+        <b-tab-item :disabled="! tracker.response.enabled" :label="responseLabel">
+            <tab-http-response v-if="tracker.response.isHttpResponse()"
                 :tracker="tracker"
             ></tab-http-response>
-            <tab-console-finished-response v-if="response.isConsoleFinishedResponse()"
+            <tab-console-finished-response v-if="tracker.response.isConsoleFinishedResponse()"
                 :tracker="tracker"
             ></tab-console-finished-response>
         </b-tab-item>
@@ -56,9 +56,6 @@
         data() {
             return {
                 activeTab: 0,
-                request: this.tracker.request,
-                response: this.tracker.response,
-                appLabel: this.$t('tab-labels.app'),
                 requestLabel: this.$t(`tab-labels.${this.tracker.request.name}`),
                 responseLabel: this.$t(`tab-labels.${this.tracker.response.name}`),
             };

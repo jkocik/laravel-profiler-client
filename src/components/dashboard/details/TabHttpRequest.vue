@@ -3,19 +3,23 @@
         size="is-small"
         :animated="false"
     >
-        <b-tab-item :label="summaryLabel">
+        <b-tab-item label="Request">
             <tab-http-request-summary :tracker="tracker"></tab-http-request-summary>
         </b-tab-item>
-        <b-tab-item :disabled="! request.hasInput()" :label="inputLabel">
-            <tab-http-request-input v-if="request.hasInput()" :tracker="tracker"></tab-http-request-input>
+
+        <b-tab-item :disabled="! tracker.request.hasInput()" :label="inputLabel">
+            <tab-http-request-input v-if="tracker.request.hasInput()" :tracker="tracker"></tab-http-request-input>
         </b-tab-item>
+
         <b-tab-item :disabled="! tracker.hasSession()" :label="sessionLabel">
             <tab-http-session v-if="tracker.hasSession()" :tracker="tracker"></tab-http-session>
         </b-tab-item>
-        <b-tab-item :disabled="! route.enabled" :label="routeLabel">
-            <tab-http-route v-if="route.enabled" :tracker="tracker"></tab-http-route>
+
+        <b-tab-item :disabled="! tracker.route.enabled" label="Route">
+            <tab-http-route v-if="tracker.route.enabled" :tracker="tracker"></tab-http-route>
         </b-tab-item>
-        <b-tab-item :label="serverLabel">
+
+        <b-tab-item label="Server">
             <tab-http-request-server :tracker="tracker"></tab-http-request-server>
         </b-tab-item>
     </b-tabs>
@@ -43,13 +47,8 @@
         },
         data() {
             return {
-                request: this.tracker.request,
-                route: this.tracker.route,
-                summaryLabel: this.$t('tab-labels.http-request-summary'),
-                inputLabel: this.$t('tab-labels.http-request-input', { count: this.tracker.request.countInput() }),
-                sessionLabel: this.$t('tab-labels.http-session', { count: this.tracker.countSession() }),
-                routeLabel: this.$t('tab-labels.http-route'),
-                serverLabel: this.$t('tab-labels.http-request-server'),
+                inputLabel: `Input (${this.tracker.request.countInput()})`,
+                sessionLabel: `Session (${this.tracker.countSession()})`,
             };
         },
     };

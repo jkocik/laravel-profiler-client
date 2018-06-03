@@ -1,12 +1,12 @@
 <template>
     <section>
         <tree-view
-            :data="request.input"
+            :data="tracker.request.input"
             :options="optionsInput"
         ></tree-view>
         <hr>
         <tree-view
-            :data="request.files"
+            :data="tracker.request.files"
             :options="optionsFiles"
         ></tree-view>
     </section>
@@ -27,7 +27,6 @@
         },
         data() {
             return {
-                request: this.tracker.request,
                 optionsInput: {
                     rootObjectKey: 'input',
                     maxDepth: treeViewService.maxDepthOf(this.tracker.request.input),

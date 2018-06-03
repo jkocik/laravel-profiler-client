@@ -1,6 +1,6 @@
 <template>
     <b-table
-        :data="server"
+        :data="tracker.request.serverForTable()"
         :narrowed="true"
         class="is-sub-tab"
     >
@@ -18,11 +18,6 @@
         name: 'tab-http-request-server',
         props: {
             tracker: Tracker,
-        },
-        data() {
-            return {
-                server: Object.entries(this.tracker.request.server),
-            };
         },
     };
 </script>

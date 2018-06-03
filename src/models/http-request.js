@@ -16,6 +16,10 @@ export default class HttpRequest extends BaseRequest {
         this.cookie = request.cookie;
     }
 
+    serverForTable() {
+        return Object.entries(this.server);
+    }
+
     countInput() {
         return Object.keys(this.input).length + Object.keys(this.files).length;
     }

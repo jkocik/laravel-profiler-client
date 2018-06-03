@@ -13,17 +13,17 @@
         </b-table>
         <hr>
         <tree-view
-            :data="request.query"
+            :data="tracker.request.query"
             :options="optionsQuery"
         ></tree-view>
         <hr>
         <tree-view
-            :data="request.cookie"
+            :data="tracker.request.cookie"
             :options="optionsCookie"
         ></tree-view>
         <hr>
         <tree-view
-            :data="request.header"
+            :data="tracker.request.header"
             :options="optionsHeader"
         ></tree-view>
     </section>
@@ -46,22 +46,22 @@
             return {
                 data: [
                     {
-                        label: this.$t('tabs.http-request-summary.method'),
+                        label: 'method',
                         item: this.tracker.method,
                         isBool: false,
                     },
                     {
-                        label: this.$t('tabs.http-request-summary.path'),
+                        label: 'path',
                         item: this.tracker.path,
                         isBool: false,
                     },
                     {
-                        label: this.$t('tabs.http-request-summary.url'),
+                        label: 'url',
                         item: this.tracker.request.url,
                         isBool: false,
                     },
                     {
-                        label: this.$t('tabs.http-request-summary.ip'),
+                        label: 'ip',
                         item: this.tracker.request.ip,
                         isBool: false,
                     },
@@ -81,7 +81,6 @@
                         isBool: true,
                     },
                 ],
-                request: this.tracker.request,
                 optionsQuery: {
                     rootObjectKey: 'query',
                     maxDepth: treeViewService.maxDepthOf(this.tracker.request.query),
