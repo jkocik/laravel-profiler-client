@@ -1,8 +1,17 @@
 <template>
     <td>
         <b-taglist attached>
-            <b-tag :type="tracker.statusColor">{{ tracker.status }}</b-tag>
+            <b-tooltip
+                    :active="tracker.hasStatusText()"
+                    :label="tracker.statusText"
+                    type="is-light"
+                    position="is-bottom"
+            >
+                <b-tag :type="tracker.statusColor">{{ tracker.status }}</b-tag>
+            </b-tooltip>
+
             <b-tag type="is-light">{{ tracker.method }}</b-tag>
+
             <b-tooltip
                 :label="tracker.path"
                 type="is-light"

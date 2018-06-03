@@ -61,6 +61,10 @@ export const trackerService = {
         return status;
     },
 
+    statusText(statusText) {
+        return statusText || missing;
+    },
+
     statusGroup(resolvedStatus, resolvedType) {
         if (resolvedStatus === missing) {
             return missing;
@@ -101,14 +105,14 @@ export const trackerService = {
         return new Request(meta, request);
     },
 
-    response(type) {
+    response(type, response) {
         const Response = {
             'http': HttpResponse,
             'command-starting': ConsoleStartingResponse,
             'command-finished': ConsoleFinishedResponse,
         }[type] || NullResponse;
 
-        return new Response();
+        return new Response(response);
     },
 
     route(meta, route) {

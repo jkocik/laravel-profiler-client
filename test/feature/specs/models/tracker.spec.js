@@ -142,6 +142,16 @@ describe('Tracker Model', () => {
         expect(trackerZ.statusColor).to.equal('is-light');
     });
 
+    it('has status text', () => {
+        let trackerA = new Tracker(trackerFactory.create('meta', { status_text: 'Not Found' }));
+        let trackerB = new Tracker(trackerFactory.create('meta', { status_text: null }));
+
+        expect(trackerA.statusText).to.equal('Not Found');
+        expect(trackerA.hasStatusText()).to.be.true;
+        expect(trackerB.statusText).to.equal('---');
+        expect(trackerB.hasStatusText()).to.be.false;
+    });
+
     it('has application data', () => {
         let tracker = new Tracker(trackerFactory.create('data', { application: {
             locale: 'test-locale',

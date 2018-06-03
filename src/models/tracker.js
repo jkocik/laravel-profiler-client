@@ -16,6 +16,7 @@ export default class Tracker {
         this.method = trackerService.method(data.meta.method);
         this.path = trackerService.path(data.meta.path);
         this.status = trackerService.status(this.type, data.meta.status);
+        this.statusText = trackerService.statusText(data.meta.status_text);
         this.statusGroup = trackerService.statusGroup(this.status, this.type);
         this.statusColor = trackerService.statusColor(this.statusGroup);
 
@@ -26,11 +27,15 @@ export default class Tracker {
         this.paths = (data.data.paths || []).map(path => new Path(path));
 
         this.request = trackerService.request(data.meta, data.data.request);
-        this.response = trackerService.response(data.meta.type);
+        this.response = trackerService.response(data.meta.type, data.data.response);
         this.route = trackerService.route(data.meta, data.data.route);
         this.session = data.data.session || {};
 
         this.lastActiveDetailsTab = 0;
+    }
+
+    hasStatusText() {
+        return this.statusText !== '---';
     }
 
     countConfig() {
