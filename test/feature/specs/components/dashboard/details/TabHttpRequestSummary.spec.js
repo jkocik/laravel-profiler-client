@@ -95,7 +95,7 @@ describe('TabHttpRequestSummary Component', () => {
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.request.header);
         expect(wrapperTreeView.props().options).to.deep.equal({
-            rootObjectKey: 'header',
+            rootObjectKey: 'headers',
             maxDepth: 2,
         });
         expect(treeViewSpy.withArgs(tracker.request.header, 2).calledOnce).to.be.true;

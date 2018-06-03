@@ -90,7 +90,7 @@
                     maxDepth: treeViewService.maxDepthOf(this.tracker.request.cookie),
                 },
                 optionsHeader: {
-                    rootObjectKey: 'header',
+                    rootObjectKey: 'headers',
                     maxDepth: treeViewService.maxDepthOf(this.tracker.request.header, 2),
                 },
             };
