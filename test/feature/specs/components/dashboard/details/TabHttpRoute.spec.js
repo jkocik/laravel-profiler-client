@@ -34,24 +34,37 @@ describe('TabHttpRoute Component', () => {
         expect(wrapper.trs(0).text()).to.contain('abc:10-20');
     });
 
+    it('has form request when uses controller with form request to process route', () => {
+        expect(wrapper.trs(1).text()).to.contain('form request');
+        expect(wrapper.trs(1).text()).to.contain(tracker.route.formRequest);
+    });
+
+    it('has form request when uses closure with form request to process route', () => {
+        tracker = new Tracker(trackerFactory.create('data.route', { uses: { form_request: 'FormRequest' } }));
+        wrapper = mountWithTracker(TabHttpRoute, tracker);
+
+        expect(wrapper.trs(1).text()).to.contain('form request');
+        expect(wrapper.trs(1).text()).to.contain('FormRequest');
+    });
+
     it('has methods', () => {
-        expect(wrapper.trs(1).text()).to.contain(tracker.route.methods);
+        expect(wrapper.trs(2).text()).to.contain(tracker.route.methods);
     });
 
     it('has uri', () => {
-        expect(wrapper.trs(2).text()).to.contain(tracker.route.uri);
+        expect(wrapper.trs(3).text()).to.contain(tracker.route.uri);
     });
 
     it('has regex', () => {
-        expect(wrapper.trs(3).text()).to.contain(tracker.route.regex);
+        expect(wrapper.trs(4).text()).to.contain(tracker.route.regex);
     });
 
     it('has name', () => {
-        expect(wrapper.trs(4).text()).to.contain(tracker.route.name);
+        expect(wrapper.trs(5).text()).to.contain(tracker.route.name);
     });
 
     it('has prefix', () => {
-        expect(wrapper.trs(5).text()).to.contain(tracker.route.prefix);
+        expect(wrapper.trs(6).text()).to.contain(tracker.route.prefix);
     });
 
     it('has tree view with middleware', () => {

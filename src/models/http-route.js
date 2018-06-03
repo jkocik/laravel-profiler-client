@@ -13,6 +13,7 @@ export default class HttpRoute extends BaseRoute {
         this.parameters = route.parameters;
         this.usesType = routeService.usesType(route.uses);
         this.uses = route.uses[this.usesType];
+        this.formRequest = routeService.formRequest(route.uses.form_request);
     }
 
     get enabled() {

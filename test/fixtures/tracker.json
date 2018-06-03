@@ -135,7 +135,8 @@
                 "b": "y"
             },
             "uses": {
-                "controller": "AdminController::login:25-35"
+                "controller": "AdminController::login:25-35",
+                "form_request": "FormRequest"
             }
         }
     }

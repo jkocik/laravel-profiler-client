@@ -40,6 +40,10 @@
                         item: this.tracker.route.uses,
                     },
                     {
+                        label: 'form request',
+                        item: this.tracker.route.formRequest,
+                    },
+                    {
                         label: 'methods',
                         item: this.tracker.route.methods,
                     },

@@ -16,4 +16,8 @@ export const routeService = {
     usesType(uses) {
         return Object.keys(uses)[0];
     },
+
+    formRequest(formRequest) {
+        return formRequest || missing;
+    },
 };

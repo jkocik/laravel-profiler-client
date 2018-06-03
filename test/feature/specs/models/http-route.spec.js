@@ -31,4 +31,13 @@ describe('HttpRoute Model', () => {
         expect(routeA.prefix).to.equal(trackerSource.data.route.prefix);
         expect(routeB.prefix).to.equal('---');
     });
+
+    it('has form request', () => {
+        let trackerSourceB = trackerFactory.create('data.route', { uses: { form_request: '' } });
+        let routeA = new HttpRoute(trackerSource.data.route);
+        let routeB = new HttpRoute(trackerSourceB.data.route);
+
+        expect(routeA.formRequest).to.equal(trackerSource.data.route.uses.form_request);
+        expect(routeB.formRequest).to.equal('---');
+    });
 });
