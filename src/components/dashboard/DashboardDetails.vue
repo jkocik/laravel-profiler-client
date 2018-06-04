@@ -44,6 +44,7 @@
     import TabConsoleFinishedResponse from './details/TabConsoleFinishedResponse';
 
     export default {
+        name: 'dashboard-details',
         components: {
             TabApp,
             TabViews,

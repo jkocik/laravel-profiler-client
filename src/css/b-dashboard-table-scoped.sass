@@ -1,0 +1,32 @@
+.tracker-row
+    &:hover
+        .is-white
+            background-color: whitesmoke
+
+    td
+        cursor: pointer
+
+    td:nth-child(1)
+        display: none
+
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(8)
+        width: 110px
+
+    td:nth-child(6)
+        width: 300px
+        white-space: nowrap
+        overflow: hidden
+        div
+            &.tags
+                flex-wrap: nowrap
+                width: 250px
+
+.pagination-previous
+    display: none
+
+.pagination-next
+    display: none

@@ -4,26 +4,41 @@ html
     &.has-navbar-fixed-top
         padding-top: 7.5rem
 
-.has-hidden-thead
-    table
-        thead
-            display: none
-
-        tbody
-            tr
-                &.tracker-row
-                    td:nth-child(1)
-                        display: none
-
-    .has-hidden-pagination-arrows
-    .pagination-previous
-        display: none
-
-    .pagination-next
-        display: none
-
 .pagination
     margin: 0
+
+.pagination-previous
+    display: none
+
+.pagination-next
+    display: none
+
+.pagination-link
+    &.is-current
+        color: #4a4a4a
+        background-color: whitesmoke
+        border-color: whitesmoke
+
+//.has-hidden-thead
+//    table
+//        thead
+//            display: none
+//
+//        tbody
+//            tr
+//                &.tracker-row
+//                    td:nth-child(1)
+//                        display: none
+
+    .has-hidden-pagination-arrows
+    //.pagination-previous
+    //    display: none
+
+    //.pagination-next
+    //    display: none
+
+//.pagination
+//    margin: 0
 
 .tab-content
     .tab-content

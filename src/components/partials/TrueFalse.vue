@@ -29,6 +29,7 @@
 
 <script>
     export default {
+        name: 'true-false',
         props: {
             value: Boolean,
         },
