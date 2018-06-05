@@ -30,9 +30,4 @@
     };
 </script>
 
-<style lang="sass" scoped>
-    section
-        div:last-child
-            & > hr
-                display: none
-</style>
+<style lang="sass" src="./../../../css/tab-views-scoped.sass" scoped></style>

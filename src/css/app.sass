@@ -1,8 +1,10 @@
 html
     font-size: 13px
 
-    &.has-navbar-fixed-top
-        padding-top: 7.5rem
+.b-checkbox
+    &.checkbox
+        &.is-small
+            font-size: 0.8rem
 
 .pagination
     margin: 0
@@ -18,27 +20,6 @@ html
         color: #4a4a4a
         background-color: whitesmoke
         border-color: whitesmoke
-
-//.has-hidden-thead
-//    table
-//        thead
-//            display: none
-//
-//        tbody
-//            tr
-//                &.tracker-row
-//                    td:nth-child(1)
-//                        display: none
-
-    .has-hidden-pagination-arrows
-    //.pagination-previous
-    //    display: none
-
-    //.pagination-next
-    //    display: none
-
-//.pagination
-//    margin: 0
 
 .tab-content
     .tab-content
@@ -66,3 +47,13 @@ span
                     font-size: 0.85rem
                     color: #aaa
                     vertical-align: inherit
+
+@media screen and (max-width: 768px)
+    .is-sub-tab
+        &.b-table
+            .table
+                &.has-mobile-cards
+                    tr:not(.is-empty):not(.table-footer)
+                        td
+                            flex-direction: column
+                            text-align: left

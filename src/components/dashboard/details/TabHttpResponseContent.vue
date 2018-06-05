@@ -15,7 +15,4 @@
     };
 </script>
 
-<style lang="sass" scoped>
-    section
-        white-space: pre-wrap
-</style>
+<style lang="sass" src="./../../../css/tab-http-response-content-scoped.sass" scoped></style>

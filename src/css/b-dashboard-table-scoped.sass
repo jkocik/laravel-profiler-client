@@ -1,3 +1,6 @@
+.table-wrapper
+    overflow-y: hidden
+
 .tracker-row
     &:hover
         .is-white
@@ -5,6 +8,10 @@
 
     td
         cursor: pointer
+
+        .tags
+            flex-wrap: nowrap
+
 
     td:nth-child(1)
         display: none
@@ -22,11 +29,11 @@
         overflow: hidden
         div
             &.tags
-                flex-wrap: nowrap
                 width: 250px
 
-.pagination-previous
-    display: none
-
-.pagination-next
-    display: none
+.b-table
+    .table
+        &.has-mobile-cards
+            tr:not(.is-empty):not(.table-footer)
+                td
+                    flex-direction: column

@@ -1,71 +1,66 @@
 <template>
-    <div class="navbar-menu container is-widescreen">
-        <div class="navbar-item">
-            <b-field>
-                <b-checkbox-button
-                    v-for="env of allEnvs"
-                    :key="env"
-                    :native-value="env"
-                    v-model="selectedEnvs"
-                    type="is-info"
-                >
-                    {{ env }}
-                </b-checkbox-button>
-            </b-field>
-        </div>
-        <div class="navbar-item">
-            <b-field>
-                <b-checkbox-button
-                    v-for="running of allRunnings"
-                    :key="running"
-                    :native-value="running"
-                    v-model="selectedRunnings"
-                    type="is-info"
-                >
-                    {{ running }}
-                </b-checkbox-button>
-            </b-field>
-        </div>
-        <div class="navbar-item">
-            <b-field>
-                <b-checkbox-button
-                    v-for="typeGroup of allTypeGroups"
-                    :key="typeGroup"
-                    :native-value="typeGroup"
-                    v-model="selectedTypeGroups"
-                    type="is-info"
-                >
-                    {{ typeGroup }}
-                </b-checkbox-button>
-            </b-field>
-        </div>
-        <div class="navbar-item">
-            <b-field>
-                <b-checkbox-button
-                    v-for="statusGroup of allStatusGroups"
-                    :key="statusGroup"
-                    :native-value="statusGroup"
-                    v-model="selectedStatusGroups"
-                    type="is-info"
-                >
-                    {{ statusGroup }}
-                </b-checkbox-button>
-            </b-field>
-        </div>
-        <div class="navbar-item">
-            <b-field>
-                <b-checkbox-button
-                    v-for="method of allMethods"
-                    :key="method"
-                    :native-value="method"
-                    v-model="selectedMethods"
-                    type="is-info"
-                >
-                    {{ method }}
-                </b-checkbox-button>
-            </b-field>
-        </div>
-    </div>
+    <section class="container is-widescreen">
+        <b-field>
+            <b-checkbox-button
+                v-for="env of allEnvs"
+                :key="env"
+                :native-value="env"
+                v-model="selectedEnvs"
+                type="is-info"
+                size="is-small"
+            >
+                {{ env }}
+            </b-checkbox-button>
+        </b-field>
+        <b-field>
+            <b-checkbox-button
+                v-for="running of allRunnings"
+                :key="running"
+                :native-value="running"
+                v-model="selectedRunnings"
+                type="is-info"
+                size="is-small"
+            >
+                {{ running }}
+            </b-checkbox-button>
+        </b-field>
+        <b-field>
+            <b-checkbox-button
+                v-for="typeGroup of allTypeGroups"
+                :key="typeGroup"
+                :native-value="typeGroup"
+                v-model="selectedTypeGroups"
+                type="is-info"
+                size="is-small"
+            >
+                {{ typeGroup }}
+            </b-checkbox-button>
+        </b-field>
+        <b-field>
+            <b-checkbox-button
+                v-for="statusGroup of allStatusGroups"
+                :key="statusGroup"
+                :native-value="statusGroup"
+                v-model="selectedStatusGroups"
+                type="is-info"
+                size="is-small"
+            >
+                {{ statusGroup }}
+            </b-checkbox-button>
+        </b-field>
+        <b-field>
+            <b-checkbox-button
+                v-for="method of allMethods"
+                :key="method"
+                :native-value="method"
+                v-model="selectedMethods"
+                type="is-info"
+                size="is-small"
+            >
+                {{ method }}
+            </b-checkbox-button>
+        </b-field>
+    </section>
 </template>
 
 <script>
@@ -129,3 +124,5 @@
         },
     };
 </script>
+
+<style lang="sass" scoped src="./../../css/dashboard-filter-scoped.sass"></style>
