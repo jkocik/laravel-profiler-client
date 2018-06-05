@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Buefy from 'buefy';
+import io from 'socket.io-client';
 import TreeView from 'vue-json-tree-view';
 import 'buefy/lib/buefy.css';
 /* eslint-disable */
@@ -11,13 +12,12 @@ import App from './App';
 import i18n from './i18n';
 import store from './store';
 import router from './router';
-import sockets from './sockets';
+import VueSocket from './sockets/vue-socket';
 
 Vue.config.productionTip = false;
 Vue.use(Buefy);
 Vue.use(TreeView);
-
-sockets.connect();
+Vue.use(VueSocket, { io, store });
 
 const vue = new Vue({
     el: '#app',
@@ -27,4 +27,4 @@ const vue = new Vue({
     render: h => h(App),
 });
 
-sockets.observersInit(vue);
+vue.$socket.connect('http://localhost:1901');
