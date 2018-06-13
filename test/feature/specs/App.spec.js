@@ -1,6 +1,7 @@
 import { Server } from 'mock-socket';
 import App from '@/App';
 import { mountWithoutProps, mountWithSocketMock } from './test-helper';
+import { createEvent } from './../../../node_modules/mock-socket/src/event-factory';
 
 describe('App Component', () => {
     it('has state not connected before first server connection', () => {
@@ -92,11 +93,22 @@ describe('App Component', () => {
 
         wrapperHeader.findAll('.icon').at(1).trigger('click');
 
-        expect(socketDisconnect.calledOnce).to.be.false;
+        expect(socketDisconnect.calledOnce).to.be.true;
         modalOpen.verify();
 
         wrapper.vm.$socket.socket.disconnect.restore();
         modalOpen.restore();
+        server.stop();
+    });
+
+    it('updates status failed connection', () => {
+        let server = new Server('http://localhost:1991');
+        let wrapper = mountWithSocketMock(App, 'http://localhost:1991');
+
+        expect(wrapper.vm.$store.state.sockets.connectErrorCount).to.equal(0);
+        wrapper.vm.$socket.socket.dispatchEvent(createEvent({ type: 'connect_error', target: wrapper.vm.$socket.socket }));
+        expect(wrapper.vm.$store.state.sockets.connectErrorCount).to.equal(1);
+
         server.stop();
     });
 });

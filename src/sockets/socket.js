@@ -34,5 +34,9 @@ export class Socket {
         this.socket.on('disconnect', () => {
             this.store.commit('sockets/updateConnected', false);
         });
+
+        this.socket.on('connect_error', () => {
+            this.store.commit('sockets/incrementConnectErrorCount');
+        });
     }
 }

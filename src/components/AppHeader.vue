@@ -42,6 +42,7 @@
                     return this.$socket.disconnect();
                 }
 
+                this.$socket.disconnect();
                 this.$modal.open({
                     parent: this,
                     component: ConnectionModal,

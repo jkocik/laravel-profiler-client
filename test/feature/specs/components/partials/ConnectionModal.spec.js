@@ -30,15 +30,56 @@ describe('ConnectionModal Component', () => {
     });
 
     it('closes on close', () => {
+        let closeSpy = sinon.spy();
         let wrapper = mountWithoutProps(ConnectionModal);
-        wrapper.vm.$parent = { close: () => {} };
-
-        let parent = sinon.mock(wrapper.vm.$parent);
-        parent.expects('close').once();
+        wrapper.vm.$parent = { close: () => { closeSpy(); } };
 
         wrapper.find('button[type=button]').trigger('click');
 
-        parent.verify();
-        parent.restore();
+        expect(closeSpy.calledOnce).to.be.true;
+    });
+
+    it('closes on successful connection', () => {
+        let closeSpy = sinon.spy();
+        let wrapper = mountWithoutProps(ConnectionModal);
+        wrapper.vm.$parent = { close: () => { closeSpy(); } };
+
+        wrapper.vm.$store.commit('sockets/updateConnected', true);
+
+        expect(closeSpy.calledOnce).to.be.true;
+    });
+
+    it('shows connection error msg on failed connection', () => {
+        let wrapper = mountWithoutProps(ConnectionModal);
+        wrapper.vm.$socket = {
+            connect: () => {},
+            disconnect: () => {},
+        };
+        expect(wrapper.text()).to.not.contain(wrapper.vm.$t('modals.connection.connection-failed'));
+
+        wrapper.vm.$store.commit('sockets/incrementConnectErrorCount');
+        expect(wrapper.text()).to.contain(wrapper.vm.$t('modals.connection.connection-failed'));
+
+        wrapper.find('input').trigger('focus');
+        expect(wrapper.text()).to.not.contain(wrapper.vm.$t('modals.connection.connection-failed'));
+
+        wrapper.vm.$store.commit('sockets/incrementConnectErrorCount');
+        expect(wrapper.text()).to.contain(wrapper.vm.$t('modals.connection.connection-failed'));
+
+        wrapper.find('form').trigger('submit');
+        expect(wrapper.text()).to.not.contain(wrapper.vm.$t('modals.connection.connection-failed'));
+    });
+
+    it('stops trying to connect on failed connection', () => {
+        let disconnectSpy = sinon.spy();
+        let wrapper = mountWithoutProps(ConnectionModal);
+        wrapper.vm.$socket = {
+            connect: () => {},
+            disconnect: () => { disconnectSpy(); },
+        };
+
+        wrapper.vm.$store.commit('sockets/incrementConnectErrorCount');
+
+        expect(disconnectSpy.calledOnce).to.be.true;
     });
 });

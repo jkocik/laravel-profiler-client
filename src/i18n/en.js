@@ -33,6 +33,7 @@ export default {
             'label': 'WebSocket Server',
             'button-cancel': 'Close',
             'button-submit': 'Connect',
+            'connection-failed': 'Connection failed',
         },
     },
 };
