@@ -1,4 +1,8 @@
 export default {
+    'footer': {
+        'connected': 'Connected to {url}',
+        'not-connected': 'Not connected',
+    },
     'dashboard': {
         'trackers-list-is-empty': 'List is empty',
         'at': 'at',
@@ -21,6 +25,14 @@ export default {
         'bindings': {
             'resolved-as': 'resolved as',
             'not-resolved': 'was not resolved',
+        },
+    },
+    'modals': {
+        'connection': {
+            'title': 'Connection',
+            'label': 'WebSocket Server',
+            'button-cancel': 'Close',
+            'button-submit': 'Connect',
         },
     },
 };

@@ -5,16 +5,34 @@ export class Socket {
         this.io = io;
         this.store = store;
         this.socket = null;
+
+        this.connect(store.state.sockets.url);
     }
 
     connect(url) {
+        this.disconnect();
         this.socket = this.io(url);
-        this.initObservers();
+        this.initObservers(url);
     }
 
-    initObservers() {
+    disconnect() {
+        if (this.socket) {
+            this.socket.disconnect();
+        }
+    }
+
+    initObservers(url) {
         this.socket.on('laravel-profiler-broadcasting', (data) => {
             this.store.commit('trackers/store', new Tracker(data));
+        });
+
+        this.socket.on('connect', () => {
+            this.store.commit('sockets/updateConnected', true);
+            this.store.commit('sockets/updateUrl', url);
+        });
+
+        this.socket.on('disconnect', () => {
+            this.store.commit('sockets/updateConnected', false);
         });
     }
 }

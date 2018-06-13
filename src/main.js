@@ -19,12 +19,11 @@ Vue.use(Buefy);
 Vue.use(TreeView);
 Vue.use(VueSocket, { io, store });
 
-const vue = new Vue({
+/* eslint-disable no-new */
+new Vue({
     el: '#app',
     i18n,
     store,
     router,
     render: h => h(App),
 });
-
-vue.$socket.connect('http://localhost:1901');
