@@ -17,13 +17,13 @@ describe('DashboardDetails Component', () => {
     it('has http request tab enabled when type equals http', async () => {
         let tracker = new Tracker(trackerFactory.create('meta', { type: 'http' }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
-        let wrapperTabRequest = wrapper.find({ name: 'tab-http-request' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(1).text()).to.equal('Request');
 
         wrapper.tabs(1).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabRequest = wrapper.find({ name: 'tab-http-request' });
         expect(wrapper.tabs(1).classes()).to.not.contain('is-disabled');
         expect(wrapperTabRequest.isVisible()).to.be.true;
         expect(wrapperTabRequest.props().tracker).to.equal(wrapper.props().tracker);
@@ -33,13 +33,13 @@ describe('DashboardDetails Component', () => {
     it('has console finished request tab enabled when type equals command-finished', async () => {
         let tracker = new Tracker(trackerFactory.create('meta', { type: 'command-finished' }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
-        let wrapperTabRequest = wrapper.find({ name: 'tab-console-finished-request' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(1).text()).to.equal('Input');
 
         wrapper.tabs(1).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabRequest = wrapper.find({ name: 'tab-console-finished-request' });
         expect(wrapper.tabs(1).classes()).to.not.contain('is-disabled');
         expect(wrapperTabRequest.isVisible()).to.be.true;
         expect(wrapperTabRequest.props().tracker).to.equal(wrapper.props().tracker);
@@ -71,13 +71,13 @@ describe('DashboardDetails Component', () => {
     it('has http response tab enabled when type equals http', async () => {
         let tracker = new Tracker(trackerFactory.create('meta', { type: 'http' }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
-        let wrapperTabResponse = wrapper.find({ name: 'tab-http-response' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(2).text()).to.equal('Response');
 
         wrapper.tabs(2).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabResponse = wrapper.find({ name: 'tab-http-response' });
         expect(wrapper.tabs(2).classes()).to.not.contain('is-disabled');
         expect(wrapperTabResponse.isVisible()).to.be.true;
         expect(wrapperTabResponse.props().tracker).to.equal(wrapper.props().tracker);
@@ -87,13 +87,13 @@ describe('DashboardDetails Component', () => {
     it('has console finished response tab enabled when type equals command-finished', async () => {
         let tracker = new Tracker(trackerFactory.create('meta', { type: 'command-finished' }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
-        let wrapperTabResponse = wrapper.find({ name: 'tab-console-finished-response' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(2).text()).to.equal('Output');
 
         wrapper.tabs(2).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabResponse = wrapper.find({ name: 'tab-console-finished-response' });
         expect(wrapper.tabs(2).classes()).to.not.contain('is-disabled');
         expect(wrapperTabResponse.isVisible()).to.be.true;
         expect(wrapperTabResponse.props().tracker).to.equal(wrapper.props().tracker);
@@ -125,13 +125,13 @@ describe('DashboardDetails Component', () => {
     it('has views tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data', { views: [{ name: 'a', path: 'b', data: [] }] }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
-        let wrapperTabViews = wrapper.find({ name: 'tab-views' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(3).text()).to.equal('Views (1)');
 
         wrapper.tabs(3).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabViews = wrapper.find({ name: 'tab-views' });
         expect(wrapperTabViews.isVisible()).to.be.true;
         expect(wrapperTabViews.props().tracker).to.equal(wrapper.props().tracker);
     });

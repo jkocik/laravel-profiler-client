@@ -7,29 +7,45 @@
         :animated="false"
     >
         <b-tab-item label="App">
-            <tab-app :tracker="tracker"></tab-app>
+            <keep-alive>
+                <tab-app v-if="isActiveTab(0)"
+                    :tracker="tracker"
+                ></tab-app>
+            </keep-alive>
         </b-tab-item>
 
         <b-tab-item :disabled="! tracker.request.enabled" :label="requestLabel">
-            <tab-http-request v-if="tracker.request.isHttpRequest()"
-                :tracker="tracker"
-            ></tab-http-request>
-            <tab-console-finished-request v-if="tracker.request.isConsoleFinishedRequest()"
-                :tracker="tracker"
-            ></tab-console-finished-request>
+            <keep-alive>
+                <tab-http-request v-if="isActiveTab(1) && tracker.request.isHttpRequest()"
+                    :tracker="tracker"
+                ></tab-http-request>
+            </keep-alive>
+            <keep-alive>
+                <tab-console-finished-request v-if="isActiveTab(1) && tracker.request.isConsoleFinishedRequest()"
+                    :tracker="tracker"
+                ></tab-console-finished-request>
+            </keep-alive>
         </b-tab-item>
 
         <b-tab-item :disabled="! tracker.response.enabled" :label="responseLabel">
-            <tab-http-response v-if="tracker.response.isHttpResponse()"
-                :tracker="tracker"
-            ></tab-http-response>
-            <tab-console-finished-response v-if="tracker.response.isConsoleFinishedResponse()"
-                :tracker="tracker"
-            ></tab-console-finished-response>
+            <keep-alive>
+                <tab-http-response v-if="isActiveTab(2) && tracker.response.isHttpResponse()"
+                    :tracker="tracker"
+                ></tab-http-response>
+            </keep-alive>
+            <keep-alive>
+                <tab-console-finished-response v-if="isActiveTab(2) && tracker.response.isConsoleFinishedResponse()"
+                    :tracker="tracker"
+                ></tab-console-finished-response>
+            </keep-alive>
         </b-tab-item>
 
         <b-tab-item :disabled="! tracker.hasViews()" :label="viewsLabel">
-            <tab-views v-if="tracker.hasViews()" :tracker="tracker"></tab-views>
+            <keep-alive>
+                <tab-views v-if="isActiveTab(3) && tracker.hasViews()"
+                    :tracker="tracker"
+                ></tab-views>
+            </keep-alive>
         </b-tab-item>
     </b-tabs>
 </template>
@@ -70,6 +86,7 @@
         },
         methods: {
             updateActiveTab(activeTab) {
+                this.activeTab = activeTab;
                 this.updateLastActiveDetailsTab(activeTab);
                 this.updateLastActiveDetailsTabOfTracker(activeTab);
             },
@@ -81,6 +98,9 @@
                     trackerId: this.tracker.id,
                     activeTab,
                 });
+            },
+            isActiveTab(tab) {
+                return this.activeTab === tab;
             },
         },
     };
