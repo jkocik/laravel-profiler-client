@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span class="true-false">
         <b-tooltip v-if="value"
             :label="'true'"
             type="is-success"
@@ -35,3 +35,5 @@
         },
     };
 </script>
+
+<style lang="sass" src="./../../css/true-false-scoped.sass" scoped></style>
