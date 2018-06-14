@@ -1,26 +1,48 @@
 <template>
     <b-tabs
+        :value="activeTab"
+        @input="updateActiveTab"
         size="is-small"
         :animated="false"
     >
         <b-tab-item label="Request">
-            <tab-http-request-summary :tracker="tracker"></tab-http-request-summary>
+            <keep-alive>
+                <tab-http-request-summary v-if="isActiveTab(0)"
+                    :tracker="tracker"
+                ></tab-http-request-summary>
+            </keep-alive>
         </b-tab-item>
 
         <b-tab-item :disabled="! tracker.request.hasInput()" :label="inputLabel">
-            <tab-http-request-input v-if="tracker.request.hasInput()" :tracker="tracker"></tab-http-request-input>
+            <keep-alive>
+                <tab-http-request-input v-if="isActiveTab(1) && tracker.request.hasInput()"
+                    :tracker="tracker"
+                ></tab-http-request-input>
+            </keep-alive>
         </b-tab-item>
 
         <b-tab-item :disabled="! tracker.hasSession()" :label="sessionLabel">
-            <tab-http-session v-if="tracker.hasSession()" :tracker="tracker"></tab-http-session>
+            <keep-alive>
+                <tab-http-session v-if="isActiveTab(2) && tracker.hasSession()"
+                    :tracker="tracker"
+                ></tab-http-session>
+            </keep-alive>
         </b-tab-item>
 
         <b-tab-item :disabled="! tracker.route.enabled" label="Route">
-            <tab-http-route v-if="tracker.route.enabled" :tracker="tracker"></tab-http-route>
+            <keep-alive>
+                <tab-http-route v-if="isActiveTab(3) && tracker.route.enabled"
+                    :tracker="tracker"
+                ></tab-http-route>
+            </keep-alive>
         </b-tab-item>
 
         <b-tab-item label="Server">
-            <tab-http-request-server :tracker="tracker"></tab-http-request-server>
+            <keep-alive>
+                <tab-http-request-server v-if="isActiveTab(4)"
+                    :tracker="tracker"
+                ></tab-http-request-server>
+            </keep-alive>
         </b-tab-item>
     </b-tabs>
 </template>
@@ -47,9 +69,18 @@
         },
         data() {
             return {
+                activeTab: 0,
                 inputLabel: `Input (${this.tracker.request.countInput()})`,
                 sessionLabel: `Session (${this.tracker.countSession()})`,
             };
+        },
+        methods: {
+            updateActiveTab(activeTab) {
+                this.activeTab = activeTab;
+            },
+            isActiveTab(tab) {
+                return this.activeTab === tab;
+            },
         },
     };
 </script>
