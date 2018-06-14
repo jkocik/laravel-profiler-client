@@ -17,13 +17,13 @@ describe('TabApp Component', () => {
     it('has config tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data', { config: { 1: 'a', 2: 'b', 3: 'c' } }));
         let wrapper = mountWithTracker(TabApp, tracker);
-        let wrapperTabConfig = wrapper.find({ name: 'tab-config' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(1).text()).to.equal('Config (3)');
 
         wrapper.tabs(1).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabConfig = wrapper.find({ name: 'tab-config' });
         expect(wrapperTabConfig.isVisible()).to.be.true;
         expect(wrapperTabConfig.props().tracker).to.equal(wrapper.props().tracker);
     });
@@ -42,13 +42,13 @@ describe('TabApp Component', () => {
     it('has service providers tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data', { service_providers: [1, 2, 3] }));
         let wrapper = mountWithTracker(TabApp, tracker);
-        let wrapperTabServiceProviders = wrapper.find({ name: 'tab-service-providers' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(2).text()).to.equal('Loaded Service Providers (3)');
 
         wrapper.tabs(2).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabServiceProviders = wrapper.find({ name: 'tab-service-providers' });
         expect(wrapperTabServiceProviders.isVisible()).to.be.true;
         expect(wrapperTabServiceProviders.props().tracker).to.equal(wrapper.props().tracker);
     });
@@ -67,13 +67,13 @@ describe('TabApp Component', () => {
     it('has bindings tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data', { bindings: [1, 2, 3] }));
         let wrapper = mountWithTracker(TabApp, tracker);
-        let wrapperTabBindings = wrapper.find({ name: 'tab-bindings' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(3).text()).to.equal('Bindings (3)');
 
         wrapper.tabs(3).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabBindings = wrapper.find({ name: 'tab-bindings' });
         expect(wrapperTabBindings.isVisible()).to.be.true;
         expect(wrapperTabBindings.props().tracker).to.equal(wrapper.props().tracker);
     });
@@ -92,13 +92,13 @@ describe('TabApp Component', () => {
     it('has paths tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data', { paths: [{ name: 'a' }, { name: 'b' }, { name: 'c' }] }));
         let wrapper = mountWithTracker(TabApp, tracker);
-        let wrapperTabPaths = wrapper.find({ name: 'tab-paths' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(4).text()).to.equal('Paths (3)');
 
         wrapper.tabs(4).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabPaths = wrapper.find({ name: 'tab-paths' });
         expect(wrapperTabPaths.isVisible()).to.be.true;
         expect(wrapperTabPaths.props().tracker).to.equal(wrapper.props().tracker);
     });
