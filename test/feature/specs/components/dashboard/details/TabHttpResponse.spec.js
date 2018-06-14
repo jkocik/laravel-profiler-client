@@ -17,13 +17,13 @@ describe('TabHttpResponse Component', () => {
     it('has content tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data.response', { content: '<html></html>' }));
         let wrapper = mountWithTracker(TabHttpResponse, tracker);
-        let wrapperTabHttpResponseContent = wrapper.find({ name: 'tab-http-response-content' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(1).text()).to.equal('Content');
 
         wrapper.tabs(1).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabHttpResponseContent = wrapper.find({ name: 'tab-http-response-content' });
         expect(wrapperTabHttpResponseContent.isVisible()).to.be.true;
         expect(wrapperTabHttpResponseContent.props().tracker).to.equal(wrapper.props().tracker);
     });
@@ -42,13 +42,13 @@ describe('TabHttpResponse Component', () => {
     it('has json tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data.response', { content: '{ "a": 1 }' }));
         let wrapper = mountWithTracker(TabHttpResponse, tracker);
-        let wrapperTabHttpResponseJson = wrapper.find({ name: 'tab-http-response-json' });
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(2).text()).to.equal('JSON');
 
         wrapper.tabs(2).find('a').trigger('click');
         await wrapper.vm.$nextTick();
+        let wrapperTabHttpResponseJson = wrapper.find({ name: 'tab-http-response-json' });
         expect(wrapperTabHttpResponseJson.isVisible()).to.be.true;
         expect(wrapperTabHttpResponseJson.props().tracker).to.equal(wrapper.props().tracker);
     });
