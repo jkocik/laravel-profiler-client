@@ -2,12 +2,12 @@
     <section>
         <tree-view
             :data="tracker.request.input"
-            :options="optionsInput"
+            label="input"
         ></tree-view>
         <hr>
         <tree-view
             :data="tracker.request.files"
-            :options="optionsFiles"
+            label="files"
         ></tree-view>
     </section>
 </template>
@@ -15,7 +15,6 @@
 <script>
     import Tracker from './../../../models/tracker';
     import TrueFalse from './../../partials/TrueFalse';
-    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-http-request-input',
@@ -24,18 +23,6 @@
         },
         components: {
             TrueFalse,
-        },
-        data() {
-            return {
-                optionsInput: {
-                    rootObjectKey: 'input',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.input),
-                },
-                optionsFiles: {
-                    rootObjectKey: 'files',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.files, 3),
-                },
-            };
         },
     };
 </script>

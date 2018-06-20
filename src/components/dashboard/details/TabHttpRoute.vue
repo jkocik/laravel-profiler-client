@@ -13,19 +13,18 @@
         <hr>
         <tree-view
             :data="tracker.route.middleware"
-            :options="optionsMiddleware"
+            label="middleware"
         ></tree-view>
         <hr>
         <tree-view
             :data="tracker.route.parameters"
-            :options="optionsParameters"
+            label="parameters"
         ></tree-view>
     </section>
 </template>
 
 <script>
     import Tracker from './../../../models/tracker';
-    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-http-route',
@@ -64,14 +63,6 @@
                         item: this.tracker.route.prefix,
                     },
                 ],
-                optionsMiddleware: {
-                    rootObjectKey: 'middleware',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.route.middleware),
-                },
-                optionsParameters: {
-                    rootObjectKey: 'parameters',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.route.parameters),
-                },
             };
         },
     };

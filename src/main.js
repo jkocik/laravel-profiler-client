@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Buefy from 'buefy';
 import io from 'socket.io-client';
-import TreeView from 'vue-json-tree-view';
 import 'buefy/lib/buefy.css';
 /* eslint-disable */
 import fontawesome from '@fortawesome/fontawesome';
@@ -13,10 +12,11 @@ import i18n from './i18n';
 import store from './store';
 import router from './router';
 import VueSocket from './sockets/vue-socket';
+import VueTreeView from './tree-view/vue-tree-view';
 
 Vue.config.productionTip = false;
 Vue.use(Buefy);
-Vue.use(TreeView);
+Vue.use(VueTreeView);
 Vue.use(VueSocket, { io, store });
 
 /* eslint-disable no-new */

@@ -13,14 +13,13 @@
         <hr>
         <tree-view
             :data="tracker.response.headers"
-            :options="optionsHeaders"
+            label="headers"
         ></tree-view>
     </section>
 </template>
 
 <script>
     import Tracker from './../../../models/tracker';
-    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-http-response-summary',
@@ -39,10 +38,6 @@
                         item: this.tracker.statusText,
                     },
                 ],
-                optionsHeaders: {
-                    rootObjectKey: 'headers',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.response.headers, 2),
-                },
             };
         },
     };

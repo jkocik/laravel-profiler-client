@@ -14,17 +14,17 @@
         <hr>
         <tree-view
             :data="tracker.request.query"
-            :options="optionsQuery"
+            label="query"
         ></tree-view>
         <hr>
         <tree-view
             :data="tracker.request.cookie"
-            :options="optionsCookie"
+            label="cookie"
         ></tree-view>
         <hr>
         <tree-view
             :data="tracker.request.header"
-            :options="optionsHeader"
+            label="headers"
         ></tree-view>
     </section>
 </template>
@@ -32,7 +32,6 @@
 <script>
     import Tracker from './../../../models/tracker';
     import TrueFalse from './../../partials/TrueFalse';
-    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-http-request-summary',
@@ -81,18 +80,6 @@
                         isBool: true,
                     },
                 ],
-                optionsQuery: {
-                    rootObjectKey: 'query',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.query),
-                },
-                optionsCookie: {
-                    rootObjectKey: 'cookie',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.cookie),
-                },
-                optionsHeader: {
-                    rootObjectKey: 'headers',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.header, 2),
-                },
             };
         },
     };

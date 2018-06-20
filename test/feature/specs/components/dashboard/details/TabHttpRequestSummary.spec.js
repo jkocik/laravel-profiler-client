@@ -1,22 +1,14 @@
 import Tracker from '@/models/tracker';
-import { treeViewService } from '@/services/tree-view.service';
 import { trackerFactory, mountWithTracker } from './../../../test-helper';
 import TabHttpRequestSummary from '@/components/dashboard/details/TabHttpRequestSummary';
 
 describe('TabHttpRequestSummary Component', () => {
     let tracker;
     let wrapper;
-    let treeViewSpy;
 
     beforeEach(() => {
-        treeViewSpy = sinon.spy(treeViewService, 'maxDepthOf');
-
         tracker = new Tracker(trackerFactory.create());
         wrapper = mountWithTracker(TabHttpRequestSummary, tracker);
-    });
-
-    afterEach(() => {
-        treeViewService.maxDepthOf.restore();
     });
 
     it('has method', () => {
@@ -72,32 +64,20 @@ describe('TabHttpRequestSummary Component', () => {
         let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(0);
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.request.query);
-        expect(wrapperTreeView.props().options).to.deep.equal({
-            rootObjectKey: 'query',
-            maxDepth: 1,
-        });
-        expect(treeViewSpy.withArgs(tracker.request.query).calledOnce).to.be.true;
+        expect(wrapperTreeView.props().label).to.equal('query');
     });
 
     it('has tree view with cookie', () => {
         let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(1);
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.request.cookie);
-        expect(wrapperTreeView.props().options).to.deep.equal({
-            rootObjectKey: 'cookie',
-            maxDepth: 1,
-        });
-        expect(treeViewSpy.withArgs(tracker.request.cookie).calledOnce).to.be.true;
+        expect(wrapperTreeView.props().label).to.equal('cookie');
     });
 
     it('has tree view with header', () => {
         let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(2);
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.request.header);
-        expect(wrapperTreeView.props().options).to.deep.equal({
-            rootObjectKey: 'headers',
-            maxDepth: 2,
-        });
-        expect(treeViewSpy.withArgs(tracker.request.header, 2).calledOnce).to.be.true;
+        expect(wrapperTreeView.props().label).to.equal('headers');
     });
 });

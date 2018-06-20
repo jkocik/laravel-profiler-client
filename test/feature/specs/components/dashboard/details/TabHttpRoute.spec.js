@@ -1,22 +1,14 @@
 import Tracker from '@/models/tracker';
-import { treeViewService } from '@/services/tree-view.service';
 import TabHttpRoute from '@/components/dashboard/details/TabHttpRoute';
 import { trackerFactory, mountWithTracker } from './../../../test-helper';
 
 describe('TabHttpRoute Component', () => {
     let tracker;
     let wrapper;
-    let treeViewSpy;
 
     beforeEach(() => {
-        treeViewSpy = sinon.spy(treeViewService, 'maxDepthOf');
-
         tracker = new Tracker(trackerFactory.create());
         wrapper = mountWithTracker(TabHttpRoute, tracker);
-    });
-
-    afterEach(() => {
-        treeViewService.maxDepthOf.restore();
     });
 
     it('has controller when uses controller to process route', () => {
@@ -71,21 +63,13 @@ describe('TabHttpRoute Component', () => {
         let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(0);
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.route.middleware);
-        expect(wrapperTreeView.props().options).to.deep.equal({
-            rootObjectKey: 'middleware',
-            maxDepth: 1,
-        });
-        expect(treeViewSpy.withArgs(tracker.route.middleware).calledOnce).to.be.true;
+        expect(wrapperTreeView.props().label).to.equal('middleware');
     });
 
     it('has tree view with parameters', () => {
         let wrapperTreeView = wrapper.findAll({ name: 'tree-view' }).at(1);
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.route.parameters);
-        expect(wrapperTreeView.props().options).to.deep.equal({
-            rootObjectKey: 'parameters',
-            maxDepth: 1,
-        });
-        expect(treeViewSpy.withArgs(tracker.route.parameters).calledOnce).to.be.true;
+        expect(wrapperTreeView.props().label).to.equal('parameters');
     });
 });

@@ -5,38 +5,24 @@
         </ul>
         <hr>
         <tree-view
-            :data="request.arguments"
-            :options="optionsArguments"
+            :data="tracker.request.arguments"
+            label="arguments"
         ></tree-view>
         <hr>
         <tree-view
-            :data="request.options"
-            :options="optionsOptions"
+            :data="tracker.request.options"
+            label="options"
         ></tree-view>
     </section>
 </template>
 
 <script>
     import Tracker from './../../../models/tracker';
-    import { treeViewService } from './../../../services/tree-view.service';
 
     export default {
         name: 'tab-console-finished-request',
         props: {
             tracker: Tracker,
-        },
-        data() {
-            return {
-                request: this.tracker.request,
-                optionsArguments: {
-                    rootObjectKey: 'arguments',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.arguments),
-                },
-                optionsOptions: {
-                    rootObjectKey: 'options',
-                    maxDepth: treeViewService.maxDepthOf(this.tracker.request.options),
-                },
-            };
         },
     };
 </script>
