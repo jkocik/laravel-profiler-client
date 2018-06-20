@@ -1,11 +1,11 @@
 import Buefy from 'buefy';
 import VueRouter from 'vue-router';
 import { SocketIO } from 'mock-socket';
-import TreeView from 'vue-json-tree-view';
 import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
 import { storeFactory } from '@/store';
 import VueSocket from '@/sockets/vue-socket';
+import VueTreeView from '@/tree-view/vue-tree-view';
 import { Factory } from './test-factories/src/factory';
 import { dummyTrackerData } from './../../fixtures/es6';
 
@@ -16,7 +16,7 @@ export const bindingsFactory = new Factory(dummyTrackerData.data.bindings[0]);
 export const mountWithTracker = (component, tracker) => {
     let localVue = createLocalVue();
     localVue.use(Buefy);
-    localVue.use(TreeView);
+    localVue.use(VueTreeView);
 
     let store = storeFactory();
     store.commit('trackers/store', tracker);
@@ -38,8 +38,8 @@ export const mountWithTracker = (component, tracker) => {
 export const mountWithoutProps = (component) => {
     let localVue = createLocalVue();
     localVue.use(Buefy);
-    localVue.use(TreeView);
     localVue.use(VueRouter);
+    localVue.use(VueTreeView);
 
     let store = storeFactory();
     let router = emptyRouter();
@@ -59,8 +59,8 @@ export const mountWithoutProps = (component) => {
 export const mountWithSocketMock = (component, url) => {
     let localVue = createLocalVue();
     localVue.use(Buefy);
-    localVue.use(TreeView);
     localVue.use(VueRouter);
+    localVue.use(VueTreeView);
 
     let store = storeFactory();
     let router = emptyRouter();
