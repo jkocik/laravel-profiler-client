@@ -47,6 +47,14 @@
                 ></tab-views>
             </keep-alive>
         </b-tab-item>
+
+        <b-tab-item :disabled="! tracker.hasEvents()" :label="eventsLabel">
+            <keep-alive>
+                <tab-events v-if="isActiveTab(4) && tracker.hasEvents()"
+                    :tracker="tracker"
+                ></tab-events>
+            </keep-alive>
+        </b-tab-item>
     </b-tabs>
 </template>
 
@@ -54,6 +62,7 @@
     import Tracker from './../../models/tracker';
     import TabApp from './details/TabApp';
     import TabViews from './details/TabViews';
+    import TabEvents from './details/TabEvents';
     import TabHttpRequest from './details/TabHttpRequest';
     import TabHttpResponse from './details/TabHttpResponse';
     import TabConsoleFinishedRequest from './details/TabConsoleFinishedRequest';
@@ -64,6 +73,7 @@
         components: {
             TabApp,
             TabViews,
+            TabEvents,
             TabHttpRequest,
             TabHttpResponse,
             TabConsoleFinishedRequest,
@@ -82,6 +92,7 @@
                 requestLabel: this.$t(`tab-labels.${this.tracker.request.name}`),
                 responseLabel: this.$t(`tab-labels.${this.tracker.response.name}`),
                 viewsLabel: `Views (${this.tracker.countViews()})`,
+                eventsLabel: `Events (${this.tracker.countEvents()})`,
             };
         },
         methods: {

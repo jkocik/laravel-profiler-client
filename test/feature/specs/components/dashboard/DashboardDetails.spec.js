@@ -146,4 +146,29 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.tabs(3).classes()).to.contain('is-disabled');
         expect(wrapperTabViews.exists()).to.be.false;
     });
+
+    it('has events tab', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { events: [{ name: 'a', data: {} }] }));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(4).text()).to.equal('Events (1)');
+
+        wrapper.tabs(4).find('a').trigger('click');
+        await wrapper.vm.$nextTick();
+        let wrapperTabEvents = wrapper.find({ name: 'tab-events' });
+        expect(wrapperTabEvents.isVisible()).to.be.true;
+        expect(wrapperTabEvents.props().tracker).to.equal(wrapper.props().tracker);
+    });
+
+    it('events tab is enabled only if any event is present', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { events: [] }));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabEvents = wrapper.find({ name: 'tab-events' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(4).text()).to.equal('Events (0)');
+        expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
+        expect(wrapperTabEvents.exists()).to.be.false;
+    });
 });

@@ -1,5 +1,7 @@
+import moment from 'moment';
 import Path from '@/models/path';
 import View from '@/models/view';
+import Event from '@/models/event';
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
 import NullRoute from '@/models/null-route';
@@ -19,7 +21,7 @@ describe('Tracker Model', () => {
     it('has executionAt', () => {
         let tracker = new Tracker(trackerFactory.create('meta', { execution_at: 1234566 }));
 
-        expect(tracker.executionAt).to.equal('07:56:06');
+        expect(tracker.executionAt).to.equal(moment.unix(1234566).format('HH:mm:ss'));
     });
 
     it('has id', () => {
@@ -368,5 +370,23 @@ describe('Tracker Model', () => {
         expect(tracker.views).to.be.an('array');
         expect(tracker.countViews()).to.be.equal(0);
         expect(tracker.hasViews()).to.be.false;
+    });
+
+    it('has events', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { events: [{ name: 'a', data: {} }] }));
+
+        expect(tracker.countEvents()).to.be.equal(1);
+        expect(tracker.hasEvents()).to.be.true;
+        expect(tracker.events).to.deep.equal([{ name: 'a', data: {} }]);
+        expect(tracker.events.length).to.be.equal(1);
+        expect(tracker.events[0]).to.be.an.instanceOf(Event);
+    });
+
+    it('has empty events if events are not delivered', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { events: undefined }));
+
+        expect(tracker.events).to.be.an('array');
+        expect(tracker.countEvents()).to.be.equal(0);
+        expect(tracker.hasEvents()).to.be.false;
     });
 });

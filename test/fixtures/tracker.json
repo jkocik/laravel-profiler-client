@@ -150,6 +150,16 @@
                 "path": "path-to-b",
                 "data": { "b": "y" }
             }
+        ],
+        "events": [
+            {
+                "name": "event-a",
+                "data": {}
+            },
+            {
+                "name": "event-b",
+                "data": {}
+            }
         ]
     }
 }
