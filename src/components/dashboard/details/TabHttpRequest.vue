@@ -71,7 +71,9 @@
             return {
                 activeTab: 0,
                 inputLabel: `Input (${this.tracker.request.countInput()})`,
-                sessionLabel: `Session (${this.tracker.countSession()})`,
+                sessionLabel: this.tracker.isSessionProvided()
+                    ? `Session (${this.tracker.countSession()})`
+                    : 'Session',
             };
         },
         methods: {

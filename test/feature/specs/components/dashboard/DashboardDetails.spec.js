@@ -147,6 +147,19 @@ describe('DashboardDetails Component', () => {
         expect(wrapperTabViews.exists()).to.be.false;
     });
 
+    it('views tab has number of views only if views are provided', async () => {
+        let trackerSource = trackerFactory.create('data', { views: [] });
+        delete trackerSource.data.views;
+        let tracker = new Tracker(trackerSource);
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabViews = wrapper.find({ name: 'tab-views' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(3).text()).to.equal('Views');
+        expect(wrapper.tabs(3).classes()).to.contain('is-disabled');
+        expect(wrapperTabViews.exists()).to.be.false;
+    });
+
     it('has events tab', async () => {
         let tracker = new Tracker(trackerFactory.create('data', { events: [{ name: 'a', data: {} }] }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
@@ -168,6 +181,19 @@ describe('DashboardDetails Component', () => {
 
         await wrapper.vm.$nextTick();
         expect(wrapper.tabs(4).text()).to.equal('Events (0)');
+        expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
+        expect(wrapperTabEvents.exists()).to.be.false;
+    });
+
+    it('events tab has number of events only if events are provided', async () => {
+        let trackerSource = trackerFactory.create('data', { events: [] });
+        delete trackerSource.data.events;
+        let tracker = new Tracker(trackerSource);
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabEvents = wrapper.find({ name: 'tab-events' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(4).text()).to.equal('Events');
         expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
         expect(wrapperTabEvents.exists()).to.be.false;
     });

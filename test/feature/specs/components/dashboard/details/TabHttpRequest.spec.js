@@ -74,6 +74,19 @@ describe('TabHttpRequest Component', () => {
         expect(wrapperTabHttpSession.exists()).to.be.false;
     });
 
+    it('session tab has number of session data only if session data are provided', async () => {
+        let trackerSource = trackerFactory.create('data', { session: [] });
+        delete trackerSource.data.session;
+        let tracker = new Tracker(trackerSource);
+        let wrapper = mountWithTracker(TabHttpRequest, tracker);
+        let wrapperTabHttpSession = wrapper.find({ name: 'tab-http-session' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(2).text()).to.equal('Session');
+        expect(wrapper.tabs(2).classes()).to.contain('is-disabled');
+        expect(wrapperTabHttpSession.exists()).to.be.false;
+    });
+
     it('has route tab', async () => {
         let tracker = new Tracker(trackerFactory.create());
         let wrapper = mountWithTracker(TabHttpRequest, tracker);

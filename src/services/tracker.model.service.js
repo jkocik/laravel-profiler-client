@@ -126,4 +126,16 @@ export const trackerService = {
 
         return new Route(route);
     },
+
+    sessionProvided(data) {
+        return data.hasOwnProperty('session');
+    },
+
+    viewsProvided(data) {
+        return data.hasOwnProperty('views');
+    },
+
+    eventsProvided(data) {
+        return data.hasOwnProperty('events');
+    },
 };

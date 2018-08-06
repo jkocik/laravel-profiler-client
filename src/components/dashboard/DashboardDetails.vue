@@ -91,8 +91,12 @@
                 activeTab: 0,
                 requestLabel: this.$t(`tab-labels.${this.tracker.request.name}`),
                 responseLabel: this.$t(`tab-labels.${this.tracker.response.name}`),
-                viewsLabel: `Views (${this.tracker.countViews()})`,
-                eventsLabel: `Events (${this.tracker.countEvents()})`,
+                viewsLabel: this.tracker.areViewsProvided()
+                    ? `Views (${this.tracker.countViews()})`
+                    : 'Views',
+                eventsLabel: this.tracker.areEventsProvided()
+                    ? `Events (${this.tracker.countEvents()})`
+                    : 'Events',
             };
         },
         methods: {

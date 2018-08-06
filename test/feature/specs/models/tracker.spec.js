@@ -300,6 +300,7 @@ describe('Tracker Model', () => {
         expect(tracker.countSession()).to.be.equal(3);
         expect(tracker.hasSession()).to.be.true;
         expect(tracker.session).to.deep.equal({ a: 1, b: 2, c: 3 });
+        expect(tracker.isSessionProvided()).to.be.true;
     });
 
     it('has empty session if session data are not delivered', () => {
@@ -308,6 +309,18 @@ describe('Tracker Model', () => {
         expect(tracker.session).to.be.an('object');
         expect(tracker.countSession()).to.be.equal(0);
         expect(tracker.hasSession()).to.be.false;
+        expect(tracker.isSessionProvided()).to.be.true;
+    });
+
+    it('has not provided session if session data are not provided at all', () => {
+        let trackerSource = trackerFactory.create('data', { session: undefined });
+        delete trackerSource.data.session;
+        let tracker = new Tracker(trackerSource);
+
+        expect(tracker.session).to.be.an('object');
+        expect(tracker.countSession()).to.be.equal(0);
+        expect(tracker.hasSession()).to.be.false;
+        expect(tracker.isSessionProvided()).to.be.false;
     });
 
     it('has request based on meta type', () => {
@@ -362,6 +375,7 @@ describe('Tracker Model', () => {
         expect(tracker.views).to.deep.equal([{ name: 'a', path: 'b', data: [] }]);
         expect(tracker.views.length).to.be.equal(1);
         expect(tracker.views[0]).to.be.an.instanceOf(View);
+        expect(tracker.areViewsProvided()).to.be.true;
     });
 
     it('has empty views if views are not delivered', () => {
@@ -370,6 +384,18 @@ describe('Tracker Model', () => {
         expect(tracker.views).to.be.an('array');
         expect(tracker.countViews()).to.be.equal(0);
         expect(tracker.hasViews()).to.be.false;
+        expect(tracker.areViewsProvided()).to.be.true;
+    });
+
+    it('has not provided views if views are not provided at all', () => {
+        let trackerSource = trackerFactory.create('data', { views: undefined });
+        delete trackerSource.data.views;
+        let tracker = new Tracker(trackerSource);
+
+        expect(tracker.views).to.be.an('array');
+        expect(tracker.countViews()).to.be.equal(0);
+        expect(tracker.hasViews()).to.be.false;
+        expect(tracker.areViewsProvided()).to.be.false;
     });
 
     it('has events', () => {
@@ -380,6 +406,7 @@ describe('Tracker Model', () => {
         expect(tracker.events).to.deep.equal([{ name: 'a', data: {} }]);
         expect(tracker.events.length).to.be.equal(1);
         expect(tracker.events[0]).to.be.an.instanceOf(Event);
+        expect(tracker.areEventsProvided()).to.be.true;
     });
 
     it('has empty events if events are not delivered', () => {
@@ -388,5 +415,17 @@ describe('Tracker Model', () => {
         expect(tracker.events).to.be.an('array');
         expect(tracker.countEvents()).to.be.equal(0);
         expect(tracker.hasEvents()).to.be.false;
+        expect(tracker.areEventsProvided()).to.be.true;
+    });
+
+    it('has not provided events if events are not provided at all', () => {
+        let trackerSource = trackerFactory.create('data', { events: undefined });
+        delete trackerSource.data.events;
+        let tracker = new Tracker(trackerSource);
+
+        expect(tracker.events).to.be.an('array');
+        expect(tracker.countEvents()).to.be.equal(0);
+        expect(tracker.hasEvents()).to.be.false;
+        expect(tracker.areEventsProvided()).to.be.false;
     });
 });

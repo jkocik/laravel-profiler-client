@@ -32,9 +32,13 @@ export default class Tracker {
         this.response = trackerService.response(data.meta.type, data.data.response);
         this.route = trackerService.route(data.meta, data.data.route);
         this.session = data.data.session || {};
+        this.sessionProvided = trackerService.sessionProvided(data.data);
 
         this.views = (data.data.views || []).map(view => new View(view));
+        this.viewsProvided = trackerService.viewsProvided(data.data);
+
         this.events = (data.data.events || []).map(event => new Event(event));
+        this.eventsProvided = trackerService.eventsProvided(data.data);
 
         this.lastActiveDetailsTab = 0;
     }
@@ -83,6 +87,10 @@ export default class Tracker {
         return !! this.countSession();
     }
 
+    isSessionProvided() {
+        return this.sessionProvided;
+    }
+
     countViews() {
         return this.views.length;
     }
@@ -91,11 +99,19 @@ export default class Tracker {
         return !! this.countViews();
     }
 
+    areViewsProvided() {
+        return this.viewsProvided;
+    }
+
     countEvents() {
         return this.events.length;
     }
 
     hasEvents() {
         return !! this.countEvents();
+    }
+
+    areEventsProvided() {
+        return this.eventsProvided;
     }
 }
