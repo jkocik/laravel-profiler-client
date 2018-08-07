@@ -2,6 +2,7 @@
     <footer>
         <div class="container is-widescreen">
             <div>
+                {{ $t('footer.total-items', { total }) }}
             </div>
             <div v-if="isConnected">
                 {{ $t('footer.connected', { url }) }}
@@ -22,6 +23,9 @@
             ...mapGetters('sockets', [
                 'isConnected',
                 'url',
+            ]),
+            ...mapGetters('trackers', [
+                'total',
             ]),
         },
     };

@@ -1,9 +1,25 @@
 import { Server } from 'mock-socket';
 import App from '@/App';
-import { mountWithoutProps, mountWithSocketMock } from './test-helper';
+import Tracker from '@/models/tracker';
 import { createEvent } from './../../../node_modules/mock-socket/src/event-factory';
+import { trackerFactory, mountWithoutProps, mountWithSocketMock } from './test-helper';
 
 describe('App Component', () => {
+    it('has total number of loaded items', () => {
+        let wrapper = mountWithoutProps(App);
+        let tracker = new Tracker(trackerFactory.create());
+
+        let wrapperFooter = wrapper.find({ name: 'app-footer' });
+        expect(wrapperFooter.findAll('.container > div').at(0).text()).to.equal(wrapper.vm.$t('footer.total-items', { total: 0 }));
+
+        wrapper.vm.$store.commit('trackers/store', tracker);
+        expect(wrapperFooter.findAll('.container > div').at(0).text()).to.equal(wrapper.vm.$t('footer.total-items', { total: 1 }));
+
+        wrapper.vm.$store.commit('trackers/store', tracker);
+        wrapper.vm.$store.commit('trackers/store', tracker);
+        expect(wrapperFooter.findAll('.container > div').at(0).text()).to.equal(wrapper.vm.$t('footer.total-items', { total: 3 }));
+    });
+
     it('has state not connected before first server connection', () => {
         let wrapper = mountWithoutProps(App);
         let wrapperHeader = wrapper.find({ name: 'app-header' });

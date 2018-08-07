@@ -1,5 +1,6 @@
 export default {
     'footer': {
+        'total-items': 'Total items: {total}',
         'connected': 'Connected to {url}',
         'not-connected': 'Disconnected',
     },

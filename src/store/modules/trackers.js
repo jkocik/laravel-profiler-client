@@ -2,6 +2,7 @@ import { filterService } from './../../services/filter.store.service';
 import { trackersService } from './../../services/trackers.store.service';
 
 const getters = {
+    total: state => state.all.length,
     filtered: state => filterService.filter(state.all, state.filter, {
         running: state.allRunnings,
         env: state.allEnvs,
