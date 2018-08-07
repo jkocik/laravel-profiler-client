@@ -12,7 +12,8 @@
         "ajax": false,
         "json": false,
         "status": 200,
-        "status_text": "OK"
+        "status_text": "OK",
+        "memory_usage": 1048576
     },
     "data": {
         "application": {

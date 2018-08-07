@@ -155,6 +155,19 @@ describe('Tracker Model', () => {
         expect(trackerB.hasStatusText()).to.be.false;
     });
 
+    it('has memory usage', () => {
+        let trackerA = new Tracker(trackerFactory.create('meta', { memory_usage: 209715 }));
+        let trackerB = new Tracker(trackerFactory.create('meta', { memory_usage: 1048576 }));
+        let trackerC = new Tracker(trackerFactory.create('meta', { memory_usage: 1289740 }));
+
+        expect(trackerA.memoryUsage).to.equal('0.20');
+        expect(trackerA.memoryUsageForHuman()).to.equal('0.20MB');
+        expect(trackerB.memoryUsage).to.equal('1.00');
+        expect(trackerB.memoryUsageForHuman()).to.equal('1.00MB');
+        expect(trackerC.memoryUsage).to.equal('1.23');
+        expect(trackerC.memoryUsageForHuman()).to.equal('1.23MB');
+    });
+
     it('has application data', () => {
         let tracker = new Tracker(trackerFactory.create('data', { application: {
             locale: 'test-locale',

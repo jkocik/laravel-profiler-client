@@ -21,6 +21,7 @@ export default class Tracker {
         this.statusText = trackerService.statusText(data.meta.status_text);
         this.statusGroup = trackerService.statusGroup(this.status, this.type);
         this.statusColor = trackerService.statusColor(this.statusGroup);
+        this.memoryUsage = trackerService.memoryUsage(data.meta.memory_usage);
 
         this.application = new Application(data.data.application);
         this.config = data.data.config || {};
@@ -45,6 +46,10 @@ export default class Tracker {
 
     hasStatusText() {
         return this.statusText !== '---';
+    }
+
+    memoryUsageForHuman() {
+        return `${this.memoryUsage}MB`;
     }
 
     countConfig() {

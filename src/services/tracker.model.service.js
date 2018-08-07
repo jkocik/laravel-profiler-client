@@ -95,6 +95,10 @@ export const trackerService = {
         return colors[resolvedStatusGroup];
     },
 
+    memoryUsage(memoryUsage) {
+        return (memoryUsage / 1024 / 1024).toFixed(2);
+    },
+
     request(meta, request) {
         const Request = {
             'http': HttpRequest,

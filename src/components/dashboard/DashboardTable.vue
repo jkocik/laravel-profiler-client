@@ -48,6 +48,7 @@
             </td>
 
             <td>
+                <i class="fas fa-hdd"></i> {{ row.memoryUsageForHuman() }}
             </td>
 
             <td>
