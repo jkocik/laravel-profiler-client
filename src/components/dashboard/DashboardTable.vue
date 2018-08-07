@@ -50,13 +50,13 @@
             <td>
                 <div class="tracker-summary">
                     <div>
-                        <i class="fas fa-hdd has-text-grey"></i> {{ row.memoryUsageForHuman() }}
+                        <i class="fas fa-hdd has-text-primary"></i> {{ row.memoryUsageForHuman() }}
                     </div>
                     <div class="views" v-if="row.areViewsProvided()">
-                        <i class="fas fa-eye has-text-grey"></i> {{ row.countViews() }}
+                        <i class="fas fa-eye has-text-primary"></i> {{ row.countViews() }}
                     </div>
                     <div class="events" v-if="row.areEventsProvided()">
-                        <i class="fas fa-clipboard-list has-text-grey"></i> {{ row.countEvents() }}
+                        <i class="fas fa-share-square has-text-primary"></i> {{ row.countEvents() }}
                     </div>
                 </div>
             </td>
