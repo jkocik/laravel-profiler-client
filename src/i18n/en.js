@@ -1,7 +1,7 @@
 export default {
     'footer': {
         'connected': 'Connected to {url}',
-        'not-connected': 'Not connected',
+        'not-connected': 'Disconnected',
     },
     'dashboard': {
         'trackers-list-is-empty': 'List is empty',
