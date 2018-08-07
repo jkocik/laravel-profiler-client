@@ -32,6 +32,61 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.phpVersion);
     });
 
+    it('sees number of views after data are delivered', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let tracker = new Tracker(trackerFactory.create('data', { views: [
+            { name: 'view-a', path: 'path-to-a', data: {} },
+            { name: 'view-b', path: 'path-to-b', data: {} },
+            { name: 'view-c', path: 'path-to-c', data: {} },
+            { name: 'view-d', path: 'path-to-d', data: {} },
+            { name: 'view-e', path: 'path-to-e', data: {} },
+        ]}));
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.views').text()).to.contain('5');
+    });
+
+    it('does not see number of views after data are delivered but views are not provided at all', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let trackerSource = trackerFactory.create('data', { views: [] });
+        delete trackerSource.data.views;
+        let tracker = new Tracker(trackerSource);
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.views').exists()).to.be.false;
+    });
+
+    it('sees number of events after data are delivered', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let tracker = new Tracker(trackerFactory.create('data', { events: [
+            { name: 'event-a', data: {} },
+            { name: 'event-b', data: {} },
+            { name: 'event-c', data: {} },
+            { name: 'event-d', data: {} },
+        ]}));
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.events').text()).to.contain('4');
+    });
+
+    it('does not see number of events after data are delivered but events are not provided at all', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let trackerSource = trackerFactory.create('data', { events: [] });
+        delete trackerSource.data.events;
+        let tracker = new Tracker(trackerSource);
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.events').exists()).to.be.false;
+    });
+
     it('sees meta data of profiler in descending order', async () => {
         let trackerA = new Tracker(trackerFactory.create());
         let trackerB = new Tracker(trackerFactory.create('meta', { env: 'testing' }));

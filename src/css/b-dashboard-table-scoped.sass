@@ -24,12 +24,15 @@
         width: 110px
 
     td:nth-child(6)
-        width: 300px
+        width: 275px
         white-space: nowrap
         overflow: hidden
         div
             &.tags
                 width: 250px
+
+    td:nth-child(7)
+        white-space: nowrap
 
 .b-table
     .table
@@ -37,6 +40,13 @@
             tr:not(.is-empty):not(.table-footer)
                 td
                     flex-direction: column
+
+            .tracker-summary
+                display: flex
+
+                & > div
+                    flex-direction: column
+                    padding-left: 15px
 
         .detail-container
             height: 70vh

@@ -48,7 +48,17 @@
             </td>
 
             <td>
-                <i class="fas fa-hdd"></i> {{ row.memoryUsageForHuman() }}
+                <div class="tracker-summary">
+                    <div>
+                        <i class="fas fa-hdd has-text-grey"></i> {{ row.memoryUsageForHuman() }}
+                    </div>
+                    <div class="views" v-if="row.areViewsProvided()">
+                        <i class="fas fa-eye has-text-grey"></i> {{ row.countViews() }}
+                    </div>
+                    <div class="events" v-if="row.areEventsProvided()">
+                        <i class="fas fa-clipboard-list has-text-grey"></i> {{ row.countEvents() }}
+                    </div>
+                </div>
             </td>
 
             <td>
