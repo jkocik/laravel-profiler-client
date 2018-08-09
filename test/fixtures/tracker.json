@@ -13,7 +13,8 @@
         "json": false,
         "status": 200,
         "status_text": "OK",
-        "memory_usage": 1048576
+        "memory_usage": 1048576,
+        "laravel_execution_time": 350
     },
     "data": {
         "application": {

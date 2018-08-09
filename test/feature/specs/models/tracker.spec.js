@@ -168,6 +168,22 @@ describe('Tracker Model', () => {
         expect(trackerC.memoryUsageForHuman()).to.equal('1.23MB');
     });
 
+    it('has laravel execution time', () => {
+        let trackerA = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 35 }));
+        let trackerB = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 350 }));
+        let trackerC = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 350.1 }));
+        let trackerD = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 3501.1 }));
+
+        expect(trackerA.laravelExecutionTime).to.equal('0.04');
+        expect(trackerA.laravelExecutionTimeForHuman()).to.equal('0.04s');
+        expect(trackerB.laravelExecutionTime).to.equal('0.35');
+        expect(trackerB.laravelExecutionTimeForHuman()).to.equal('0.35s');
+        expect(trackerC.laravelExecutionTime).to.equal('0.35');
+        expect(trackerC.laravelExecutionTimeForHuman()).to.equal('0.35s');
+        expect(trackerD.laravelExecutionTime).to.equal('3.50');
+        expect(trackerD.laravelExecutionTimeForHuman()).to.equal('3.50s');
+    });
+
     it('has application data', () => {
         let tracker = new Tracker(trackerFactory.create('data', { application: {
             locale: 'test-locale',

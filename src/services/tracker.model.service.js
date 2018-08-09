@@ -99,6 +99,10 @@ export const trackerService = {
         return (memoryUsage / 1024 / 1024).toFixed(2);
     },
 
+    timerInSeconds(milliseconds) {
+        return (milliseconds / 1000).toFixed(2);
+    },
+
     request(meta, request) {
         const Request = {
             'http': HttpRequest,

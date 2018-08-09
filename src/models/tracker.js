@@ -22,6 +22,7 @@ export default class Tracker {
         this.statusGroup = trackerService.statusGroup(this.status, this.type);
         this.statusColor = trackerService.statusColor(this.statusGroup);
         this.memoryUsage = trackerService.memoryUsage(data.meta.memory_usage);
+        this.laravelExecutionTime = trackerService.timerInSeconds(data.meta.laravel_execution_time);
 
         this.application = new Application(data.data.application);
         this.config = data.data.config || {};
@@ -50,6 +51,10 @@ export default class Tracker {
 
     memoryUsageForHuman() {
         return `${this.memoryUsage}MB`;
+    }
+
+    laravelExecutionTimeForHuman() {
+        return `${this.laravelExecutionTime}s`;
     }
 
     countConfig() {

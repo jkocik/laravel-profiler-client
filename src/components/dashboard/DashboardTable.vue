@@ -50,6 +50,9 @@
             <td>
                 <div class="tracker-summary">
                     <div>
+                        <i class="fas fa-clock has-text-primary"></i> {{ row.laravelExecutionTimeForHuman() }}
+                    </div>
+                    <div>
                         <i class="fas fa-hdd has-text-primary"></i> {{ row.memoryUsageForHuman() }}
                     </div>
                     <div class="views" v-if="row.areViewsProvided()">
