@@ -124,4 +124,8 @@ export default class Tracker {
     areEventsProvided() {
         return this.eventsProvided;
     }
+
+    isEnvTesting() {
+        return this.env === 'testing';
+    }
 }

@@ -43,9 +43,13 @@ describe('Tracker Model', () => {
     });
 
     it('has env', () => {
-        let tracker = new Tracker(trackerFactory.create('meta', { env: 'production' }));
+        let trackerA = new Tracker(trackerFactory.create('meta', { env: 'production' }));
+        let trackerB = new Tracker(trackerFactory.create('meta', { env: 'testing' }));
 
-        expect(tracker.env).to.equal('production');
+        expect(trackerA.env).to.equal('production');
+        expect(trackerA.isEnvTesting()).to.be.false;
+        expect(trackerB.env).to.equal('testing');
+        expect(trackerB.isEnvTesting()).to.be.true;
     });
 
     it('has running', () => {
