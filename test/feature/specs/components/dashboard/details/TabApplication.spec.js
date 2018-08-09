@@ -77,4 +77,12 @@ describe('TabApplication Component', () => {
         expect(wrapper.trs(8).find('.fa-toggle-on').exists()).to.be.true;
         expect(wrapper.trs(8).find('.fa-toggle-off').exists()).to.be.false;
     });
+
+    it('has laravel execution time', () => {
+        expect(wrapper.trs(9).text()).to.contain(tracker.laravelExecutionTimeForHuman());
+    });
+
+    it('has memory usage', () => {
+        expect(wrapper.trs(10).text()).to.contain(tracker.memoryUsageForHuman());
+    });
 });

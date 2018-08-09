@@ -22,6 +22,8 @@ export default {
     'tabs': {
         'application': {
             'via': 'is running via',
+            'laravel-execution-time': 'laravel execution time',
+            'memory-usage': 'memory usage',
         },
         'bindings': {
             'resolved-as': 'resolved as',
