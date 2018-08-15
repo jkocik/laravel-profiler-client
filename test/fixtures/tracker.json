@@ -162,6 +162,16 @@
                 "name": "event-b",
                 "data": {}
             }
+        ],
+        "queries": [
+            {
+                "database": "laravel_profiler",
+                "name": "mysql",
+                "query": "select * from `users` where `id` = 1 limit 1",
+                "sql": "select * from `users` where `id` = ? limit 1",
+                "bindings": [1],
+                "time": 25
+            }
         ]
     }
 }

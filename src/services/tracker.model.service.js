@@ -146,4 +146,8 @@ export const trackerService = {
     eventsProvided(data) {
         return data.hasOwnProperty('events');
     },
+
+    queriesProvided(data) {
+        return data.hasOwnProperty('queries');
+    },
 };

@@ -2,6 +2,7 @@ import moment from 'moment';
 import Path from '@/models/path';
 import View from '@/models/view';
 import Event from '@/models/event';
+import Query from '@/models/query';
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
 import NullRoute from '@/models/null-route';
@@ -460,5 +461,50 @@ describe('Tracker Model', () => {
         expect(tracker.countEvents()).to.be.equal(0);
         expect(tracker.hasEvents()).to.be.false;
         expect(tracker.areEventsProvided()).to.be.false;
+    });
+
+    it('has queries', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { queries: [{
+            database: 'laravel_profiler_2',
+            name: 'mysql_2',
+            query: 'select * from `users` where `id` = 2 limit 1',
+            sql: 'select * from `users` where `id` = ? limit 1',
+            bindings: [2],
+            time: 22,
+        }]}));
+
+        expect(tracker.countQueries()).to.be.equal(1);
+        expect(tracker.hasQueries()).to.be.true;
+        expect(tracker.queries).to.deep.equal([{
+            database: 'laravel_profiler_2',
+            name: 'mysql_2',
+            query: 'select * from `users` where `id` = 2 limit 1',
+            sql: 'select * from `users` where `id` = ? limit 1',
+            bindings: [2],
+            time: 22,
+        }]);
+        expect(tracker.queries.length).to.be.equal(1);
+        expect(tracker.queries[0]).to.be.an.instanceOf(Query);
+        expect(tracker.areQueriesProvided()).to.be.true;
+    });
+
+    it('has empty queries if queries are not delivered', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { queries: undefined }));
+
+        expect(tracker.queries).to.be.an('array');
+        expect(tracker.countQueries()).to.be.equal(0);
+        expect(tracker.hasQueries()).to.be.false;
+        expect(tracker.areQueriesProvided()).to.be.true;
+    });
+
+    it('has not provided queries if queries are not provided at all', () => {
+        let trackerSource = trackerFactory.create('data', { queries: undefined });
+        delete trackerSource.data.queries;
+        let tracker = new Tracker(trackerSource);
+
+        expect(tracker.queries).to.be.an('array');
+        expect(tracker.countQueries()).to.be.equal(0);
+        expect(tracker.hasQueries()).to.be.false;
+        expect(tracker.areQueriesProvided()).to.be.false;
     });
 });

@@ -61,6 +61,9 @@
                     <div class="events" v-if="row.areEventsProvided()">
                         <i class="fas fa-cog has-text-primary"></i> {{ row.countEvents() }}
                     </div>
+                    <div class="queries" v-if="row.areQueriesProvided()">
+                        <i class="fas fa-database has-text-primary"></i> {{ row.countQueries() }}
+                    </div>
                 </div>
             </td>
 

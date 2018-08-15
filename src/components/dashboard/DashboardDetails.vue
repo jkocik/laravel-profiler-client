@@ -55,6 +55,14 @@
                 ></tab-events>
             </keep-alive>
         </b-tab-item>
+
+        <b-tab-item :disabled="! tracker.hasQueries()" :label="queriesLabel">
+            <keep-alive>
+                <tab-queries v-if="isActiveTab(5) && tracker.hasQueries()"
+                    :tracker="tracker"
+                ></tab-queries>
+            </keep-alive>
+        </b-tab-item>
     </b-tabs>
 </template>
 
@@ -63,6 +71,7 @@
     import TabApp from './details/TabApp';
     import TabViews from './details/TabViews';
     import TabEvents from './details/TabEvents';
+    import TabQueries from './details/TabQueries';
     import TabHttpRequest from './details/TabHttpRequest';
     import TabHttpResponse from './details/TabHttpResponse';
     import TabConsoleFinishedRequest from './details/TabConsoleFinishedRequest';
@@ -74,6 +83,7 @@
             TabApp,
             TabViews,
             TabEvents,
+            TabQueries,
             TabHttpRequest,
             TabHttpResponse,
             TabConsoleFinishedRequest,
@@ -97,6 +107,9 @@
                 eventsLabel: this.tracker.areEventsProvided()
                     ? `Events (${this.tracker.countEvents()})`
                     : 'Events',
+                queriesLabel: this.tracker.areQueriesProvided()
+                    ? `Queries (${this.tracker.countQueries()})`
+                    : 'Queries',
             };
         },
         methods: {

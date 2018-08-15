@@ -197,4 +197,49 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
         expect(wrapperTabEvents.exists()).to.be.false;
     });
+
+    it('has queries tab', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { queries: [{
+            database: 'laravel_profiler_2',
+            name: 'mysql_2',
+            query: 'select * from `users` where `id` = 2 limit 1',
+            sql: 'select * from `users` where `id` = ? limit 1',
+            bindings: [2],
+            time: 22,
+        }]}));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(5).text()).to.equal('Queries (1)');
+
+        wrapper.tabs(5).find('a').trigger('click');
+        await wrapper.vm.$nextTick();
+        let wrapperTabQueries = wrapper.find({ name: 'tab-queries' });
+        expect(wrapperTabQueries.isVisible()).to.be.true;
+        expect(wrapperTabQueries.props().tracker).to.equal(wrapper.props().tracker);
+    });
+
+    it('queries tab is enabled only if any query is present', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { queries: [] }));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabQueries = wrapper.find({ name: 'tab-queries' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(5).text()).to.equal('Queries (0)');
+        expect(wrapper.tabs(5).classes()).to.contain('is-disabled');
+        expect(wrapperTabQueries.exists()).to.be.false;
+    });
+
+    it('queries tab has number of queries only if queries are provided', async () => {
+        let trackerSource = trackerFactory.create('data', { queries: [] });
+        delete trackerSource.data.queries;
+        let tracker = new Tracker(trackerSource);
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabQueries = wrapper.find({ name: 'tab-queries' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(5).text()).to.equal('Queries');
+        expect(wrapper.tabs(5).classes()).to.contain('is-disabled');
+        expect(wrapperTabQueries.exists()).to.be.false;
+    });
 });

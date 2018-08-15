@@ -88,6 +88,35 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.events').exists()).to.be.false;
     });
 
+    it('sees number of queries after data are delivered', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let tracker = new Tracker(trackerFactory.create('data', { queries: [{
+            database: 'laravel_profiler_2',
+            name: 'mysql_2',
+            query: 'select * from `users` where `id` = 2 limit 1',
+            sql: 'select * from `users` where `id` = ? limit 1',
+            bindings: [2],
+            time: 22,
+        }]}));
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.queries').text()).to.contain('1');
+    });
+
+    it('does not see number of queries after data are delivered but queries are not provided at all', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let trackerSource = trackerFactory.create('data', { queries: [] });
+        delete trackerSource.data.queries;
+        let tracker = new Tracker(trackerSource);
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.queries').exists()).to.be.false;
+    });
+
     it('sees meta data of profiler in descending order', async () => {
         let trackerA = new Tracker(trackerFactory.create());
         let trackerB = new Tracker(trackerFactory.create('meta', { env: 'testing' }));

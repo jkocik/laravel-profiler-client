@@ -1,6 +1,7 @@
 import Path from './path';
 import View from './view';
 import Event from './event';
+import Query from './query';
 import Binding from './binding';
 import Application from './application';
 import { trackerService } from './../services/tracker.model.service';
@@ -41,6 +42,9 @@ export default class Tracker {
 
         this.events = (data.data.events || []).map(event => new Event(event));
         this.eventsProvided = trackerService.eventsProvided(data.data);
+
+        this.queries = (data.data.queries || []).map(query => new Query(query));
+        this.queriesProvided = trackerService.queriesProvided(data.data);
 
         this.lastActiveDetailsTab = 0;
     }
@@ -127,5 +131,17 @@ export default class Tracker {
 
     isEnvTesting() {
         return this.env === 'testing';
+    }
+
+    countQueries() {
+        return this.queries.length;
+    }
+
+    hasQueries() {
+        return !! this.countQueries();
+    }
+
+    areQueriesProvided() {
+        return this.queriesProvided;
     }
 }
