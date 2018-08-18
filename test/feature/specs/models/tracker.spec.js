@@ -166,11 +166,11 @@ describe('Tracker Model', () => {
         let trackerC = new Tracker(trackerFactory.create('meta', { memory_usage: 1289740 }));
 
         expect(trackerA.memoryUsage).to.equal('0.20');
-        expect(trackerA.memoryUsageForHuman()).to.equal('0.20MB');
+        expect(trackerA.memoryUsageForHuman).to.equal('0.20MB');
         expect(trackerB.memoryUsage).to.equal('1.00');
-        expect(trackerB.memoryUsageForHuman()).to.equal('1.00MB');
+        expect(trackerB.memoryUsageForHuman).to.equal('1.00MB');
         expect(trackerC.memoryUsage).to.equal('1.23');
-        expect(trackerC.memoryUsageForHuman()).to.equal('1.23MB');
+        expect(trackerC.memoryUsageForHuman).to.equal('1.23MB');
     });
 
     it('has laravel execution time', () => {
@@ -180,13 +180,13 @@ describe('Tracker Model', () => {
         let trackerD = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 3501.1 }));
 
         expect(trackerA.laravelExecutionTime).to.equal('0.04');
-        expect(trackerA.laravelExecutionTimeForHuman()).to.equal('0.04s');
+        expect(trackerA.laravelExecutionTimeForHuman).to.equal('0.04s');
         expect(trackerB.laravelExecutionTime).to.equal('0.35');
-        expect(trackerB.laravelExecutionTimeForHuman()).to.equal('0.35s');
+        expect(trackerB.laravelExecutionTimeForHuman).to.equal('0.35s');
         expect(trackerC.laravelExecutionTime).to.equal('0.35');
-        expect(trackerC.laravelExecutionTimeForHuman()).to.equal('0.35s');
+        expect(trackerC.laravelExecutionTimeForHuman).to.equal('0.35s');
         expect(trackerD.laravelExecutionTime).to.equal('3.50');
-        expect(trackerD.laravelExecutionTimeForHuman()).to.equal('3.50s');
+        expect(trackerD.laravelExecutionTimeForHuman).to.equal('3.50s');
     });
 
     it('has application data', () => {

@@ -74,12 +74,12 @@
                     },
                     {
                         label: this.$t('tabs.application.laravel-execution-time'),
-                        item: this.tracker.laravelExecutionTimeForHuman(),
+                        item: this.tracker.laravelExecutionTimeForHuman,
                         isBool: false,
                     },
                     {
                         label: this.$t('tabs.application.memory-usage'),
-                        item: this.tracker.memoryUsageForHuman(),
+                        item: this.tracker.memoryUsageForHuman,
                         isBool: false,
                     },
                 ],

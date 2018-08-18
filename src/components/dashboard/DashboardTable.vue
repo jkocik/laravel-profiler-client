@@ -50,10 +50,10 @@
             <td>
                 <div class="tracker-summary">
                     <div>
-                        <i class="fas fa-clock has-text-primary"></i> {{ row.laravelExecutionTimeForHuman() }}
+                        <i class="fas fa-clock has-text-primary"></i> {{ row.laravelExecutionTimeForHuman }}
                     </div>
                     <div :class="{ 'has-text-grey-lighter': row.isEnvTesting() }">
-                        <i class="fas fa-hdd has-text-primary"></i> {{ row.memoryUsageForHuman() }}
+                        <i class="fas fa-hdd has-text-primary"></i> {{ row.memoryUsageForHuman }}
                     </div>
                     <div class="views" v-if="row.areViewsProvided()">
                         <i class="fas fa-eye has-text-primary"></i> {{ row.countViews() }}

@@ -79,10 +79,10 @@ describe('TabApplication Component', () => {
     });
 
     it('has laravel execution time', () => {
-        expect(wrapper.trs(9).text()).to.contain(tracker.laravelExecutionTimeForHuman());
+        expect(wrapper.trs(9).text()).to.contain(tracker.laravelExecutionTimeForHuman);
     });
 
     it('has memory usage', () => {
-        expect(wrapper.trs(10).text()).to.contain(tracker.memoryUsageForHuman());
+        expect(wrapper.trs(10).text()).to.contain(tracker.memoryUsageForHuman);
     });
 });
