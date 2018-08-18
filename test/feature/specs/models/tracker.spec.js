@@ -464,28 +464,51 @@ describe('Tracker Model', () => {
     });
 
     it('has queries', () => {
-        let tracker = new Tracker(trackerFactory.create('data', { queries: [{
-            database: 'laravel_profiler_2',
-            name: 'mysql_2',
-            query: 'select * from `users` where `id` = 2 limit 1',
-            sql: 'select * from `users` where `id` = ? limit 1',
-            bindings: [2],
-            time: 22,
-        }]}));
+        let tracker = new Tracker(trackerFactory.create('data', { queries: [
+            {
+                database: 'laravel_profiler_2',
+                name: 'mysql_2',
+                query: 'select * from `users` where `id` = 2 limit 1',
+                sql: 'select * from `users` where `id` = ? limit 1',
+                bindings: [2],
+                time: 22,
+            },
+            {
+                database: 'a',
+                name: 'a',
+                query: 'select * from `a`',
+                sql: 'select * from `a`',
+                bindings: [],
+                time: 11,
+            },
+        ]}));
 
-        expect(tracker.countQueries()).to.be.equal(1);
+        expect(tracker.countQueries()).to.be.equal(2);
         expect(tracker.hasQueries()).to.be.true;
-        expect(tracker.queries).to.deep.equal([{
-            database: 'laravel_profiler_2',
-            name: 'mysql_2',
-            query: 'select * from `users` where `id` = 2 limit 1',
-            sql: 'select * from `users` where `id` = ? limit 1',
-            bindings: [2],
-            time: 22,
-        }]);
-        expect(tracker.queries.length).to.be.equal(1);
+        expect(tracker.queries).to.deep.equal([
+            {
+                index: 0,
+                database: 'laravel_profiler_2',
+                name: 'mysql_2',
+                query: 'select * from `users` where `id` = 2 limit 1',
+                sql: 'select * from `users` where `id` = ? limit 1',
+                bindings: [2],
+                time: 22,
+            },
+            {
+                index: 1,
+                database: 'a',
+                name: 'a',
+                query: 'select * from `a`',
+                sql: 'select * from `a`',
+                bindings: [],
+                time: 11,
+            },
+        ]);
+        expect(tracker.queries.length).to.be.equal(2);
         expect(tracker.queries[0]).to.be.an.instanceOf(Query);
         expect(tracker.areQueriesProvided()).to.be.true;
+        expect(tracker.queriesExecutionTime).to.equal(33);
     });
 
     it('has empty queries if queries are not delivered', () => {
@@ -495,6 +518,7 @@ describe('Tracker Model', () => {
         expect(tracker.countQueries()).to.be.equal(0);
         expect(tracker.hasQueries()).to.be.false;
         expect(tracker.areQueriesProvided()).to.be.true;
+        expect(tracker.queriesExecutionTime).to.equal(0);
     });
 
     it('has not provided queries if queries are not provided at all', () => {
@@ -506,5 +530,30 @@ describe('Tracker Model', () => {
         expect(tracker.countQueries()).to.be.equal(0);
         expect(tracker.hasQueries()).to.be.false;
         expect(tracker.areQueriesProvided()).to.be.false;
+        expect(tracker.queriesExecutionTime).to.equal(0);
+    });
+
+    it('has queries execution time', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { queries: [
+            {
+                database: 'a',
+                name: 'a',
+                query: 'select * from `a`',
+                sql: 'select * from `a`',
+                bindings: [],
+                time: 11,
+            },
+            {
+                database: 'a',
+                name: 'a',
+                query: 'select * from `a`',
+                sql: 'select * from `a`',
+                bindings: [],
+                time: 22,
+            },
+        ]}));
+
+        expect(tracker.queriesExecutionTime).to.equal(33);
+        expect(tracker.queriesExecutionTimeForHuman).to.equal('33.00ms');
     });
 });

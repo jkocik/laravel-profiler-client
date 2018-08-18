@@ -1,3 +1,4 @@
+import { bTableService } from './../../services/b-table.service';
 import { filterService } from './../../services/filter.store.service';
 import { trackersService } from './../../services/trackers.store.service';
 
@@ -34,7 +35,7 @@ const mutations = {
     },
 
     toggleOpenedDetails(state, id) {
-        trackersService.toggleOpenedDetails(state, id);
+        bTableService.toggleOpenedDetails(state.openedDetails, id);
     },
 
     updateLastActiveDetailsTab(state, activeTab) {

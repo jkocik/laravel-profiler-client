@@ -150,4 +150,10 @@ export const trackerService = {
     queriesProvided(data) {
         return data.hasOwnProperty('queries');
     },
+
+    queriesExecutionTime(queries) {
+        return queries.reduce((total, query) => {
+            return total + query.time;
+        }, 0);
+    },
 };

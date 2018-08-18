@@ -43,10 +43,15 @@ export default class Tracker {
         this.events = (data.data.events || []).map(event => new Event(event));
         this.eventsProvided = trackerService.eventsProvided(data.data);
 
-        this.queries = (data.data.queries || []).map(query => new Query(query));
+        this.queries = (data.data.queries || []).map((query, index) => new Query(query, index));
         this.queriesProvided = trackerService.queriesProvided(data.data);
+        this.queriesExecutionTime = trackerService.queriesExecutionTime(this.queries);
 
         this.lastActiveDetailsTab = 0;
+    }
+
+    get queriesExecutionTimeForHuman() {
+        return `${this.queriesExecutionTime.toFixed(2)}ms`;
     }
 
     hasStatusText() {

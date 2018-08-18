@@ -33,17 +33,6 @@ export const trackersService = {
         state.allMethods = helper.uniqueOf(state.allMethods, tracker.method).sort();
     },
 
-    toggleOpenedDetails(state, id) {
-        const index = state.openedDetails.indexOf(id);
-
-        if (~index) {
-            state.openedDetails.splice(index, 1);
-            return;
-        }
-
-        state.openedDetails.push(id);
-    },
-
     findTracker(state, id) {
         return state.all.find(item => item.id === id);
     },
