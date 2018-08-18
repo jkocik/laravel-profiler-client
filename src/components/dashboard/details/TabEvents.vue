@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div v-for="(event, index) of tracker.events" :key="index">
+        <div v-for="(event, index) of tracker.events" :key="index" class="tree-view">
             <tree-view
                 :data="event.data"
                 :label="event.name"

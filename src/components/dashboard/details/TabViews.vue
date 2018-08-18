@@ -1,11 +1,10 @@
 <template>
     <section>
-        <div v-for="(view, index) of tracker.views" :key="index">
+        <div v-for="(view, index) of tracker.views" :key="index" class="tree-view">
             <tree-view
-               :data="view.data"
-               :label="view.label"
+                :data="view.data"
+                :label="view.label"
             ></tree-view>
-            <hr>
         </div>
     </section>
 </template>
@@ -20,5 +19,3 @@
         },
     };
 </script>
-
-<style lang="sass" src="./../../../css/tab-views-scoped.sass" scoped></style>

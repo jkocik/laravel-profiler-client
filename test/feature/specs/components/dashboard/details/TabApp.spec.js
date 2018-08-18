@@ -44,7 +44,7 @@ describe('TabApp Component', () => {
         let wrapper = mountWithTracker(TabApp, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(2).text()).to.equal('Loaded Service Providers (3)');
+        expect(wrapper.tabs(2).text()).to.equal('Service Providers (3)');
 
         wrapper.tabs(2).find('a').trigger('click');
         await wrapper.vm.$nextTick();
@@ -59,7 +59,7 @@ describe('TabApp Component', () => {
         let wrapperTabServiceProviders = wrapper.find({ name: 'tab-service-providers' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(2).text()).to.equal('Loaded Service Providers');
+        expect(wrapper.tabs(2).text()).to.equal('Service Providers');
         expect(wrapper.tabs(2).classes()).to.contain('is-disabled');
         expect(wrapperTabServiceProviders.exists()).to.be.false;
     });

@@ -30,6 +30,10 @@ span
         font-size: 0.85rem
         color: #aaa
 
+.tree-view
+    & + .tree-view
+        margin-top: 1rem
+
 .is-sub-tab
     padding-bottom: 10px
 
@@ -51,6 +55,9 @@ span
                     vertical-align: inherit
 
 @media screen and (max-width: 768px)
+    .table-wrapper
+        overflow-y: hidden
+
     .is-sub-tab
         &.b-table
             .table

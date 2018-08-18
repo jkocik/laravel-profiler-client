@@ -74,8 +74,8 @@
                     ? `Config (${this.tracker.countConfig()})`
                     : 'Config',
                 serviceProvidersLabel: this.tracker.hasServiceProviders()
-                    ? `Loaded Service Providers (${this.tracker.countServiceProviders()})`
-                    : 'Loaded Service Providers',
+                    ? `Service Providers (${this.tracker.countServiceProviders()})`
+                    : 'Service Providers',
                 bindingsLabel: this.tracker.hasBindings()
                     ? `Bindings (${this.tracker.countBindings()})`
                     : 'Bindings',

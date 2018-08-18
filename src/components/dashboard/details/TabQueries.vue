@@ -19,10 +19,10 @@
                 <td>
                     <span class="has-text-primary">{{ row.query }}</span>
                 </td>
-                <td class="has-text-right">
+                <td>
                     {{ row.database }}
                 </td>
-                <td class="has-text-right">
+                <td>
                     {{ row.timeForHuman }}
                 </td>
             </template>

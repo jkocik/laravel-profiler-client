@@ -13,5 +13,18 @@ table
                 td:nth-child(1)
                     display: none
 
+                td:nth-child(3)
+                    text-align: right
+
                 td:nth-child(4)
                     width: 100px
+                    text-align: right
+
+@media screen and (max-width: 768px)
+    .b-table
+        .table
+            &.has-mobile-cards
+                tr:not(.is-empty):not(.table-footer)
+                    td
+                        flex-direction: column
+                        text-align: left
