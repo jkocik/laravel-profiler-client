@@ -10,12 +10,15 @@
     "test": "cross-env BABEL_ENV=test karma start test/feature/karma.conf.js",
     "e2e": "node test/e2e/runner.js",
     "lint": "eslint --ext .js,.vue src test/feature test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "profiler-server": "node server.js",
+    "profiler-client": "http-server ./dist/"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "http-server": "^0.11.1",
     "moment": "^2.22.1",
     "vue": "^2.5.2",
     "vue-i18n": "^7.6.0",
