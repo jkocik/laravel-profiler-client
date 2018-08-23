@@ -37,9 +37,9 @@
             </keep-alive>
         </b-tab-item>
 
-        <b-tab-item label="Server">
+        <b-tab-item :disabled="! tracker.request.hasServer()" label="Server">
             <keep-alive>
-                <tab-http-request-server v-if="isActiveTab(4)"
+                <tab-http-request-server v-if="isActiveTab(4) && tracker.request.hasServer()"
                     :tracker="tracker"
                 ></tab-http-request-server>
             </keep-alive>

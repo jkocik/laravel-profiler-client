@@ -103,14 +103,16 @@ export const trackerService = {
         return (milliseconds / 1000).toFixed(2);
     },
 
-    request(meta, request) {
+    request(meta, data) {
         const Request = {
             'http': HttpRequest,
             'command-starting': ConsoleStartingRequest,
             'command-finished': ConsoleFinishedRequest,
         }[meta.type] || NullRequest;
 
-        return new Request(meta, request);
+        const server = data.server || {};
+
+        return new Request(meta, data.request, server);
     },
 
     response(type, response) {

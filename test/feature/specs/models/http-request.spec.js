@@ -7,7 +7,7 @@ describe('HttpRequest Model', () => {
 
     beforeEach(() => {
         trackerSource = trackerFactory.create();
-        httpRequest = new HttpRequest(trackerSource.meta, trackerSource.data.request);
+        httpRequest = new HttpRequest(trackerSource.meta, trackerSource.data.request, trackerSource.data.server);
     });
 
     it('has ajax', () => {
@@ -50,10 +50,6 @@ describe('HttpRequest Model', () => {
 
     it('has query', () => {
         expect(httpRequest.query).to.deep.equal(trackerSource.data.request.query);
-    });
-
-    it('has server', () => {
-        expect(httpRequest.server).to.deep.equal(trackerSource.data.request.server);
     });
 
     it('has header', () => {
@@ -109,5 +105,9 @@ describe('HttpRequest Model', () => {
             .create();
         request = new HttpRequest(trackerSource.meta, trackerSource.data.request);
         expect(request.hasInput()).to.be.false;
+    });
+
+    it('has server', () => {
+        expect(httpRequest.server).to.deep.equal(trackerSource.data.server);
     });
 });

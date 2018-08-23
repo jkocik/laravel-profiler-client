@@ -125,4 +125,17 @@ describe('TabHttpRequest Component', () => {
         expect(wrapperTabHttpRequestServer.isVisible()).to.be.true;
         expect(wrapperTabHttpRequestServer.props().tracker).to.equal(wrapper.props().tracker);
     });
+
+    it('server tab is enabled only if server data are provided', async () => {
+        let trackerSource = trackerFactory.create('data', { server: [] });
+        delete trackerSource.data.server;
+        let tracker = new Tracker(trackerSource);
+        let wrapper = mountWithTracker(TabHttpRequest, tracker);
+        let wrapperTabHttpRequestServer = wrapper.find({ name: 'tab-http-request-server' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(4).text()).to.equal('Server');
+        expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
+        expect(wrapperTabHttpRequestServer.exists()).to.be.false;
+    });
 });

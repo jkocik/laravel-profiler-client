@@ -65,9 +65,6 @@
                 "a": 123,
                 "b": 456
             },
-            "server": {
-                "HTTP_HOST": "http://localhost"
-            },
             "header": {
                 "connection": [
                     "keep-alive"
@@ -106,6 +103,9 @@
                 "format": "txt",
                 "help": false
             }
+        },
+        "server": {
+            "HTTP_HOST": "http://localhost"
         },
         "response": {
             "headers": {

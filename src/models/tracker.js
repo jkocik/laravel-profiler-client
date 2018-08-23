@@ -31,7 +31,7 @@ export default class Tracker {
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
         this.paths = (data.data.paths || []).map(path => new Path(path));
 
-        this.request = trackerService.request(data.meta, data.data.request);
+        this.request = trackerService.request(data.meta, data.data);
         this.response = trackerService.response(data.meta.type, data.data.response);
         this.route = trackerService.route(data.meta, data.data.route);
         this.session = data.data.session || {};
