@@ -8,11 +8,11 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "test": "cross-env BABEL_ENV=test karma start test/feature/karma.conf.js",
-    "e2e": "node test/e2e/runner.js",
+    "e2e": "cross-env BABEL_ENV=test node test/e2e/runner.js",
     "lint": "eslint --ext .js,.vue src test/feature test/e2e/specs",
     "build": "node build/build.js",
-    "profiler-server": "node server.js",
-    "profiler-client": "http-server ./dist/"
+    "profiler-server": "node server/server.js http=8099 ws=1901",
+    "profiler-client": "http-server dist/"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",

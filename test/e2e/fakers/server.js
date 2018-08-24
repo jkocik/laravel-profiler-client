@@ -4,7 +4,7 @@ module.exports = {
     server: null,
 
     start() {
-        this.server = childProcess.fork('./server.js');
+        this.server = childProcess.fork('./server/server.js', ['http=8099', 'ws=1901']);
     },
 
     stop() {
