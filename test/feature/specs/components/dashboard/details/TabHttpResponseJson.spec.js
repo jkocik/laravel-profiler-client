@@ -7,7 +7,7 @@ describe('TabHttpResponseJson Component', () => {
     let wrapper;
 
     beforeEach(() => {
-        tracker = new Tracker(trackerFactory.create('data.response', { content: '{ "one": { "two": true } }' }));
+        tracker = new Tracker(trackerFactory.create('data', { content: '{ "one": { "two": true } }' }));
         wrapper = mountWithTracker(TabHttpResponseJson, tracker);
     });
 

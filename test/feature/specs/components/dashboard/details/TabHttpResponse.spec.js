@@ -15,7 +15,7 @@ describe('TabHttpResponse Component', () => {
     });
 
     it('has content tab', async () => {
-        let tracker = new Tracker(trackerFactory.create('data.response', { content: '<html></html>' }));
+        let tracker = new Tracker(trackerFactory.create('data', { content: '<html></html>' }));
         let wrapper = mountWithTracker(TabHttpResponse, tracker);
 
         await wrapper.vm.$nextTick();
@@ -29,7 +29,20 @@ describe('TabHttpResponse Component', () => {
     });
 
     it('content tab is enabled only if any content is present', async () => {
-        let tracker = new Tracker(trackerFactory.create('data.response', { content: '' }));
+        let tracker = new Tracker(trackerFactory.create('data', { content: '' }));
+        let wrapper = mountWithTracker(TabHttpResponse, tracker);
+        let wrapperTabHttpResponseContent = wrapper.find({ name: 'tab-http-response-content' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(1).text()).to.equal('Content');
+        expect(wrapper.tabs(1).classes()).to.contain('is-disabled');
+        expect(wrapperTabHttpResponseContent.exists()).to.be.false;
+    });
+
+    it('content tab is enabled only if content is provided', async () => {
+        let trackerSource = trackerFactory.create('data', { content: '' });
+        delete trackerSource.data.content;
+        let tracker = new Tracker(trackerSource);
         let wrapper = mountWithTracker(TabHttpResponse, tracker);
         let wrapperTabHttpResponseContent = wrapper.find({ name: 'tab-http-response-content' });
 
@@ -40,7 +53,7 @@ describe('TabHttpResponse Component', () => {
     });
 
     it('has json tab', async () => {
-        let tracker = new Tracker(trackerFactory.create('data.response', { content: '{ "a": 1 }' }));
+        let tracker = new Tracker(trackerFactory.create('data', { content: '{ "a": 1 }' }));
         let wrapper = mountWithTracker(TabHttpResponse, tracker);
 
         await wrapper.vm.$nextTick();
@@ -54,7 +67,7 @@ describe('TabHttpResponse Component', () => {
     });
 
     it('json tab is enabled only if content is json', async () => {
-        let tracker = new Tracker(trackerFactory.create('data.response', { content: '<html></html>' }));
+        let tracker = new Tracker(trackerFactory.create('data', { content: '<html></html>' }));
         let wrapper = mountWithTracker(TabHttpResponse, tracker);
         let wrapperTabHttpResponseJson = wrapper.find({ name: 'tab-http-response-json' });
 

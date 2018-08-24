@@ -115,14 +115,16 @@ export const trackerService = {
         return new Request(meta, data.request, server);
     },
 
-    response(type, response) {
+    response(type, data) {
         const Response = {
             'http': HttpResponse,
             'command-starting': ConsoleStartingResponse,
             'command-finished': ConsoleFinishedResponse,
         }[type] || NullResponse;
 
-        return new Response(response);
+        const content = data.content || '';
+
+        return new Response(data.response, content);
     },
 
     route(meta, route) {

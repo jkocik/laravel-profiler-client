@@ -112,9 +112,9 @@
                 "content-type": [
                     "text/html; charset=UTF-8"
                 ]
-            },
-            "content": "<html></html>"
+            }
         },
+        "content": "<html></html>",
         "session": {
             "a": 1,
             "b": 2

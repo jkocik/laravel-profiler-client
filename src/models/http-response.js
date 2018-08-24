@@ -2,12 +2,12 @@ import { BaseResponse } from './base-response';
 import { httpResponseService } from './../services/http-response.model.service';
 
 export default class HttpResponse extends BaseResponse {
-    constructor(response) {
+    constructor(response, content) {
         super();
-        this.content = response.content;
+        this.content = content;
         this.headers = response.headers;
         try {
-            this.json = httpResponseService.json(response.content);
+            this.json = httpResponseService.json(content);
         } catch (e) {}
     }
 
