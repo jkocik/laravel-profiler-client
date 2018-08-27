@@ -40,8 +40,9 @@ export default class Tracker {
         this.views = (data.data.views || []).map(view => new View(view));
         this.viewsProvided = trackerService.viewsProvided(data.data);
 
-        this.events = (data.data.events || []).map(event => new Event(event));
+        this.events = (data.data.events || []).map((event, index) => new Event(event, index));
         this.eventsProvided = trackerService.eventsProvided(data.data);
+        this.eventsCount = data.meta.events_count || 0;
 
         this.queries = (data.data.queries || []).map((query, index) => new Query(query, index));
         this.queriesProvided = trackerService.queriesProvided(data.data);
@@ -123,7 +124,7 @@ export default class Tracker {
     }
 
     countEvents() {
-        return this.events.length;
+        return this.eventsCount;
     }
 
     hasEvents() {

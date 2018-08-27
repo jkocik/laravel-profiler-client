@@ -29,6 +29,9 @@ export default {
             'resolved-as': 'resolved as',
             'not-resolved': 'was not resolved',
         },
+        'events': {
+            'group': 'fired {times} times',
+        },
     },
     'modals': {
         'connection': {

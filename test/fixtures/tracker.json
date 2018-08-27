@@ -14,7 +14,8 @@
         "status": 200,
         "status_text": "OK",
         "memory_usage": 1048576,
-        "laravel_execution_time": 350
+        "laravel_execution_time": 350,
+        "events_count": 2
     },
     "data": {
         "application": {
@@ -156,11 +157,13 @@
         "events": [
             {
                 "name": "event-a",
-                "data": {}
+                "data": {},
+                "count": 1
             },
             {
                 "name": "event-b",
-                "data": {}
+                "data": {},
+                "count": 1
             }
         ],
         "queries": [

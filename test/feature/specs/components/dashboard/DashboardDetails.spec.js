@@ -161,7 +161,9 @@ describe('DashboardDetails Component', () => {
     });
 
     it('has events tab', async () => {
-        let tracker = new Tracker(trackerFactory.create('data', { events: [{ name: 'a', data: {} }] }));
+        let tracker = new Tracker(trackerFactory.set('meta', { events_count: 1 }).create('data', { events: [
+            { name: 'a', data: {} },
+        ]}));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
@@ -175,7 +177,7 @@ describe('DashboardDetails Component', () => {
     });
 
     it('events tab is enabled only if any event is present', async () => {
-        let tracker = new Tracker(trackerFactory.create('data', { events: [] }));
+        let tracker = new Tracker(trackerFactory.set('meta', { events_count: 0 }).create('data', { events: [] }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
         let wrapperTabEvents = wrapper.find({ name: 'tab-events' });
 
@@ -186,7 +188,8 @@ describe('DashboardDetails Component', () => {
     });
 
     it('events tab has number of events only if events are provided', async () => {
-        let trackerSource = trackerFactory.create('data', { events: [] });
+        let trackerSource = trackerFactory.set('meta', { events_count: 0 }).create('data', { events: [] });
+        delete trackerSource.meta.events_count;
         delete trackerSource.data.events;
         let tracker = new Tracker(trackerSource);
         let wrapper = mountWithTracker(DashboardDetails, tracker);

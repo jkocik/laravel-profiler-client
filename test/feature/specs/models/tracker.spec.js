@@ -433,18 +433,26 @@ describe('Tracker Model', () => {
     });
 
     it('has events', () => {
-        let tracker = new Tracker(trackerFactory.create('data', { events: [{ name: 'a', data: {} }] }));
+        let tracker = new Tracker(trackerFactory.set('meta', { events_count: 7 }).create('data', { events: [
+            { name: 'a', data: {}, count: 1 },
+            { name: 'b', count: 5 },
+            { name: 'c', count: 1 },
+        ] }));
 
-        expect(tracker.countEvents()).to.be.equal(1);
+        expect(tracker.countEvents()).to.be.equal(7);
         expect(tracker.hasEvents()).to.be.true;
-        expect(tracker.events).to.deep.equal([{ name: 'a', data: {} }]);
-        expect(tracker.events.length).to.be.equal(1);
+        expect(tracker.events).to.deep.equal([
+            { index: 0, name: 'a', data: {}, count: 1 },
+            { index: 1, name: 'b', data: null, count: 5 },
+            { index: 2, name: 'c', data: null, count: 1 },
+        ]);
+        expect(tracker.events.length).to.be.equal(3);
         expect(tracker.events[0]).to.be.an.instanceOf(Event);
         expect(tracker.areEventsProvided()).to.be.true;
     });
 
     it('has empty events if events are not delivered', () => {
-        let tracker = new Tracker(trackerFactory.create('data', { events: undefined }));
+        let tracker = new Tracker(trackerFactory.set('meta', { events_count: 0 }).create('data', { events: undefined }));
 
         expect(tracker.events).to.be.an('array');
         expect(tracker.countEvents()).to.be.equal(0);
@@ -453,7 +461,8 @@ describe('Tracker Model', () => {
     });
 
     it('has not provided events if events are not provided at all', () => {
-        let trackerSource = trackerFactory.create('data', { events: undefined });
+        let trackerSource = trackerFactory.set('meta', { events_count: 0 }).create('data', { events: undefined });
+        delete trackerSource.meta.events_count;
         delete trackerSource.data.events;
         let tracker = new Tracker(trackerSource);
 

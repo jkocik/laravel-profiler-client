@@ -8,7 +8,8 @@
             :data="tracker.queries"
             :narrowed="true"
             :hoverable="true"
-            :paginated="false"
+            :paginated="true"
+            per-page="100"
             :row-class="rowClass"
             detailed
             detail-key="index"

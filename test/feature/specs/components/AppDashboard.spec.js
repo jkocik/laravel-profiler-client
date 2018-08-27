@@ -63,17 +63,17 @@ describe('AppDashboard Component', () => {
 
     it('sees number of events after data are delivered', async () => {
         let wrapperTable = wrapper.find({ name: 'dashboard-table' });
-        let tracker = new Tracker(trackerFactory.create('data', { events: [
-            { name: 'event-a', data: {} },
-            { name: 'event-b', data: {} },
-            { name: 'event-c', data: {} },
-            { name: 'event-d', data: {} },
+        let tracker = new Tracker(trackerFactory.set('meta', { events_count: 5 }).create('data', { events: [
+            { name: 'event-a', data: {}, count: 1 },
+            { name: 'event-b', data: {}, count: 1 },
+            { name: 'event-c', data: {}, count: 1 },
+            { name: 'event-d', count: 2 },
         ]}));
         wrapper.vm.$store.commit('trackers/store', tracker);
 
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.events').text()).to.contain('4');
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.events').text()).to.contain('5');
     });
 
     it('does not see number of events after data are delivered but events are not provided at all', async () => {

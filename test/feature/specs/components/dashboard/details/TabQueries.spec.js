@@ -13,7 +13,7 @@ describe('TabQueries Component', () => {
         wrapper = mountWithTracker(TabQueries, tracker);
     });
 
-    it('has queries data', () => {
+    it('has a list of queries', () => {
         expect(wrapper.find('.header').text()).to.contain(tracker.queriesExecutionTimeForHuman);
         expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(query.query);
         expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(query.database);
