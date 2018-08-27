@@ -40,7 +40,7 @@ describe('TabEvents Component', () => {
         let trDetails = wrapper.find('table tr:nth-child(1) + tr.detail');
         expect(trDetails.exists()).to.be.true;
         expect(trDetails.isVisible()).to.be.true;
-        expect(trDetails.find('td').attributes().colspan).to.equal('1');
+        expect(trDetails.find('td').attributes().colspan).to.equal('2');
 
         tr.trigger('click');
         let trDetailsBis = wrapper.find('table tr:nth-child(1) + tr.detail');

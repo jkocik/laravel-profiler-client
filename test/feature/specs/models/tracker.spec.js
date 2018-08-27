@@ -402,12 +402,20 @@ describe('Tracker Model', () => {
     });
 
     it('has views', () => {
-        let tracker = new Tracker(trackerFactory.create('data', { views: [{ name: 'a', path: 'b', data: [] }] }));
+        let tracker = new Tracker(trackerFactory.create('data', { views: [
+            { name: 'a', path: '/a', data: [] },
+            { name: 'b', path: '/b', data: [] },
+            { name: 'c', path: '/c' },
+        ]}));
 
-        expect(tracker.countViews()).to.be.equal(1);
+        expect(tracker.countViews()).to.be.equal(3);
         expect(tracker.hasViews()).to.be.true;
-        expect(tracker.views).to.deep.equal([{ name: 'a', path: 'b', data: [] }]);
-        expect(tracker.views.length).to.be.equal(1);
+        expect(tracker.views).to.deep.equal([
+            { index: 0, name: 'a', path: '/a', data: [] },
+            { index: 1, name: 'b', path: '/b', data: [] },
+            { index: 2, name: 'c', path: '/c', data: null },
+        ]);
+        expect(tracker.views.length).to.be.equal(3);
         expect(tracker.views[0]).to.be.an.instanceOf(View);
         expect(tracker.areViewsProvided()).to.be.true;
     });

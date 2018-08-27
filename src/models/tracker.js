@@ -37,7 +37,7 @@ export default class Tracker {
         this.session = data.data.session || {};
         this.sessionProvided = trackerService.sessionProvided(data.data);
 
-        this.views = (data.data.views || []).map(view => new View(view));
+        this.views = (data.data.views || []).map((view, index) => new View(view, index));
         this.viewsProvided = trackerService.viewsProvided(data.data);
 
         this.events = (data.data.events || []).map((event, index) => new Event(event, index));
