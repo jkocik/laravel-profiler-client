@@ -13,15 +13,21 @@
             @click="rowClicked"
         >
             <template slot-scope="{ row }">
-                <td :class="{ 'has-not-details': ! row.hasDetails() }">
-                    <span class="has-text-primary">{{ row.label }}</span>
+                <td class="has-text-info">
+                    {{ row.label }}
                 </td>
             </template>
 
             <template slot="detail" slot-scope="{ row }">
                 <tree-view
+                    v-if="row.hasData()"
                     :data="row.data"
                     label="data"
+                ></tree-view>
+                <tree-view
+                    v-if="row.hasParams()"
+                    :data="row.params"
+                    label="params types"
                 ></tree-view>
             </template>
         </b-views-table>
@@ -51,9 +57,7 @@
                 return 'query-row';
             },
             rowClicked(view) {
-                if (view.hasDetails()) {
-                    bTableService.toggleOpenedDetails(this.openedDetails, view.index);
-                }
+                bTableService.toggleOpenedDetails(this.openedDetails, view.index);
             },
         },
     };

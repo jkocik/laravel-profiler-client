@@ -4,17 +4,20 @@ import { trackerFactory, mountWithTracker } from './../../../test-helper';
 
 describe('TabViews Component', () => {
     let tracker;
-    let view;
+    let viewA;
+    let viewB;
     let wrapper;
 
     beforeEach(() => {
         tracker = new Tracker(trackerFactory.create());
-        view = tracker.views[0];
+        viewA = tracker.views[0];
+        viewB = tracker.views[1];
         wrapper = mountWithTracker(TabViews, tracker);
     });
 
     it('has a list of views', () => {
-        expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(view.label);
+        expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(viewA.label);
+        expect(wrapper.find('table tr:nth-child(2) td:nth-child(2)').text()).to.contain(viewB.label);
     });
 
     it('toggles visibility of row details', () => {
@@ -36,19 +39,16 @@ describe('TabViews Component', () => {
 
         tr.trigger('click');
         let wrapperTreeView = wrapper.find({ name: 'tree-view' });
-        expect(wrapperTreeView.props().data).to.deep.equal(view.data);
+        expect(wrapperTreeView.props().data).to.deep.equal(viewA.data);
         expect(wrapperTreeView.props().label).to.equal('data');
     });
 
-    it('has not details if data are not provided', () => {
-        tracker = new Tracker(trackerFactory.create('data', { views: [
-            { name: 'a', path: '/' },
-        ]}));
-        wrapper = mountWithTracker(TabViews, tracker);
-        let tr = wrapper.find('table tr:nth-child(1)');
+    it('has details with params types if data are not provided', () => {
+        let tr = wrapper.find('table tr:nth-child(2)');
 
         tr.trigger('click');
-        let trDetails = wrapper.find('table tr:nth-child(1) + tr.detail');
-        expect(trDetails.exists()).to.be.false;
+        let wrapperTreeView = wrapper.find({ name: 'tree-view' });
+        expect(wrapperTreeView.props().data).to.deep.equal(viewB.params);
+        expect(wrapperTreeView.props().label).to.equal('params types');
     });
 });

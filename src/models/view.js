@@ -4,13 +4,18 @@ export default class View {
         this.name = data.name;
         this.path = data.path;
         this.data = data.data || null;
+        this.params = data.params || null;
     }
 
     get label() {
         return `${this.name} (${this.path})`;
     }
 
-    hasDetails() {
+    hasData() {
         return this.data !== null;
+    }
+
+    hasParams() {
+        return this.params !== null;
     }
 }

@@ -151,7 +151,10 @@
             {
                 "name": "view-b",
                 "path": "path-to-b",
-                "data": { "b": "y" }
+                "params": {
+                    "b1": "y",
+                    "b2": "z"
+                }
             }
         ],
         "events": [
