@@ -59,12 +59,14 @@ describe('TreeView Component', () => {
 
     it('lists values in different colors', () => {
         let wrapper = mount(TreeView, {
-            propsData: { data: { x: 1, y: 'string', z: true } },
+            propsData: { data: { a: 1, b: 1.23, c: 'string', d: true, e: null } },
         });
 
         expect(wrapper.findAll('ul > li').at(0).find('span > span').classes()).to.contain('is-number');
-        expect(wrapper.findAll('ul > li').at(1).find('span > span').classes()).to.contain('is-string');
-        expect(wrapper.findAll('ul > li').at(2).find('span > span').classes()).to.contain('is-boolean');
+        expect(wrapper.findAll('ul > li').at(1).find('span > span').classes()).to.contain('is-number');
+        expect(wrapper.findAll('ul > li').at(2).find('span > span').classes()).to.contain('is-string');
+        expect(wrapper.findAll('ul > li').at(3).find('span > span').classes()).to.contain('is-boolean');
+        expect(wrapper.findAll('ul > li').at(4).find('span > span').classes()).to.contain('is-null');
     });
 
     it('opens next level on click', () => {

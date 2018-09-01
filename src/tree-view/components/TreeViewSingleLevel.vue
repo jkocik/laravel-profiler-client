@@ -57,7 +57,7 @@
                 return `is-${this.typeOf(key)}`;
             },
             typeOf(key) {
-                return typeof this.data[key];
+                return this.data[key] === null ? null : typeof this.data[key];
             },
         },
     };
