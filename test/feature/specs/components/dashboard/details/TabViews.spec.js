@@ -17,7 +17,13 @@ describe('TabViews Component', () => {
 
     it('has a list of views', () => {
         expect(wrapper.find('table tr:nth-child(1) td:nth-child(2)').text()).to.contain(viewA.label);
+        expect(wrapper.find('table tr:nth-child(1) td:nth-child(3)').text()).to.contain(
+            wrapper.vm.$t('tabs.views.params', { params: viewA.data.length })
+        );
         expect(wrapper.find('table tr:nth-child(2) td:nth-child(2)').text()).to.contain(viewB.label);
+        expect(wrapper.find('table tr:nth-child(2) td:nth-child(3)').text()).to.contain(
+            wrapper.vm.$t('tabs.views.params', { params: viewB.params.length })
+        );
     });
 
     it('toggles visibility of row details', () => {
@@ -27,7 +33,7 @@ describe('TabViews Component', () => {
         let trDetails = wrapper.find('table tr:nth-child(1) + tr.detail');
         expect(trDetails.exists()).to.be.true;
         expect(trDetails.isVisible()).to.be.true;
-        expect(trDetails.find('td').attributes().colspan).to.equal('1');
+        expect(trDetails.find('td').attributes().colspan).to.equal('2');
 
         tr.trigger('click');
         let trDetailsBis = wrapper.find('table tr:nth-child(1) + tr.detail');

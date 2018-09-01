@@ -32,6 +32,9 @@ export default {
         'events': {
             'group': 'fired {times} times',
         },
+        'views': {
+            'params': '{params} param(s)',
+        },
     },
     'modals': {
         'connection': {

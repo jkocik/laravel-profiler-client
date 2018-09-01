@@ -18,11 +18,13 @@ describe('View Model', () => {
         let viewB = new View({
             name: 'some test name',
             path: 'some test path',
-            data: [],
+            data: { a: { b: 'c' } },
         });
 
         expect(viewA.hasData()).to.be.false;
+        expect(viewA.countParams()).to.be.equal(0);
         expect(viewB.hasData()).to.be.true;
+        expect(viewB.countParams()).to.be.equal(1);
     });
 
     it('has params', () => {
@@ -33,10 +35,12 @@ describe('View Model', () => {
         let viewB = new View({
             name: 'some test name',
             path: 'some test path',
-            params: [],
+            params: { a: 'x', b: 'y' },
         });
 
         expect(viewA.hasParams()).to.be.false;
+        expect(viewA.countParams()).to.be.equal(0);
         expect(viewB.hasParams()).to.be.true;
+        expect(viewB.countParams()).to.be.equal(2);
     });
 });

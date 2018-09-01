@@ -18,4 +18,16 @@ export default class View {
     hasParams() {
         return this.params !== null;
     }
+
+    countParams() {
+        if (this.hasData()) {
+            return Object.keys(this.data).length;
+        }
+
+        if (this.hasParams()) {
+            return Object.keys(this.params).length;
+        }
+
+        return 0;
+    }
 }

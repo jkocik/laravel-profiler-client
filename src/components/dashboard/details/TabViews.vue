@@ -16,6 +16,9 @@
                 <td class="has-text-info">
                     {{ row.label }}
                 </td>
+                <td>
+                    {{ $t('tabs.views.params', { params: row.countParams() }) }}
+                </td>
             </template>
 
             <template slot="detail" slot-scope="{ row }">
