@@ -13,8 +13,8 @@
             @click="rowClicked"
         >
             <template slot-scope="{ row }">
-                <td :class="{ 'has-not-details': ! row.hasDetails() }">
-                    <span class="has-text-primary">{{ row.name }}</span>
+                <td :class="{ 'has-not-details': ! row.hasDetails(), 'has-text-info': row.hasDetails() }">
+                    {{ row.name }}
                 </td>
                 <td :class="{ 'has-not-details': ! row.hasDetails() }">
                     <span v-if="row.isGrouped()">{{ $t('tabs.events.group', { times: row.count }) }}</span>

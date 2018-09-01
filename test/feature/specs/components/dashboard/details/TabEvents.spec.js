@@ -49,6 +49,9 @@ describe('TabEvents Component', () => {
 
     it('has details with data', () => {
         let tr = wrapper.find('table tr:nth-child(1)');
+        expect(tr.find('td:nth-child(2)').classes()).to.contain('has-text-info');
+        expect(tr.find('td:nth-child(2)').classes()).to.not.contain('has-not-details');
+        expect(tr.find('td:nth-child(3)').classes()).to.not.contain('has-not-details');
 
         tr.trigger('click');
         let wrapperTreeView = wrapper.find({ name: 'tree-view' });
@@ -62,6 +65,9 @@ describe('TabEvents Component', () => {
         ]}));
         wrapper = mountWithTracker(TabEvents, tracker);
         let tr = wrapper.find('table tr:nth-child(1)');
+        expect(tr.find('td:nth-child(2)').classes()).to.not.contain('has-text-info');
+        expect(tr.find('td:nth-child(2)').classes()).to.contain('has-not-details');
+        expect(tr.find('td:nth-child(3)').classes()).to.contain('has-not-details');
 
         tr.trigger('click');
         let trDetails = wrapper.find('table tr:nth-child(1) + tr.detail');
