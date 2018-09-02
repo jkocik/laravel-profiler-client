@@ -70,7 +70,7 @@
             <td>
                 <div class="tags has-addons">
                     <span class="tag is-white">v</span>
-                    <span class="tag">{{ row.laravelVersion }} / {{ row.phpVersion }}</span>
+                    <span class="tag">{{ row.laravelVersion }}</span>
                 </div>
             </td>
         </template>
