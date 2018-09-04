@@ -202,7 +202,8 @@ describe('DashboardDetails Component', () => {
     });
 
     it('has queries tab', async () => {
-        let tracker = new Tracker(trackerFactory.create('data', { queries: [{
+        let tracker = new Tracker(trackerFactory.set('meta', { queries_count: 1 }).create('data', { queries: [{
+            type: 'query',
             database: 'laravel_profiler_2',
             name: 'mysql_2',
             query: 'select * from `users` where `id` = 2 limit 1',
@@ -223,7 +224,7 @@ describe('DashboardDetails Component', () => {
     });
 
     it('queries tab is enabled only if any query is present', async () => {
-        let tracker = new Tracker(trackerFactory.create('data', { queries: [] }));
+        let tracker = new Tracker(trackerFactory.set('meta', { queries_count: 0 }).create('data', { queries: [] }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
         let wrapperTabQueries = wrapper.find({ name: 'tab-queries' });
 
@@ -234,7 +235,8 @@ describe('DashboardDetails Component', () => {
     });
 
     it('queries tab has number of queries only if queries are provided', async () => {
-        let trackerSource = trackerFactory.create('data', { queries: [] });
+        let trackerSource = trackerFactory.set('meta', { events_count: 0 }).create('data', { queries: [] });
+        delete trackerSource.meta.queries_count;
         delete trackerSource.data.queries;
         let tracker = new Tracker(trackerSource);
         let wrapper = mountWithTracker(DashboardDetails, tracker);

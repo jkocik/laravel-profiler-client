@@ -2,9 +2,9 @@ import moment from 'moment';
 import Path from '@/models/path';
 import View from '@/models/view';
 import Event from '@/models/event';
-import Query from '@/models/query';
 import Tracker from '@/models/tracker';
 import Binding from '@/models/binding';
+import DBQuery from '@/models/db-query';
 import NullRoute from '@/models/null-route';
 import HttpRoute from '@/models/http-route';
 import Application from '@/models/application';
@@ -13,6 +13,9 @@ import HttpRequest from '@/models/http-request';
 import NullResponse from '@/models/null-response';
 import HttpResponse from '@/models/http-response';
 import { trackerFactory } from './../test-helper';
+import DBTransactionBegin from '@/models/db-transaction-begin';
+import DBTransactionCommit from '@/models/db-transaction-commit';
+import DBTransactionRollback from '@/models/db-transaction-rollback';
 import ConsoleStartingRequest from '@/models/console-starting-request';
 import ConsoleFinishedRequest from '@/models/console-finished-request';
 import ConsoleStartingResponse from '@/models/console-starting-response';
@@ -481,22 +484,44 @@ describe('Tracker Model', () => {
     });
 
     it('has queries', () => {
-        let tracker = new Tracker(trackerFactory.create('data', { queries: [
+        let tracker = new Tracker(trackerFactory.set('meta', { queries_count: 2 }).create('data', { queries: [
             {
-                database: 'laravel_profiler_2',
-                name: 'mysql_2',
+                type: 'transaction-begin',
+                database: 'laravel_profiler_0',
+                name: 'mysql_0',
+            },
+            {
+                type: 'query',
+                database: 'laravel_profiler_1',
+                name: 'mysql_1',
                 query: 'select * from `users` where `id` = 2 limit 1',
                 sql: 'select * from `users` where `id` = ? limit 1',
                 bindings: [2],
                 time: 22,
             },
             {
-                database: 'a',
-                name: 'a',
+                type: 'transaction-commit',
+                database: 'laravel_profiler_2',
+                name: 'mysql_2',
+            },
+            {
+                type: 'transaction-begin',
+                database: 'laravel_profiler_3',
+                name: 'mysql_3',
+            },
+            {
+                type: 'query',
+                database: 'laravel_profiler_4',
+                name: 'mysql_4',
                 query: 'select * from `a`',
                 sql: 'select * from `a`',
                 bindings: [],
                 time: 11,
+            },
+            {
+                type: 'transaction-rollback',
+                database: 'laravel_profiler_5',
+                name: 'mysql_5',
             },
         ]}));
 
@@ -505,31 +530,65 @@ describe('Tracker Model', () => {
         expect(tracker.queries).to.deep.equal([
             {
                 index: 0,
-                database: 'laravel_profiler_2',
-                name: 'mysql_2',
+                type: 'transaction-begin',
+                database: 'laravel_profiler_0',
+                name: 'mysql_0',
+            },
+            {
+                index: 1,
+                type: 'query',
+                database: 'laravel_profiler_1',
+                name: 'mysql_1',
                 query: 'select * from `users` where `id` = 2 limit 1',
                 sql: 'select * from `users` where `id` = ? limit 1',
                 bindings: [2],
                 time: 22,
             },
             {
-                index: 1,
-                database: 'a',
-                name: 'a',
+                index: 2,
+                type: 'transaction-commit',
+                database: 'laravel_profiler_2',
+                name: 'mysql_2',
+            },
+            {
+                index: 3,
+                type: 'transaction-begin',
+                database: 'laravel_profiler_3',
+                name: 'mysql_3',
+            },
+            {
+                index: 4,
+                type: 'query',
+                database: 'laravel_profiler_4',
+                name: 'mysql_4',
                 query: 'select * from `a`',
                 sql: 'select * from `a`',
                 bindings: [],
                 time: 11,
             },
+            {
+                index: 5,
+                type: 'transaction-rollback',
+                database: 'laravel_profiler_5',
+                name: 'mysql_5',
+            },
         ]);
-        expect(tracker.queries.length).to.be.equal(2);
-        expect(tracker.queries[0]).to.be.an.instanceOf(Query);
+        expect(tracker.queries.length).to.be.equal(6);
+        expect(tracker.queries[0]).to.be.an.instanceOf(DBTransactionBegin);
+        expect(tracker.queries[1]).to.be.an.instanceOf(DBQuery);
+        expect(tracker.queries[2]).to.be.an.instanceOf(DBTransactionCommit);
+        expect(tracker.queries[3]).to.be.an.instanceOf(DBTransactionBegin);
+        expect(tracker.queries[4]).to.be.an.instanceOf(DBQuery);
+        expect(tracker.queries[5]).to.be.an.instanceOf(DBTransactionRollback);
+        expect(tracker.queries[0].query).to.be.equal('begin transaction');
+        expect(tracker.queries[2].query).to.be.equal('commit');
+        expect(tracker.queries[5].query).to.be.equal('rollback');
         expect(tracker.areQueriesProvided()).to.be.true;
         expect(tracker.queriesExecutionTime).to.equal(33);
     });
 
     it('has empty queries if queries are not delivered', () => {
-        let tracker = new Tracker(trackerFactory.create('data', { queries: undefined }));
+        let tracker = new Tracker(trackerFactory.set('meta', { queries_count: 0 }).create('data', { queries: undefined }));
 
         expect(tracker.queries).to.be.an('array');
         expect(tracker.countQueries()).to.be.equal(0);
@@ -539,7 +598,8 @@ describe('Tracker Model', () => {
     });
 
     it('has not provided queries if queries are not provided at all', () => {
-        let trackerSource = trackerFactory.create('data', { queries: undefined });
+        let trackerSource = trackerFactory.set('meta', { events_count: 0 }).create('data', { queries: undefined });
+        delete trackerSource.meta.queries_count;
         delete trackerSource.data.queries;
         let tracker = new Tracker(trackerSource);
 
@@ -551,8 +611,9 @@ describe('Tracker Model', () => {
     });
 
     it('has queries execution time', () => {
-        let tracker = new Tracker(trackerFactory.create('data', { queries: [
+        let tracker = new Tracker(trackerFactory.set('meta', { queries_count: 2 }).create('data', { queries: [
             {
+                type: 'query',
                 database: 'a',
                 name: 'a',
                 query: 'select * from `a`',
@@ -561,6 +622,7 @@ describe('Tracker Model', () => {
                 time: 11,
             },
             {
+                type: 'query',
                 database: 'a',
                 name: 'a',
                 query: 'select * from `a`',

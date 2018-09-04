@@ -89,7 +89,8 @@ describe('AppDashboard Component', () => {
 
     it('sees number of queries after data are delivered', async () => {
         let wrapperTable = wrapper.find({ name: 'dashboard-table' });
-        let tracker = new Tracker(trackerFactory.create('data', { queries: [{
+        let tracker = new Tracker(trackerFactory.set('meta', { queries_count: 1 }).create('data', { queries: [{
+            type: 'query',
             database: 'laravel_profiler_2',
             name: 'mysql_2',
             query: 'select * from `users` where `id` = 2 limit 1',
@@ -106,7 +107,7 @@ describe('AppDashboard Component', () => {
 
     it('does not see number of queries after data are delivered but queries are not provided at all', async () => {
         let wrapperTable = wrapper.find({ name: 'dashboard-table' });
-        let trackerSource = trackerFactory.create('data', { queries: [] });
+        let trackerSource = trackerFactory.set('meta', { queries_count: 0 }).create('data', { queries: [] });
         delete trackerSource.data.queries;
         let tracker = new Tracker(trackerSource);
         wrapper.vm.$store.commit('trackers/store', tracker);

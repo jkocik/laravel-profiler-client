@@ -1,10 +1,14 @@
 import moment from 'moment';
+import DBQuery from './../models/db-query';
 import NullRoute from './../models/null-route';
 import HttpRoute from './../models/http-route';
 import NullRequest from './../models/null-request';
 import HttpRequest from './../models/http-request';
 import NullResponse from './../models/null-response';
 import HttpResponse from './../models/http-response';
+import DBTransactionBegin from './../models/db-transaction-begin';
+import DBTransactionCommit from './../models/db-transaction-commit';
+import DBTransactionRollback from './../models/db-transaction-rollback';
 import ConsoleStartingRequest from './../models/console-starting-request';
 import ConsoleFinishedRequest from './../models/console-finished-request';
 import ConsoleStartingResponse from './../models/console-starting-response';
@@ -151,12 +155,23 @@ export const trackerService = {
         return data.hasOwnProperty('events');
     },
 
+    query(query, index) {
+        const Query = {
+            'query': DBQuery,
+            'transaction-begin': DBTransactionBegin,
+            'transaction-commit': DBTransactionCommit,
+            'transaction-rollback': DBTransactionRollback,
+        }[query.type];
+
+        return new Query(query, index);
+    },
+
     queriesProvided(data) {
         return data.hasOwnProperty('queries');
     },
 
     queriesExecutionTime(queries) {
-        return queries.reduce((total, query) => {
+        return queries.filter(query => query.type === 'query').reduce((total, query) => {
             return total + query.time;
         }, 0);
     },

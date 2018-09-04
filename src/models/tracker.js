@@ -1,7 +1,6 @@
 import Path from './path';
 import View from './view';
 import Event from './event';
-import Query from './query';
 import Binding from './binding';
 import Application from './application';
 import { trackerService } from './../services/tracker.model.service';
@@ -44,9 +43,10 @@ export default class Tracker {
         this.eventsProvided = trackerService.eventsProvided(data.data);
         this.eventsCount = data.meta.events_count || 0;
 
-        this.queries = (data.data.queries || []).map((query, index) => new Query(query, index));
+        this.queries = (data.data.queries || []).map((query, index) => trackerService.query(query, index));
         this.queriesProvided = trackerService.queriesProvided(data.data);
         this.queriesExecutionTime = trackerService.queriesExecutionTime(this.queries);
+        this.queriesCount = data.meta.queries_count || 0;
 
         this.lastActiveDetailsTab = 0;
     }
@@ -140,7 +140,7 @@ export default class Tracker {
     }
 
     countQueries() {
-        return this.queries.length;
+        return this.queriesCount;
     }
 
     hasQueries() {

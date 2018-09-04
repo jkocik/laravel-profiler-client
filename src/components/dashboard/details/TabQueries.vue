@@ -17,8 +17,8 @@
             @click="rowClicked"
         >
             <template slot-scope="{ row }">
-                <td>
-                    <span class="has-text-primary">{{ row.query }}</span>
+                <td :class="row.class">
+                    <span>{{ row.query }}</span>
                 </td>
                 <td>
                     {{ row.database }}
@@ -29,12 +29,17 @@
             </template>
 
             <template slot="detail" slot-scope="{ row }">
-                <strong>query</strong>: {{ row.sql }}
-                <tree-view
-                    :data="row.bindings"
-                    label="bindings"
-                ></tree-view>
-                <strong>connection</strong>: {{ row.name }}
+                <section v-if="row.hasFullDetails()">
+                    <strong>query</strong>: {{ row.sql }}
+                    <tree-view
+                            :data="row.bindings"
+                            label="bindings"
+                    ></tree-view>
+                    <strong>connection</strong>: {{ row.name }}
+                </section>
+                <section v-if="! row.hasFullDetails()">
+                    <strong>connection</strong>: {{ row.name }}
+                </section>
             </template>
         </b-queries-table>
     </section>
