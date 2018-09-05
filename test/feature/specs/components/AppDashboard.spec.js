@@ -32,6 +32,22 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.laravelVersion);
     });
 
+    it('has memory usage mark as confusing when running tests', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let trackerA = new Tracker(trackerFactory.create('meta', { env: 'local' }));
+        let trackerB = new Tracker(trackerFactory.create('meta', { env: 'testing' }));
+        wrapper.vm.$store.commit('trackers/store', trackerA);
+        wrapper.vm.$store.commit('trackers/store', trackerB);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+
+        let memoryDivA = wrapperTable.find('table tr:nth-child(2) .tracker-summary div:nth-child(2)');
+        let memoryDivB = wrapperTable.find('table tr:nth-child(1) .tracker-summary div:nth-child(2)');
+        expect(memoryDivA.classes()).to.not.contain('has-text-grey-lighter');
+        expect(memoryDivB.classes()).to.contain('has-text-grey-lighter');
+    });
+
     it('sees number of views after data are delivered', async () => {
         let wrapperTable = wrapper.find({ name: 'dashboard-table' });
         let tracker = new Tracker(trackerFactory.create('data', { views: [

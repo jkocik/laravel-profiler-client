@@ -23,7 +23,7 @@ export default {
         'application': {
             'via': 'is running via',
             'laravel-execution-time': 'laravel execution time',
-            'memory-usage': 'memory usage',
+            'memory-usage': 'peak of memory usage',
         },
         'bindings': {
             'resolved-as': 'resolved as',

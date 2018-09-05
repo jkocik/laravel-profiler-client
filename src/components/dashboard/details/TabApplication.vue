@@ -6,7 +6,7 @@
     >
         <template slot-scope="props">
             <td>{{ props.row.label }}</td>
-            <td v-if="! props.row.isBool">{{ props.row.item }}</td>
+            <td v-if="! props.row.isBool" :class="props.row.class">{{ props.row.item }}</td>
             <td v-if="props.row.isBool"><true-false :value="props.row.item"></true-false></td>
         </template>
     </b-table>
@@ -81,6 +81,7 @@
                         label: this.$t('tabs.application.memory-usage'),
                         item: this.tracker.memoryUsageForHuman,
                         isBool: false,
+                        class: { 'has-text-grey-lighter': this.tracker.isEnvTesting() },
                     },
                 ],
             };

@@ -83,6 +83,14 @@ describe('TabApplication Component', () => {
     });
 
     it('has memory usage', () => {
+        tracker = new Tracker(trackerFactory.create('meta', { env: 'local' }));
+        wrapper = mountWithTracker(TabApplication, tracker);
         expect(wrapper.trs(10).text()).to.contain(tracker.memoryUsageForHuman);
+        expect(wrapper.trs(10).find('td:nth-child(2)').classes()).to.not.contain('has-text-grey-lighter');
+
+        tracker = new Tracker(trackerFactory.create('meta', { env: 'testing' }));
+        wrapper = mountWithTracker(TabApplication, tracker);
+        expect(wrapper.trs(10).text()).to.contain(tracker.memoryUsageForHuman);
+        expect(wrapper.trs(10).find('td:nth-child(2)').classes()).to.contain('has-text-grey-lighter');
     });
 });
