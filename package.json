@@ -12,7 +12,9 @@
     "lint": "eslint --ext .js,.vue src test/feature test/e2e/specs",
     "build": "node build/build.js",
     "profiler-server": "node server/server.js http=8099 ws=1901",
-    "profiler-client": "http-server dist/"
+    "profiler-client": "http-server dist/",
+    "ps": "npm run profiler-server",
+    "pc": "npm run profiler-client"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
