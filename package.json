@@ -17,18 +17,13 @@
     "pc": "npm run profiler-client"
   },
   "dependencies": {
+    "express": "^4.16.3",
+    "http-server": "^0.11.1"
+  },
+  "devDependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
-    "express": "^4.16.3",
-    "http-server": "^0.11.1",
-    "moment": "^2.22.1",
-    "vue": "^2.5.2",
-    "vue-i18n": "^7.6.0",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
-  },
-  "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.13",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
@@ -76,6 +71,7 @@
     "karma-webpack": "^2.0.2",
     "mocha": "^3.2.0",
     "mock-socket": "^7.1.0",
+    "moment": "^2.22.1",
     "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.8.3",
@@ -94,10 +90,14 @@
     "sinon": "^4.0.0",
     "sinon-chai": "^2.8.0",
     "uglifyjs-webpack-plugin": "^1.1.1",
+    "vue": "^2.5.2",
+    "vue-i18n": "^7.6.0",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
+    "vue-router": "^3.0.1",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
+    "vuex": "^3.0.1",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
