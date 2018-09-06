@@ -73,7 +73,7 @@
                 this.$socket.connect(this.newUrl);
             },
             close() {
-                this.$parent && this.$parent.close();
+                this.$parent.close && this.$parent.close();
             },
         },
     };
