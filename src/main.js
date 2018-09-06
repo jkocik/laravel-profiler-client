@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Buefy from 'buefy';
 import io from 'socket.io-client';
-import 'buefy/lib/buefy.css';
 /* eslint-disable */
 import fontawesome from '@fortawesome/fontawesome';
 import solid from '@fortawesome/fontawesome-free-solid';

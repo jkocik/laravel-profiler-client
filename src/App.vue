@@ -21,5 +21,6 @@
     };
 </script>
 
+<style lang="scss" src="./css/app-buefy-overrides.scss"></style>
 <style lang="sass" src="./css/app.sass"></style>
 <style lang="sass" src="./css/app-scoped.sass"></style>
