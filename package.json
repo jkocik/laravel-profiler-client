@@ -1,8 +1,12 @@
 {
   "name": "laravel-profiler-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Profiler Client and Profiler Server for Laravel 5.2+",
-  "keywords": ["laravel", "profiler", "debugbar"],
+  "keywords": [
+    "laravel",
+    "profiler",
+    "debugbar"
+  ],
   "homepage": "https://github.com/jkocik/laravel-profiler",
   "license": "MIT",
   "author": "Janusz Kocik <janusz.kocik@gmail.com>",
@@ -31,7 +35,8 @@
   },
   "dependencies": {
     "express": "^4.16.3",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "socket.io": "^2.1.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
