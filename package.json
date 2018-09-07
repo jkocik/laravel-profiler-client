@@ -1,9 +1,15 @@
 {
   "name": "laravel-profiler-client",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Janusz Kocik <janusz.kocik@crm.media.pl>",
-  "private": true,
+  "description": "Profiler Client and Profiler Server for Laravel 5.2+",
+  "keywords": ["laravel", "profiler", "debugbar"],
+  "homepage": "https://github.com/jkocik/laravel-profiler",
+  "license": "MIT",
+  "author": "Janusz Kocik <janusz.kocik@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jkocik/laravel-profiler-client.git"
+  },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
