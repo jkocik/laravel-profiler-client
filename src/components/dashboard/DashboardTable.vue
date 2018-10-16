@@ -47,23 +47,29 @@
                 </div>
             </td>
 
-            <td>
-                <div class="tracker-summary">
-                    <div>
-                        <i class="fas fa-clock has-text-primary"></i> {{ row.laravelExecutionTimeForHuman }}
-                    </div>
-                    <div :class="{ 'has-text-grey-lighter': row.isEnvTesting() }">
-                        <i class="fas fa-hdd has-text-primary"></i> {{ row.memoryUsageForHuman }}
-                    </div>
-                    <div class="views" v-if="row.areViewsProvided()">
-                        <i class="fas fa-eye has-text-primary"></i> {{ row.countViews() }}
-                    </div>
-                    <div class="events" v-if="row.areEventsProvided()">
-                        <i class="fas fa-cog has-text-primary"></i> {{ row.countEvents() }}
-                    </div>
-                    <div class="queries" v-if="row.areQueriesProvided()">
-                        <i class="fas fa-database has-text-primary"></i> {{ row.countQueries() }}
-                    </div>
+            <td class="tracker-summary">
+                <div>
+                    <i class="fas fa-clock has-text-primary"></i> {{ row.laravelExecutionTimeForHuman }}
+                </div>
+            </td>
+            <td class="tracker-summary memory" :class="{ 'has-text-grey-lighter': row.isEnvTesting() }">
+                <div>
+                    <i class="fas fa-hdd has-text-primary"></i> {{ row.memoryUsageForHuman }}
+                </div>
+            </td>
+            <td class="tracker-summary views">
+                <div v-if="row.areViewsProvided()">
+                    <i class="fas fa-eye has-text-primary"></i> {{ row.countViews() }}
+                </div>
+            </td>
+            <td class="tracker-summary events">
+                <div v-if="row.areEventsProvided()">
+                    <i class="fas fa-cog has-text-primary"></i> {{ row.countEvents() }}
+                </div>
+            </td>
+            <td class="tracker-summary queries">
+                <div v-if="row.areQueriesProvided()">
+                    <i class="fas fa-database has-text-primary"></i> {{ row.countQueries() }}
                 </div>
             </td>
 

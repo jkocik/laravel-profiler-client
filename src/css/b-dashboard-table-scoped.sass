@@ -16,27 +16,27 @@
     td:nth-child(1)
         display: none
 
-    td:nth-child(2)
-        width: 95px
-
+    td:nth-child(2),
     td:nth-child(3),
     td:nth-child(4),
     td:nth-child(5)
         width: 100px
 
     td:nth-child(6)
-        width: 275px
         white-space: nowrap
         overflow: hidden
         div
             &.tags
                 width: 250px
 
-    td:nth-child(7)
+    td:nth-child(7),
+    td:nth-child(8),
+    td:nth-child(9),
+    td:nth-child(10),
+    td:nth-child(11),
+    td:nth-child(12)
+        width: 1px
         white-space: nowrap
-
-    td:nth-child(8)
-        width: 75px
 
 .b-table
     .table
@@ -45,12 +45,8 @@
                 td
                     flex-direction: column
 
-            .tracker-summary
-                display: flex
-
-                & > div
-                    flex-direction: column
-                    padding-left: 15px
+                    &.tracker-summary
+                        text-align: left
 
         .detail-container
             height: 70vh

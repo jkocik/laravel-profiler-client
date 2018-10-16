@@ -28,8 +28,8 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(tracker.status);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(tracker.path);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(tracker.laravelExecutionTimeForHuman);
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(tracker.memoryUsageForHuman);
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.laravelVersion);
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.memoryUsageForHuman);
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(12)').text()).to.contain(tracker.laravelVersion);
     });
 
     it('has memory usage mark as confusing when running tests', async () => {
@@ -42,10 +42,10 @@ describe('AppDashboard Component', () => {
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
 
-        let memoryDivA = wrapperTable.find('table tr:nth-child(2) .tracker-summary div:nth-child(2)');
-        let memoryDivB = wrapperTable.find('table tr:nth-child(1) .tracker-summary div:nth-child(2)');
-        expect(memoryDivA.classes()).to.not.contain('has-text-grey-lighter');
-        expect(memoryDivB.classes()).to.contain('has-text-grey-lighter');
+        let memoryTdA = wrapperTable.find('table tr:nth-child(2) .tracker-summary.memory');
+        let memoryTdB = wrapperTable.find('table tr:nth-child(1) .tracker-summary.memory');
+        expect(memoryTdA.classes()).to.not.contain('has-text-grey-lighter');
+        expect(memoryTdB.classes()).to.contain('has-text-grey-lighter');
     });
 
     it('sees number of views after data are delivered', async () => {
@@ -61,7 +61,7 @@ describe('AppDashboard Component', () => {
 
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.views').text()).to.contain('5');
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.views').text()).to.contain('5');
     });
 
     it('does not see number of views after data are delivered but views are not provided at all', async () => {
@@ -73,7 +73,7 @@ describe('AppDashboard Component', () => {
 
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.views').exists()).to.be.false;
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.views').text()).that.is.empty;
     });
 
     it('sees number of events after data are delivered', async () => {
@@ -88,7 +88,7 @@ describe('AppDashboard Component', () => {
 
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.events').text()).to.contain('5');
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.events').text()).to.contain('5');
     });
 
     it('does not see number of events after data are delivered but events are not provided at all', async () => {
@@ -100,7 +100,7 @@ describe('AppDashboard Component', () => {
 
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.events').exists()).to.be.false;
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.events').text()).that.is.empty;
     });
 
     it('sees number of queries after data are delivered', async () => {
@@ -118,7 +118,7 @@ describe('AppDashboard Component', () => {
 
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.queries').text()).to.contain('1');
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.queries').text()).to.contain('1');
     });
 
     it('does not see number of queries after data are delivered but queries are not provided at all', async () => {
@@ -130,7 +130,7 @@ describe('AppDashboard Component', () => {
 
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').find('div.queries').exists()).to.be.false;
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.queries').text()).that.is.empty;
     });
 
     it('sees meta data of profiler in descending order', async () => {
@@ -297,7 +297,7 @@ describe('AppDashboard Component', () => {
         let trDetailsA = wrapperTable.find('table tr:nth-child(1) + tr.detail');
         expect(trDetailsA.exists()).to.be.true;
         expect(trDetailsA.isVisible()).to.be.true;
-        expect(trDetailsA.find('td').attributes().colspan).to.equal('7');
+        expect(trDetailsA.find('td').attributes().colspan).to.equal('11');
 
         tr.trigger('click');
         let trDetailsABis = wrapperTable.find('table tr:nth-child(1) + tr.detail');
