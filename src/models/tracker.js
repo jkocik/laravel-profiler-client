@@ -48,6 +48,9 @@ export default class Tracker {
         this.queriesExecutionTime = trackerService.queriesExecutionTime(this.queries);
         this.queriesCount = data.meta.queries_count || 0;
 
+        this.auth = data.data.auth || {};
+        this.authProvided = trackerService.authProvided(data.data);
+
         this.lastActiveDetailsTab = 0;
     }
 
@@ -149,5 +152,13 @@ export default class Tracker {
 
     areQueriesProvided() {
         return this.queriesProvided;
+    }
+
+    hasAuth() {
+        return !! Object.keys(this.auth).length;
+    }
+
+    isAuthProvided() {
+        return this.authProvided;
     }
 }

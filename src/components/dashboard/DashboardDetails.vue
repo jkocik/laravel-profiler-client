@@ -63,12 +63,21 @@
                 ></tab-queries>
             </keep-alive>
         </b-tab-item>
+
+        <b-tab-item :disabled="! tracker.hasAuth()" :label="authLabel">
+            <keep-alive>
+                <tab-auth v-if="isActiveTab(6) && tracker.hasAuth()"
+                     :tracker="tracker"
+                ></tab-auth>
+            </keep-alive>
+        </b-tab-item>
     </b-tabs>
 </template>
 
 <script>
     import Tracker from './../../models/tracker';
     import TabApp from './details/TabApp';
+    import TabAuth from './details/TabAuth';
     import TabViews from './details/TabViews';
     import TabEvents from './details/TabEvents';
     import TabQueries from './details/TabQueries';
@@ -81,6 +90,7 @@
         name: 'dashboard-details',
         components: {
             TabApp,
+            TabAuth,
             TabViews,
             TabEvents,
             TabQueries,
@@ -110,6 +120,7 @@
                 queriesLabel: this.tracker.areQueriesProvided()
                     ? `Queries (${this.tracker.countQueries()})`
                     : 'Queries',
+                authLabel: 'Auth',
             };
         },
         methods: {

@@ -247,4 +247,42 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.tabs(5).classes()).to.contain('is-disabled');
         expect(wrapperTabQueries.exists()).to.be.false;
     });
+
+    it('has auth tab', async () => {
+        let tracker = new Tracker(trackerFactory.create());
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(6).text()).to.equal('Auth');
+
+        wrapper.tabs(6).find('a').trigger('click');
+        await wrapper.vm.$nextTick();
+        let wrapperTabAuth = wrapper.find({ name: 'tab-auth' });
+        expect(wrapperTabAuth.isVisible()).to.be.true;
+        expect(wrapperTabAuth.props().tracker).to.equal(wrapper.props().tracker);
+    });
+
+    it('auth tab is enabled only if auth is present', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { auth: null }));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabAuth = wrapper.find({ name: 'tab-auth' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(6).text()).to.equal('Auth');
+        expect(wrapper.tabs(6).classes()).to.contain('is-disabled');
+        expect(wrapperTabAuth.exists()).to.be.false;
+    });
+
+    it('auth tab is enabled only if auth is provided', async () => {
+        let trackerSource = trackerFactory.create('data', { auth: undefined });
+        delete trackerSource.data.auth;
+        let tracker = new Tracker(trackerSource);
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabAuth = wrapper.find({ name: 'tab-auth' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(6).text()).to.equal('Auth');
+        expect(wrapper.tabs(6).classes()).to.contain('is-disabled');
+        expect(wrapperTabAuth.exists()).to.be.false;
+    });
 });

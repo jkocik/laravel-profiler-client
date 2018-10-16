@@ -175,4 +175,8 @@ export const trackerService = {
             return total + query.time;
         }, 0);
     },
+
+    authProvided(data) {
+        return data.hasOwnProperty('auth');
+    },
 };

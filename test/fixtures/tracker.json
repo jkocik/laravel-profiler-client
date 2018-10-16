@@ -195,6 +195,10 @@
                 "database": "laravel_profiler",
                 "name": "mysql"
             }
-        ]
+        ],
+        "auth": {
+            "id": 12345,
+            "email": "user@example.com"
+        }
     }
 }

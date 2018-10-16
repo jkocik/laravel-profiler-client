@@ -635,4 +635,31 @@ describe('Tracker Model', () => {
         expect(tracker.queriesExecutionTime).to.equal(33);
         expect(tracker.queriesExecutionTimeForHuman).to.equal('33.00ms');
     });
+
+    it('has auth', () => {
+        let tracker = new Tracker(trackerFactory.create());
+
+        expect(tracker.hasAuth()).to.be.true;
+        expect(tracker.auth).to.deep.equal({
+            id: 12345,
+            email: 'user@example.com',
+        });
+        expect(tracker.isAuthProvided()).to.be.true;
+    });
+
+    it('has empty auth if auth is not delivered', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { auth: null }));
+
+        expect(tracker.hasAuth()).to.be.false;
+        expect(tracker.isAuthProvided()).to.be.true;
+    });
+
+    it('has not provided auth if auth is not provided at all', () => {
+        let trackerSource = trackerFactory.create('data', { auth: undefined });
+        delete trackerSource.data.auth;
+        let tracker = new Tracker(trackerSource);
+
+        expect(tracker.hasAuth()).to.be.false;
+        expect(tracker.isAuthProvided()).to.be.false;
+    });
 });
