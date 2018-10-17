@@ -29,7 +29,7 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(tracker.path);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(tracker.laravelExecutionTimeForHuman);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.memoryUsageForHuman);
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(13)').text()).to.contain(tracker.laravelVersion);
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(14)').text()).to.contain(tracker.laravelVersion);
     });
 
     it('has memory usage mark as confusing when running tests', async () => {
@@ -173,6 +173,48 @@ describe('AppDashboard Component', () => {
         let negative = wrapperTable.find('table tr:nth-child(1) .tracker-summary.auth i.fa-user-slash.has-text-grey-lighter');
         expect(positive.isVisible()).to.be.false;
         expect(negative.isVisible()).to.be.false;
+    });
+
+    it('sees exception icon after data with exception are delivered', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let tracker = new Tracker(trackerFactory.create());
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        let exception = wrapperTable.find('table tr:nth-child(1) .tracker-summary.exception i.fa-exclamation-circle.has-text-danger');
+        let ok = wrapperTable.find('table tr:nth-child(1) .tracker-summary.exception i.fa-thumbs-up.has-text-grey-lighter');
+        expect(exception.isVisible()).to.be.true;
+        expect(ok.isVisible()).to.be.false;
+    });
+
+    it('sees ok icon after data without exception are delivered', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let trackerSource = trackerFactory.create('data', { exception: null });
+        let tracker = new Tracker(trackerSource);
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        let exception = wrapperTable.find('table tr:nth-child(1) .tracker-summary.exception i.fa-exclamation-circle.has-text-danger');
+        let ok = wrapperTable.find('table tr:nth-child(1) .tracker-summary.exception i.fa-thumbs-up.has-text-grey-lighter');
+        expect(exception.isVisible()).to.be.false;
+        expect(ok.isVisible()).to.be.true;
+    });
+
+    it('does not see exception or ok icon after data are delivered but exception is not provided at all', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let trackerSource = trackerFactory.create('data', { exception: undefined });
+        delete trackerSource.data.exception;
+        let tracker = new Tracker(trackerSource);
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        let exception = wrapperTable.find('table tr:nth-child(1) .tracker-summary.exception i.fa-exclamation-circle.has-text-danger');
+        let ok = wrapperTable.find('table tr:nth-child(1) .tracker-summary.exception i.fa-thumbs-up.has-text-grey-lighter');
+        expect(exception.isVisible()).to.be.false;
+        expect(ok.isVisible()).to.be.false;
     });
 
     it('sees meta data of profiler in descending order', async () => {
@@ -339,7 +381,7 @@ describe('AppDashboard Component', () => {
         let trDetailsA = wrapperTable.find('table tr:nth-child(1) + tr.detail');
         expect(trDetailsA.exists()).to.be.true;
         expect(trDetailsA.isVisible()).to.be.true;
-        expect(trDetailsA.find('td').attributes().colspan).to.equal('12');
+        expect(trDetailsA.find('td').attributes().colspan).to.equal('13');
 
         tr.trigger('click');
         let trDetailsABis = wrapperTable.find('table tr:nth-child(1) + tr.detail');

@@ -72,12 +72,21 @@
                     <i class="fas fa-database has-text-primary"></i> {{ row.countQueries() }}
                 </div>
             </td>
-            <td class="tracker-summary auth">
+            <td class="tracker-summary auth has-text-centered">
                 <div v-show="row.isAuthProvided() && row.hasAuth()">
                     <i class="fas fa-user has-text-success"></i>
                 </div>
                 <div v-show="row.isAuthProvided() && ! row.hasAuth()">
                     <i class="fas fa-user-slash has-text-grey-lighter"></i>
+                </div>
+            </td>
+
+            <td class="tracker-summary exception has-text-centered">
+                <div v-show="row.isExceptionProvided() && row.hasException()">
+                    <i class="fas fa-exclamation-circle has-text-danger"></i>
+                </div>
+                <div v-show="row.isExceptionProvided() && ! row.hasException()">
+                    <i class="fas fa-thumbs-up has-text-grey-lighter"></i>
                 </div>
             </td>
 
