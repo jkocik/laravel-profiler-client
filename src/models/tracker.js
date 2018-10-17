@@ -51,6 +51,9 @@ export default class Tracker {
         this.auth = data.data.auth || {};
         this.authProvided = trackerService.authProvided(data.data);
 
+        this.exception = data.data.exception || {};
+        this.exceptionProvided = trackerService.exceptionProvided(data.data);
+
         this.lastActiveDetailsTab = 0;
     }
 
@@ -160,5 +163,13 @@ export default class Tracker {
 
     isAuthProvided() {
         return this.authProvided;
+    }
+
+    hasException() {
+        return !! Object.keys(this.exception).length;
+    }
+
+    isExceptionProvided() {
+        return this.exceptionProvided;
     }
 }

@@ -179,4 +179,8 @@ export const trackerService = {
     authProvided(data) {
         return data.hasOwnProperty('auth');
     },
+
+    exceptionProvided(data) {
+        return data.hasOwnProperty('exception');
+    },
 };

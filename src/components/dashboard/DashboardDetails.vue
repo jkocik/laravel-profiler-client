@@ -71,6 +71,14 @@
                 ></tab-auth>
             </keep-alive>
         </b-tab-item>
+
+        <b-tab-item :disabled="! tracker.hasException()" :label="exceptionLabel">
+            <keep-alive>
+                <tab-exception v-if="isActiveTab(7) && tracker.hasException()"
+                    :tracker="tracker"
+                ></tab-exception>
+            </keep-alive>
+        </b-tab-item>
     </b-tabs>
 </template>
 
@@ -81,6 +89,7 @@
     import TabViews from './details/TabViews';
     import TabEvents from './details/TabEvents';
     import TabQueries from './details/TabQueries';
+    import TabException from './details/TabException';
     import TabHttpRequest from './details/TabHttpRequest';
     import TabHttpResponse from './details/TabHttpResponse';
     import TabConsoleFinishedRequest from './details/TabConsoleFinishedRequest';
@@ -94,6 +103,7 @@
             TabViews,
             TabEvents,
             TabQueries,
+            TabException,
             TabHttpRequest,
             TabHttpResponse,
             TabConsoleFinishedRequest,
@@ -121,6 +131,7 @@
                     ? `Queries (${this.tracker.countQueries()})`
                     : 'Queries',
                 authLabel: 'Auth',
+                exceptionLabel: 'Exception',
             };
         },
         methods: {

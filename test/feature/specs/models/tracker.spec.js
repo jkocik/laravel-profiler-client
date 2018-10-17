@@ -662,4 +662,37 @@ describe('Tracker Model', () => {
         expect(tracker.hasAuth()).to.be.false;
         expect(tracker.isAuthProvided()).to.be.false;
     });
+
+    it('has exception', () => {
+        let tracker = new Tracker(trackerFactory.create());
+
+        expect(tracker.hasException()).to.be.true;
+        expect(tracker.exception).to.deep.equal({
+            message: 'Exception in your app',
+            exception: 'Exception',
+            file: '/path/to/file/throwing/exception',
+            line: 123,
+            trace: {
+                a: 'aaa',
+                b: 'bbb',
+            },
+        });
+        expect(tracker.isExceptionProvided()).to.be.true;
+    });
+
+    it('has empty exception if exception is not delivered', () => {
+        let tracker = new Tracker(trackerFactory.create('data', { exception: null }));
+
+        expect(tracker.hasException()).to.be.false;
+        expect(tracker.isExceptionProvided()).to.be.true;
+    });
+
+    it('has not provided exception if exception is not provided at all', () => {
+        let trackerSource = trackerFactory.create('data', { exception: undefined });
+        delete trackerSource.data.exception;
+        let tracker = new Tracker(trackerSource);
+
+        expect(tracker.hasException()).to.be.false;
+        expect(tracker.isExceptionProvided()).to.be.false;
+    });
 });

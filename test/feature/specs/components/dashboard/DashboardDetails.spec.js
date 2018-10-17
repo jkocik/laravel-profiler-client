@@ -285,4 +285,42 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.tabs(6).classes()).to.contain('is-disabled');
         expect(wrapperTabAuth.exists()).to.be.false;
     });
+
+    it('has exception tab', async () => {
+        let tracker = new Tracker(trackerFactory.create());
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(7).text()).to.equal('Exception');
+
+        wrapper.tabs(7).find('a').trigger('click');
+        await wrapper.vm.$nextTick();
+        let wrapperTabException = wrapper.find({ name: 'tab-exception' });
+        expect(wrapperTabException.isVisible()).to.be.true;
+        expect(wrapperTabException.props().tracker).to.equal(wrapper.props().tracker);
+    });
+
+    it('exception tab is enabled only if exception is present', async () => {
+        let tracker = new Tracker(trackerFactory.create('data', { exception: null }));
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabException = wrapper.find({ name: 'tab-exception' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(7).text()).to.equal('Exception');
+        expect(wrapper.tabs(7).classes()).to.contain('is-disabled');
+        expect(wrapperTabException.exists()).to.be.false;
+    });
+
+    it('exception tab is enabled only if exception is provided', async () => {
+        let trackerSource = trackerFactory.create('data', { exception: undefined });
+        delete trackerSource.data.exception;
+        let tracker = new Tracker(trackerSource);
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+        let wrapperTabException = wrapper.find({ name: 'tab-exception' });
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(7).text()).to.equal('Exception');
+        expect(wrapper.tabs(7).classes()).to.contain('is-disabled');
+        expect(wrapperTabException.exists()).to.be.false;
+    });
 });

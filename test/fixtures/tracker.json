@@ -199,6 +199,16 @@
         "auth": {
             "id": 12345,
             "email": "user@example.com"
+        },
+        "exception": {
+            "message": "Exception in your app",
+            "exception": "Exception",
+            "file": "/path/to/file/throwing/exception",
+            "line": 123,
+            "trace": {
+                "a": "aaa",
+                "b": "bbb"
+            }
         }
     }
 }
