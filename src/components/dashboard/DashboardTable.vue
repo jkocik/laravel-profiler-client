@@ -72,6 +72,14 @@
                     <i class="fas fa-database has-text-primary"></i> {{ row.countQueries() }}
                 </div>
             </td>
+            <td class="tracker-summary auth">
+                <div v-show="row.isAuthProvided() && row.hasAuth()">
+                    <i class="fas fa-user has-text-success"></i>
+                </div>
+                <div v-show="row.isAuthProvided() && ! row.hasAuth()">
+                    <i class="fas fa-user-slash has-text-grey-lighter"></i>
+                </div>
+            </td>
 
             <td>
                 <div class="tags has-addons">
