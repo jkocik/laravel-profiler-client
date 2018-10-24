@@ -38,7 +38,7 @@
                         item: this.tracker.exception.message,
                     },
                     {
-                        label: 'in',
+                        label: 'file',
                         item: `${this.tracker.exception.file}:${this.tracker.exception.line}`,
                     },
                 ],

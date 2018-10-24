@@ -47,12 +47,12 @@
                         item: this.tracker.route.methods,
                     },
                     {
-                        label: 'uri',
-                        item: this.tracker.route.uri,
-                    },
-                    {
                         label: 'regex',
                         item: this.tracker.route.regex,
+                    },
+                    {
+                        label: 'uri',
+                        item: this.tracker.route.uri,
                     },
                     {
                         label: 'name',

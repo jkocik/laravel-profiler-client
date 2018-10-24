@@ -43,12 +43,12 @@ describe('TabHttpRoute Component', () => {
         expect(wrapper.trs(2).text()).to.contain(tracker.route.methods);
     });
 
-    it('has uri', () => {
-        expect(wrapper.trs(3).text()).to.contain(tracker.route.uri);
+    it('has regex', () => {
+        expect(wrapper.trs(3).text()).to.contain(tracker.route.regex);
     });
 
-    it('has regex', () => {
-        expect(wrapper.trs(4).text()).to.contain(tracker.route.regex);
+    it('has uri', () => {
+        expect(wrapper.trs(4).text()).to.contain(tracker.route.uri);
     });
 
     it('has name', () => {
