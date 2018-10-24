@@ -22,8 +22,10 @@ export default {
     'tabs': {
         'application': {
             'via': 'is running via',
-            'laravel-execution-time': 'laravel execution time',
-            'memory-usage': 'peak of memory usage',
+        },
+        'performance': {
+            'summary-laravel': 'total Laravel execution',
+            'memory-peak': 'peak of memory usage',
         },
         'bindings': {
             'resolved-as': 'resolved as',
