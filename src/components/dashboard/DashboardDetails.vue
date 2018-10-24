@@ -14,14 +14,22 @@
             </keep-alive>
         </b-tab-item>
 
+        <b-tab-item label="Performance">
+            <keep-alive>
+                <tab-performance v-if="isActiveTab(1)"
+                    :tracker="tracker"
+                ></tab-performance>
+            </keep-alive>
+        </b-tab-item>
+
         <b-tab-item :disabled="! tracker.request.enabled" :label="requestLabel">
             <keep-alive>
-                <tab-http-request v-if="isActiveTab(1) && tracker.request.isHttpRequest()"
+                <tab-http-request v-if="isActiveTab(2) && tracker.request.isHttpRequest()"
                     :tracker="tracker"
                 ></tab-http-request>
             </keep-alive>
             <keep-alive>
-                <tab-console-finished-request v-if="isActiveTab(1) && tracker.request.isConsoleFinishedRequest()"
+                <tab-console-finished-request v-if="isActiveTab(2) && tracker.request.isConsoleFinishedRequest()"
                     :tracker="tracker"
                 ></tab-console-finished-request>
             </keep-alive>
@@ -29,12 +37,12 @@
 
         <b-tab-item :disabled="! tracker.response.enabled" :label="responseLabel">
             <keep-alive>
-                <tab-http-response v-if="isActiveTab(2) && tracker.response.isHttpResponse()"
+                <tab-http-response v-if="isActiveTab(3) && tracker.response.isHttpResponse()"
                     :tracker="tracker"
                 ></tab-http-response>
             </keep-alive>
             <keep-alive>
-                <tab-console-finished-response v-if="isActiveTab(2) && tracker.response.isConsoleFinishedResponse()"
+                <tab-console-finished-response v-if="isActiveTab(3) && tracker.response.isConsoleFinishedResponse()"
                     :tracker="tracker"
                 ></tab-console-finished-response>
             </keep-alive>
@@ -42,7 +50,7 @@
 
         <b-tab-item :disabled="! tracker.hasViews()" :label="viewsLabel">
             <keep-alive>
-                <tab-views v-if="isActiveTab(3) && tracker.hasViews()"
+                <tab-views v-if="isActiveTab(4) && tracker.hasViews()"
                     :tracker="tracker"
                 ></tab-views>
             </keep-alive>
@@ -50,7 +58,7 @@
 
         <b-tab-item :disabled="! tracker.hasEvents()" :label="eventsLabel">
             <keep-alive>
-                <tab-events v-if="isActiveTab(4) && tracker.hasEvents()"
+                <tab-events v-if="isActiveTab(5) && tracker.hasEvents()"
                     :tracker="tracker"
                 ></tab-events>
             </keep-alive>
@@ -58,7 +66,7 @@
 
         <b-tab-item :disabled="! tracker.hasQueries()" :label="queriesLabel">
             <keep-alive>
-                <tab-queries v-if="isActiveTab(5) && tracker.hasQueries()"
+                <tab-queries v-if="isActiveTab(6) && tracker.hasQueries()"
                     :tracker="tracker"
                 ></tab-queries>
             </keep-alive>
@@ -66,7 +74,7 @@
 
         <b-tab-item :disabled="! tracker.hasAuth()" :label="authLabel">
             <keep-alive>
-                <tab-auth v-if="isActiveTab(6) && tracker.hasAuth()"
+                <tab-auth v-if="isActiveTab(7) && tracker.hasAuth()"
                      :tracker="tracker"
                 ></tab-auth>
             </keep-alive>
@@ -74,7 +82,7 @@
 
         <b-tab-item :disabled="! tracker.hasException()" :label="exceptionLabel">
             <keep-alive>
-                <tab-exception v-if="isActiveTab(7) && tracker.hasException()"
+                <tab-exception v-if="isActiveTab(8) && tracker.hasException()"
                     :tracker="tracker"
                 ></tab-exception>
             </keep-alive>
@@ -90,6 +98,7 @@
     import TabEvents from './details/TabEvents';
     import TabQueries from './details/TabQueries';
     import TabException from './details/TabException';
+    import TabPerformance from './details/TabPerformance';
     import TabHttpRequest from './details/TabHttpRequest';
     import TabHttpResponse from './details/TabHttpResponse';
     import TabConsoleFinishedRequest from './details/TabConsoleFinishedRequest';
@@ -104,6 +113,7 @@
             TabEvents,
             TabQueries,
             TabException,
+            TabPerformance,
             TabHttpRequest,
             TabHttpResponse,
             TabConsoleFinishedRequest,

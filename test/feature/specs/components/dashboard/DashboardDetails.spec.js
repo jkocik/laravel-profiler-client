@@ -14,17 +14,31 @@ describe('DashboardDetails Component', () => {
         expect(wrapperTabApp.props().tracker).to.equal(wrapper.props().tracker);
     });
 
+    it('has performance tab', async () => {
+        let tracker = new Tracker(trackerFactory.create());
+        let wrapper = mountWithTracker(DashboardDetails, tracker);
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.tabs(1).text()).to.equal('Performance');
+
+        wrapper.tabs(1).find('a').trigger('click');
+        await wrapper.vm.$nextTick();
+        let wrapperTabPerformance = wrapper.find({ name: 'tab-performance' });
+        expect(wrapperTabPerformance.isVisible()).to.be.true;
+        expect(wrapperTabPerformance.props().tracker).to.equal(wrapper.props().tracker);
+    });
+
     it('has http request tab enabled when type equals http', async () => {
         let tracker = new Tracker(trackerFactory.create('meta', { type: 'http' }));
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(1).text()).to.equal('Request');
+        expect(wrapper.tabs(2).text()).to.equal('Request');
 
-        wrapper.tabs(1).find('a').trigger('click');
+        wrapper.tabs(2).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabRequest = wrapper.find({ name: 'tab-http-request' });
-        expect(wrapper.tabs(1).classes()).to.not.contain('is-disabled');
+        expect(wrapper.tabs(2).classes()).to.not.contain('is-disabled');
         expect(wrapperTabRequest.isVisible()).to.be.true;
         expect(wrapperTabRequest.props().tracker).to.equal(wrapper.props().tracker);
         expect(wrapper.find({ name: 'tab-console-finished-request' }).exists()).to.be.false;
@@ -35,12 +49,12 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(1).text()).to.equal('Input');
+        expect(wrapper.tabs(2).text()).to.equal('Input');
 
-        wrapper.tabs(1).find('a').trigger('click');
+        wrapper.tabs(2).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabRequest = wrapper.find({ name: 'tab-console-finished-request' });
-        expect(wrapper.tabs(1).classes()).to.not.contain('is-disabled');
+        expect(wrapper.tabs(2).classes()).to.not.contain('is-disabled');
         expect(wrapperTabRequest.isVisible()).to.be.true;
         expect(wrapperTabRequest.props().tracker).to.equal(wrapper.props().tracker);
         expect(wrapper.find({ name: 'tab-http-request' }).exists()).to.be.false;
@@ -51,8 +65,8 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(1).text()).to.equal('Input');
-        expect(wrapper.tabs(1).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(2).text()).to.equal('Input');
+        expect(wrapper.tabs(2).classes()).to.contain('is-disabled');
         expect(wrapper.find({ name: 'tab-http-request' }).exists()).to.be.false;
         expect(wrapper.find({ name: 'tab-console-finished-request' }).exists()).to.be.false;
     });
@@ -62,8 +76,8 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(1).text()).to.equal('Request');
-        expect(wrapper.tabs(1).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(2).text()).to.equal('Request');
+        expect(wrapper.tabs(2).classes()).to.contain('is-disabled');
         expect(wrapper.find({ name: 'tab-http-request' }).exists()).to.be.false;
         expect(wrapper.find({ name: 'tab-console-finished-request' }).exists()).to.be.false;
     });
@@ -73,12 +87,12 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(2).text()).to.equal('Response');
+        expect(wrapper.tabs(3).text()).to.equal('Response');
 
-        wrapper.tabs(2).find('a').trigger('click');
+        wrapper.tabs(3).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabResponse = wrapper.find({ name: 'tab-http-response' });
-        expect(wrapper.tabs(2).classes()).to.not.contain('is-disabled');
+        expect(wrapper.tabs(3).classes()).to.not.contain('is-disabled');
         expect(wrapperTabResponse.isVisible()).to.be.true;
         expect(wrapperTabResponse.props().tracker).to.equal(wrapper.props().tracker);
         expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
@@ -89,12 +103,12 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(2).text()).to.equal('Output');
+        expect(wrapper.tabs(3).text()).to.equal('Output');
 
-        wrapper.tabs(2).find('a').trigger('click');
+        wrapper.tabs(3).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabResponse = wrapper.find({ name: 'tab-console-finished-response' });
-        expect(wrapper.tabs(2).classes()).to.not.contain('is-disabled');
+        expect(wrapper.tabs(3).classes()).to.not.contain('is-disabled');
         expect(wrapperTabResponse.isVisible()).to.be.true;
         expect(wrapperTabResponse.props().tracker).to.equal(wrapper.props().tracker);
         expect(wrapper.find({ name: 'tab-http-response' }).exists()).to.be.false;
@@ -105,8 +119,8 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(2).text()).to.equal('Output');
-        expect(wrapper.tabs(2).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(3).text()).to.equal('Output');
+        expect(wrapper.tabs(3).classes()).to.contain('is-disabled');
         expect(wrapper.find({ name: 'tab-http-response' }).exists()).to.be.false;
         expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
     });
@@ -116,8 +130,8 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(2).text()).to.equal('Response');
-        expect(wrapper.tabs(2).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(3).text()).to.equal('Response');
+        expect(wrapper.tabs(3).classes()).to.contain('is-disabled');
         expect(wrapper.find({ name: 'tab-http-response' }).exists()).to.be.false;
         expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
     });
@@ -127,9 +141,9 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(3).text()).to.equal('Views (1)');
+        expect(wrapper.tabs(4).text()).to.equal('Views (1)');
 
-        wrapper.tabs(3).find('a').trigger('click');
+        wrapper.tabs(4).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabViews = wrapper.find({ name: 'tab-views' });
         expect(wrapperTabViews.isVisible()).to.be.true;
@@ -142,8 +156,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabViews = wrapper.find({ name: 'tab-views' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(3).text()).to.equal('Views (0)');
-        expect(wrapper.tabs(3).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(4).text()).to.equal('Views (0)');
+        expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
         expect(wrapperTabViews.exists()).to.be.false;
     });
 
@@ -155,8 +169,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabViews = wrapper.find({ name: 'tab-views' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(3).text()).to.equal('Views');
-        expect(wrapper.tabs(3).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(4).text()).to.equal('Views');
+        expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
         expect(wrapperTabViews.exists()).to.be.false;
     });
 
@@ -167,9 +181,9 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(4).text()).to.equal('Events (1)');
+        expect(wrapper.tabs(5).text()).to.equal('Events (1)');
 
-        wrapper.tabs(4).find('a').trigger('click');
+        wrapper.tabs(5).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabEvents = wrapper.find({ name: 'tab-events' });
         expect(wrapperTabEvents.isVisible()).to.be.true;
@@ -182,8 +196,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabEvents = wrapper.find({ name: 'tab-events' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(4).text()).to.equal('Events (0)');
-        expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(5).text()).to.equal('Events (0)');
+        expect(wrapper.tabs(5).classes()).to.contain('is-disabled');
         expect(wrapperTabEvents.exists()).to.be.false;
     });
 
@@ -196,8 +210,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabEvents = wrapper.find({ name: 'tab-events' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(4).text()).to.equal('Events');
-        expect(wrapper.tabs(4).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(5).text()).to.equal('Events');
+        expect(wrapper.tabs(5).classes()).to.contain('is-disabled');
         expect(wrapperTabEvents.exists()).to.be.false;
     });
 
@@ -214,9 +228,9 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(5).text()).to.equal('Queries (1)');
+        expect(wrapper.tabs(6).text()).to.equal('Queries (1)');
 
-        wrapper.tabs(5).find('a').trigger('click');
+        wrapper.tabs(6).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabQueries = wrapper.find({ name: 'tab-queries' });
         expect(wrapperTabQueries.isVisible()).to.be.true;
@@ -229,8 +243,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabQueries = wrapper.find({ name: 'tab-queries' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(5).text()).to.equal('Queries (0)');
-        expect(wrapper.tabs(5).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(6).text()).to.equal('Queries (0)');
+        expect(wrapper.tabs(6).classes()).to.contain('is-disabled');
         expect(wrapperTabQueries.exists()).to.be.false;
     });
 
@@ -243,8 +257,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabQueries = wrapper.find({ name: 'tab-queries' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(5).text()).to.equal('Queries');
-        expect(wrapper.tabs(5).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(6).text()).to.equal('Queries');
+        expect(wrapper.tabs(6).classes()).to.contain('is-disabled');
         expect(wrapperTabQueries.exists()).to.be.false;
     });
 
@@ -253,9 +267,9 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(6).text()).to.equal('Auth');
+        expect(wrapper.tabs(7).text()).to.equal('Auth');
 
-        wrapper.tabs(6).find('a').trigger('click');
+        wrapper.tabs(7).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabAuth = wrapper.find({ name: 'tab-auth' });
         expect(wrapperTabAuth.isVisible()).to.be.true;
@@ -268,8 +282,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabAuth = wrapper.find({ name: 'tab-auth' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(6).text()).to.equal('Auth');
-        expect(wrapper.tabs(6).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(7).text()).to.equal('Auth');
+        expect(wrapper.tabs(7).classes()).to.contain('is-disabled');
         expect(wrapperTabAuth.exists()).to.be.false;
     });
 
@@ -281,8 +295,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabAuth = wrapper.find({ name: 'tab-auth' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(6).text()).to.equal('Auth');
-        expect(wrapper.tabs(6).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(7).text()).to.equal('Auth');
+        expect(wrapper.tabs(7).classes()).to.contain('is-disabled');
         expect(wrapperTabAuth.exists()).to.be.false;
     });
 
@@ -291,9 +305,9 @@ describe('DashboardDetails Component', () => {
         let wrapper = mountWithTracker(DashboardDetails, tracker);
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(7).text()).to.equal('Exception');
+        expect(wrapper.tabs(8).text()).to.equal('Exception');
 
-        wrapper.tabs(7).find('a').trigger('click');
+        wrapper.tabs(8).find('a').trigger('click');
         await wrapper.vm.$nextTick();
         let wrapperTabException = wrapper.find({ name: 'tab-exception' });
         expect(wrapperTabException.isVisible()).to.be.true;
@@ -306,8 +320,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabException = wrapper.find({ name: 'tab-exception' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(7).text()).to.equal('Exception');
-        expect(wrapper.tabs(7).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(8).text()).to.equal('Exception');
+        expect(wrapper.tabs(8).classes()).to.contain('is-disabled');
         expect(wrapperTabException.exists()).to.be.false;
     });
 
@@ -319,8 +333,8 @@ describe('DashboardDetails Component', () => {
         let wrapperTabException = wrapper.find({ name: 'tab-exception' });
 
         await wrapper.vm.$nextTick();
-        expect(wrapper.tabs(7).text()).to.equal('Exception');
-        expect(wrapper.tabs(7).classes()).to.contain('is-disabled');
+        expect(wrapper.tabs(8).text()).to.equal('Exception');
+        expect(wrapper.tabs(8).classes()).to.contain('is-disabled');
         expect(wrapperTabException.exists()).to.be.false;
     });
 });
