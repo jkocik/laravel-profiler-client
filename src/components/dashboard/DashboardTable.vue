@@ -49,7 +49,7 @@
 
             <td class="tracker-summary">
                 <div>
-                    <i class="fas fa-clock has-text-primary"></i> {{ row.performance.timerLaravelForHuman }}
+                    <i class="fas fa-clock has-text-primary"></i> {{ row.performance.summaryLaravelForHuman }}
                 </div>
             </td>
             <td class="tracker-summary memory" :class="{ 'has-text-grey-lighter': row.isEnvTesting() }">

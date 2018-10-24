@@ -5,9 +5,17 @@ export const performanceService = {
         };
     },
 
-    timerInSeconds(timer) {
+    summaryInSeconds(timer) {
         return {
             laravel: (timer.laravel / 1000).toFixed(2),
         };
+    },
+
+    customInSeconds(timer) {
+        const keys = Object.keys(timer).filter((key) => {
+            return key.startsWith('custom-');
+        });
+
+        return keys;
     },
 };

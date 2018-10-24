@@ -62,7 +62,9 @@
                 "peak": 1048576
             },
             "timer": {
-                "laravel": 350
+                "laravel": 350,
+                "boot": 300,
+                "custom-time": 100
             }
         },
         "request": {
