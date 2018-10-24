@@ -13,6 +13,8 @@ import HttpRequest from '@/models/http-request';
 import NullResponse from '@/models/null-response';
 import HttpResponse from '@/models/http-response';
 import { trackerFactory } from './../test-helper';
+import HttpPerformance from '@/models/http-performance';
+import ConsolePerformance from '@/models/console-performance';
 import DBTransactionBegin from '@/models/db-transaction-begin';
 import DBTransactionCommit from '@/models/db-transaction-commit';
 import DBTransactionRollback from '@/models/db-transaction-rollback';
@@ -161,35 +163,6 @@ describe('Tracker Model', () => {
         expect(trackerA.hasStatusText()).to.be.true;
         expect(trackerB.statusText).to.equal('---');
         expect(trackerB.hasStatusText()).to.be.false;
-    });
-
-    it('has memory usage', () => {
-        let trackerA = new Tracker(trackerFactory.create('meta', { memory_usage: 209715 }));
-        let trackerB = new Tracker(trackerFactory.create('meta', { memory_usage: 1048576 }));
-        let trackerC = new Tracker(trackerFactory.create('meta', { memory_usage: 1289740 }));
-
-        expect(trackerA.memoryUsage).to.equal('0.20');
-        expect(trackerA.memoryUsageForHuman).to.equal('0.20MB');
-        expect(trackerB.memoryUsage).to.equal('1.00');
-        expect(trackerB.memoryUsageForHuman).to.equal('1.00MB');
-        expect(trackerC.memoryUsage).to.equal('1.23');
-        expect(trackerC.memoryUsageForHuman).to.equal('1.23MB');
-    });
-
-    it('has laravel execution time', () => {
-        let trackerA = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 35 }));
-        let trackerB = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 350 }));
-        let trackerC = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 350.1 }));
-        let trackerD = new Tracker(trackerFactory.create('meta', { laravel_execution_time: 3501.1 }));
-
-        expect(trackerA.laravelExecutionTime).to.equal('0.04');
-        expect(trackerA.laravelExecutionTimeForHuman).to.equal('0.04s');
-        expect(trackerB.laravelExecutionTime).to.equal('0.35');
-        expect(trackerB.laravelExecutionTimeForHuman).to.equal('0.35s');
-        expect(trackerC.laravelExecutionTime).to.equal('0.35');
-        expect(trackerC.laravelExecutionTimeForHuman).to.equal('0.35s');
-        expect(trackerD.laravelExecutionTime).to.equal('3.50');
-        expect(trackerD.laravelExecutionTimeForHuman).to.equal('3.50s');
     });
 
     it('has application data', () => {
@@ -358,6 +331,20 @@ describe('Tracker Model', () => {
         expect(tracker.countSession()).to.be.equal(0);
         expect(tracker.hasSession()).to.be.false;
         expect(tracker.isSessionProvided()).to.be.false;
+    });
+
+    it('has performance based on meta type', () => {
+        let trackerA = new Tracker(trackerFactory.create('meta', { type: 'http' }));
+        let trackerB = new Tracker(trackerFactory.create('meta', { type: 'command-starting' }));
+        let trackerC = new Tracker(trackerFactory.create('meta', { type: 'command-finished' }));
+        let trackerD = new Tracker(trackerFactory.create('meta', { type: null }));
+        let trackerE = new Tracker(trackerFactory.create('meta', { type: 'not-know-type' }));
+
+        expect(trackerA.performance).to.be.an.instanceOf(HttpPerformance);
+        expect(trackerB.performance).to.be.an.instanceOf(ConsolePerformance);
+        expect(trackerC.performance).to.be.an.instanceOf(ConsolePerformance);
+        expect(trackerD.performance).to.be.an.instanceOf(ConsolePerformance);
+        expect(trackerE.performance).to.be.an.instanceOf(ConsolePerformance);
     });
 
     it('has request based on meta type', () => {

@@ -13,8 +13,6 @@
         "json": false,
         "status": 200,
         "status_text": "OK",
-        "memory_usage": 1048576,
-        "laravel_execution_time": 350,
         "events_count": 2,
         "queries_count": 1
     },
@@ -57,6 +55,14 @@
             },
             "profiler": {
                 "enabled": true
+            }
+        },
+        "performance" : {
+            "memory": {
+                "peak": 1048576
+            },
+            "timer": {
+                "laravel": 350
             }
         },
         "request": {

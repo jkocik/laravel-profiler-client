@@ -27,8 +27,8 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(tracker.method);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(tracker.status);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(tracker.path);
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(tracker.laravelExecutionTimeForHuman);
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.memoryUsageForHuman);
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(tracker.performance.timerLaravelForHuman);
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.performance.memoryPeakForHuman);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(14)').text()).to.contain(tracker.laravelVersion);
     });
 

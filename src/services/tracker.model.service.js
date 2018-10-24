@@ -6,6 +6,8 @@ import NullRequest from './../models/null-request';
 import HttpRequest from './../models/http-request';
 import NullResponse from './../models/null-response';
 import HttpResponse from './../models/http-response';
+import HttpPerformance from './../models/http-performance';
+import ConsolePerformance from './../models/console-performance';
 import DBTransactionBegin from './../models/db-transaction-begin';
 import DBTransactionCommit from './../models/db-transaction-commit';
 import DBTransactionRollback from './../models/db-transaction-rollback';
@@ -99,12 +101,12 @@ export const trackerService = {
         return colors[resolvedStatusGroup];
     },
 
-    memoryUsage(memoryUsage) {
-        return (memoryUsage / 1024 / 1024).toFixed(2);
-    },
+    performance(meta, data) {
+        const Performance = {
+            'http': HttpPerformance,
+        }[meta.type] || ConsolePerformance;
 
-    timerInSeconds(milliseconds) {
-        return (milliseconds / 1000).toFixed(2);
+        return new Performance(data.performance);
     },
 
     request(meta, data) {
