@@ -6,9 +6,25 @@ export const performanceService = {
     },
 
     summaryInSeconds(timer) {
-        return {
-            laravel: (timer.laravel / 1000).toFixed(2),
+        const summary = {
+            laravel: (timer.laravel / 1000).toFixed(3),
+            boot: (timer.boot / 1000).toFixed(3),
         };
+
+        if (timer.middleware && timer.request) {
+            summary.middleware = (timer.middleware / 1000).toFixed(3);
+            summary.request = (timer.request / 1000).toFixed(3);
+        }
+
+        if (! summary.middleware && ! summary.request && timer['total-request']) {
+            summary.totalRequest = (timer['total-request'] / 1000).toFixed(3);
+        }
+
+        if (timer.response) {
+            summary.response = (timer.response / 1000).toFixed(3);
+        }
+
+        return summary;
     },
 
     customInSeconds(timer) {
