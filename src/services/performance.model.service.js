@@ -5,6 +5,10 @@ export const performanceService = {
         };
     },
 
+    laravelInSeconds(timer) {
+        return (timer.laravel / 1000).toFixed(2);
+    },
+
     httpSummaryInSeconds(timer) {
         const summary = {
             laravel: timer.laravel,

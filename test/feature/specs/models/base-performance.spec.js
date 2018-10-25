@@ -20,8 +20,8 @@ describe('BasePerformance Model', () => {
     });
 
     it('has laravel execution time', () => {
-        let trackerSourceA = trackerFactory.create('data.performance.timer', { laravel: 35.6 });
-        let trackerSourceB = trackerFactory.create('data.performance.timer', { laravel: 35.0 });
+        let trackerSourceA = trackerFactory.create('data.performance.timer', { laravel: 36 });
+        let trackerSourceB = trackerFactory.create('data.performance.timer', { laravel: 34 });
         let trackerSourceC = trackerFactory.create('data.performance.timer', { laravel: 350.1 });
         let trackerSourceD = trackerFactory.create('data.performance.timer', { laravel: 3501.1 });
 
@@ -30,14 +30,18 @@ describe('BasePerformance Model', () => {
         let performanceC = new BasePerformance(trackerSourceC.data.performance);
         let performanceD = new BasePerformance(trackerSourceD.data.performance);
 
+        expect(performanceA.laravel).to.equal('0.04');
         expect(performanceA.summary.laravel).to.equal('0.036');
-        expect(performanceA.summaryLaravelForHuman).to.equal('0.036s');
-        expect(performanceB.summary.laravel).to.equal('0.035');
-        expect(performanceB.summaryLaravelForHuman).to.equal('0.035s');
+        expect(performanceA.laravelTimeForHuman).to.equal('0.04s');
+        expect(performanceB.laravel).to.equal('0.03');
+        expect(performanceB.summary.laravel).to.equal('0.034');
+        expect(performanceB.laravelTimeForHuman).to.equal('0.03s');
+        expect(performanceC.laravel).to.equal('0.35');
         expect(performanceC.summary.laravel).to.equal('0.350');
-        expect(performanceC.summaryLaravelForHuman).to.equal('0.350s');
+        expect(performanceC.laravelTimeForHuman).to.equal('0.35s');
+        expect(performanceD.laravel).to.equal('3.50');
         expect(performanceD.summary.laravel).to.equal('3.501');
-        expect(performanceD.summaryLaravelForHuman).to.equal('3.501s');
+        expect(performanceD.laravelTimeForHuman).to.equal('3.50s');
     });
 
     it('has boot time', () => {
