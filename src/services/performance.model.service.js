@@ -5,26 +5,24 @@ export const performanceService = {
         };
     },
 
-    summaryInSeconds(timer) {
+    httpSummaryInSeconds(timer) {
         const summary = {
-            laravel: (timer.laravel / 1000).toFixed(3),
-            boot: (timer.boot / 1000).toFixed(3),
+            laravel: timer.laravel,
+            boot: timer.boot,
         };
 
         if (timer.middleware && timer.request) {
-            summary.middleware = (timer.middleware / 1000).toFixed(3);
-            summary.request = (timer.request / 1000).toFixed(3);
+            summary.middleware = timer.middleware;
+            summary.request = timer.request;
         }
 
-        if (! summary.middleware && ! summary.request && timer['total-request']) {
-            summary.totalRequest = (timer['total-request'] / 1000).toFixed(3);
+        if (! summary.middleware && ! summary.request) {
+            summary.totalRequest = timer['total-request'];
         }
 
-        if (timer.response) {
-            summary.response = (timer.response / 1000).toFixed(3);
-        }
+        summary.response = timer.response;
 
-        return summary;
+        return this.toSeconds(summary);
     },
 
     customInSeconds(timer) {
@@ -33,5 +31,12 @@ export const performanceService = {
         });
 
         return keys;
+    },
+
+    toSeconds(milliseconds) {
+        return Object.keys(milliseconds).reduce((seconds, key) => {
+            seconds[key] = (milliseconds[key] / 1000).toFixed(3);
+            return seconds;
+        }, {});
     },
 };

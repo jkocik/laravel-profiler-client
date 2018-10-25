@@ -11,19 +11,23 @@ describe('TabPerformanceSummary Component', () => {
         wrapper = mountWithTracker(TabPerformanceSummary, tracker);
     });
 
-    it('has total laravel execution time', () => {
-        expect(wrapper.trs(0).text()).to.contain(tracker.performance.summaryLaravelForHuman);
-    });
-
     it('has peak of memory usage', () => {
         tracker = new Tracker(trackerFactory.create('meta', { env: 'local' }));
         wrapper = mountWithTracker(TabPerformanceSummary, tracker);
-        expect(wrapper.trs(1).text()).to.contain(tracker.performance.memoryPeakForHuman);
-        expect(wrapper.trs(1).find('td:nth-child(2)').classes()).to.not.contain('has-text-grey-lighter');
+        expect(wrapper.trs(0).text()).to.contain(tracker.performance.memoryPeakForHuman);
+        expect(wrapper.trs(0).find('td:nth-child(2)').classes()).to.not.contain('has-text-grey-lighter');
 
         tracker = new Tracker(trackerFactory.create('meta', { env: 'testing' }));
         wrapper = mountWithTracker(TabPerformanceSummary, tracker);
-        expect(wrapper.trs(1).text()).to.contain(tracker.performance.memoryPeakForHuman);
-        expect(wrapper.trs(1).find('td:nth-child(2)').classes()).to.contain('has-text-grey-lighter');
+        expect(wrapper.trs(0).text()).to.contain(tracker.performance.memoryPeakForHuman);
+        expect(wrapper.trs(0).find('td:nth-child(2)').classes()).to.contain('has-text-grey-lighter');
+    });
+
+    it('has http timer table', () => {
+        expect(wrapper.trs(1).text()).to.contain(tracker.performance.summary.laravel);
+        expect(wrapper.trs(2).text()).to.contain(tracker.performance.summary.boot);
+        expect(wrapper.trs(3).text()).to.contain(tracker.performance.summary.middleware);
+        expect(wrapper.trs(4).text()).to.contain(tracker.performance.summary.request);
+        expect(wrapper.trs(5).text()).to.contain(tracker.performance.summary.response);
     });
 });

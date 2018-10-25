@@ -68,21 +68,6 @@ describe('BasePerformance Model', () => {
         expect(performance.summary.response).to.equal('0.002');
     });
 
-    it('does not have response if response is missing', () => {
-        let trackerSource = trackerFactory.create('data.performance.timer', {
-            laravel: 350,
-            boot: 9.1234567,
-            middleware: 3.448009490966797,
-            request: 101.3669586181641,
-            response: 2.4479793548583984,
-            'total-request': 109.8221206665039,
-        });
-        delete trackerSource.data.performance.timer.response;
-        let performance = new BasePerformance(trackerSource.data.performance);
-
-        expect(performance.summary.hasOwnProperty('response')).to.be.false;
-    });
-
     it('has total request if middleware is missing', () => {
         let trackerSource = trackerFactory.create('data.performance.timer', {
             laravel: 350,
@@ -119,23 +104,6 @@ describe('BasePerformance Model', () => {
 
     it('does not have total request by default', () => {
         let trackerSource = trackerFactory.create();
-        let performance = new BasePerformance(trackerSource.data.performance);
-
-        expect(performance.summary.hasOwnProperty('totalRequest')).to.be.false;
-    });
-
-    it('does not have total request if total request is missing', () => {
-        let trackerSource = trackerFactory.create('data.performance.timer', {
-            laravel: 350,
-            boot: 9.1234567,
-            middleware: 3.448009490966797,
-            request: 101.3669586181641,
-            response: 2.4479793548583984,
-            'total-request': 109.8221206665039,
-        });
-        delete trackerSource.data.performance.timer.middleware;
-        delete trackerSource.data.performance.timer.request;
-        delete trackerSource.data.performance.timer['total-request'];
         let performance = new BasePerformance(trackerSource.data.performance);
 
         expect(performance.summary.hasOwnProperty('totalRequest')).to.be.false;
