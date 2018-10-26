@@ -23,11 +23,18 @@ describe('TabPerformanceSummary Component', () => {
         expect(wrapper.trs(0).find('td:nth-child(2)').classes()).to.contain('has-text-grey-lighter');
     });
 
+    it('has total laravel execution time', () => {
+        expect(wrapper.trs(1).text()).to.contain(tracker.performance.laravelTimeForHuman);
+    });
+
     it('has http timer table', () => {
-        expect(wrapper.trs(1).text()).to.contain(tracker.performance.summary.laravel);
         expect(wrapper.trs(2).text()).to.contain(tracker.performance.summary.boot);
+        expect(wrapper.trs(2).text()).to.contain(wrapper.vm.$t('tabs.performance.boot'));
         expect(wrapper.trs(3).text()).to.contain(tracker.performance.summary.middleware);
+        expect(wrapper.trs(3).text()).to.contain(wrapper.vm.$t('tabs.performance.middleware'));
         expect(wrapper.trs(4).text()).to.contain(tracker.performance.summary.request);
+        expect(wrapper.trs(4).text()).to.contain(wrapper.vm.$t('tabs.performance.request'));
         expect(wrapper.trs(5).text()).to.contain(tracker.performance.summary.response);
+        expect(wrapper.trs(5).text()).to.contain(wrapper.vm.$t('tabs.performance.response'));
     });
 });

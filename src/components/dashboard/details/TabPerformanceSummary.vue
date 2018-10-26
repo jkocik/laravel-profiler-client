@@ -1,8 +1,7 @@
 <template>
     <section>
         <div>
-            <div>
-                .
+            <div class="chart">
             </div>
         </div>
         <div>
@@ -27,6 +26,22 @@
                     <td>{{ props.row.item }}</td>
                 </template>
             </b-table>
+            <hr>
+            <b-table
+                :data="tableC"
+                :narrowed="true"
+                class="is-sub-tab"
+            >
+                <template slot-scope="props">
+                    <td>{{ props.row.label }}</td>
+                    <td>{{ props.row.item }}</td>
+                    <td>{{ $t(`tabs.performance.${props.row.label}`) }}</td>
+                </template>
+            </b-table>
+        </div>
+        <div>
+            <div class="chart">
+            </div>
         </div>
     </section>
 </template>
@@ -48,7 +63,13 @@
                         class: { 'has-text-grey-lighter': this.tracker.isEnvTesting() },
                     },
                 ],
-                tableB: this.tracker.performance.summaryTable,
+                tableB: [
+                    {
+                        label: this.$t('tabs.performance.summary-laravel'),
+                        item: this.tracker.performance.laravelTimeForHuman,
+                    },
+                ],
+                tableC: this.tracker.performance.summaryTable,
             };
         },
     };
@@ -62,6 +83,6 @@
         & > div
             flex: 1
 
-            &:first-child > div
-                margin: 0 25%
+            div.chart
+                margin: 5% 15%
 </style>

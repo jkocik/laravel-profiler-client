@@ -26,6 +26,11 @@ export default {
         'performance': {
             'summary-laravel': 'total Laravel execution',
             'memory-peak': 'peak of memory usage',
+            'boot': 'booting service providers',
+            'middleware': 'running middleware and matching route',
+            'request': 'handling request',
+            'response': 'sending response and terminating app',
+            'other': 'the rest, mostly time before boot',
         },
         'bindings': {
             'resolved-as': 'resolved as',

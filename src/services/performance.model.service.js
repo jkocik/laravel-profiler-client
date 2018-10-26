@@ -6,12 +6,11 @@ export const performanceService = {
     },
 
     laravelInSeconds(timer) {
-        return (timer.laravel / 1000).toFixed(2);
+        return (timer.laravel / 1000).toFixed(3);
     },
 
     httpSummaryInSeconds(timer) {
         const summary = {
-            laravel: timer.laravel,
             boot: timer.boot,
         };
 
@@ -21,12 +20,12 @@ export const performanceService = {
         }
 
         if (! summary.middleware && ! summary.request) {
-            summary.totalRequest = timer['total-request'];
+            summary.request = timer['total-request'];
         }
 
         summary.response = timer.response;
 
-        return this.toSeconds(summary);
+        return this.toSeconds(summary, this.laravelInSeconds(timer));
     },
 
     customInSeconds(timer) {
@@ -37,10 +36,19 @@ export const performanceService = {
         return keys;
     },
 
-    toSeconds(milliseconds) {
-        return Object.keys(milliseconds).reduce((seconds, key) => {
+    toSeconds(milliseconds, laravelInSeconds) {
+        const seconds = Object.keys(milliseconds).reduce((seconds, key) => {
             seconds[key] = (milliseconds[key] / 1000).toFixed(3);
             return seconds;
         }, {});
+
+        const sum = Object.keys(seconds).reduce((sum, key) => {
+            sum += parseFloat(seconds[key]);
+            return sum;
+        }, 0);
+
+        seconds.other = (parseFloat(laravelInSeconds) - sum).toFixed(3);
+
+        return seconds;
     },
 };

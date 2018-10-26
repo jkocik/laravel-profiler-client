@@ -30,17 +30,13 @@ describe('BasePerformance Model', () => {
         let performanceC = new BasePerformance(trackerSourceC.data.performance);
         let performanceD = new BasePerformance(trackerSourceD.data.performance);
 
-        expect(performanceA.laravel).to.equal('0.04');
-        expect(performanceA.summary.laravel).to.equal('0.036');
+        expect(performanceA.laravel).to.equal('0.036');
         expect(performanceA.laravelTimeForHuman).to.equal('0.04s');
-        expect(performanceB.laravel).to.equal('0.03');
-        expect(performanceB.summary.laravel).to.equal('0.034');
+        expect(performanceB.laravel).to.equal('0.034');
         expect(performanceB.laravelTimeForHuman).to.equal('0.03s');
-        expect(performanceC.laravel).to.equal('0.35');
-        expect(performanceC.summary.laravel).to.equal('0.350');
+        expect(performanceC.laravel).to.equal('0.350');
         expect(performanceC.laravelTimeForHuman).to.equal('0.35s');
-        expect(performanceD.laravel).to.equal('3.50');
-        expect(performanceD.summary.laravel).to.equal('3.501');
+        expect(performanceD.laravel).to.equal('3.501');
         expect(performanceD.laravelTimeForHuman).to.equal('3.50s');
     });
 
@@ -79,14 +75,13 @@ describe('BasePerformance Model', () => {
             middleware: 3.448009490966797,
             request: 101.3669586181641,
             response: 2.4479793548583984,
-            'total-request': 109.8221206665039,
+            'total-request': 110,
         });
         delete trackerSource.data.performance.timer.middleware;
         let performance = new BasePerformance(trackerSource.data.performance);
 
         expect(performance.summary.hasOwnProperty('middleware')).to.be.false;
-        expect(performance.summary.hasOwnProperty('request')).to.be.false;
-        expect(performance.summary.totalRequest).to.equal('0.110');
+        expect(performance.summary.request).to.equal('0.110');
     });
 
     it('has total request if request is missing', () => {
@@ -96,21 +91,27 @@ describe('BasePerformance Model', () => {
             middleware: 3.448009490966797,
             request: 101.3669586181641,
             response: 2.4479793548583984,
-            'total-request': 109.8221206665039,
+            'total-request': 110,
         });
         delete trackerSource.data.performance.timer.request;
         let performance = new BasePerformance(trackerSource.data.performance);
 
         expect(performance.summary.hasOwnProperty('middleware')).to.be.false;
-        expect(performance.summary.hasOwnProperty('request')).to.be.false;
-        expect(performance.summary.totalRequest).to.equal('0.110');
+        expect(performance.summary.request).to.equal('0.110');
     });
 
-    it('does not have total request by default', () => {
-        let trackerSource = trackerFactory.create();
+    it('has time of other actions', () => {
+        let trackerSource = trackerFactory.create('data.performance', { timer: {
+            laravel: 1026,
+            boot: 2,
+            middleware: 3,
+            request: 1012,
+            response: 2,
+            'total-request': 500,
+        }});
         let performance = new BasePerformance(trackerSource.data.performance);
 
-        expect(performance.summary.hasOwnProperty('totalRequest')).to.be.false;
+        expect(performance.summary.other).to.equal('0.007');
     });
 
     it('has custom timer', () => {

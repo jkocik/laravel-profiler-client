@@ -17,7 +17,7 @@ export class BasePerformance {
     }
 
     get laravelTimeForHuman() {
-        return `${this.laravel}s`;
+        return `${parseFloat(this.laravel).toFixed(2)}s`;
     }
 
     get summaryTable() {
