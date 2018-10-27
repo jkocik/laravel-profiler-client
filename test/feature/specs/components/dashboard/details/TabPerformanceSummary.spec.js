@@ -37,4 +37,18 @@ describe('TabPerformanceSummary Component', () => {
         expect(wrapper.trs(5).text()).to.contain(tracker.performance.summary.response);
         expect(wrapper.trs(5).text()).to.contain(wrapper.vm.$t('tabs.performance.response'));
     });
+
+    it('has performance summary chart', () => {
+        tracker = new Tracker(trackerFactory.create());
+        let performanceSpy = sinon.spy(tracker.performance, 'summaryChartData');
+
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+        let wrapperPerformanceSummaryChart = wrapper.find({ name: 'chart-performance-summary' });
+
+        expect(wrapperPerformanceSummaryChart.isVisible()).to.be.true;
+        expect(wrapperPerformanceSummaryChart.find('canvas.chartjs-render-monitor').isVisible()).to.be.true;
+        expect(wrapperPerformanceSummaryChart.props().tracker).to.equal(wrapper.props().tracker);
+
+        expect(performanceSpy.calledOnce).to.be.true;
+    });
 });

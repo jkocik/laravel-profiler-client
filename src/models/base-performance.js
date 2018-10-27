@@ -4,12 +4,7 @@ export class BasePerformance {
     constructor(performance) {
         this.memory = performanceService.memoryInMB(performance.memory);
         this.laravel = performanceService.laravelInSeconds(performance.timer);
-        this.summary = performanceService.httpSummaryInSeconds(performance.timer);
         this.custom = performanceService.customInSeconds(performance.timer);
-    }
-
-    hasCustom() {
-        return !! this.custom.length;
     }
 
     get memoryPeakForHuman() {
@@ -20,12 +15,29 @@ export class BasePerformance {
         return `${parseFloat(this.laravel).toFixed(2)}s`;
     }
 
-    get summaryTable() {
+    hasCustom() {
+        return !! this.custom.length;
+    }
+
+    summaryTableData() {
         return Object.keys(this.summary).map((key) => {
             return {
                 label: key,
                 item: `${this.summary[key]}s`,
+                color: this.colors[key],
             };
         });
+    }
+
+    summaryChartData() {
+        return {
+            labels: Object.keys(this.summary),
+            datasets: [
+                {
+                    data: Object.values(this.summary),
+                    backgroundColor: Object.keys(this.summary).map(key => this.colors[key]),
+                },
+            ],
+        };
     }
 }

@@ -2,6 +2,7 @@
     <section>
         <div>
             <div class="chart">
+                <c-performance-summary :tracker="tracker"></c-performance-summary>
             </div>
         </div>
         <div>
@@ -48,9 +49,13 @@
 
 <script>
     import Tracker from './../../../models/tracker';
+    import CPerformanceSummary from './../../chartjs/CPerformanceSummary';
 
     export default {
         name: 'tab-performance-summary',
+        components: {
+            CPerformanceSummary,
+        },
         props: {
             tracker: Tracker,
         },
@@ -69,7 +74,7 @@
                         item: this.tracker.performance.laravelTimeForHuman,
                     },
                 ],
-                tableC: this.tracker.performance.summaryTable,
+                tableC: this.tracker.performance.summaryTableData(),
             };
         },
     };

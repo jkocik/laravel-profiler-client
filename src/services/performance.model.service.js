@@ -28,6 +28,14 @@ export const performanceService = {
         return this.toSeconds(summary, this.laravelInSeconds(timer));
     },
 
+    consoleSummaryInSeconds(timer) {
+        const summary = {
+            boot: timer.boot,
+        };
+
+        return this.toSeconds(summary, this.laravelInSeconds(timer));
+    },
+
     customInSeconds(timer) {
         const keys = Object.keys(timer).filter((key) => {
             return key.startsWith('custom-');

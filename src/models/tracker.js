@@ -61,14 +61,6 @@ export default class Tracker {
         return `${this.queriesExecutionTime.toFixed(2)}ms`;
     }
 
-    get memoryUsageForHuman() {
-        return `${this.memoryUsage}MB`;
-    }
-
-    get laravelExecutionTimeForHuman() {
-        return `${this.laravelExecutionTime}s`;
-    }
-
     hasStatusText() {
         return this.statusText !== '---';
     }
