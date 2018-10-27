@@ -28,8 +28,6 @@ export default class Tracker {
         this.bindings = (data.data.bindings || []).map(binding => new Binding(binding));
         this.paths = (data.data.paths || []).map(path => new Path(path));
 
-        this.performance = trackerService.performance(data.meta, data.data);
-
         this.request = trackerService.request(data.meta, data.data);
         this.response = trackerService.response(data.meta.type, data.data);
         this.route = trackerService.route(data.meta, data.data.route);
@@ -53,6 +51,8 @@ export default class Tracker {
 
         this.exception = data.data.exception || {};
         this.exceptionProvided = trackerService.exceptionProvided(data.data);
+
+        this.performance = trackerService.performance(data.meta, data.data, this.queriesExecutionTime);
 
         this.lastActiveDetailsTab = 0;
     }

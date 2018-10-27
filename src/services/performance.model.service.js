@@ -36,6 +36,14 @@ export const performanceService = {
         return this.toSeconds(summary, this.laravelInSeconds(timer));
     },
 
+    queriesInSeconds(queriesExecutionTime, timer) {
+        const queries = {
+            queries: queriesExecutionTime,
+        };
+
+        return this.toSeconds(queries, this.laravelInSeconds(timer));
+    },
+
     customInSeconds(timer) {
         const keys = Object.keys(timer).filter((key) => {
             return key.startsWith('custom-');
