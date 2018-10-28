@@ -52,8 +52,8 @@
                     <i class="fas fa-clock has-text-primary"></i> {{ row.performance.laravelTimeForHuman }}
                 </div>
             </td>
-            <td class="tracker-summary memory" :class="{ 'has-text-grey-lighter': row.isEnvTesting() }">
-                <div>
+            <td class="tracker-summary memory">
+                <div v-if="! row.isEnvTesting()">
                     <i class="fas fa-hdd has-text-primary"></i> {{ row.performance.memoryPeakForHuman }}
                 </div>
             </td>

@@ -32,7 +32,7 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(14)').text()).to.contain(tracker.laravelVersion);
     });
 
-    it('has memory usage mark as confusing when running tests', async () => {
+    it('has memory usage hidden when running tests', async () => {
         let wrapperTable = wrapper.find({ name: 'dashboard-table' });
         let trackerA = new Tracker(trackerFactory.create('meta', { env: 'local' }));
         let trackerB = new Tracker(trackerFactory.create('meta', { env: 'testing' }));
@@ -44,8 +44,8 @@ describe('AppDashboard Component', () => {
 
         let memoryTdA = wrapperTable.find('table tr:nth-child(2) .tracker-summary.memory');
         let memoryTdB = wrapperTable.find('table tr:nth-child(1) .tracker-summary.memory');
-        expect(memoryTdA.classes()).to.not.contain('has-text-grey-lighter');
-        expect(memoryTdB.classes()).to.contain('has-text-grey-lighter');
+        expect(memoryTdA.text()).to.contain(trackerA.performance.memoryPeakForHuman);
+        expect(memoryTdB.text()).to.not.contain(trackerA.performance.memoryPeakForHuman);
     });
 
     it('sees number of views after data are delivered', async () => {
