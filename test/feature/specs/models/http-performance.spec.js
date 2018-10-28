@@ -1,5 +1,7 @@
-import { trackerFactory } from './../test-helper';
+import Tracker from '@/models/tracker';
 import HttpPerformance from '@/models/http-performance';
+import { trackerFactory, mountWithTracker } from './../test-helper';
+import TabPerformanceSummary from '@/components/dashboard/details/TabPerformanceSummary';
 
 describe('HttpPerformance Model', () => {
     it('has boot time', () => {
@@ -76,34 +78,35 @@ describe('HttpPerformance Model', () => {
         expect(performance.summary.other).to.equal('0.007');
     });
 
-    it('has related summary chart data with summary table data', () => {
+    it('has related summary chart data with summary legend data', () => {
         let trackerSource = trackerFactory.create();
         let performance = new HttpPerformance(trackerSource.data.performance);
+        let wrapper = mountWithTracker(TabPerformanceSummary, new Tracker(trackerSource));
 
-        let summaryTable = performance.summaryTableData();
-        let summaryChart = performance.summaryChartData();
+        let summaryLegend = performance.summaryLegendData(wrapper.vm.$t);
+        let summaryChart = performance.summaryChartData(wrapper.vm.$t);
 
         expect(summaryChart.labels.length).to.equal(5);
-        expect(summaryChart.labels.length).to.equal(summaryTable.length);
+        expect(summaryChart.labels.length).to.equal(summaryLegend.length);
 
-        expect(summaryChart.labels[0]).to.equal(summaryTable[0].label);
-        expect(summaryChart.labels[1]).to.equal(summaryTable[1].label);
-        expect(summaryChart.labels[2]).to.equal(summaryTable[2].label);
-        expect(summaryChart.labels[3]).to.equal(summaryTable[3].label);
-        expect(summaryChart.labels[4]).to.equal(summaryTable[4].label);
+        expect(summaryChart.labels[0]).to.equal(summaryLegend[0].label);
+        expect(summaryChart.labels[1]).to.equal(summaryLegend[1].label);
+        expect(summaryChart.labels[2]).to.equal(summaryLegend[2].label);
+        expect(summaryChart.labels[3]).to.equal(summaryLegend[3].label);
+        expect(summaryChart.labels[4]).to.equal(summaryLegend[4].label);
 
         expect(summaryChart.datasets[0].data.length).to.equal(5);
         expect(summaryChart.datasets[0].data).to.deep.equal(Object.values(performance.summary));
 
         expect(summaryChart.datasets[0].backgroundColor.length).to.equal(5);
-        expect(summaryChart.datasets[0].backgroundColor[0]).to.equal(summaryTable[0].color);
-        expect(summaryChart.datasets[0].backgroundColor[1]).to.equal(summaryTable[1].color);
-        expect(summaryChart.datasets[0].backgroundColor[2]).to.equal(summaryTable[2].color);
-        expect(summaryChart.datasets[0].backgroundColor[3]).to.equal(summaryTable[3].color);
-        expect(summaryChart.datasets[0].backgroundColor[4]).to.equal(summaryTable[4].color);
+        expect(summaryChart.datasets[0].backgroundColor[0]).to.equal(summaryLegend[0].color);
+        expect(summaryChart.datasets[0].backgroundColor[1]).to.equal(summaryLegend[1].color);
+        expect(summaryChart.datasets[0].backgroundColor[2]).to.equal(summaryLegend[2].color);
+        expect(summaryChart.datasets[0].backgroundColor[3]).to.equal(summaryLegend[3].color);
+        expect(summaryChart.datasets[0].backgroundColor[4]).to.equal(summaryLegend[4].color);
     });
 
-    it('has related summary chart data with summary table data if less times are provided', () => {
+    it('has related summary chart data with summary legend data if less times are provided', () => {
         let trackerSource = trackerFactory.create('data.performance.timer', {
             laravel: 350,
             boot: 9.1234567,
@@ -114,25 +117,26 @@ describe('HttpPerformance Model', () => {
         });
         delete trackerSource.data.performance.timer.middleware;
         let performance = new HttpPerformance(trackerSource.data.performance);
+        let wrapper = mountWithTracker(TabPerformanceSummary, new Tracker(trackerSource));
 
-        let summaryTable = performance.summaryTableData();
-        let summaryChart = performance.summaryChartData();
+        let summaryLegend = performance.summaryLegendData(wrapper.vm.$t);
+        let summaryChart = performance.summaryChartData(wrapper.vm.$t);
 
         expect(summaryChart.labels.length).to.equal(4);
-        expect(summaryChart.labels.length).to.equal(summaryTable.length);
+        expect(summaryChart.labels.length).to.equal(summaryLegend.length);
 
-        expect(summaryChart.labels[0]).to.equal(summaryTable[0].label);
-        expect(summaryChart.labels[1]).to.equal(summaryTable[1].label);
-        expect(summaryChart.labels[2]).to.equal(summaryTable[2].label);
-        expect(summaryChart.labels[3]).to.equal(summaryTable[3].label);
+        expect(summaryChart.labels[0]).to.equal(summaryLegend[0].label);
+        expect(summaryChart.labels[1]).to.equal(summaryLegend[1].label);
+        expect(summaryChart.labels[2]).to.equal(summaryLegend[2].label);
+        expect(summaryChart.labels[3]).to.equal(summaryLegend[3].label);
 
         expect(summaryChart.datasets[0].data.length).to.equal(4);
         expect(summaryChart.datasets[0].data).to.deep.equal(Object.values(performance.summary));
 
         expect(summaryChart.datasets[0].backgroundColor.length).to.equal(4);
-        expect(summaryChart.datasets[0].backgroundColor[0]).to.equal(summaryTable[0].color);
-        expect(summaryChart.datasets[0].backgroundColor[1]).to.equal(summaryTable[1].color);
-        expect(summaryChart.datasets[0].backgroundColor[2]).to.equal(summaryTable[2].color);
-        expect(summaryChart.datasets[0].backgroundColor[3]).to.equal(summaryTable[3].color);
+        expect(summaryChart.datasets[0].backgroundColor[0]).to.equal(summaryLegend[0].color);
+        expect(summaryChart.datasets[0].backgroundColor[1]).to.equal(summaryLegend[1].color);
+        expect(summaryChart.datasets[0].backgroundColor[2]).to.equal(summaryLegend[2].color);
+        expect(summaryChart.datasets[0].backgroundColor[3]).to.equal(summaryLegend[3].color);
     });
 });

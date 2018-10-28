@@ -7,8 +7,8 @@ export class BasePerformance {
         this.custom = performanceService.customInSeconds(performance.timer);
         this.queries = performanceService.queriesInSeconds(queriesExecutionTime, performance.timer);
         this.queriesColors = {
-            queries: '#f87979',
-            other: 'white',
+            queries: 'rgb(255, 159, 64)',
+            other: 'hsl(0, 0%, 86%)',
         };
     }
 
@@ -28,19 +28,19 @@ export class BasePerformance {
         return parseFloat(this.queries.queries) !== 0;
     }
 
-    summaryTableData() {
+    summaryLegendData($t) {
         return Object.keys(this.summary).map((key) => {
             return {
-                label: key,
+                label: $t(`tabs.performance.summary.${key}`),
                 item: `${this.summary[key]}s`,
                 color: this.summaryColors[key],
             };
         });
     }
 
-    summaryChartData() {
+    summaryChartData($t) {
         return {
-            labels: Object.keys(this.summary),
+            labels: Object.keys(this.summary).map(key => $t(`tabs.performance.summary.${key}`)),
             datasets: [
                 {
                     data: Object.values(this.summary),
@@ -50,7 +50,7 @@ export class BasePerformance {
         };
     }
 
-    queriesTableData() {
+    queriesLegendData() {
         return Object.keys(this.queries).map((key) => {
             return {
                 label: key,

@@ -14,28 +14,28 @@ describe('TabPerformanceSummary Component', () => {
     it('has peak of memory usage', () => {
         tracker = new Tracker(trackerFactory.create('meta', { env: 'local' }));
         wrapper = mountWithTracker(TabPerformanceSummary, tracker);
-        expect(wrapper.trs(0).text()).to.contain(tracker.performance.memoryPeakForHuman);
-        expect(wrapper.trs(0).find('td:nth-child(2)').classes()).to.not.contain('has-text-grey-lighter');
+        expect(wrapper.find('.top').text()).to.contain(tracker.performance.memoryPeakForHuman);
 
         tracker = new Tracker(trackerFactory.create('meta', { env: 'testing' }));
         wrapper = mountWithTracker(TabPerformanceSummary, tracker);
-        expect(wrapper.trs(0).text()).to.contain(tracker.performance.memoryPeakForHuman);
-        expect(wrapper.trs(0).find('td:nth-child(2)').classes()).to.contain('has-text-grey-lighter');
+        expect(wrapper.find('.top').text()).to.not.contain(tracker.performance.memoryPeakForHuman);
     });
 
     it('has total laravel execution time', () => {
-        expect(wrapper.trs(1).text()).to.contain(tracker.performance.laravelTimeForHuman);
+        expect(wrapper.find('.top').text()).to.contain(tracker.performance.laravelTimeForHuman);
     });
 
-    it('has http timer table', () => {
-        expect(wrapper.trs(2).text()).to.contain(tracker.performance.summary.boot);
-        expect(wrapper.trs(2).text()).to.contain(wrapper.vm.$t('tabs.performance.boot'));
-        expect(wrapper.trs(3).text()).to.contain(tracker.performance.summary.middleware);
-        expect(wrapper.trs(3).text()).to.contain(wrapper.vm.$t('tabs.performance.middleware'));
-        expect(wrapper.trs(4).text()).to.contain(tracker.performance.summary.request);
-        expect(wrapper.trs(4).text()).to.contain(wrapper.vm.$t('tabs.performance.request'));
-        expect(wrapper.trs(5).text()).to.contain(tracker.performance.summary.response);
-        expect(wrapper.trs(5).text()).to.contain(wrapper.vm.$t('tabs.performance.response'));
+    it('has http timer chart legend', () => {
+        expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.boot);
+        expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.boot'));
+        expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.middleware);
+        expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.middleware'));
+        expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.request);
+        expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.request'));
+        expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.response);
+        expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.response'));
+        expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.other);
+        expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.other'));
     });
 
     it('has performance summary chart', () => {
@@ -50,5 +50,39 @@ describe('TabPerformanceSummary Component', () => {
         expect(wrapperPerformanceSummaryChart.props().tracker).to.equal(wrapper.props().tracker);
 
         expect(performanceSpy.calledOnce).to.be.true;
+    });
+
+    it('has queries timer chart legend', () => {
+        expect(wrapper.find('.queries').text()).to.contain(tracker.performance.queries.queries);
+        expect(wrapper.find('.queries').text()).to.contain(tracker.performance.queries.other);
+    });
+
+    it('has not queries timer chart legend if queries are not provided', () => {
+        tracker = new Tracker(trackerFactory.create('data', { queries: [] }));
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+
+        expect(wrapper.text()).to.not.contain('queries');
+    });
+
+    it('has performance queries chart', () => {
+        tracker = new Tracker(trackerFactory.create());
+        let performanceSpy = sinon.spy(tracker.performance, 'queriesChartData');
+
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+        let wrapperPerformanceQueriesChart = wrapper.find({ name: 'chart-performance-queries' });
+
+        expect(wrapperPerformanceQueriesChart.isVisible()).to.be.true;
+        expect(wrapperPerformanceQueriesChart.find('canvas.chartjs-render-monitor').isVisible()).to.be.true;
+        expect(wrapperPerformanceQueriesChart.props().tracker).to.equal(wrapper.props().tracker);
+
+        expect(performanceSpy.calledOnce).to.be.true;
+    });
+
+    it('has not performance queries chart if queries are not provided', () => {
+        tracker = new Tracker(trackerFactory.create('data', { queries: [] }));
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+        let wrapperPerformanceQueriesChart = wrapper.find({ name: 'chart-performance-queries' });
+
+        expect(wrapperPerformanceQueriesChart.exists()).to.be.false;
     });
 });

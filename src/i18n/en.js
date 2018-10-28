@@ -24,13 +24,15 @@ export default {
             'via': 'is running via',
         },
         'performance': {
-            'summary-laravel': 'total Laravel execution',
+            'summary-laravel': 'total Laravel execution time',
             'memory-peak': 'peak of memory usage',
-            'boot': 'booting service providers',
-            'middleware': 'running middleware and matching route',
-            'request': 'handling request',
-            'response': 'sending response and terminating app',
-            'other': 'the rest, mostly time before boot',
+            'summary': {
+                'boot': 'boot providers',
+                'middleware': 'middleware, route',
+                'request': 'handle request',
+                'response': 'response, terminate',
+                'other': 'other',
+            },
         },
         'bindings': {
             'resolved-as': 'resolved as',

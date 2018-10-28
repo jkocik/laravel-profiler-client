@@ -6,11 +6,11 @@ export default class HttpPerformance extends BasePerformance {
         super(performance, queriesExecutionTime);
         this.summary = performanceService.httpSummaryInSeconds(performance.timer);
         this.summaryColors = {
-            boot: 'rgb(75, 192, 192)',
+            boot: 'rgb(255, 205, 86)',
             middleware: 'rgb(54, 162, 235)',
             request: '#f87979',
             response: 'rgb(153, 102, 255)',
-            other: 'white',
+            other: 'hsl(0, 0%, 86%)',
         };
     }
 }

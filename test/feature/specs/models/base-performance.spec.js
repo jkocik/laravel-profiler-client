@@ -92,24 +92,24 @@ describe('BasePerformance Model', () => {
         expect(performance.hasCustom()).to.be.false;
     });
 
-    it('has related queries chart data with queries table data', () => {
+    it('has related queries chart data with queries legend data', () => {
         let trackerSource = trackerFactory.create();
         let performance = new BasePerformance(trackerSource.data.performance, 100);
 
-        let queriesTable = performance.queriesTableData();
+        let queriesLegend = performance.queriesLegendData();
         let queriesChart = performance.queriesChartData();
 
         expect(queriesChart.labels.length).to.equal(2);
-        expect(queriesChart.labels.length).to.equal(queriesTable.length);
+        expect(queriesChart.labels.length).to.equal(queriesLegend.length);
 
-        expect(queriesChart.labels[0]).to.equal(queriesTable[0].label);
-        expect(queriesChart.labels[1]).to.equal(queriesTable[1].label);
+        expect(queriesChart.labels[0]).to.equal(queriesLegend[0].label);
+        expect(queriesChart.labels[1]).to.equal(queriesLegend[1].label);
 
         expect(queriesChart.datasets[0].data.length).to.equal(2);
         expect(queriesChart.datasets[0].data).to.deep.equal(Object.values(performance.queries));
 
         expect(queriesChart.datasets[0].backgroundColor.length).to.equal(2);
-        expect(queriesChart.datasets[0].backgroundColor[0]).to.equal(queriesTable[0].color);
-        expect(queriesChart.datasets[0].backgroundColor[1]).to.equal(queriesTable[1].color);
+        expect(queriesChart.datasets[0].backgroundColor[0]).to.equal(queriesLegend[0].color);
+        expect(queriesChart.datasets[0].backgroundColor[1]).to.equal(queriesLegend[1].color);
     });
 });
