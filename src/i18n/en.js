@@ -27,7 +27,7 @@ export default {
             'summary-laravel': 'total Laravel execution time',
             'memory-peak': 'peak of memory usage',
             'summary': {
-                'boot': 'boot providers',
+                'boot': 'booting providers',
                 'route': 'routing',
                 'setup': 'test setup',
                 'middleware': 'middleware',
