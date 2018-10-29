@@ -28,7 +28,9 @@ export default {
             'memory-peak': 'peak of memory usage',
             'summary': {
                 'boot': 'boot providers',
-                'middleware': 'middleware, route',
+                'route': 'routing',
+                'setup': 'test setup',
+                'middleware': 'middleware',
                 'request': 'handle request',
                 'response': 'response, terminate',
                 'other': 'other',

@@ -63,11 +63,11 @@
             },
             "timer": {
                 "laravel": 350,
-                "boot": 9.1234567,
-                "middleware": 3.448009490966797,
-                "request": 101.3669586181641,
-                "response": 2.4479793548583984,
-                "total-request": 109.8221206665039,
+                "boot": 1,
+                "route": 2,
+                "middleware": 3,
+                "request": 104,
+                "response": 5,
                 "custom-time": 100
             }
         },

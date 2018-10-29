@@ -28,6 +28,8 @@ describe('TabPerformanceSummary Component', () => {
     it('has http timer chart legend', () => {
         expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.boot);
         expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.boot'));
+        expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.route);
+        expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.route'));
         expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.middleware);
         expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.middleware'));
         expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.request);
@@ -36,6 +38,25 @@ describe('TabPerformanceSummary Component', () => {
         expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.response'));
         expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.other);
         expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.other'));
+    });
+
+    it('has http timer chart legend with tests setup timer if delivered', () => {
+        let trackerSource = trackerFactory.create('data.performance', {
+            memory: {
+                peak: 1048576,
+            },
+            timer: {
+                laravel: 350,
+                boot: 1,
+                setup: 99,
+                response: 5,
+            },
+        });
+        tracker = new Tracker(trackerSource);
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+
+        expect(wrapper.find('.summary').text()).to.contain(tracker.performance.summary.setup);
+        expect(wrapper.find('.summary').text()).to.contain(wrapper.vm.$t('tabs.performance.summary.setup'));
     });
 
     it('has performance summary chart', () => {

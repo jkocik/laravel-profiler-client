@@ -7,6 +7,8 @@ export default class HttpPerformance extends BasePerformance {
         this.summary = performanceService.httpSummaryInSeconds(performance.timer);
         this.summaryColors = {
             boot: 'rgb(255, 205, 86)',
+            route: 'rgb(255, 205, 86)',
+            setup: 'hsl(0, 0%, 86%)',
             middleware: 'rgb(54, 162, 235)',
             request: '#f87979',
             response: 'rgb(153, 102, 255)',

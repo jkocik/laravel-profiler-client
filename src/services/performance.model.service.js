@@ -14,14 +14,14 @@ export const performanceService = {
             boot: timer.boot,
         };
 
-        if (timer.middleware && timer.request) {
-            summary.middleware = timer.middleware;
-            summary.request = timer.request;
-        }
-
-        if (! summary.middleware && ! summary.request) {
-            summary.request = timer['total-request'];
-        }
+        [
+            'route',
+            'setup',
+            'middleware',
+            'request',
+        ].filter(item => !! timer[item]).forEach((item) => {
+            summary[item] = timer[item];
+        });
 
         summary.response = timer.response;
 

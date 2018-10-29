@@ -6,7 +6,7 @@ describe('ConsolePerformance Model', () => {
         let trackerSource = trackerFactory.create();
         let performance = new ConsolePerformance(trackerSource.data.performance);
 
-        expect(performance.summary.boot).to.equal('0.009');
+        expect(performance.summary.boot).to.equal('0.001');
     });
 
     // it('has time of other actions', () => {
