@@ -31,13 +31,13 @@ describe('BasePerformance Model', () => {
         let performanceC = new BasePerformance(trackerSourceC.data.performance);
         let performanceD = new BasePerformance(trackerSourceD.data.performance);
 
-        expect(performanceA.laravel).to.equal('0.036');
+        expect(performanceA.laravel).to.equal(0.036);
         expect(performanceA.laravelTimeForHuman).to.equal('0.04s');
-        expect(performanceB.laravel).to.equal('0.034');
+        expect(performanceB.laravel).to.equal(0.034);
         expect(performanceB.laravelTimeForHuman).to.equal('0.03s');
-        expect(performanceC.laravel).to.equal('0.350');
+        expect(performanceC.laravel).to.equal(0.351);
         expect(performanceC.laravelTimeForHuman).to.equal('0.35s');
-        expect(performanceD.laravel).to.equal('3.501');
+        expect(performanceD.laravel).to.equal(3.502);
         expect(performanceD.laravelTimeForHuman).to.equal('3.50s');
     });
 
@@ -51,7 +51,7 @@ describe('BasePerformance Model', () => {
             other: '0.227',
         });
         expect(
-            (parseFloat(performance.queries.queries) + parseFloat(performance.queries.other)).toFixed(3)
+            parseFloat(performance.queries.queries) + parseFloat(performance.queries.other)
         ).to.equal(performance.laravel);
     });
 

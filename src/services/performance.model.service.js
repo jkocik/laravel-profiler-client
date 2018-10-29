@@ -6,7 +6,7 @@ export const performanceService = {
     },
 
     laravelInSeconds(timer) {
-        return (timer.laravel / 1000).toFixed(3);
+        return Math.ceil(timer.laravel) / 1000;
     },
 
     httpSummaryInSeconds(timer) {
@@ -53,18 +53,18 @@ export const performanceService = {
     },
 
     toSeconds(milliseconds, laravelInSeconds) {
-        const seconds = Object.keys(milliseconds).reduce((seconds, key) => {
-            seconds[key] = (milliseconds[key] / 1000).toFixed(3);
-            return seconds;
+        let sum = 0;
+        const secondsFloor = Object.keys(milliseconds).reduce((secondsFloor, key) => {
+            secondsFloor[key] = Math.floor(milliseconds[key]);
+            sum += secondsFloor[key];
+            return secondsFloor;
         }, {});
 
-        const sum = Object.keys(seconds).reduce((sum, key) => {
-            sum += parseFloat(seconds[key]);
-            return sum;
-        }, 0);
+        secondsFloor.other = laravelInSeconds * 1000 - sum;
 
-        seconds.other = (parseFloat(laravelInSeconds) - sum).toFixed(3);
-
-        return seconds;
+        return Object.keys(secondsFloor).reduce((secondsFixed, key) => {
+            secondsFixed[key] = (secondsFloor[key] / 1000).toFixed(3);
+            return secondsFixed;
+        }, {});
     },
 };
