@@ -47,10 +47,6 @@
                         item: this.tracker.route.methods,
                     },
                     {
-                        label: 'regex',
-                        item: this.tracker.route.regex,
-                    },
-                    {
                         label: 'uri',
                         item: this.tracker.route.uri,
                     },

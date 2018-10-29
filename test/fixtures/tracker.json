@@ -139,7 +139,6 @@
                 "HEAD"
             ],
             "uri": "{id}/a/{user}",
-            "regex": "#^/(?P<id>[^/]++)/a/(?P<user>[^/]++)$#sDu",
             "name": "route-name",
             "prefix": "admin",
             "middleware": [

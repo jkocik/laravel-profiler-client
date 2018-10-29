@@ -43,20 +43,16 @@ describe('TabHttpRoute Component', () => {
         expect(wrapper.trs(2).text()).to.contain(tracker.route.methods);
     });
 
-    it('has regex', () => {
-        expect(wrapper.trs(3).text()).to.contain(tracker.route.regex);
-    });
-
     it('has uri', () => {
-        expect(wrapper.trs(4).text()).to.contain(tracker.route.uri);
+        expect(wrapper.trs(3).text()).to.contain(tracker.route.uri);
     });
 
     it('has name', () => {
-        expect(wrapper.trs(5).text()).to.contain(tracker.route.name);
+        expect(wrapper.trs(4).text()).to.contain(tracker.route.name);
     });
 
     it('has prefix', () => {
-        expect(wrapper.trs(6).text()).to.contain(tracker.route.prefix);
+        expect(wrapper.trs(5).text()).to.contain(tracker.route.prefix);
     });
 
     it('has tree view with middleware', () => {
