@@ -33,6 +33,10 @@ export const performanceService = {
             boot: timer.boot,
         };
 
+        if (timer.command) {
+            summary.command = timer.command;
+        }
+
         return this.toSeconds(summary, this.laravelInSeconds(timer));
     },
 

@@ -34,6 +34,7 @@ export default {
                 'request': 'handle request',
                 'response': 'response, terminate',
                 'other': 'other',
+                'command': 'command, terminate',
             },
         },
         'bindings': {
