@@ -56,6 +56,9 @@
                 <div v-if="! row.isEnvTesting()">
                     <i class="fas fa-hdd has-text-primary"></i> {{ row.performance.memoryPeakForHuman }}
                 </div>
+                <div v-if="row.isEnvTesting()">
+                    <i class="fas fa-hdd has-text-primary"></i> ------
+                </div>
             </td>
             <td class="tracker-summary views">
                 <div v-if="row.areViewsProvided()">

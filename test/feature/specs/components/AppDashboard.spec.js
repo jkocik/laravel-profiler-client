@@ -46,6 +46,7 @@ describe('AppDashboard Component', () => {
         let memoryTdB = wrapperTable.find('table tr:nth-child(1) .tracker-summary.memory');
         expect(memoryTdA.text()).to.contain(trackerA.performance.memoryPeakForHuman);
         expect(memoryTdB.text()).to.not.contain(trackerA.performance.memoryPeakForHuman);
+        expect(memoryTdB.text()).to.contain('------');
     });
 
     it('sees number of views after data are delivered', async () => {
