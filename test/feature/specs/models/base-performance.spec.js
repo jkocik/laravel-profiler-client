@@ -75,10 +75,25 @@ describe('BasePerformance Model', () => {
     });
 
     it('has custom timer', () => {
-        let trackerSource = trackerFactory.create();
+        let trackerSource = trackerFactory.create('data.performance.timer', {
+            laravel: 2000,
+            'custom-time': 20,
+            'custom-time b': 30,
+            'custom-time c': 1234,
+        });
         let performance = new BasePerformance(trackerSource.data.performance);
 
         expect(performance.hasCustom()).to.be.true;
+        expect(performance.customChartData().labels).to.deep.equal([
+            'time (0.020s)',
+            'time b (0.030s)',
+            'time c (1.234s)',
+        ]);
+        expect(performance.customChartData().datasets[0].data).to.deep.equal([
+            '0.020',
+            '0.030',
+            '1.234',
+        ]);
     });
 
     it('has not custom timer if custom data are not provided at all', () => {

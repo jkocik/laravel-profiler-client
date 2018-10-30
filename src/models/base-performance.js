@@ -10,6 +10,10 @@ export class BasePerformance {
             queries: 'rgb(255, 159, 64)',
             other: 'hsl(0, 0%, 86%)',
         };
+        this.customColors = {
+            backgroundColor: '#d7ecfb',
+            borderColor: '#54b0ee',
+        };
     }
 
     get memoryPeakForHuman() {
@@ -20,8 +24,12 @@ export class BasePerformance {
         return `${parseFloat(this.laravel).toFixed(2)}s`;
     }
 
+    get customChartHeight() {
+        return `${(Object.keys(this.custom).length * 50)}px`;
+    }
+
     hasCustom() {
-        return !! this.custom.length;
+        return !! Object.keys(this.custom).length;
     }
 
     hasQueries() {
@@ -67,6 +75,20 @@ export class BasePerformance {
                 {
                     data: Object.values(this.queries),
                     backgroundColor: Object.keys(this.queries).map(key => this.queriesColors[key]),
+                },
+            ],
+        };
+    }
+
+    customChartData() {
+        return {
+            labels: Object.keys(this.custom).map(key => `${key} (${this.custom[key]}s)`),
+            datasets: [
+                {
+                    data: Object.values(this.custom),
+                    backgroundColor: this.customColors.backgroundColor,
+                    borderColor: this.customColors.borderColor,
+                    borderWidth: 1,
                 },
             ],
         };

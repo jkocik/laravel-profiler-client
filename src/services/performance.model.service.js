@@ -49,11 +49,14 @@ export const performanceService = {
     },
 
     customInSeconds(timer) {
-        const keys = Object.keys(timer).filter((key) => {
+        const custom = Object.keys(timer).filter((key) => {
             return key.startsWith('custom-');
-        });
+        }).reduce((custom, key) => {
+            custom[key.replace(/^custom-/, '')] = (timer[key] / 1000).toFixed(3);
+            return custom;
+        }, {});
 
-        return keys;
+        return custom;
     },
 
     toSeconds(milliseconds, laravelInSeconds) {
