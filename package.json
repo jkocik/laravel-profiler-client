@@ -1,6 +1,6 @@
 {
   "name": "laravel-profiler-client",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Profiler Client and Profiler Server for Laravel 5.2+",
   "keywords": [
     "laravel",
