@@ -20,6 +20,7 @@ export default {
                     duration: 0,
                 },
                 maintainAspectRatio: false,
+                scaleBeginAtZero: true,
             },
         };
     },
