@@ -14,9 +14,21 @@ const args = process.argv.filter((item) => {
     return obj;
 }, {});
 
-const sockets = [];
-io.on('connection', socket => sockets.push(socket));
+const sockets = new Map();
+io.on('connection', (socket) => {
+    sockets.set(socket, socket);
+    console.log(`Hi Profiler Client, ${sockets.size} connected at the moment`);
+
+    socket.on('disconnect', () => {
+        sockets.delete(socket);
+        console.log(`Bye Profiler Client, ${sockets.size} connected at the moment`);
+    });
+});
 io.listen(args.ws);
+
+const broadcast = (req) => {
+    sockets.forEach(socket => socket.emit('laravel-profiler-broadcasting', req.body));
+};
 
 express().use(bodyParser.json({
     extended: true,
@@ -24,7 +36,14 @@ express().use(bodyParser.json({
     parameterLimit: 1000000,
 })).post('/', (req, res) => {
     res.end();
-    sockets.forEach(socket => socket.emit('laravel-profiler-broadcasting', req.body));
+    broadcast(req);
+}).post('/status', (req, res) => {
+    res.json({
+        sockets: args.ws,
+        clients: sockets.size
+    });
+    broadcast(req);
 }).listen(args.http, () => {
-    console.log(`Laravel Profiler http server listening on port ${args.http}, socket server listening on port ${args.ws}`);
+    console.log(`Http listening on port ${args.http}`);
+    console.log(`Sockets listening on port ${args.ws}`);
 });
