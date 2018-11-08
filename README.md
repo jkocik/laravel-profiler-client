@@ -6,3 +6,5 @@
 This repository is a part od Laravel Profiler project.
 Description and installation details can be found in [laravel-profiler](https://github.com/jkocik/laravel-profiler)
 repository.
+
+![Laravel Profiler](https://drive.google.com/uc?export=view&id=12TSAEW1butnLfmFxO3Pw4GhF96B8PUSk)
