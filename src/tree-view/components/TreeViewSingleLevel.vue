@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="(key, index) of keys()" :key="index">
-            <span v-if="! hasValue(key)" :class="toggleableClass(key)" @click="toggle(key)">
+            <span v-if="! hasValue(key)" :class="toggleableClass(key)" @click="toggle(key)" ref="clickable">
                 <span :key="`${index}-right`" v-if="count(key) && ! opened[key]"><i class="fas fa-angle-right"></i></span>
                 <span :key="`${index}-down`" v-if="count(key) && opened[key]"><i class="fas fa-angle-down"></i></span>
                 {{ key }} <span class="desc">({{ descOf(key) }}: {{ count(key) }})</span>
@@ -22,6 +22,10 @@
         name: 'tree-view-single-level',
         props: {
             data: [Array, Object],
+            open: Boolean,
+        },
+        mounted() {
+            this.open && (this.$refs.clickable || []).forEach(el => el.click());
         },
         data() {
             return {

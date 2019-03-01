@@ -92,4 +92,21 @@ describe('TreeView Component', () => {
         expect(li2.find('ul').text()).to.contain('a: 1');
         expect(li2.find('ul').text()).to.contain('b: 2');
     });
+
+    it('can have opened first level using props', async () => {
+        let wrapper = mount(TreeView, {
+            propsData: {
+                data: { x: { a: 1, b: 2 } },
+                openFirstLevel: true,
+            },
+        });
+
+        await wrapper.vm.$nextTick();
+        let li0 = wrapper.findAll('ul > li').at(0);
+
+        expect(li0.find('i').classes()).to.not.contain('fa-angle-right');
+        expect(li0.find('i').classes()).to.contain('fa-angle-down');
+        expect(li0.find('ul').text()).to.contain('a: 1');
+        expect(li0.find('ul').text()).to.contain('b: 2');
+    });
 });

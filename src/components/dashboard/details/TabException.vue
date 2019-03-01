@@ -14,6 +14,7 @@
         <tree-view
             :data="tracker.exception.trace"
             label="trace"
+            :openFirstLevel="true"
         ></tree-view>
     </section>
 </template>

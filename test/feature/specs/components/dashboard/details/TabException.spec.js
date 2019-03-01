@@ -28,5 +28,6 @@ describe('TabException Component', () => {
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.exception.trace);
         expect(wrapperTreeView.props().label).to.equal('trace');
+        expect(wrapperTreeView.props().openFirstLevel).to.be.true;
     });
 });

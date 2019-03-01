@@ -3,6 +3,7 @@
         <span>{{ label }}</span> <span class="desc">({{ count() }})</span>
         <tree-view-single-level
             :data="data"
+            :open="openFirstLevel"
         ></tree-view-single-level>
     </section>
 </template>
@@ -18,6 +19,7 @@
         props: {
             data: [Array, Object],
             label: String,
+            openFirstLevel: Boolean,
         },
         methods: {
             count() {

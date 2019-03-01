@@ -2,6 +2,7 @@
     <tree-view
         :data="tracker.session"
         label="session"
+        :openFirstLevel="true"
     ></tree-view>
 </template>
 

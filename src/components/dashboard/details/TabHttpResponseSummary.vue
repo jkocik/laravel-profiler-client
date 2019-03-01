@@ -14,6 +14,7 @@
         <tree-view
             :data="tracker.response.headers"
             label="headers"
+            :openFirstLevel="true"
         ></tree-view>
     </section>
 </template>

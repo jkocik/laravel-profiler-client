@@ -25,6 +25,7 @@
         <tree-view
             :data="tracker.request.header"
             label="headers"
+            :openFirstLevel="true"
         ></tree-view>
     </section>
 </template>

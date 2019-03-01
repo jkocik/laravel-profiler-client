@@ -24,5 +24,6 @@ describe('TabHttpResponseSummary Component', () => {
 
         expect(wrapperTreeView.props().data).to.deep.equal(tracker.response.headers);
         expect(wrapperTreeView.props().label).to.equal('headers');
+        expect(wrapperTreeView.props().openFirstLevel).to.be.true;
     });
 });
