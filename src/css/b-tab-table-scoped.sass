@@ -9,6 +9,7 @@ table
 
                 td
                     cursor: pointer
+                    border-bottom: 1px solid #dbdbdb
 
                     &.has-not-details
                         cursor: default
@@ -24,6 +25,10 @@ table
                     width: 100px
                     text-align: right
                     white-space: nowrap
+
+            &:last-child
+                td
+                    border-bottom: 0
 
 @media screen and (max-width: 768px)
     .b-table
