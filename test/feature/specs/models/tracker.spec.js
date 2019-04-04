@@ -682,4 +682,11 @@ describe('Tracker Model', () => {
         expect(tracker.hasException()).to.be.false;
         expect(tracker.isExceptionProvided()).to.be.false;
     });
+
+    it('is frozen', () => {
+        let trackerSource = trackerFactory.create();
+        let tracker = new Tracker(trackerSource);
+
+        expect(Object.isFrozen(tracker)).to.be.true;
+    });
 });

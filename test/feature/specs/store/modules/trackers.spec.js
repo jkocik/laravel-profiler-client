@@ -266,21 +266,4 @@ describe('Trackers Store Module', () => {
             trackerB.method,
         ]);
     });
-
-    it('toggles opened details', () => {
-        trackers.mutations.toggleOpenedDetails(state, trackerA.id);
-        trackers.mutations.toggleOpenedDetails(state, trackerB.id);
-
-        expect(state.openedDetails).to.be.instanceOf(Array);
-        expect(state.openedDetails).to.deep.equal([
-            trackerA.id,
-            trackerB.id,
-        ]);
-
-        trackers.mutations.toggleOpenedDetails(state, trackerA.id);
-
-        expect(state.openedDetails).to.deep.equal([
-            trackerB.id,
-        ]);
-    });
 });

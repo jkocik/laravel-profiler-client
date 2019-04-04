@@ -1,4 +1,3 @@
-import { bTableService } from './../../services/b-table.service';
 import { filterService } from './../../services/filter.store.service';
 import { trackersService } from './../../services/trackers.store.service';
 
@@ -16,7 +15,6 @@ const getters = {
     allTypeGroups: state => state.allTypeGroups,
     allStatusGroups: state => state.allStatusGroups,
     allMethods: state => state.allMethods,
-    openedDetails: state => state.openedDetails,
 };
 
 const mutations = {
@@ -32,18 +30,6 @@ const mutations = {
 
     updateFilter(state, filterBy) {
         Object.assign(state.filter, filterBy);
-    },
-
-    toggleOpenedDetails(state, id) {
-        bTableService.toggleOpenedDetails(state.openedDetails, id);
-    },
-
-    updateLastActiveDetailsTab(state, activeTab) {
-        state.lastActiveDetailsTab = activeTab;
-    },
-
-    updateLastActiveDetailsTabOfTracker(state, { trackerId, activeTab }) {
-        trackersService.findTracker(state, trackerId).lastActiveDetailsTab = activeTab;
     },
 };
 
@@ -62,8 +48,6 @@ export function trackersFactory() {
             statusGroup: [],
             method: [],
         },
-        openedDetails: [],
-        lastActiveDetailsTab: 0,
     };
 
     return {

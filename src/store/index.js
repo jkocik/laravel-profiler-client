@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import env from './../env';
+import { detailsFactory } from './modules/details';
 import { socketsFactory } from './modules/sockets';
 import { trackersFactory } from './modules/trackers';
 
@@ -11,6 +12,7 @@ export function storeFactory() {
 
     return new Vuex.Store({
         modules: {
+            details: detailsFactory(),
             sockets: socketsFactory(),
             trackers: trackersFactory(),
         },

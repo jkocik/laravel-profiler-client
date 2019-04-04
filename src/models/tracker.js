@@ -54,7 +54,7 @@ export default class Tracker {
 
         this.performance = trackerService.performance(data.meta, data.data, this.queriesExecutionTime);
 
-        this.lastActiveDetailsTab = 0;
+        Object.freeze(this);
     }
 
     get queriesExecutionTimeForHuman() {

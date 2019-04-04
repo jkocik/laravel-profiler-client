@@ -127,8 +127,10 @@
         computed: {
             ...mapGetters('trackers', {
                 trackers: 'filtered',
-                openedDetails: 'openedDetails',
             }),
+            ...mapGetters('details', [
+                'openedDetails',
+            ]),
         },
         data() {
             return {
@@ -140,7 +142,7 @@
                 return 'tracker-row';
             },
             rowClicked(tracker) {
-                this.$store.commit('trackers/toggleOpenedDetails', tracker.id);
+                this.$store.commit('details/toggleOpenedDetails', tracker.id);
             },
         },
     };

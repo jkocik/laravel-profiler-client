@@ -91,6 +91,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import Tracker from './../../models/tracker';
     import TabApp from './details/TabApp';
     import TabAuth from './details/TabAuth';
@@ -123,8 +124,14 @@
             tracker: Tracker,
         },
         created() {
-            this.activeTab = this.tracker.lastActiveDetailsTab || this.$store.state.trackers.lastActiveDetailsTab;
+            this.activeTab = this.lastActiveDetailsTabOfTracker(this.tracker.id);
             this.updateLastActiveDetailsTabOfTracker(this.activeTab);
+        },
+        computed: {
+            ...mapGetters('details', [
+                'openedDetails',
+                'lastActiveDetailsTabOfTracker',
+            ]),
         },
         data() {
             return {
@@ -151,10 +158,10 @@
                 this.updateLastActiveDetailsTabOfTracker(activeTab);
             },
             updateLastActiveDetailsTab(activeTab) {
-                this.$store.commit('trackers/updateLastActiveDetailsTab', activeTab);
+                this.$store.commit('details/updateLastActiveDetailsTab', activeTab);
             },
             updateLastActiveDetailsTabOfTracker(activeTab) {
-                this.$store.commit('trackers/updateLastActiveDetailsTabOfTracker', {
+                this.$store.commit('details/updateLastActiveDetailsTabOfTracker', {
                     trackerId: this.tracker.id,
                     activeTab,
                 });
