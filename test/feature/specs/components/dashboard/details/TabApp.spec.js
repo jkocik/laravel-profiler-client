@@ -22,7 +22,8 @@ describe('TabApp Component', () => {
         expect(wrapper.tabs(1).text()).to.equal('Config (3)');
 
         wrapper.tabs(1).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabConfig = wrapper.find({ name: 'tab-config' });
         expect(wrapperTabConfig.isVisible()).to.be.true;
         expect(wrapperTabConfig.props().tracker).to.equal(wrapper.props().tracker);
@@ -47,7 +48,8 @@ describe('TabApp Component', () => {
         expect(wrapper.tabs(2).text()).to.equal('Service Providers (3)');
 
         wrapper.tabs(2).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabServiceProviders = wrapper.find({ name: 'tab-service-providers' });
         expect(wrapperTabServiceProviders.isVisible()).to.be.true;
         expect(wrapperTabServiceProviders.props().tracker).to.equal(wrapper.props().tracker);
@@ -72,7 +74,8 @@ describe('TabApp Component', () => {
         expect(wrapper.tabs(3).text()).to.equal('Bindings (3)');
 
         wrapper.tabs(3).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabBindings = wrapper.find({ name: 'tab-bindings' });
         expect(wrapperTabBindings.isVisible()).to.be.true;
         expect(wrapperTabBindings.props().tracker).to.equal(wrapper.props().tracker);
@@ -97,7 +100,8 @@ describe('TabApp Component', () => {
         expect(wrapper.tabs(4).text()).to.equal('Paths (3)');
 
         wrapper.tabs(4).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabPaths = wrapper.find({ name: 'tab-paths' });
         expect(wrapperTabPaths.isVisible()).to.be.true;
         expect(wrapperTabPaths.props().tracker).to.equal(wrapper.props().tracker);

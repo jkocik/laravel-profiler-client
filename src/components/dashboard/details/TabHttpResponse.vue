@@ -46,15 +46,14 @@
         },
         props: {
             tracker: Tracker,
-        },
-        data() {
-            return {
-                activeTab: 0,
-            };
+            activeTab: {
+                type: Number,
+                default: 0,
+            },
         },
         methods: {
             updateActiveTab(activeTab) {
-                this.activeTab = activeTab;
+                this.$emit('updateActiveTab', activeTab);
             },
             isActiveTab(tab) {
                 return this.activeTab === tab;

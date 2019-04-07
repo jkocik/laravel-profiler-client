@@ -66,10 +66,13 @@
         },
         props: {
             tracker: Tracker,
+            activeTab: {
+                type: Number,
+                default: 0,
+            },
         },
         data() {
             return {
-                activeTab: 0,
                 inputLabel: `Input (${this.tracker.request.countInput()})`,
                 sessionLabel: this.tracker.isSessionProvided()
                     ? `Session (${this.tracker.countSession()})`
@@ -78,7 +81,7 @@
         },
         methods: {
             updateActiveTab(activeTab) {
-                this.activeTab = activeTab;
+                this.$emit('updateActiveTab', activeTab);
             },
             isActiveTab(tab) {
                 return this.activeTab === tab;

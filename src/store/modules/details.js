@@ -1,8 +1,14 @@
+import ActiveTab from './../../services/active-tab.service';
 import { bTableService } from './../../services/b-table.service';
 
 const getters = {
     openedDetails: state => state.openedDetails,
-    lastActiveDetailsTabOfTracker: state => trackerId => state.lastActiveDetailsTabOfTracker[trackerId] || state.lastActiveDetailsTab,
+    lastActiveTabOfTracker: state => trackerId => {
+        return (state.tabs.trackers[trackerId] && state.tabs.trackers[trackerId]['lastActive']) || state.tabs.lastActive;
+    },
+    lastActiveChildTabOfTracker: state => (trackerId, activeParentTab) => {
+        return ((state.tabs.trackers[trackerId] && state.tabs.trackers[trackerId]['allActivated'][activeParentTab]) || new ActiveTab()).childTab;
+    },
 };
 
 const mutations = {
@@ -10,20 +16,24 @@ const mutations = {
         bTableService.toggleOpenedDetails(state.openedDetails, id);
     },
 
-    updateLastActiveDetailsTab(state, activeTab) {
-        state.lastActiveDetailsTab = activeTab;
+    updateLastActiveTab(state, activeTab) {
+        state.tabs.lastActive = activeTab;
     },
 
-    updateLastActiveDetailsTabOfTracker(state, { trackerId, activeTab }) {
-        state.lastActiveDetailsTabOfTracker[trackerId] = activeTab;
+    updateLastActiveTabOfTracker(state, { trackerId, activeTab }) {
+        state.tabs.trackers[trackerId] = state.tabs.trackers[trackerId] || { allActivated: {} };
+        state.tabs.trackers[trackerId]['lastActive'] = activeTab;
+        state.tabs.trackers[trackerId]['allActivated'][activeTab.parentTab] = activeTab;
     },
 };
 
 export function detailsFactory() {
     const state = {
         openedDetails: [],
-        lastActiveDetailsTab: 0,
-        lastActiveDetailsTabOfTracker: {},
+        tabs: {
+            lastActive: new ActiveTab(),
+            trackers: {},
+        },
     };
 
     return {

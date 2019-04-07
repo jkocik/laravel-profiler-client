@@ -66,10 +66,13 @@
         },
         props: {
             tracker: Tracker,
+            activeTab: {
+                type: Number,
+                default: 0,
+            },
         },
         data() {
             return {
-                activeTab: 0,
                 configLabel: this.tracker.hasConfig()
                     ? `Config (${this.tracker.countConfig()})`
                     : 'Config',
@@ -86,7 +89,7 @@
         },
         methods: {
             updateActiveTab(activeTab) {
-                this.activeTab = activeTab;
+                this.$emit('updateActiveTab', activeTab);
             },
             isActiveTab(tab) {
                 return this.activeTab === tab;

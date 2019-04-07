@@ -27,7 +27,8 @@ describe('TabHttpRequest Component', () => {
         expect(wrapper.tabs(1).text()).to.equal('Input (7)');
 
         wrapper.tabs(1).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabHttpRequestInput = wrapper.find({ name: 'tab-http-request-input' });
         expect(wrapperTabHttpRequestInput.isVisible()).to.be.true;
         expect(wrapperTabHttpRequestInput.props().tracker).to.equal(wrapper.props().tracker);
@@ -57,7 +58,8 @@ describe('TabHttpRequest Component', () => {
         expect(wrapper.tabs(2).text()).to.equal('Session (3)');
 
         wrapper.tabs(2).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabHttpSession = wrapper.find({ name: 'tab-http-session' });
         expect(wrapperTabHttpSession.isVisible()).to.be.true;
         expect(wrapperTabHttpSession.props().tracker).to.equal(wrapper.props().tracker);
@@ -95,7 +97,8 @@ describe('TabHttpRequest Component', () => {
         expect(wrapper.tabs(3).text()).to.equal('Route');
 
         wrapper.tabs(3).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabHttpRoute = wrapper.find({ name: 'tab-http-route' });
         expect(wrapperTabHttpRoute.isVisible()).to.be.true;
         expect(wrapperTabHttpRoute.props().tracker).to.equal(wrapper.props().tracker);
@@ -120,7 +123,8 @@ describe('TabHttpRequest Component', () => {
         expect(wrapper.tabs(4).text()).to.equal('Server');
 
         wrapper.tabs(4).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabHttpRequestServer = wrapper.find({ name: 'tab-http-request-server' });
         expect(wrapperTabHttpRequestServer.isVisible()).to.be.true;
         expect(wrapperTabHttpRequestServer.props().tracker).to.equal(wrapper.props().tracker);

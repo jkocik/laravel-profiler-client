@@ -1,7 +1,7 @@
 <template>
     <b-tabs
-        :value="activeTab"
-        @input="updateActiveTab"
+        :value="activeTab.parentTab"
+        @input="updateActiveParentTab"
         size="is-small"
         type="is-boxed"
         :animated="false"
@@ -10,6 +10,8 @@
             <keep-alive>
                 <tab-app v-if="isActiveTab(0)"
                     :tracker="tracker"
+                    :active-tab="activeTab.childTab"
+                    @updateActiveTab="updateActiveChildTab"
                 ></tab-app>
             </keep-alive>
         </b-tab-item>
@@ -18,6 +20,8 @@
             <keep-alive>
                 <tab-performance v-if="isActiveTab(1)"
                     :tracker="tracker"
+                    :active-tab="activeTab.childTab"
+                    @updateActiveTab="updateActiveChildTab"
                 ></tab-performance>
             </keep-alive>
         </b-tab-item>
@@ -26,6 +30,8 @@
             <keep-alive>
                 <tab-http-request v-if="isActiveTab(2) && tracker.request.isHttpRequest()"
                     :tracker="tracker"
+                    :active-tab="activeTab.childTab"
+                    @updateActiveTab="updateActiveChildTab"
                 ></tab-http-request>
             </keep-alive>
             <keep-alive>
@@ -39,6 +45,8 @@
             <keep-alive>
                 <tab-http-response v-if="isActiveTab(3) && tracker.response.isHttpResponse()"
                     :tracker="tracker"
+                    :active-tab="activeTab.childTab"
+                    @updateActiveTab="updateActiveChildTab"
                 ></tab-http-response>
             </keep-alive>
             <keep-alive>
@@ -93,6 +101,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import Tracker from './../../models/tracker';
+    import ActiveTab from './../../services/active-tab.service';
     import TabApp from './details/TabApp';
     import TabAuth from './details/TabAuth';
     import TabViews from './details/TabViews';
@@ -124,18 +133,19 @@
             tracker: Tracker,
         },
         created() {
-            this.activeTab = this.lastActiveDetailsTabOfTracker(this.tracker.id);
-            this.updateLastActiveDetailsTabOfTracker(this.activeTab);
+            this.activeTab = this.lastActiveTabOfTracker(this.tracker.id);
+            this.updateLastActiveTabOfTracker();
         },
         computed: {
             ...mapGetters('details', [
                 'openedDetails',
-                'lastActiveDetailsTabOfTracker',
+                'lastActiveTabOfTracker',
+                'lastActiveChildTabOfTracker',
             ]),
         },
         data() {
             return {
-                activeTab: 0,
+                activeTab: new ActiveTab(),
                 requestLabel: this.$t(`tab-labels.${this.tracker.request.name}`),
                 responseLabel: this.$t(`tab-labels.${this.tracker.response.name}`),
                 viewsLabel: this.tracker.areViewsProvided()
@@ -152,22 +162,33 @@
             };
         },
         methods: {
-            updateActiveTab(activeTab) {
-                this.activeTab = activeTab;
-                this.updateLastActiveDetailsTab(activeTab);
-                this.updateLastActiveDetailsTabOfTracker(activeTab);
+            updateActiveParentTab(activeParentTab) {
+                this.activeTab = new ActiveTab(
+                    activeParentTab,
+                    this.lastActiveChildTabOfTracker(this.tracker.id, activeParentTab),
+                );
+                this.updateLastActiveTab();
+                this.updateLastActiveTabOfTracker();
             },
-            updateLastActiveDetailsTab(activeTab) {
-                this.$store.commit('details/updateLastActiveDetailsTab', activeTab);
+            updateActiveChildTab(activeChildTab) {
+                this.activeTab = new ActiveTab(
+                    this.activeTab.parentTab,
+                    activeChildTab
+                );
+                this.updateLastActiveTab();
+                this.updateLastActiveTabOfTracker();
             },
-            updateLastActiveDetailsTabOfTracker(activeTab) {
-                this.$store.commit('details/updateLastActiveDetailsTabOfTracker', {
+            updateLastActiveTab() {
+                this.$store.commit('details/updateLastActiveTab', this.activeTab);
+            },
+            updateLastActiveTabOfTracker() {
+                this.$store.commit('details/updateLastActiveTabOfTracker', {
                     trackerId: this.tracker.id,
-                    activeTab,
+                    activeTab: this.activeTab,
                 });
             },
-            isActiveTab(tab) {
-                return this.activeTab === tab;
+            isActiveTab(parentTab) {
+                return this.activeTab.parentTab === parentTab;
             },
         },
     };

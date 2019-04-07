@@ -22,7 +22,8 @@ describe('TabPerformance Component', () => {
         expect(wrapper.tabs(1).text()).to.equal('Custom');
 
         wrapper.tabs(1).find('a').trigger('click');
-        await wrapper.vm.$nextTick();
+        let selectedTab = wrapper.emitted().updateActiveTab.pop().pop();
+        wrapper.setProps({ activeTab: selectedTab });
         let wrapperTabPerformanceCustom = wrapper.find({ name: 'tab-performance-custom' });
         expect(wrapperTabPerformanceCustom.isVisible()).to.be.true;
         expect(wrapperTabPerformanceCustom.props().tracker).to.equal(wrapper.props().tracker);

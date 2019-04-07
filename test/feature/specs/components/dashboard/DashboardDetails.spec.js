@@ -12,6 +12,14 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.tabs(0).text()).to.equal('App');
         expect(wrapperTabApp.isVisible()).to.be.true;
         expect(wrapperTabApp.props().tracker).to.equal(wrapper.props().tracker);
+        expect(wrapperTabApp.props().activeTab).to.equal(0);
+
+        expect(wrapper.vm.activeTab.childTab).to.equal(0);
+        expect(wrapperTabApp.vm.activeTab).to.equal(0);
+
+        wrapperTabApp.vm.updateActiveTab(1);
+        expect(wrapper.vm.activeTab.childTab).to.equal(1);
+        expect(wrapperTabApp.vm.activeTab).to.equal(1);
     });
 
     it('has performance tab', async () => {
@@ -26,6 +34,14 @@ describe('DashboardDetails Component', () => {
         let wrapperTabPerformance = wrapper.find({ name: 'tab-performance' });
         expect(wrapperTabPerformance.isVisible()).to.be.true;
         expect(wrapperTabPerformance.props().tracker).to.equal(wrapper.props().tracker);
+        expect(wrapperTabPerformance.props().activeTab).to.equal(0);
+
+        expect(wrapper.vm.activeTab.childTab).to.equal(0);
+        expect(wrapperTabPerformance.vm.activeTab).to.equal(0);
+
+        wrapperTabPerformance.vm.updateActiveTab(1);
+        expect(wrapper.vm.activeTab.childTab).to.equal(1);
+        expect(wrapperTabPerformance.vm.activeTab).to.equal(1);
     });
 
     it('has http request tab enabled when type equals http', async () => {
@@ -41,6 +57,15 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.tabs(2).classes()).to.not.contain('is-disabled');
         expect(wrapperTabRequest.isVisible()).to.be.true;
         expect(wrapperTabRequest.props().tracker).to.equal(wrapper.props().tracker);
+        expect(wrapperTabRequest.props().activeTab).to.equal(0);
+
+        expect(wrapper.vm.activeTab.childTab).to.equal(0);
+        expect(wrapperTabRequest.vm.activeTab).to.equal(0);
+
+        wrapperTabRequest.vm.updateActiveTab(1);
+        expect(wrapper.vm.activeTab.childTab).to.equal(1);
+        expect(wrapperTabRequest.vm.activeTab).to.equal(1);
+
         expect(wrapper.find({ name: 'tab-console-finished-request' }).exists()).to.be.false;
     });
 
@@ -95,6 +120,15 @@ describe('DashboardDetails Component', () => {
         expect(wrapper.tabs(3).classes()).to.not.contain('is-disabled');
         expect(wrapperTabResponse.isVisible()).to.be.true;
         expect(wrapperTabResponse.props().tracker).to.equal(wrapper.props().tracker);
+        expect(wrapperTabResponse.props().activeTab).to.equal(0);
+
+        expect(wrapper.vm.activeTab.childTab).to.equal(0);
+        expect(wrapperTabResponse.vm.activeTab).to.equal(0);
+
+        wrapperTabResponse.vm.updateActiveTab(1);
+        expect(wrapper.vm.activeTab.childTab).to.equal(1);
+        expect(wrapperTabResponse.vm.activeTab).to.equal(1);
+
         expect(wrapper.find({ name: 'tab-console-finished-response' }).exists()).to.be.false;
     });
 

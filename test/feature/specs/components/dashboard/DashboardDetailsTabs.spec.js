@@ -9,7 +9,7 @@ describe('DashboardDetails Component (Tabs)', () => {
         wrapper = mountWithoutProps(AppDashboard);
     });
 
-    it('remembers last active tab of any details row and uses it when new details are opened to activate the same tab', async () => {
+    it('remembers last active tab of any details row and uses it to activate the same tab in new just opened details', async () => {
         wrapper.vm.$store.commit('trackers/store', new Tracker(trackerFactory.create('meta', { id: 1 })));
         wrapper.vm.$store.commit('trackers/store', new Tracker(trackerFactory.create('meta', { id: 2 })));
 
@@ -111,5 +111,59 @@ describe('DashboardDetails Component (Tabs)', () => {
         trB.trigger('click');
         await wrapperTable.vm.$nextTick();
         expect(secondTabOf(trDetailsB()).classes()).to.contains('is-active');
+    });
+
+    it('remembers last active sub tab after parent tab is changed', async () => {
+        wrapper.vm.$store.commit('trackers/store', new Tracker(trackerFactory.create('meta', { id: 1 })));
+
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        let trA = wrapperTable.find('table tr.tracker-row:nth-child(1)');
+        let trDetailsA = () => wrapperTable.findAll('tr.detail').at(0);
+        let firstParentTabLinkOf = (trDetails) => trDetails.findAll('li a').at(0);
+        let secondParentTabLinkOf = (trDetails) => trDetails.findAll('li a').at(1);
+        let pathsSubTabOf = (trDetails) => trDetails.findAll('li').at(trDetails.findAll('li').length - 1);
+        let pathsSubTabLinkOf = (trDetails) => trDetails.findAll('li a').at(trDetails.findAll('li').length - 1);
+
+        trA.trigger('click');
+        await wrapperTable.vm.$nextTick();
+
+        pathsSubTabLinkOf(trDetailsA()).trigger('click');
+        await wrapperTable.vm.$nextTick();
+        expect(pathsSubTabOf(trDetailsA()).classes()).to.contains('is-active');
+
+        secondParentTabLinkOf(trDetailsA()).trigger('click');
+        await wrapperTable.vm.$nextTick();
+
+        firstParentTabLinkOf(trDetailsA()).trigger('click');
+        await wrapperTable.vm.$nextTick();
+        expect(pathsSubTabOf(trDetailsA()).classes()).to.contains('is-active');
+    });
+
+    it('remembers last active sub tab of App', async () => {
+        wrapper.vm.$store.commit('trackers/store', new Tracker(trackerFactory.create('meta', { id: 1 })));
+
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        let trA = wrapperTable.find('table tr.tracker-row:nth-child(1)');
+        let trDetailsA = () => wrapperTable.findAll('tr.detail').at(0);
+        let pathsSubTabOf = (trDetails) => trDetails.findAll('li').at(trDetails.findAll('li').length - 1);
+        let pathsSubTabLinkOf = (trDetails) => trDetails.findAll('li a').at(trDetails.findAll('li').length - 1);
+
+        trA.trigger('click');
+        await wrapperTable.vm.$nextTick();
+
+        pathsSubTabLinkOf(trDetailsA()).trigger('click');
+        await wrapperTable.vm.$nextTick();
+        expect(pathsSubTabOf(trDetailsA()).classes()).to.contains('is-active');
+
+        trA.trigger('click');
+        await wrapperTable.vm.$nextTick();
+
+        trA.trigger('click');
+        await wrapperTable.vm.$nextTick();
+        expect(pathsSubTabOf(trDetailsA()).classes()).to.contains('is-active');
     });
 });
