@@ -1,13 +1,14 @@
-import ActiveTab from './../../services/active-tab.service';
+import Tab from './../../services/tab.service';
 import { bTableService } from './../../services/b-table.service';
+import { detailsService } from './../../services/details.store.service';
 
 const getters = {
     openedDetails: state => state.openedDetails,
-    lastActiveTabOfTracker: state => trackerId => {
-        return (state.tabs.trackers[trackerId] && state.tabs.trackers[trackerId]['lastActive']) || state.tabs.lastActive;
+    lastActiveTrackerTab: state => trackerId => {
+        return detailsService.findTrackerTabs(state, trackerId).lastActive || state.tabs.lastActive;
     },
-    lastActiveChildTabOfTracker: state => (trackerId, activeParentTab) => {
-        return ((state.tabs.trackers[trackerId] && state.tabs.trackers[trackerId]['allActivated'][activeParentTab]) || new ActiveTab()).childTab;
+    trackerTab: state => (trackerId, parentTab) => {
+        return detailsService.findTrackerTab(state, trackerId, parentTab);
     },
 };
 
@@ -16,14 +17,12 @@ const mutations = {
         bTableService.toggleOpenedDetails(state.openedDetails, id);
     },
 
-    updateLastActiveTab(state, activeTab) {
-        state.tabs.lastActive = activeTab;
+    updateLastActiveTab(state, tab) {
+        state.tabs.lastActive = tab;
     },
 
-    updateLastActiveTabOfTracker(state, { trackerId, activeTab }) {
-        state.tabs.trackers[trackerId] = state.tabs.trackers[trackerId] || { allActivated: {} };
-        state.tabs.trackers[trackerId]['lastActive'] = activeTab;
-        state.tabs.trackers[trackerId]['allActivated'][activeTab.parentTab] = activeTab;
+    updateTrackerTab(state, { trackerId, tab }) {
+        state.tabs.trackers[trackerId] = detailsService.updateOrCreateTrackerTabs(state, trackerId, tab);
     },
 };
 
@@ -31,7 +30,7 @@ export function detailsFactory() {
     const state = {
         openedDetails: [],
         tabs: {
-            lastActive: new ActiveTab(),
+            lastActive: new Tab(),
             trackers: {},
         },
     };

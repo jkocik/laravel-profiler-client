@@ -101,7 +101,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import Tracker from './../../models/tracker';
-    import ActiveTab from './../../services/active-tab.service';
+    import ActiveTab from './../../services/tab.service';
     import TabApp from './details/TabApp';
     import TabAuth from './details/TabAuth';
     import TabViews from './details/TabViews';
@@ -133,14 +133,14 @@
             tracker: Tracker,
         },
         created() {
-            this.activeTab = this.lastActiveTabOfTracker(this.tracker.id);
-            this.updateLastActiveTabOfTracker();
+            this.activeTab = this.lastActiveTrackerTab(this.tracker.id);
+            this.updateTrackerTab();
         },
         computed: {
             ...mapGetters('details', [
                 'openedDetails',
-                'lastActiveTabOfTracker',
-                'lastActiveChildTabOfTracker',
+                'lastActiveTrackerTab',
+                'trackerTab',
             ]),
         },
         data() {
@@ -165,10 +165,10 @@
             updateActiveParentTab(activeParentTab) {
                 this.activeTab = new ActiveTab(
                     activeParentTab,
-                    this.lastActiveChildTabOfTracker(this.tracker.id, activeParentTab),
+                    this.trackerTab(this.tracker.id, activeParentTab).childTab,
                 );
                 this.updateLastActiveTab();
-                this.updateLastActiveTabOfTracker();
+                this.updateTrackerTab();
             },
             updateActiveChildTab(activeChildTab) {
                 this.activeTab = new ActiveTab(
@@ -176,15 +176,15 @@
                     activeChildTab
                 );
                 this.updateLastActiveTab();
-                this.updateLastActiveTabOfTracker();
+                this.updateTrackerTab();
             },
             updateLastActiveTab() {
                 this.$store.commit('details/updateLastActiveTab', this.activeTab);
             },
-            updateLastActiveTabOfTracker() {
-                this.$store.commit('details/updateLastActiveTabOfTracker', {
+            updateTrackerTab() {
+                this.$store.commit('details/updateTrackerTab', {
                     trackerId: this.tracker.id,
-                    activeTab: this.activeTab,
+                    tab: this.activeTab,
                 });
             },
             isActiveTab(parentTab) {
