@@ -32,8 +32,4 @@ export const trackersService = {
         helper.isNotIn(state.allMethods, tracker.method) && state.filter.method.push(tracker.method);
         state.allMethods = helper.uniqueOf(state.allMethods, tracker.method).sort();
     },
-
-    findTracker(state, id) {
-        return state.all.find(item => item.id === id);
-    },
 };
