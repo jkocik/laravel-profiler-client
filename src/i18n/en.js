@@ -33,7 +33,7 @@ export default {
                 'middleware': 'middleware',
                 'request': 'handle request',
                 'response': 'response, terminate',
-                'other': 'other',
+                'other': 'framework, other',
                 'command': 'command, terminate',
             },
         },
