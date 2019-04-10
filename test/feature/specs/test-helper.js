@@ -1,6 +1,8 @@
 import Buefy from 'buefy';
 import VueRouter from 'vue-router';
 import { SocketIO } from 'mock-socket';
+import VueHighlightJS from 'vue-highlight.js';
+import sql from 'highlight.js/lib/languages/sql';
 import { createLocalVue, mount } from '@vue/test-utils';
 import i18n from '@/i18n';
 import { storeFactory } from '@/store';
@@ -17,6 +19,7 @@ export const mountWithTracker = (component, tracker) => {
     let localVue = createLocalVue();
     localVue.use(Buefy);
     localVue.use(VueTreeView);
+    localVue.use(VueHighlightJS, { languages: { sql } });
 
     let store = storeFactory();
     store.commit('trackers/store', tracker);
@@ -40,6 +43,7 @@ export const mountWithoutProps = (component) => {
     localVue.use(Buefy);
     localVue.use(VueRouter);
     localVue.use(VueTreeView);
+    localVue.use(VueHighlightJS, { languages: { sql } });
 
     let store = storeFactory();
     let router = emptyRouter();
@@ -61,6 +65,7 @@ export const mountWithSocketMock = (component, url) => {
     localVue.use(Buefy);
     localVue.use(VueRouter);
     localVue.use(VueTreeView);
+    localVue.use(VueHighlightJS, { languages: { sql } });
 
     let store = storeFactory();
     let router = emptyRouter();

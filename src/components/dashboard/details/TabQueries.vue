@@ -18,7 +18,7 @@
         >
             <template slot-scope="{ row }">
                 <td :class="row.class">
-                    <span>{{ row.query }}</span>
+                    <highlight-code lang="sql" class="query query-main">{{ row.query }}</highlight-code>
                 </td>
                 <td>
                     {{ row.database }}
@@ -30,10 +30,10 @@
 
             <template slot="detail" slot-scope="{ row }">
                 <section v-if="row.hasFullDetails()">
-                    <strong>query</strong>: {{ row.sql }}
+                    <highlight-code lang="sql" class="query">{{ row.sql }}</highlight-code>
                     <tree-view
-                            :data="row.bindings"
-                            label="bindings"
+                        :data="row.bindings"
+                        label="bindings"
                     ></tree-view>
                     <strong>connection</strong>: {{ row.name }}
                 </section>

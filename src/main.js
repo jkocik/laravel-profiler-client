@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Buefy from 'buefy';
 import io from 'socket.io-client';
+import VueHighlightJS from 'vue-highlight.js';
+import sql from 'highlight.js/lib/languages/sql';
+import 'highlight.js/styles/default.css';
 /* eslint-disable */
 import fontawesome from '@fortawesome/fontawesome';
 import solid from '@fortawesome/fontawesome-free-solid';
@@ -17,6 +20,7 @@ Vue.config.productionTip = false;
 Vue.use(Buefy);
 Vue.use(VueTreeView);
 Vue.use(VueSocket, { io, store });
+Vue.use(VueHighlightJS, { languages: { sql } });
 
 /* eslint-disable no-new */
 new Vue({
