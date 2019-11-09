@@ -5,7 +5,7 @@
         extends: BTable,
         computed: {
             columnCount() {
-                return 13;
+                return 14;
             },
         },
     };

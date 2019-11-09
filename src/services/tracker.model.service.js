@@ -4,6 +4,7 @@ import NullRoute from './../models/null-route';
 import HttpRoute from './../models/http-route';
 import NullRequest from './../models/null-request';
 import HttpRequest from './../models/http-request';
+import RedisCommand from './../models/redis-command';
 import NullResponse from './../models/null-response';
 import HttpResponse from './../models/http-response';
 import HttpPerformance from './../models/http-performance';
@@ -175,6 +176,20 @@ export const trackerService = {
     queriesExecutionTime(queries) {
         return queries.filter(query => query.type === 'query').reduce((total, query) => {
             return total + query.time;
+        }, 0);
+    },
+
+    redis(command, index) {
+        return new RedisCommand(command, index);
+    },
+
+    redisProvided(data) {
+        return data.hasOwnProperty('redis');
+    },
+
+    redisExecutionTime(redis) {
+        return redis.reduce((total, command) => {
+            return total + command.time;
         }, 0);
     },
 

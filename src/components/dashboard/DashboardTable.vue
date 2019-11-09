@@ -75,6 +75,11 @@
                     <i class="fas fa-database has-text-primary"></i> {{ row.countQueries() }}
                 </div>
             </td>
+            <td class="tracker-summary redis">
+                <div v-if="row.isRedisProvided()">
+                    <i class="fas fa-coins has-text-primary"></i> {{ row.countRedis() }}
+                </div>
+            </td>
             <td class="tracker-summary auth has-text-centered">
                 <div v-show="row.isAuthProvided() && row.hasAuth()">
                     <i class="fas fa-user has-text-success"></i>

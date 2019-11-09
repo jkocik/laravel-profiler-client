@@ -29,7 +29,7 @@ describe('AppDashboard Component', () => {
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(6)').text()).to.contain(tracker.path);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(7)').text()).to.contain(tracker.performance.laravelTimeForHuman);
         expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(8)').text()).to.contain(tracker.performance.memoryPeakForHuman);
-        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(14)').text()).to.contain(tracker.laravelVersion);
+        expect(wrapperTable.find('table tr:nth-child(1) td:nth-child(15)').text()).to.contain(tracker.laravelVersion);
     });
 
     it('has memory usage hidden when running tests', async () => {
@@ -132,6 +132,47 @@ describe('AppDashboard Component', () => {
         wrapperTable.vm.$forceUpdate();
         await wrapperTable.vm.$nextTick();
         expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.queries').text()).that.is.empty;
+    });
+
+    it('sees number of redis commands after data are delivered', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let tracker = new Tracker(trackerFactory.set('meta', { redis_count: 3 }).create('data', { redis: [
+            {
+                command: 'set',
+                name: 'default',
+                parameters: ['name', 'Laravel Profiler'],
+                time: 19,
+            },
+            {
+                command: 'set',
+                name: 'default',
+                parameters: ['name', 'Laravel Profiler'],
+                time: 19,
+            },
+            {
+                command: 'set',
+                name: 'default',
+                parameters: ['name', 'Laravel Profiler'],
+                time: 19,
+            },
+        ]}));
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.redis').text()).to.contain('3');
+    });
+
+    it('does not see number of redis commands after data are delivered but redis is not provided at all', async () => {
+        let wrapperTable = wrapper.find({ name: 'dashboard-table' });
+        let trackerSource = trackerFactory.set('meta', { redis_count: 0 }).create('data', { redis: [] });
+        delete trackerSource.data.redis;
+        let tracker = new Tracker(trackerSource);
+        wrapper.vm.$store.commit('trackers/store', tracker);
+
+        wrapperTable.vm.$forceUpdate();
+        await wrapperTable.vm.$nextTick();
+        expect(wrapperTable.find('table tr:nth-child(1) .tracker-summary.redis').text()).that.is.empty;
     });
 
     it('sees positive auth icon after data are delivered and user was logged in', async () => {
@@ -382,7 +423,7 @@ describe('AppDashboard Component', () => {
         let trDetailsA = wrapperTable.find('table tr:nth-child(1) + tr.detail');
         expect(trDetailsA.exists()).to.be.true;
         expect(trDetailsA.isVisible()).to.be.true;
-        expect(trDetailsA.find('td').attributes().colspan).to.equal('13');
+        expect(trDetailsA.find('td').attributes().colspan).to.equal('14');
 
         tr.trigger('click');
         let trDetailsABis = wrapperTable.find('table tr:nth-child(1) + tr.detail');

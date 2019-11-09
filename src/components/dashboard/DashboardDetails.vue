@@ -80,9 +80,17 @@
             </keep-alive>
         </b-tab-item>
 
+        <b-tab-item :disabled="! tracker.hasRedis()" :label="redisLabel">
+            <keep-alive>
+                <tab-redis v-if="isActiveTab(7) && tracker.hasRedis()"
+                    :tracker="tracker"
+                ></tab-redis>
+            </keep-alive>
+        </b-tab-item>
+
         <b-tab-item :disabled="! tracker.hasAuth()" :label="authLabel">
             <keep-alive>
-                <tab-auth v-if="isActiveTab(7) && tracker.hasAuth()"
+                <tab-auth v-if="isActiveTab(8) && tracker.hasAuth()"
                      :tracker="tracker"
                 ></tab-auth>
             </keep-alive>
@@ -90,7 +98,7 @@
 
         <b-tab-item :disabled="! tracker.hasException()" :label="exceptionLabel">
             <keep-alive>
-                <tab-exception v-if="isActiveTab(8) && tracker.hasException()"
+                <tab-exception v-if="isActiveTab(9) && tracker.hasException()"
                     :tracker="tracker"
                 ></tab-exception>
             </keep-alive>
@@ -104,6 +112,7 @@
     import ActiveTab from './../../services/tab.service';
     import TabApp from './details/TabApp';
     import TabAuth from './details/TabAuth';
+    import TabRedis from './details/TabRedis';
     import TabViews from './details/TabViews';
     import TabEvents from './details/TabEvents';
     import TabQueries from './details/TabQueries';
@@ -119,6 +128,7 @@
         components: {
             TabApp,
             TabAuth,
+            TabRedis,
             TabViews,
             TabEvents,
             TabQueries,
@@ -157,6 +167,9 @@
                 queriesLabel: this.tracker.areQueriesProvided()
                     ? `Queries (${this.tracker.countQueries()})`
                     : 'Queries',
+                redisLabel: this.tracker.isRedisProvided()
+                    ? `Redis (${this.tracker.countRedis()})`
+                    : 'Redis',
                 authLabel: 'Auth',
                 exceptionLabel: 'Exception',
             };

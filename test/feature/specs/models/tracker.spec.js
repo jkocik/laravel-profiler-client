@@ -10,6 +10,7 @@ import HttpRoute from '@/models/http-route';
 import Application from '@/models/application';
 import NullRequest from '@/models/null-request';
 import HttpRequest from '@/models/http-request';
+import RedisCommand from '@/models/redis-command';
 import NullResponse from '@/models/null-response';
 import HttpResponse from '@/models/http-response';
 import { trackerFactory } from './../test-helper';
@@ -621,6 +622,67 @@ describe('Tracker Model', () => {
 
         expect(tracker.queriesExecutionTime).to.equal(33);
         expect(tracker.queriesExecutionTimeForHuman).to.equal('33.00ms');
+    });
+
+    it('has redis', () => {
+        let tracker = new Tracker(trackerFactory.set('meta', { redis_count: 2 }).create('data', { redis: [
+            {
+                command: 'set',
+                name: 'default',
+                parameters: ['name', 'Laravel Profiler'],
+                time: 11,
+            },
+            {
+                command: 'set',
+                name: 'default',
+                parameters: ['action', 'testing'],
+                time: 11,
+            },
+        ]}));
+
+        expect(tracker.countRedis()).to.be.equal(2);
+        expect(tracker.hasQueries()).to.be.true;
+        expect(tracker.redis).to.deep.equal([
+            {
+                command: 'set',
+                name: 'default',
+                parameters: ['name', 'Laravel Profiler'],
+                time: 11,
+            },
+            {
+                command: 'set',
+                name: 'default',
+                parameters: ['action', 'testing'],
+                time: 11,
+            },
+        ]);
+        expect(tracker.redis.length).to.be.equal(2);
+        expect(tracker.redis[0]).to.be.an.instanceOf(RedisCommand);
+        expect(tracker.isRedisProvided()).to.be.true;
+        expect(tracker.redisExecutionTime).to.equal(22);
+    });
+
+    it('has empty redis if redis commands are not delivered', () => {
+        let tracker = new Tracker(trackerFactory.set('meta', { redis_count: 0 }).create('data', { redis: undefined }));
+
+        expect(tracker.redis).to.be.an('array');
+        expect(tracker.countRedis()).to.be.equal(0);
+        expect(tracker.hasRedis()).to.be.false;
+        expect(tracker.isRedisProvided()).to.be.true;
+        expect(tracker.redisExecutionTime).to.equal(0);
+    });
+
+    it('has not provided redis if redis commands are not provided at all', () => {
+        let trackerSource = trackerFactory.set('meta', { redis_count: 0 }).create('data', { redis: undefined });
+        delete trackerSource.meta.redis_count;
+        delete trackerSource.data.redis;
+        let tracker = new Tracker(trackerSource);
+
+        expect(tracker.redis).to.be.an('array');
+        expect(tracker.countRedis()).to.be.equal(0);
+        expect(tracker.hasRedis()).to.be.false;
+        expect(tracker.isRedisProvided()).to.be.false;
+        expect(tracker.redisExecutionTime).to.equal(0);
     });
 
     it('has auth', () => {

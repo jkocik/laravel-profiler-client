@@ -46,6 +46,11 @@ export default class Tracker {
         this.queriesExecutionTime = trackerService.queriesExecutionTime(this.queries);
         this.queriesCount = data.meta.queries_count || 0;
 
+        this.redis = (data.data.redis || []).map((command, index) => trackerService.redis(command, index));
+        this.redisProvided = trackerService.redisProvided(data.data);
+        this.redisExecutionTime = trackerService.redisExecutionTime(this.redis);
+        this.redisCount = data.meta.redis_count || 0;
+
         this.auth = data.data.auth || {};
         this.authProvided = trackerService.authProvided(data.data);
 
@@ -147,6 +152,18 @@ export default class Tracker {
 
     areQueriesProvided() {
         return this.queriesProvided;
+    }
+
+    countRedis() {
+        return this.redisCount;
+    }
+
+    hasRedis() {
+        return !! this.countRedis();
+    }
+
+    isRedisProvided() {
+        return this.redisProvided;
     }
 
     hasAuth() {
