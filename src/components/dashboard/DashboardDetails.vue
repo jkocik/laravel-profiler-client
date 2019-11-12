@@ -1,109 +1,87 @@
 <template>
-    <b-tabs
-        :value="activeTab.parentTab"
-        @input="updateActiveParentTab"
-        size="is-small"
-        type="is-boxed"
-        :animated="false"
-    >
-        <b-tab-item label="App">
-            <keep-alive>
+    <keep-alive>
+        <b-tabs
+            :value="activeTab.parentTab"
+            @input="updateActiveParentTab"
+            size="is-small"
+            type="is-boxed"
+            :animated="false"
+        >
+            <b-tab-item label="App">
                 <tab-app v-if="isActiveTab(0)"
                     :tracker="tracker"
                     :active-tab="activeTab.childTab"
                     @updateActiveTab="updateActiveChildTab"
                 ></tab-app>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item label="Performance">
-            <keep-alive>
+            <b-tab-item label="Performance">
                 <tab-performance v-if="isActiveTab(1)"
                     :tracker="tracker"
                     :active-tab="activeTab.childTab"
                     @updateActiveTab="updateActiveChildTab"
                 ></tab-performance>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.request.enabled" :label="requestLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.request.enabled" :label="requestLabel">
                 <tab-http-request v-if="isActiveTab(2) && tracker.request.isHttpRequest()"
                     :tracker="tracker"
                     :active-tab="activeTab.childTab"
                     @updateActiveTab="updateActiveChildTab"
                 ></tab-http-request>
-            </keep-alive>
-            <keep-alive>
                 <tab-console-finished-request v-if="isActiveTab(2) && tracker.request.isConsoleFinishedRequest()"
                     :tracker="tracker"
                 ></tab-console-finished-request>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.response.enabled" :label="responseLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.response.enabled" :label="responseLabel">
                 <tab-http-response v-if="isActiveTab(3) && tracker.response.isHttpResponse()"
                     :tracker="tracker"
                     :active-tab="activeTab.childTab"
                     @updateActiveTab="updateActiveChildTab"
                 ></tab-http-response>
-            </keep-alive>
-            <keep-alive>
                 <tab-console-finished-response v-if="isActiveTab(3) && tracker.response.isConsoleFinishedResponse()"
                     :tracker="tracker"
                 ></tab-console-finished-response>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.hasViews()" :label="viewsLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.hasViews()" :label="viewsLabel">
                 <tab-views v-if="isActiveTab(4) && tracker.hasViews()"
                     :tracker="tracker"
                 ></tab-views>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.hasEvents()" :label="eventsLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.hasEvents()" :label="eventsLabel">
                 <tab-events v-if="isActiveTab(5) && tracker.hasEvents()"
                     :tracker="tracker"
                 ></tab-events>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.hasQueries()" :label="queriesLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.hasQueries()" :label="queriesLabel">
                 <tab-queries v-if="isActiveTab(6) && tracker.hasQueries()"
                     :tracker="tracker"
                 ></tab-queries>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.hasRedis()" :label="redisLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.hasRedis()" :label="redisLabel">
                 <tab-redis v-if="isActiveTab(7) && tracker.hasRedis()"
                     :tracker="tracker"
                 ></tab-redis>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.hasAuth()" :label="authLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.hasAuth()" :label="authLabel">
                 <tab-auth v-if="isActiveTab(8) && tracker.hasAuth()"
                      :tracker="tracker"
                 ></tab-auth>
-            </keep-alive>
-        </b-tab-item>
+            </b-tab-item>
 
-        <b-tab-item :disabled="! tracker.hasException()" :label="exceptionLabel">
-            <keep-alive>
+            <b-tab-item :disabled="! tracker.hasException()" :label="exceptionLabel">
                 <tab-exception v-if="isActiveTab(9) && tracker.hasException()"
                     :tracker="tracker"
                 ></tab-exception>
-            </keep-alive>
-        </b-tab-item>
-    </b-tabs>
+            </b-tab-item>
+        </b-tabs>
+    </keep-alive>
 </template>
 
 <script>
