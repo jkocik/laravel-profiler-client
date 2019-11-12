@@ -22,7 +22,7 @@ export function socketsFactory() {
     const state = {
         connected: false,
         connectErrorCount: 0,
-        url: 'http://localhost:1901',
+        url: `${window.location.protocol}//${window.location.hostname}:1901`,
     };
 
     return {
