@@ -50,6 +50,7 @@ export default class Tracker {
         this.redisProvided = trackerService.redisProvided(data.data);
         this.redisExecutionTime = trackerService.redisExecutionTime(this.redis);
         this.redisCount = data.meta.redis_count || 0;
+        this.redisCanBeTracked = data.meta.redis_can_be_tracked || false;
 
         this.auth = data.data.auth || {};
         this.authProvided = trackerService.authProvided(data.data);
@@ -159,11 +160,11 @@ export default class Tracker {
     }
 
     hasRedis() {
-        return !! this.countRedis();
+        return this.redisCanBeTracked && !! this.countRedis();
     }
 
     isRedisProvided() {
-        return this.redisProvided;
+        return this.redisCanBeTracked && this.redisProvided;
     }
 
     hasAuth() {

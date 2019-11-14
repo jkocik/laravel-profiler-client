@@ -672,6 +672,14 @@ describe('Tracker Model', () => {
         expect(tracker.redisExecutionTime).to.equal(0);
     });
 
+    it('has not provided redis if laravel does not allow for redis tracking', () => {
+        let tracker = new Tracker(trackerFactory.create('meta', { redis_can_be_tracked: false }));
+
+        expect(tracker.redis).to.be.an('array');
+        expect(tracker.hasRedis()).to.be.false;
+        expect(tracker.isRedisProvided()).to.be.false;
+    });
+
     it('has not provided redis if redis commands are not provided at all', () => {
         let trackerSource = trackerFactory.set('meta', { redis_count: 0 }).create('data', { redis: undefined });
         delete trackerSource.meta.redis_count;
