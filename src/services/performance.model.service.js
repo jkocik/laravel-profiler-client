@@ -40,9 +40,10 @@ export const performanceService = {
         return this.toSeconds(summary, this.laravelInSeconds(timer));
     },
 
-    queriesInSeconds(queriesExecutionTime, timer) {
+    queriesInSeconds(queriesExecutionTime, redisExecutionTime, timer) {
         const queries = {
             queries: queriesExecutionTime,
+            redis: redisExecutionTime,
         };
 
         return this.toSeconds(queries, this.laravelInSeconds(timer));

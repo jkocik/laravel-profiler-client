@@ -58,7 +58,12 @@ export default class Tracker {
         this.exception = data.data.exception || {};
         this.exceptionProvided = trackerService.exceptionProvided(data.data);
 
-        this.performance = trackerService.performance(data.meta, data.data, this.queriesExecutionTime);
+        this.performance = trackerService.performance(
+            data.meta,
+            data.data,
+            this.queriesExecutionTime,
+            this.redisExecutionTime
+        );
 
         Object.freeze(this);
     }

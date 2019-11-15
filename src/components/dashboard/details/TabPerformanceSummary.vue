@@ -29,7 +29,7 @@
                         <span>{{ summary.label }}</span>
                     </p>
                 </div>
-                <div class="column queries has-text-right" v-if="tracker.performance.hasQueries()">
+                <div class="column queries has-text-right" v-if="tracker.performance.hasQueriesOrRedis()">
                     <p v-for="(query, index) of this.tracker.performance.queriesLegendData()" :key="index">
                         <span>{{ query.label }}</span>
                         <span>{{ query.item }}</span>
@@ -41,7 +41,7 @@
 
         <div class="column">
             <div class="chart">
-                <c-performance-queries v-if="tracker.performance.hasQueries()"
+                <c-performance-queries v-if="tracker.performance.hasQueriesOrRedis()"
                     :tracker="tracker"
                 ></c-performance-queries>
             </div>

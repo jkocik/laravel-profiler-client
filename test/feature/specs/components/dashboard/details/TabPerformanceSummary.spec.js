@@ -78,11 +78,28 @@ describe('TabPerformanceSummary Component', () => {
         expect(wrapper.find('.queries').text()).to.contain(tracker.performance.queries.other);
     });
 
-    it('has not queries timer chart legend if queries are not provided', () => {
+    it('has queries timer chart legend if at least queries are provided', () => {
+        tracker = new Tracker(trackerFactory.create('data', { redis: [] }));
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+
+        expect(wrapper.text()).to.contain('queries');
+        expect(wrapper.text()).to.not.contain('redis');
+    });
+
+    it('has queries timer chart legend if at least redis is provided', () => {
         tracker = new Tracker(trackerFactory.create('data', { queries: [] }));
         wrapper = mountWithTracker(TabPerformanceSummary, tracker);
 
         expect(wrapper.text()).to.not.contain('queries');
+        expect(wrapper.text()).to.contain('redis');
+    });
+
+    it('has not queries timer chart legend if queries and redis are not provided', () => {
+        tracker = new Tracker(trackerFactory.create('data', { queries: [], redis: [] }));
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+
+        expect(wrapper.text()).to.not.contain('queries');
+        expect(wrapper.text()).to.not.contain('redis');
     });
 
     it('has performance queries chart', () => {
@@ -99,8 +116,36 @@ describe('TabPerformanceSummary Component', () => {
         expect(performanceSpy.calledOnce).to.be.true;
     });
 
-    it('has not performance queries chart if queries are not provided', () => {
+    it('has performance queries chart if at least queries are provided', () => {
+        tracker = new Tracker(trackerFactory.create('data', { redis: [] }));
+        let performanceSpy = sinon.spy(tracker.performance, 'queriesChartData');
+
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+        let wrapperPerformanceQueriesChart = wrapper.find({ name: 'chart-performance-queries' });
+
+        expect(wrapperPerformanceQueriesChart.isVisible()).to.be.true;
+        expect(wrapperPerformanceQueriesChart.find('canvas.chartjs-render-monitor').isVisible()).to.be.true;
+        expect(wrapperPerformanceQueriesChart.props().tracker).to.equal(wrapper.props().tracker);
+
+        expect(performanceSpy.calledOnce).to.be.true;
+    });
+
+    it('has performance queries chart if at least redis is provided', () => {
         tracker = new Tracker(trackerFactory.create('data', { queries: [] }));
+        let performanceSpy = sinon.spy(tracker.performance, 'queriesChartData');
+
+        wrapper = mountWithTracker(TabPerformanceSummary, tracker);
+        let wrapperPerformanceQueriesChart = wrapper.find({ name: 'chart-performance-queries' });
+
+        expect(wrapperPerformanceQueriesChart.isVisible()).to.be.true;
+        expect(wrapperPerformanceQueriesChart.find('canvas.chartjs-render-monitor').isVisible()).to.be.true;
+        expect(wrapperPerformanceQueriesChart.props().tracker).to.equal(wrapper.props().tracker);
+
+        expect(performanceSpy.calledOnce).to.be.true;
+    });
+
+    it('has not performance queries chart if queries are not provided', () => {
+        tracker = new Tracker(trackerFactory.create('data', { queries: [], redis: [] }));
         wrapper = mountWithTracker(TabPerformanceSummary, tracker);
         let wrapperPerformanceQueriesChart = wrapper.find({ name: 'chart-performance-queries' });
 

@@ -2,8 +2,8 @@ import { BasePerformance } from './base-performance';
 import { performanceService } from './../services/performance.model.service';
 
 export default class HttpPerformance extends BasePerformance {
-    constructor(performance, queriesExecutionTime) {
-        super(performance, queriesExecutionTime);
+    constructor(performance, queriesExecutionTime, redisExecutionTime) {
+        super(performance, queriesExecutionTime, redisExecutionTime);
         this.summary = performanceService.httpSummaryInSeconds(performance.timer);
         this.summaryColors = {
             boot: 'rgb(75, 192, 192)',

@@ -102,12 +102,12 @@ export const trackerService = {
         return colors[resolvedStatusGroup];
     },
 
-    performance(meta, data, queriesExecutionTime) {
+    performance(meta, data, queriesExecutionTime, redisExecutionTime) {
         const Performance = {
             'http': HttpPerformance,
         }[meta.type] || ConsolePerformance;
 
-        return new Performance(data.performance, queriesExecutionTime);
+        return new Performance(data.performance, queriesExecutionTime, redisExecutionTime);
     },
 
     request(meta, data) {
