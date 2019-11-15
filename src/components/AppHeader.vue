@@ -2,10 +2,6 @@
     <header>
         <div class="container is-widescreen">
             <div>
-                <b-icon
-                    pack="fab"
-                    icon="laravel"
-                ></b-icon>
                 <h1>Laravel Profiler</h1>
             </div>
             <div>
