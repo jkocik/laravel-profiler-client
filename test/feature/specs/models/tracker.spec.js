@@ -660,6 +660,7 @@ describe('Tracker Model', () => {
         expect(tracker.redis[0]).to.be.an.instanceOf(RedisCommand);
         expect(tracker.isRedisProvided()).to.be.true;
         expect(tracker.redisExecutionTime).to.equal(22);
+        expect(tracker.redisExecutionTimeForHuman).to.equal('22.00ms');
     });
 
     it('has empty redis if redis commands are not delivered', () => {

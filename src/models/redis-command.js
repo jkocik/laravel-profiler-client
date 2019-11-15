@@ -5,4 +5,8 @@ export default class RedisCommand {
         this.parameters = data.parameters;
         this.time = data.time;
     }
+
+    get timeForHuman() {
+        return `${this.time.toFixed(2)}ms`;
+    }
 }

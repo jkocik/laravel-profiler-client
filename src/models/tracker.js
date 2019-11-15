@@ -67,6 +67,10 @@ export default class Tracker {
         return `${this.queriesExecutionTime.toFixed(2)}ms`;
     }
 
+    get redisExecutionTimeForHuman() {
+        return `${this.redisExecutionTime.toFixed(2)}ms`;
+    }
+
     hasStatusText() {
         return this.statusText !== '---';
     }
