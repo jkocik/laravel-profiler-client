@@ -25,8 +25,8 @@ describe('App Component', () => {
         let wrapperHeader = wrapper.find({ name: 'app-header' });
         let wrapperFooter = wrapper.find({ name: 'app-footer' });
 
-        expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-success').exists()).to.be.false;
-        expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-danger').exists()).to.be.true;
+        expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-success').exists()).to.be.false;
+        expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-danger').exists()).to.be.true;
         expect(wrapperFooter.findAll('.container > div').at(1).text()).to.equal(wrapper.vm.$t('footer.not-connected'));
     });
 
@@ -39,8 +39,8 @@ describe('App Component', () => {
 
         server.on('connection', () => {
             wrapper.vm.$nextTick(() => {
-                expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-success').exists()).to.be.true;
-                expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-danger').exists()).to.be.false;
+                expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-success').exists()).to.be.true;
+                expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-danger').exists()).to.be.false;
                 expect(wrapperFooter.findAll('.container > div').at(1).text()).to.equal(
                     wrapper.vm.$t('footer.connected', { url: 'http://localhost:1991' })
                 );
@@ -58,8 +58,8 @@ describe('App Component', () => {
 
         server.on('connection', () => {
             wrapper.vm.$nextTick(() => {
-                expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-success').exists()).to.be.true;
-                expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-danger').exists()).to.be.false;
+                expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-success').exists()).to.be.true;
+                expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-danger').exists()).to.be.false;
                 expect(wrapperFooter.findAll('.container > div').at(1).text()).to.equal(
                     wrapper.vm.$t('footer.connected', { url: 'http://localhost:1991' })
                 );
@@ -67,8 +67,8 @@ describe('App Component', () => {
                 server.close();
 
                 wrapper.vm.$nextTick(() => {
-                    expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-success').exists()).to.be.false;
-                    expect(wrapperHeader.findAll('.icon').at(1).find('.has-text-danger').exists()).to.be.true;
+                    expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-success').exists()).to.be.false;
+                    expect(wrapperHeader.findAll('.icon').at(0).find('.has-text-danger').exists()).to.be.true;
                     expect(wrapperFooter.findAll('.container > div').at(1).text()).to.equal(wrapper.vm.$t('footer.not-connected'));
                     server.stop(done);
                 });
@@ -86,7 +86,7 @@ describe('App Component', () => {
         let socketDisconnect = sinon.spy(wrapper.vm.$socket.socket, 'disconnect');
         let modalOpen = sinon.spy(wrapperHeader.vm.$modal, 'open');
 
-        wrapperHeader.findAll('.icon').at(1).trigger('click');
+        wrapperHeader.findAll('.icon').at(0).trigger('click');
 
         expect(socketDisconnect.calledOnce).to.be.true;
         expect(modalOpen.calledOnce).to.be.false;
@@ -107,7 +107,7 @@ describe('App Component', () => {
         let modalOpen = sinon.mock(wrapperHeader.vm.$modal);
         modalOpen.expects('open').once();
 
-        wrapperHeader.findAll('.icon').at(1).trigger('click');
+        wrapperHeader.findAll('.icon').at(0).trigger('click');
 
         expect(socketDisconnect.calledOnce).to.be.true;
         modalOpen.verify();
